@@ -1,1 +1,33 @@
-<span>Hello World!</span>
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    aria-label="icon-button with menu icon"
+    (click)="opened = !opened"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="spacer"></span>
+  <button
+    class="account-icon"
+    mat-icon-button
+    aria-label="icon button with profile icon"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [(opened)]="opened">
+    <mat-list>
+      <a routerLink="/home">
+        <mat-list-item>
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </mat-list-item>
+      </a>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
