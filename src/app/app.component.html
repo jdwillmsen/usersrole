@@ -2,7 +2,7 @@
   <button
     mat-icon-button
     aria-label="icon-button with menu icon"
-    (click)="opened = !opened"
+    (click)="toggleSideNav()"
   >
     <mat-icon>menu</mat-icon>
   </button>
@@ -16,16 +16,26 @@
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav mode="side" [(opened)]="opened">
-    <mat-list>
-      <a routerLink="/home">
-        <mat-list-item>
-          <mat-icon>home</mat-icon>
-          <span>Home</span>
-        </mat-list-item>
-      </a>
-    </mat-list>
+<mat-sidenav-container autosize>
+  <mat-sidenav
+    role="navigation"
+    #sidenav
+    [ngClass]="isExpanded ? 'sideNavOpen' : 'sideNavClose'"
+    mode="side"
+    opened
+  >
+    <mat-nav-list>
+      <mat-list-item [routerLink]="['/home']" [routerLinkActive]="['active']">
+        <mat-icon matListIcon>home</mat-icon>
+        <a *ngIf="isExpanded" matLine>Test</a>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+      <mat-list-item [routerLink]="['/share']" [routerLinkActive]="['active']">
+        <mat-icon matListIcon>share</mat-icon>
+        <a *ngIf="isExpanded" matLine>Share</a>
+      </mat-list-item>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

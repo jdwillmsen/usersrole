@@ -6,6 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
-  opened = false;
+  isExpanded = false;
+  constructor() { }
+  
+  toggleSideNav() {
+    this.isExpanded = !this.isExpanded;
+  }
 }

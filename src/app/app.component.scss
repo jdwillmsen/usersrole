@@ -3,7 +3,18 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  width: 200px;
+  mat-nav-list {
+    padding: 0;
+  }
+  mat-list-item:hover {
+    background: red;
+  }
+  .sideNavOpen {
+    // width: 200px;
+  }
+  .sideNavClose {
+    width: 70px;
+  }
 }
 
 .spacer {
