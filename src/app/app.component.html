@@ -25,16 +25,15 @@
     opened
   >
     <mat-nav-list>
-      <mat-list-item [routerLink]="['/home']" [routerLinkActive]="['active']">
-        <mat-icon matListIcon>home</mat-icon>
-        <a *ngIf="isExpanded" matLine>Test</a>
-      </mat-list-item>
-    </mat-nav-list>
-    <mat-nav-list>
-      <mat-list-item [routerLink]="['/share']" [routerLinkActive]="['active']">
-        <mat-icon matListIcon>share</mat-icon>
-        <a *ngIf="isExpanded" matLine>Share</a>
-      </mat-list-item>
+      <a
+        mat-list-item
+        [routerLink]="['/home']"
+        [routerLinkActive]="['active']"
+        role="navigation"
+      >
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle *ngIf="isExpanded">Test</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

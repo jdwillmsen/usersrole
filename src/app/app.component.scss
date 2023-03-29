@@ -6,15 +6,19 @@ mat-sidenav {
   mat-nav-list {
     padding: 0;
   }
-  mat-list-item:hover {
+  a:hover {
     background: red;
   }
-  .sideNavOpen {
-    // width: 200px;
+  a {
+    mat-icon {
+      padding: 0;
+      margin-right: 0;
+    }
   }
-  .sideNavClose {
-    width: 70px;
-  }
+}
+
+span {
+  border: 1px solid;
 }
 
 .spacer {

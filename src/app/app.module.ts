@@ -1,31 +1,42 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+
+import { A11yModule } from '@angular/cdk/a11y';
+
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+
+import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    AppRoutingModule,
+    
+    // CDK
+    A11yModule,
+
+    // Material
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatToolbarModule,
+    MatListModule,
+    MatButtonModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, HomeComponent],
+  bootstrap: [AppComponent],
+  providers: []
 })
 export class AppModule {}
