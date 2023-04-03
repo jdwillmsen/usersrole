@@ -1,0 +1,6 @@
+<ng-container>
+    <a mat-list-item [routerLink]="navItem.path" [routerLinkActive]="['active']" role="navigation">
+        <mat-icon matListItemIcon>{{navItem.icon}}</mat-icon>
+        <span matListItemTitle *ngIf="isExpanded">{{navItem.title}}</span>
+    </a>
+</ng-container>

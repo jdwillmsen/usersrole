@@ -1,22 +1,12 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
 mat-sidenav-container {
   height: calc(100vh - 64px);
 
   mat-sidenav {
     mat-nav-list {
       padding: 0;
-    }
-
-    a {
-      padding-right: 0;
-      margin: 0;
-
-      mat-icon {
-        margin: 0px 16px;
-      }
-
-      span {
-        margin-right: 16px;
-      }
     }
   }
 }

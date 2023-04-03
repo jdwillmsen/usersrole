@@ -25,15 +25,9 @@
     opened
   >
     <mat-nav-list>
-      <a
-        mat-list-item
-        [routerLink]="['/home']"
-        [routerLinkActive]="['active']"
-        role="navigation"
-      >
-        <mat-icon matListItemIcon>home</mat-icon>
-        <span matListItemTitle *ngIf="isExpanded">Test</span>
-      </a>
+      <ng-template ngFor let-item [ngForOf]="navItems">
+        <app-nav-item [navItem]="item" [isExpanded]="isExpanded"></app-nav-item>
+      </ng-template>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

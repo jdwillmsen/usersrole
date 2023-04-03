@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavItem } from './models/nav-item.model';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isExpanded = false;
-  constructor() { }
-  
+  navItems: NavItem[] = [
+    {
+      path: '/home',
+      icon: 'home',
+      title: 'Home'
+    },
+    {
+      path: '/upload',
+      icon: 'upload',
+      title: 'Upload'
+    }
+  ];
+  constructor() {}
+
   toggleSideNav() {
     this.isExpanded = !this.isExpanded;
   }
