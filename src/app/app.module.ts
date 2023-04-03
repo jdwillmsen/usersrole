@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { NavItemComponent } from './nav-item/nav-item.component';
     MatListModule,
     MatButtonModule
   ],
-  declarations: [AppComponent, HomeComponent, NavItemComponent],
+  declarations: [AppComponent, HomeComponent, NavItemComponent, UploadComponent],
   bootstrap: [AppComponent],
   providers: []
 })
