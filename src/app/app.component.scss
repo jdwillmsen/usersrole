@@ -1,24 +1,24 @@
 mat-sidenav-container {
   height: calc(100vh - 64px);
-}
 
-mat-sidenav {
-  mat-nav-list {
-    padding: 0;
-  }
-  a:hover {
-    background: red;
-  }
-  a {
-    mat-icon {
+  mat-sidenav {
+    mat-nav-list {
       padding: 0;
-      margin-right: 0;
+    }
+
+    a {
+      padding-right: 0;
+      margin: 0;
+
+      mat-icon {
+        margin: 0px 16px;
+      }
+
+      span {
+        margin-right: 16px;
+      }
     }
   }
-}
-
-span {
-  border: 1px solid;
 }
 
 .spacer {
