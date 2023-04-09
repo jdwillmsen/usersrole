@@ -2,14 +2,19 @@ mat-sidenav-container {
   height: calc(100vh - 64px);
 
   mat-sidenav {
+    .sideNavContainer {
+      height: calc(100vh - 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
     mat-nav-list {
+      overflow-y: auto;
       padding: 0;
     }
   }
-}
-
-mat-toolbar {
-  padding-left: 4px;
 }
 
 .spacer {
