@@ -8,7 +8,5 @@ import { NavItem } from '../models/nav-item.model';
 })
 export class NavItemComponent {
   @Input() navItem!: NavItem;
-  @Input() isExpanded: boolean = false;
-
-  constructor() {}
+  @Input() isExpanded = false;
 }

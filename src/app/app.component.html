@@ -1,25 +1,33 @@
-<mat-toolbar color="primary">
-  <span>My App</span>
+<mat-toolbar color="primary" data-cy="navbar-header">
+  <span data-cy="app-name">My App</span>
   <span class="spacer"></span>
-  <button class="account-icon" mat-icon-button aria-label="icon button with profile icon">
+  <button
+    class="account-icon"
+    mat-icon-button
+    aria-label="icon button with profile icon"
+    data-cy="profile-icon-button"
+  >
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
-<mat-sidenav-container autosize>
-  <mat-sidenav role="navigation" #sidenav mode="side" opened>
+<mat-sidenav-container autosize data-cy="sidenav-container">
+  <mat-sidenav role="navigation" #sidenav mode="side" opened data-cy="sidenav-links">
     <div class="sideNavContainer">
-      <mat-nav-list>
+      <mat-nav-list data-cy="sidenav-links-list">
         <ng-template ngFor let-item [ngForOf]="navItems">
-          <app-nav-item [navItem]="item" [isExpanded]="isExpanded"></app-nav-item>
+          <app-nav-item
+            [navItem]="item"
+            [isExpanded]="isExpanded"
+          ></app-nav-item>
         </ng-template>
       </mat-nav-list>
-      <button mat-icon-button (click)="toggleSideNav()" class="expand">
+      <button mat-icon-button (click)="toggleSideNav()" class="expand" data-cy="expand-toggle-button">
         <mat-icon *ngIf="!isExpanded">keyboard_double_arrow_right</mat-icon>
         <mat-icon *ngIf="isExpanded">keyboard_double_arrow_left</mat-icon>
       </button>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content data-cy="sidenav-content">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

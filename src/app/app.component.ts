@@ -20,7 +20,6 @@ export class AppComponent {
       title: 'Upload'
     }
   ];
-  constructor() {}
 
   toggleSideNav() {
     this.isExpanded = !this.isExpanded;
