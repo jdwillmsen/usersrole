@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "usersrole": {
+      "hosting": {
+        "frontend": [
+          "usersrole"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "usersrole"
+  }
+}

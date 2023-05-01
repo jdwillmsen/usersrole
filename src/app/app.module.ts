@@ -1,27 +1,43 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 
 import { A11yModule } from '@angular/cdk/a11y';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
+import {
+  provideAnalytics,
+  getAnalytics,
+  ScreenTrackingService,
+  UserTrackingService
+} from '@angular/fire/analytics';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import { providePerformance, getPerformance } from '@angular/fire/performance';
+import {
+  provideRemoteConfig,
+  getRemoteConfig
+} from '@angular/fire/remote-config';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { AppMaterialModule } from './modules/app-material.module';
+import { AppFirebaseModule } from './modules/app-firebase.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavItemComponent } from './nav-item/nav-item.component';
-import { UploadComponent } from './upload/upload.component';
+import { NavItemComponent } from './components/nav-item/nav-item.component';
+import { HomeComponent } from './components/home/home.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -31,20 +47,30 @@ import { UploadComponent } from './upload/upload.component';
     A11yModule,
 
     // Material
-    MatSidenavModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatListModule,
-    MatButtonModule
+    AppMaterialModule,
+
+    // Firebase
+    AppFirebaseModule,
+
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
+    provideMessaging(() => getMessaging()),
+    providePerformance(() => getPerformance()),
+    provideRemoteConfig(() => getRemoteConfig()),
+    provideStorage(() => getStorage())
   ],
   declarations: [
     AppComponent,
-    HomeComponent,
     NavItemComponent,
+    HomeComponent,
     UploadComponent
   ],
   bootstrap: [AppComponent],
-  providers: [],
+  providers: [ScreenTrackingService, UserTrackingService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

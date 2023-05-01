@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent {}
+export class UploadComponent {
+
+}
