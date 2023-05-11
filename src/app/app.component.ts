@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavItem } from './models/nav-item.model';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,16 @@ export class AppComponent {
     }
   ];
 
+  email: string;
+  password: string;
+
+  constructor(private authService: AuthService) {
+    this.email = '';
+    this.password = '';
+  }
+
   toggleSideNav() {
     this.isExpanded = !this.isExpanded;
   }
+
 }
