@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NavItem } from './models/nav-item.model';
-import { AuthService } from './services/auth.service';
+import { NavItem } from 'src/app/models/nav-item.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class AppComponent {
+export class MainComponent {
   isExpanded = false;
   navItems: NavItem[] = [
     {
