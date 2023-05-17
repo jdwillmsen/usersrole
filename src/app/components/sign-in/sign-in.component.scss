@@ -1,0 +1,16 @@
+.sign-in {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    
+    mat-card {
+        margin: 8px;
+        min-width: 400px;
+        align-self: center;
+    }
+
+    button {
+        align-self: center;
+    }
+}
