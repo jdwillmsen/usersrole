@@ -1,20 +1,28 @@
+import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { UploadComponent } from './components/upload/upload.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AngularFireAuthGuard]
   },
   {
     path: 'upload',
-    component: UploadComponent
+    component: UploadComponent,
+    canActivate: [AngularFireAuthGuard]
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent
   },
   {
     path: '**',
-    component: HomeComponent
+    redirectTo: 'home'
   }
 ];
 

@@ -1,5 +1,11 @@
-<div>
-    <button type="button" (click)="authService.googleAuth()">
-        Sign In with Google
-    </button>
+<div class="sign-in">
+    <mat-card>
+        <mat-card-content>
+            <h1>Sign In</h1>
+            <button mat-raised-button type="button" (click)="login()">
+                <mat-icon svgIcon="logo"></mat-icon>
+                Sign in with Google
+            </button>
+        </mat-card-content>
+    </mat-card>
 </div>

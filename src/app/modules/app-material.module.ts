@@ -4,6 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 import { NgModule } from '@angular/core';
 
@@ -14,7 +17,10 @@ import { NgModule } from '@angular/core';
     MatIconModule,
     MatToolbarModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatCardModule
   ]
 })
 export class AppMaterialModule {}

@@ -1,0 +1,8 @@
+<mat-toolbar color="primary" data-cy="navbar-header">
+    <span data-cy="app-name">My App</span>
+    <span class="spacer"></span>
+    <ng-container *ngIf="user">
+        <app-profile-card [user]="user" data-cy="profile-icon-button">
+        </app-profile-card>
+    </ng-container>
+</mat-toolbar>
