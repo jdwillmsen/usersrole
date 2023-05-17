@@ -1,0 +1,32 @@
+.avatar {
+    margin-top: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.big-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.profile-card {
+    text-align: center;
+    min-width: 240px;
+
+    h4 {
+        margin: 0;
+        padding: 4px 0;
+    }
+
+    p {
+        margin: 0;
+        color: #666666;
+        font-size: 14px;
+    }
+
+    mat-divider {
+        margin: 10px 0;
+    }
+}

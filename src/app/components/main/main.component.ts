@@ -21,13 +21,10 @@ export class MainComponent {
       title: 'Upload'
     }
   ];
-
-  email: string;
-  password: string;
+  user: any;
 
   constructor(private authService: AuthService) {
-    this.email = '';
-    this.password = '';
+    authService.user$.subscribe((user) => (this.user = user));
   }
 
   toggleSideNav() {

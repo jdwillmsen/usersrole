@@ -1,0 +1,12 @@
+<button mat-mini-fab color="primary" class="avatar-button" [matMenuTriggerFor]="beforeMenu">
+    <img [alt]="user.displayName" [src]="user.photoURL" class="avatar" referrerPolicy="no-referrer" />
+</button>
+<mat-menu #beforeMenu="matMenu" xPosition="before">
+    <div class="profile-card">
+        <img [alt]="user.displayName" [src]="user.photoURL" class="big-avatar" referrerPolicy="no-referrer" />
+        <h4>{{ user.displayName }}</h4>
+        <p>{{ user.email }}</p>
+        <mat-divider></mat-divider>
+        <app-sign-out></app-sign-out>
+    </div>
+</mat-menu>

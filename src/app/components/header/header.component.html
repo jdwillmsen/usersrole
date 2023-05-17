@@ -1,10 +1,8 @@
 <mat-toolbar color="primary" data-cy="navbar-header">
     <span data-cy="app-name">My App</span>
     <span class="spacer"></span>
-    <button class="account-icon" mat-icon-button aria-label="icon button with profile icon"
-        data-cy="profile-icon-button">
-        <mat-icon>account_circle</mat-icon>
-    </button>
-    <app-sign-in></app-sign-in>
-    <app-sign-out></app-sign-out>
+    <ng-container *ngIf="user">
+        <app-profile-card [user]="user" data-cy="profile-icon-button">
+        </app-profile-card>
+    </ng-container>
 </mat-toolbar>

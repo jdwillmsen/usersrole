@@ -1,5 +1,5 @@
 <mat-sidenav-container autosize data-cy="sidenav-container">
-    <mat-sidenav role="navigation" #sidenav mode="side" opened data-cy="sidenav-links">
+    <mat-sidenav *ngIf="user" role="navigation" #sidenav mode="side" opened data-cy="sidenav-links">
         <div class="sideNavContainer">
             <mat-nav-list data-cy="sidenav-links-list">
                 <ng-template ngFor let-item [ngForOf]="navItems">
