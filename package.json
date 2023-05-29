@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "ct": "npx cypress open --component",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "deploy-build": "ng build --output-path docs --base-href /frontend/"
   },
   "private": true,
   "dependencies": {
