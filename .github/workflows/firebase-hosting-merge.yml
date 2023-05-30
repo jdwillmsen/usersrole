@@ -12,9 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # Setup nodejs and create environment.ts file
-      - uses: actions/setup-node@v2
-        with:
-            node-version: '12'
+      - uses: actions/setup-node@v3
       - run: node server.js
         env:
           FIREBASE: '${{ secrets.FIREBASE }}'
