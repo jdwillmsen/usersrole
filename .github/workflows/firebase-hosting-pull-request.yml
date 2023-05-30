@@ -4,20 +4,17 @@
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
 jobs:
-  create-envfile:
-    runs-on: ubuntu-18.04
-    steps:
-    - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1
-      with:
-        envkey_PRODUCTION: true
-        envkey_FIREBASE: ${{ secrets.FIREBASE }}
-        file_name: environment.ts
-
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_PRODUCTION: true
+          envkey_FIREBASE: ${{ secrets.FIREBASE }}
+          file_name: environment.ts
+
       - uses: actions/checkout@v3
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
