@@ -8,14 +8,14 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_PRODUCTION: true
-          envkey_FIREBASE: ${{ secrets.FIREBASE }}
-          file_name: ../../src/environments/environment.ts
-
       - uses: actions/checkout@v3
+       # Setup nodejs and create environment.ts file
+      - uses: actions/setup-node@v3
+      - run: node server.js
+        env:
+          FIREBASE: '${{ secrets.FIREBASE }}'
+      - run: cat ./src/environments/environment.ts
+      # Continue with build
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
