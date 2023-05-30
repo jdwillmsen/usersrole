@@ -13,7 +13,8 @@ jobs:
         with:
           envkey_PRODUCTION: true
           envkey_FIREBASE: ${{ secrets.FIREBASE }}
-          file_name: ../../src/environments/environment.ts
+          directory: src/environments
+          file_name: environment.ts
 
       - uses: actions/checkout@v3
       - run: npm ci && npm run build
