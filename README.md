@@ -33,6 +33,10 @@ Run `npm run ct` or `npx cypress open --component` to execute the cypress compon
 
 Run `ng lint` or npm run lint to execute the lint testing via [ESLint](https://eslint.org/)
 
+## Deployment
+
+Run `firebase deploy` to upload the latest snapshot to the firebase servers. Run `firebase hosting:channel:deploy` to create and deploy a preview channel.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
