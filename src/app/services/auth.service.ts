@@ -20,10 +20,8 @@ export class AuthService {
   ) {
     this.user.next(this.angularFireAuth.authState);
     this.user$.subscribe((user) => {
-      if (user) {
-        this.router.navigate(['home']);
-      } else {
-        this.router.navigate(['sign-in'])
+      if (!user) {
+        this.router.navigate(['sign-in']);
       }
     });
   }
