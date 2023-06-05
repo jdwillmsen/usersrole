@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EMPTY, catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,7 +12,7 @@ const googleLogoURL =
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly matIconRegistry: MatIconRegistry,
@@ -24,8 +23,6 @@ export class SignInComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL)
     );
   }
-
-  ngOnInit() {}
 
   login() {
     this.authService
