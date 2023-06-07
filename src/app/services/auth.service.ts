@@ -22,6 +22,8 @@ export class AuthService {
     this.user$.subscribe((user) => {
       if (!user) {
         this.router.navigate(['sign-in']);
+      } else {
+        this.router.navigate(['home']);
       }
     });
   }
@@ -34,6 +36,7 @@ export class AuthService {
   authLogin(provider: GoogleAuthProvider | any): Observable<any> {
     return from(
       this.angularFireAuth
+        // .signInWithRedirect(provider)
         .signInWithPopup(provider)
         .then(() => {
           this.router.navigate(['home']);
