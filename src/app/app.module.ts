@@ -25,6 +25,7 @@ import { SignOutComponent } from './components/sign-out/sign-out.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.component';
 
 @NgModule({
   imports: [
@@ -53,10 +54,15 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
     SignOutComponent,
     HeaderComponent,
     MainComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    EmailSignInComponent
   ],
   bootstrap: [AppComponent],
-  providers: [ScreenTrackingService, UserTrackingService, AuthService],
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService,
+    AuthService
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

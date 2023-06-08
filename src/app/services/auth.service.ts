@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { BehaviorSubject, Observable, from, of, switchMap } from 'rxjs';
-import { User } from 'firebase/auth';
+import { BehaviorSubject, Observable, from, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
