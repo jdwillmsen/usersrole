@@ -1,6 +1,11 @@
 .container {
-    form{
+    // border: 1px solid red;
+    form {
         display: grid;
         grid-template-columns: 1fr;
+
+        input {
+            margin-top: 5px;
+        }
     }
 }
