@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-email-sign-in',
@@ -12,4 +13,11 @@ export class EmailSignInComponent {
     password: new FormControl('', [Validators.required])
   });
   hide = true;
+
+  constructor(private readonly authService: AuthService) {}
+
+  signIn() {
+    const { email, password } = this.form.value;
+    this.authService.emailAuth(email, password);
+  }
 }

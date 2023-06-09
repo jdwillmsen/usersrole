@@ -2,7 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { BehaviorSubject, Observable, from, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  firstValueFrom,
+  from,
+  of,
+  switchMap,
+  take
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +26,25 @@ export class AuthService {
     private router: Router
   ) {
     this.user.next(this.angularFireAuth.authState);
-    this.user$.subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['sign-in']);
-      } else {
-        this.router.navigate(['home']);
-      }
-    });
+  }
+
+  async isLoggedIn() {
+    console.log(await firstValueFrom(this.user$));
+    return !!(await firstValueFrom(this.user$));
+  }
+
+  emailAuth(email: string, password: string): Observable<any> {
+    return from(
+      this.angularFireAuth
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          this.router.navigate(['home']);
+          console.log("You've been successfully logged in!");
+        })
+        .catch((error) => {
+          console.log('An error has occured: ', error);
+        })
+    );
   }
 
   // Google Sign In
@@ -35,8 +55,8 @@ export class AuthService {
   authLogin(provider: GoogleAuthProvider | any): Observable<any> {
     return from(
       this.angularFireAuth
-        // .signInWithRedirect(provider)
-        .signInWithPopup(provider)
+        .signInWithRedirect(provider)
+        // .signInWithPopup(provider)
         .then(() => {
           this.router.navigate(['home']);
           console.log("You've been successfully logged in!");
