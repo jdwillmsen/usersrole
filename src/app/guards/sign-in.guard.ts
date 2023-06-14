@@ -23,12 +23,11 @@ export class SignInGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let returnValue = false;
-    this.authService.isLoggedIn().then((value) => {
-      console.log(!value);
-      returnValue = !value;
-    });
-    console.error(returnValue);
-    return returnValue
+    if (sessionStorage.getItem('isAuthenticated')) {
+      this.router.navigate(['home']);
+      return false;
+    } else {
+      return true;
+    }
   }
 }

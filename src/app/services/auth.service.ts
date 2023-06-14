@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   BehaviorSubject,
   Observable,
-  firstValueFrom,
   from,
-  of,
   switchMap,
-  take
+  tap
 } from 'rxjs';
 
 @Injectable({
@@ -28,20 +26,17 @@ export class AuthService {
     this.user.next(this.angularFireAuth.authState);
   }
 
-  async isLoggedIn() {
-    console.log(await firstValueFrom(this.user$));
-    return !!(await firstValueFrom(this.user$));
-  }
-
   emailAuth(email: string, password: string): Observable<any> {
     return from(
       this.angularFireAuth
         .signInWithEmailAndPassword(email, password)
         .then(() => {
+          this.setAuthenticated(true);
           this.router.navigate(['home']);
           console.log("You've been successfully logged in!");
         })
         .catch((error) => {
+          this.setAuthenticated(false);
           console.log('An error has occured: ', error);
         })
     );
@@ -56,12 +51,8 @@ export class AuthService {
     return from(
       this.angularFireAuth
         .signInWithRedirect(provider)
-        // .signInWithPopup(provider)
-        .then(() => {
-          this.router.navigate(['home']);
-          console.log("You've been successfully logged in!");
-        })
         .catch((error) => {
+          this.setAuthenticated(false);
           console.log('An error has occured: ', error);
         })
     );
@@ -70,9 +61,32 @@ export class AuthService {
   authLogout(): Observable<void> {
     return from(
       this.angularFireAuth.signOut().then(() => {
+        this.setAuthenticated(false);
         this.router.navigate(['sign-in']);
         console.log("You've been successfully logged out!");
       })
     );
+  }
+
+  initAuthListenter(): Observable<any> {
+    return this.angularFireAuth.authState.pipe(
+      tap(user => {
+        if (user) {
+          this.setAuthenticated(true);
+          this.router.navigate(['home'])
+        } else {
+          this.setAuthenticated(false);
+        }
+      })
+    )
+  }
+
+
+  private setAuthenticated(authenticated: boolean) {
+    if (authenticated) {
+      sessionStorage.setItem("isAuthenticated", "true");
+    } else {
+      sessionStorage.removeItem("isAuthenticated");
+    }
   }
 }

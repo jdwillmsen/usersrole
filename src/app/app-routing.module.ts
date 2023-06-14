@@ -1,4 +1,7 @@
-import { AngularFireAuthGuard, canActivate } from '@angular/fire/compat/auth-guard';
+import {
+  AngularFireAuthGuard,
+  canActivate
+} from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -7,6 +10,11 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInGuard } from './guards/sign-in.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'sign-in',
+    pathMatch: 'full'
+  },
   {
     path: 'home',
     component: HomeComponent,
