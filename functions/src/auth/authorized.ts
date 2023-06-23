@@ -9,7 +9,7 @@ export function isAuthorized(opts: {
     const { role, email, uid } = res.locals;
     const { id } = req.params;
 
-    if (email === 'your-root-user-email@domain.com') {
+    if (email === 'root@usersrole.com') {
       return next();
     }
 

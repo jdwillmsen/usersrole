@@ -19,6 +19,11 @@ export class MainComponent {
       path: '/upload',
       icon: 'upload',
       title: 'Upload'
+    },
+    {
+      path: '/users',
+      icon: 'supervised_user_circle',
+      title: 'Users'
     }
   ];
   user: any;

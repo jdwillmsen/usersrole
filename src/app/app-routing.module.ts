@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInGuard } from './guards/sign-in.guard';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: 'upload',
     component: UploadComponent,
+    canActivate: [AngularFireAuthGuard]
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
     canActivate: [AngularFireAuthGuard]
   },
   {

@@ -26,6 +26,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.component';
+import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   imports: [
@@ -55,13 +57,15 @@ import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.c
     HeaderComponent,
     MainComponent,
     ProfileCardComponent,
-    EmailSignInComponent
+    EmailSignInComponent,
+    UsersComponent
   ],
   bootstrap: [AppComponent],
   providers: [
     ScreenTrackingService,
     UserTrackingService,
-    AuthService
+    AuthService,
+    AuthTokenHttpInterceptorProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
