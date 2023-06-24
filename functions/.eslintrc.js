@@ -28,6 +28,7 @@ module.exports = {
     'require-jsdoc': 'off',
     'linebreak-style': 0,
     'comma-dangle': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    'indent': 'off'
   }
 };

@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import * as admin from 'firebase-admin';
 
 export async function isAuthenticated(
-    req: Request,
-    res: Response,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    next: Function
+  req: Request,
+  res: Response,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  next: Function
 ) {
   const { authorization } = req.headers;
 
@@ -17,7 +17,7 @@ export async function isAuthenticated(
     return res.status(401).send({ message: 'Unauthorized' });
   }
 
-  const split = authorization.split('Bearer');
+  const split = authorization.split('Bearer ');
   if (split.length !== 2) {
     return res.status(401).send({ message: 'Unauthorized' });
   }
@@ -26,14 +26,14 @@ export async function isAuthenticated(
 
   try {
     const decodedToken: admin.auth.DecodedIdToken = await admin
-        .auth()
-        .verifyIdToken(token);
-    console.log('decdoedToken', JSON.stringify(decodedToken));
+      .auth()
+      .verifyIdToken(token);
+    console.log('decodedToken', JSON.stringify(decodedToken));
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,
       role: decodedToken.role,
-      email: decodedToken.email,
+      email: decodedToken.email
     };
     return next();
   } catch (err: any) {
