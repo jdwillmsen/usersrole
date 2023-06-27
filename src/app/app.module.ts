@@ -28,6 +28,7 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.component';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 import { UsersComponent } from './components/users/users.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { UsersComponent } from './components/users/users.component';
     MainComponent,
     ProfileCardComponent,
     EmailSignInComponent,
-    UsersComponent
+    UsersComponent,
+    UserFormComponent
   ],
   bootstrap: [AppComponent],
   providers: [
