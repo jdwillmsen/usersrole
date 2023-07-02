@@ -9,6 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ProfileCardComponent {
   @Input() user: any;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) { }
+  
+  checkForPhoto(url: any): boolean {
+    return url == null;
+  }
 
 }
