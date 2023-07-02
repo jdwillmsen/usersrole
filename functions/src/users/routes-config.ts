@@ -7,37 +7,37 @@ import * as expressRateLimit from 'express-rate-limit';
 export function routesConfig(app: Application) {
   const limiter = expressRateLimit.rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 5
+    max: 5,
+    message: 'You cannot make any more request at the moment. Try again later'
   });
-
-  app.use(limiter);
   // creates user
   app.post(
     '/users',
+    limiter,
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'] }),
     create
   );
   // lists all users
-  app.get('/users', [
+  app.get('/users', limiter, [
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'] }),
     all
   ]);
   // get :id user
-  app.get('/users/:id', [
+  app.get('/users/:id', limiter, [
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'], allowSameUser: true }),
     get
   ]);
   // updates :id user
-  app.patch('/users/:id', [
+  app.patch('/users/:id', limiter, [
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'], allowSameUser: true }),
     patch
   ]);
   // deletes :id user
-  app.delete('/users/:id', [
+  app.delete('/users/:id', limiter, [
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'] }),
     remove
