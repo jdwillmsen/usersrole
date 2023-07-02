@@ -1,5 +1,8 @@
 <mat-card-content *ngIf="user$ | async; let user">
-    <h4 class="me-header">Me</h4>
+    <div class="section-header">
+        <h4>Me</h4>
+        <button mat-raised-button color="primary" (click)="edit(user)">Edit Profile</button>
+    </div>
     <mat-card appearance="outlined" tabindex="0">
         <mat-card-header>
             <h5>{{user.displayName}}</h5>
@@ -14,7 +17,10 @@
 </mat-card-content>
 
 <mat-card-content *ngIf="users$ | async; let users">
-    <h4>All Users</h4>
+    <div class="section-header">
+        <h4>All Users</h4>
+        <button mat-raised-button color="primary" (click)="create()">New User</button>
+    </div>
     <mat-card-stack *ngFor="let user of users">
         <mat-card appearance="outlined" tabindex="0">
             <mat-card-header>

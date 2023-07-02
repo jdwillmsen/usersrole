@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, tap } from 'rxjs';
 import { UserFormService } from 'src/app/services/user-form.service';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-user-form',
@@ -18,12 +17,11 @@ export class UserFormComponent implements OnInit {
     password: new FormControl(''),
     role: new FormControl('')
   });
-  title$: Observable<string>;
-  user$: Observable<{}>;
+  title$!: Observable<string>;
+  user$!: Observable<any>;
 
   constructor(
-    private dialog: MatDialog,
-    private usersService: UsersService,
+    private dialogRef: MatDialogRef<UserFormComponent>,
     private userForm: UserFormService
   ) {}
 
@@ -41,6 +39,11 @@ export class UserFormComponent implements OnInit {
   }
 
   close() {
-    this.dialog.closeAll();
+    this.dialogRef.close();
+  }
+
+  save() {
+    const { displayName, email, role, password, uid } = this.form.value;
+    this.dialogRef.close({ displayName, email, role, password, uid });
   }
 }

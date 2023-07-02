@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NgModule } from '@angular/core';
 
@@ -30,7 +31,8 @@ import { NgModule } from '@angular/core';
     MatInputModule,
     MatGridListModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class AppMaterialModule {}

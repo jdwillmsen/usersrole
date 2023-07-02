@@ -12,9 +12,12 @@ h4 {
 
 .user-group {
     display: grid;
+    align-items: center;
     grid-template-columns: 1fr auto;
 }
 
-.me-header {
-    margin-top: 0;
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
