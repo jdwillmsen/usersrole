@@ -1,6 +1,5 @@
 import {
-  AngularFireAuthGuard,
-  canActivate
+  AngularFireAuthGuard
 } from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
