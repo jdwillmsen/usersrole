@@ -30,8 +30,13 @@ export class PermissionsService {
     if (next.data['roles'].includes(this.role)) {
       return true;
     } else {
+      this.router.navigate(['home'])
       return false;
     }
+  }
+
+  hasRole(roles: string[]): boolean {
+    return roles.includes(this.role);
   }
 
   getUser() {

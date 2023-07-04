@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavItem } from 'src/app/models/nav-item.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { PermissionsService } from 'src/app/services/permissions.service';
 
 @Component({
   selector: 'app-main',
@@ -18,18 +19,27 @@ export class MainComponent {
     {
       path: '/upload',
       icon: 'upload',
-      title: 'Upload'
+      title: 'Upload',
+      roles: ['user']
     },
     {
       path: '/users',
       icon: 'supervised_user_circle',
-      title: 'Users'
+      title: 'Users',
+      roles: ['admin', 'manager']
     }
   ];
   user: any;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private permissionsService: PermissionsService) {
     authService.user$.subscribe((user) => (this.user = user));
+  }
+
+  checkRoles(roles: string[] | undefined): boolean {
+    if (roles == undefined || roles.length == 0) {
+      return true;
+    }
+    return this.permissionsService.hasRole(roles);
   }
 
   toggleSideNav() {
