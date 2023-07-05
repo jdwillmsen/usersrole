@@ -6,9 +6,8 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { UsersService } from './users.service';
-import { User } from '../models/users.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, filter, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +22,21 @@ export class PermissionsService {
     this.getRole();
   }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-    if (next.data['roles'].includes(this.role)) {
-      return true;
-    } else {
-      this.router.navigate(['home'])
-      return false;
-    }
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.afAuth.user.pipe(
+      switchMap((user) =>
+        this.usersService
+          .user$(user!.uid)
+          .pipe(map((user) => {
+            if (next.data['roles'].includes(user.role)) {
+              return true;
+            } else {
+              this.router.navigate(['home']);
+              return false;
+            }
+          }))
+      )
+    );
   }
 
   hasRole(roles: string[]): boolean {
@@ -44,17 +48,17 @@ export class PermissionsService {
   }
 
   getRole() {
-     this.getUser().subscribe((user) => {
-       this.usersService.user$(user!.uid).subscribe(user => {
-         this.role = user.role;
-      })
-    })
+    this.getUser().subscribe((user) => {
+      this.usersService.user$(user!.uid).subscribe((user) => {
+        this.role = user.role;
+      });
+    });
   }
 }
 
 export const RoleGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
-): boolean => {
+) => {
   return inject(PermissionsService).canActivate(next, state);
 };
