@@ -9,6 +9,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent {
   user: any;
   constructor(private authService: AuthService) {
-    authService.user$.subscribe(user => this.user = user);
+    authService.user$.subscribe((user) => (this.user = user));
   }
 }

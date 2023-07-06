@@ -17,9 +17,9 @@ export class MainComponent {
       title: 'Home'
     },
     {
-      path: '/upload',
-      icon: 'upload',
-      title: 'Upload',
+      path: '/profile',
+      icon: 'person',
+      title: 'Profile',
       roles: ['user']
     },
     {

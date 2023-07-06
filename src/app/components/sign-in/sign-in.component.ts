@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { getRedirectResult, getAuth } from 'firebase/auth';
 import { EMPTY, catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -23,6 +22,7 @@ export class SignInComponent {
       'logo',
       this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL)
     );
+    this.authService.initAuthListenter();
   }
 
   login() {

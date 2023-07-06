@@ -15,20 +15,20 @@ import {
   UserTrackingService
 } from '@angular/fire/analytics';
 import { AuthService } from './services/auth.service';
+import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 
 import { AppComponent } from './app.component';
 import { NavItemComponent } from './components/nav-item/nav-item.component';
 import { HomeComponent } from './components/home/home.component';
-import { UploadComponent } from './components/upload/upload.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignOutComponent } from './components/sign-out/sign-out.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.component';
-import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 import { UsersComponent } from './components/users/users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   imports: [
@@ -52,7 +52,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     AppComponent,
     NavItemComponent,
     HomeComponent,
-    UploadComponent,
     SignInComponent,
     SignOutComponent,
     HeaderComponent,
@@ -60,7 +59,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     ProfileCardComponent,
     EmailSignInComponent,
     UsersComponent,
-    UserFormComponent
+    UserFormComponent,
+    ProfileComponent
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -1,0 +1,22 @@
+<ng-container *ngIf="user$ | async"></ng-container>
+<div class="profile-container">
+    <h1>Profile</h1>
+    <form [formGroup]="profileForm" class="profile-form">
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Email Address" readonly>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Display Name</mat-label>
+            <input matInput type="string" formControlName="displayName" placeholder="Display Name" readonly>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput type="string" formControlName="phoneNumber" placeholder="Phone Number" readonly>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <input matInput type="string" formControlName="role" placeholder="Role" readonly>
+        </mat-form-field>
+    </form>
+</div>

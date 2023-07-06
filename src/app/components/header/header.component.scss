@@ -2,4 +2,7 @@ mat-toolbar {
     span.spacer {
         flex: 1;
     }
+    .no-underline {
+        text-decoration: none;
+    }
 }

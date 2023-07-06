@@ -4,10 +4,10 @@ import {
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { UploadComponent } from './components/upload/upload.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { UsersComponent } from './components/users/users.component';
 import { RoleGuard, SignInGuard } from './services/permissions.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -21,8 +21,8 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard]
   },
   {
-    path: 'upload',
-    component: UploadComponent,
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
       roles: ['user']
