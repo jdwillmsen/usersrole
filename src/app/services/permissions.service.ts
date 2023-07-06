@@ -22,19 +22,19 @@ export class PermissionsService {
     this.getRole();
   }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivateRole(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.afAuth.user.pipe(
       switchMap((user) =>
-        this.usersService
-          .user$(user!.uid)
-          .pipe(map((user) => {
+        this.usersService.user$(user!.uid).pipe(
+          map((user) => {
             if (next.data['roles'].includes(user.role)) {
               return true;
             } else {
               this.router.navigate(['home']);
               return false;
             }
-          }))
+          })
+        )
       )
     );
   }
@@ -43,16 +43,25 @@ export class PermissionsService {
     return roles.includes(this.role);
   }
 
-  getUser() {
-    return this.afAuth.user;
-  }
-
   getRole() {
-    this.getUser().subscribe((user) => {
+    this.afAuth.user.subscribe((user) => {
       this.usersService.user$(user!.uid).subscribe((user) => {
         this.role = user.role;
       });
     });
+  }
+
+  canActivateSignIn(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.afAuth.user.pipe(
+      map((user) => {
+        if (user != null) {
+          this.router.navigate(['home']);
+          return false;
+        } else {
+          return true;
+        }
+      })
+    );
   }
 }
 
@@ -60,5 +69,12 @@ export const RoleGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  return inject(PermissionsService).canActivate(next, state);
+  return inject(PermissionsService).canActivateRole(next, state);
+};
+
+export const SignInGuard: CanActivateFn = (
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return inject(PermissionsService).canActivateSignIn(next, state);
 };

@@ -6,9 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignInGuard } from './guards/sign-in.guard';
 import { UsersComponent } from './components/users/users.component';
-import { RoleGuard } from './services/permissions.service';
+import { RoleGuard, SignInGuard } from './services/permissions.service';
 
 const routes: Routes = [
   {
