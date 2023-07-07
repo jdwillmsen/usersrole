@@ -29,6 +29,7 @@ import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.c
 import { UsersComponent } from './components/users/users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     EmailSignInComponent,
     UsersComponent,
     UserFormComponent,
-    ProfileComponent
+    ProfileComponent,
+    SignUpComponent
   ],
   bootstrap: [AppComponent],
   providers: [
