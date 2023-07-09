@@ -50,19 +50,6 @@ export class PermissionsService {
       });
     });
   }
-
-  canActivateSignIn(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.afAuth.user.pipe(
-      map((user) => {
-        if (user != null) {
-          this.router.navigate(['home']);
-          return false;
-        } else {
-          return true;
-        }
-      })
-    );
-  }
 }
 
 export const RoleGuard: CanActivateFn = (
@@ -70,11 +57,4 @@ export const RoleGuard: CanActivateFn = (
   state: RouterStateSnapshot
 ) => {
   return inject(PermissionsService).canActivateRole(next, state);
-};
-
-export const SignInGuard: CanActivateFn = (
-  next: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(PermissionsService).canActivateSignIn(next, state);
 };

@@ -1,14 +1,17 @@
 import {
-  AngularFireAuthGuard
+  AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo
 } from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { UsersComponent } from './components/users/users.component';
-import { RoleGuard, SignInGuard } from './services/permissions.service';
+import { RoleGuard } from './services/permissions.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
@@ -19,13 +22,17 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AngularFireAuthGuard]
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    }
   },
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
       roles: ['user']
     }
   },
@@ -34,22 +41,29 @@ const routes: Routes = [
     component: UsersComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
       roles: ['manager', 'admin']
     }
   },
   {
     path: 'sign-in',
     component: SignInComponent,
-    canActivate: [SignInGuard]
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectLoggedInToHome
+    }
   },
   {
     path: 'sign-up',
     component: SignUpComponent,
-    canActivate: [SignInGuard]
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectLoggedInToHome
+    }
   },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'sign-in'
   }
 ];
 
