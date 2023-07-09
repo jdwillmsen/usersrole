@@ -22,7 +22,6 @@ export class SignInComponent {
       'logo',
       this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL)
     );
-    this.authService.initAuthListenter();
   }
 
   login() {

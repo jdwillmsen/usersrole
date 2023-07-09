@@ -8,6 +8,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { UsersComponent } from './components/users/users.component';
 import { RoleGuard, SignInGuard } from './services/permissions.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
   {
     path: 'sign-in',
     component: SignInComponent,
+    canActivate: [SignInGuard]
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
     canActivate: [SignInGuard]
   },
   {

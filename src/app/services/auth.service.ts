@@ -60,19 +60,6 @@ export class AuthService {
     );
   }
 
-  initAuthListenter(): Observable<unknown> {
-    return this.angularFireAuth.authState.pipe(
-      tap((user) => {
-        if (user && !sessionStorage.getItem('isAuthenticated')) {
-          this.setAuthenticated(true);
-          this.router.navigate(['home']);
-        } else if (!user) {
-          this.setAuthenticated(false);
-        }
-      })
-    );
-  }
-
   private setAuthenticated(authenticated: boolean) {
     if (authenticated) {
       sessionStorage.setItem('isAuthenticated', 'true');

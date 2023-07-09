@@ -1,0 +1,37 @@
+.sign-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    mat-card {
+        margin: 8px;
+        min-width: 400px;
+        align-self: center;
+
+        mat-card-content {
+            form {
+                display: grid;
+                grid-template-columns: 1fr;
+
+                input {
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        mat-card-actions {
+            font-size: 14px;
+            align-self: center;
+
+            a {
+                margin-left: 4px
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        align-self: center;
+    }
+}
