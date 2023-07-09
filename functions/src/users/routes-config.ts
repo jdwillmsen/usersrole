@@ -10,14 +10,13 @@ export function routesConfig(app: Application) {
     max: 5,
     message: 'You cannot make any more request at the moment. Try again later'
   });
+  const createLimiter = expressRateLimit.rateLimit({
+    windowMs: 1 * 60 * 60 * 1000, // 1 hour
+    max: 3,
+    message: 'You have exceeded the account creation limit requests at this time. Try again later'
+  });
   // creates user
-  app.post(
-    '/users',
-    limiter,
-    isAuthenticated,
-    isAuthorized({ hasRole: ['admin', 'manager'] }),
-    create
-  );
+  app.post('/users', createLimiter, create);
   // lists all users
   app.get('/users', limiter, [
     isAuthenticated,

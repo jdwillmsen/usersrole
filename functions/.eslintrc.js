@@ -29,6 +29,7 @@ module.exports = {
     'linebreak-style': 0,
     'comma-dangle': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'indent': 'off'
+    'indent': 'off',
+    'max-len': 0
   }
 };
