@@ -4,8 +4,11 @@
             <mat-label>Enter your email</mat-label>
             <input matInput type="email" formControlName="email" placeholder="Email Address">
             <ng-container *ngFor="let validation of validationMessages.email">
-                <mat-error
-                    *ngIf="form.get('email')?.hasError(validation.type) && (form.get('email')?.dirty || form.get('email')?.touched)">{{validation.message}}</mat-error>
+                <mat-error *ngIf="form.get('email')?.hasError(validation.type) 
+                    && (form.get('email')?.dirty 
+                    || form.get('email')?.touched)">
+                    {{validation.message}}
+                </mat-error>
             </ng-container>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -16,8 +19,11 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <ng-container *ngFor="let validation of validationMessages.password">
-                <mat-error
-                    *ngIf="form.get('password')?.hasError(validation.type) && (form.get('password')?.dirty || form.get('password')?.touched)">{{validation.message}}</mat-error>
+                <mat-error *ngIf="form.get('password')?.hasError(validation.type) 
+                    && (form.get('password')?.dirty 
+                    || form.get('password')?.touched)">
+                    {{validation.message}}
+                </mat-error>
             </ng-container>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" (click)="signIn()">Sign In</button>

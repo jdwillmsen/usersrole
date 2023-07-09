@@ -9,16 +9,22 @@
                     <mat-label>Enter your email</mat-label>
                     <input matInput type="email" formControlName="email" placeholder="Email Address" required>
                     <ng-container *ngFor="let validation of validationMessages.email">
-                        <mat-error
-                            *ngIf="signUpForm.get('email')?.hasError(validation.type) && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)">{{validation.message}}</mat-error>
+                        <mat-error *ngIf="signUpForm.get('email')?.hasError(validation.type) 
+                            && (signUpForm.get('email')?.dirty 
+                            || signUpForm.get('email')?.touched)">
+                            {{validation.message}}
+                        </mat-error>
                     </ng-container>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Enter your display name</mat-label>
                     <input matInput type="text" formControlName="displayName" placeholder="Display Name" required>
                     <ng-container *ngFor="let validation of validationMessages.displayName">
-                        <mat-error
-                            *ngIf="signUpForm.get('displayName')?.hasError(validation.type) && (signUpForm.get('displayName')?.dirty || signUpForm.get('displayName')?.touched)">{{validation.message}}</mat-error>
+                        <mat-error *ngIf="signUpForm.get('displayName')?.hasError(validation.type) 
+                            && (signUpForm.get('displayName')?.dirty 
+                            || signUpForm.get('displayName')?.touched)">
+                            {{validation.message}}
+                        </mat-error>
                     </ng-container>
                 </mat-form-field>
                 <ng-container formGroupName="matchingPassword">
@@ -31,8 +37,11 @@
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <ng-container *ngFor="let validation of validationMessages.password">
-                            <mat-error
-                                *ngIf="signUpForm.get('matchingPassword')?.get('password')?.hasError(validation.type) && (signUpForm.get('matchingPassword')?.get('password')?.dirty || signUpForm.get('matchingPassword')?.get('password')?.touched)">{{validation.message}}</mat-error>
+                            <mat-error *ngIf="signUpForm.get('matchingPassword')?.get('password')?.hasError(validation.type) 
+                                && (signUpForm.get('matchingPassword')?.get('password')?.dirty 
+                                || signUpForm.get('matchingPassword')?.get('password')?.touched)">
+                                {{validation.message}}
+                            </mat-error>
                         </ng-container>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
@@ -44,8 +53,12 @@
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <ng-container *ngFor="let validation of validationMessages.confirmPassword">
-                            <mat-error
-                                *ngIf="(signUpForm.get('matchingPassword')?.get('confirmPassword')?.hasError(validation.type) || signUpForm.get('matchingPassword')?.hasError(validation.type) )&& (signUpForm.get('matchingPassword')?.get('confirmPassword')?.dirty || signUpForm.get('matchingPassword')?.get('confirmPassword')?.touched)">{{validation.message}}</mat-error>
+                            <mat-error *ngIf="(signUpForm.get('matchingPassword')?.get('confirmPassword')?.hasError(validation.type) 
+                                || signUpForm.get('matchingPassword')?.hasError(validation.type))
+                                && (signUpForm.get('matchingPassword')?.get('confirmPassword')?.dirty 
+                                || signUpForm.get('matchingPassword')?.get('confirmPassword')?.touched)">
+                                {{validation.message}}
+                            </mat-error>
                         </ng-container>
                     </mat-form-field>
                 </ng-container>

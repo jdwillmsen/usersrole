@@ -5,6 +5,10 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
+import {
+  CreateUserRequest,
+  UsersService
+} from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,18 +18,24 @@ import {
 export class SignUpComponent {
   hide = true;
   signUpForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    displayName: new FormControl('', [Validators.required]),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email]
+    }),
+    displayName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
     matchingPassword: new FormGroup(
       {
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6)
-        ]),
-        confirmPassword: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6)
-        ])
+        password: new FormControl('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.minLength(6)]
+        }),
+        confirmPassword: new FormControl('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.minLength(6)]
+        })
       },
       { validators: this.passwordMatch() }
     )
@@ -53,8 +63,20 @@ export class SignUpComponent {
     ]
   };
 
+  constructor(private usersService: UsersService) {}
+
   signUp() {
     if (this.signUpForm.valid) {
+      const email = this.signUpForm.get('email')!.value;
+      const displayName = this.signUpForm.get('displayName')!.value;
+      const password = this.signUpForm
+        .get('matchingPassword')!
+        .get('password')!.value;
+      const role = 'user';
+      const user: CreateUserRequest = { email, displayName, password, role };
+      this.usersService.create(user).subscribe(() => {
+        console.log('Sign Up Successful');
+      });
       alert('Sign Up Presed');
     } else {
       alert('Sign Up Form Error');
@@ -67,7 +89,8 @@ export class SignUpComponent {
     return () => {
       const matches =
         this.signUpForm?.controls.matchingPassword.get('password')?.value ===
-        this.signUpForm?.controls.matchingPassword.get('confirmPassword')?.value;
+        this.signUpForm?.controls.matchingPassword.get('confirmPassword')
+          ?.value;
       return !matches ? { passwordMatch: true } : null;
     };
   }
