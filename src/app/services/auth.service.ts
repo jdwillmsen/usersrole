@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { BehaviorSubject, Observable, from, switchMap } from 'rxjs';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthService {
 
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private snackBarService: SnackbarService
   ) {
     this.user.next(this.angularFireAuth.authState);
   }
@@ -25,11 +27,16 @@ export class AuthService {
       this.angularFireAuth
         .signInWithEmailAndPassword(email, password)
         .then(() => {
+          this.snackBarService.showSnackbar(
+            'Login Successful',
+            'Ok',
+            'success',
+            3000
+          );
           this.router.navigate(['home']);
-          console.log("You've been successfully logged in!");
         })
         .catch((error) => {
-          console.log('An error has occured: ', error);
+          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
         })
     );
   }
@@ -41,17 +48,33 @@ export class AuthService {
 
   authLogin(provider: GoogleAuthProvider | never): Observable<unknown> {
     return from(
-      this.angularFireAuth.signInWithRedirect(provider).catch((error) => {
-        console.log('An error has occured: ', error);
-      })
+      this.angularFireAuth
+        .signInWithPopup(provider)
+        .then(() => {
+          this.snackBarService.showSnackbar(
+            'Login Successful',
+            'Ok',
+            'success',
+            3000
+          );
+          this.router.navigate(['home']);
+        })
+        .catch((error) => {
+          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
+        })
     );
   }
 
   authLogout(): Observable<void> {
     return from(
       this.angularFireAuth.signOut().then(() => {
+        this.snackBarService.showSnackbar(
+          'Logout Successful',
+          'Ok',
+          'success',
+          3000
+        );
         this.router.navigate(['sign-in']);
-        console.log("You've been successfully logged out!");
       })
     );
   }

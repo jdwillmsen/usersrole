@@ -9,7 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class EmailSignInComponent {
   form: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
+    ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6)
@@ -19,7 +22,7 @@ export class EmailSignInComponent {
   validationMessages = {
     email: [
       { type: 'required', message: 'Email is required' },
-      { type: 'email', message: 'Enter a valid email' }
+      { type: 'pattern', message: 'Enter a valid email' }
     ],
     password: [
       { type: 'required', message: 'Password is required' },
@@ -27,7 +30,7 @@ export class EmailSignInComponent {
         type: 'minlength',
         message: 'Password must be at least 6 characters long'
       }
-    ],
+    ]
   };
 
   constructor(private readonly authService: AuthService) {}

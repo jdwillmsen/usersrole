@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, EMPTY, catchError, map } from 'rxjs';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserFormService {
+
+  constructor(private snackBarService: SnackbarService) {}
 
   private _behaviorSubject = new BehaviorSubject<{title: string, user: any}>({ title: '', user: {} });
 
@@ -18,13 +21,21 @@ export class UserFormService {
 
   get title$() {
     return this._behaviorSubject.asObservable().pipe(
-      map(userForm => userForm.title)
+      map((userForm) => userForm.title),
+      catchError((error) => {
+        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        return EMPTY;
+      })
     );
   }
 
   get user$() {
     return this._behaviorSubject.asObservable().pipe(
-      map(userForm => userForm.user)
+      map(userForm => userForm.user),
+      catchError((error) => {
+        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        return EMPTY;
+      })
     );
   }
 

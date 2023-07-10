@@ -30,6 +30,7 @@ import { UsersComponent } from './components/users/users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     UsersComponent,
     UserFormComponent,
     ProfileComponent,
-    SignUpComponent
+    SignUpComponent,
+    CustomSnackbarComponent
   ],
   bootstrap: [AppComponent],
   providers: [

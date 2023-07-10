@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -5,6 +6,8 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import {
   CreateUserRequest,
   UsersService
@@ -20,7 +23,10 @@ export class SignUpComponent {
   signUpForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.email]
+      validators: [
+        Validators.required,
+        Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
+      ]
     }),
     displayName: new FormControl('', {
       nonNullable: true,
@@ -43,7 +49,7 @@ export class SignUpComponent {
   validationMessages = {
     email: [
       { type: 'required', message: 'Email is required' },
-      { type: 'email', message: 'Enter a valid email' }
+      { type: 'pattern', message: 'Enter a valid email' }
     ],
     displayName: [{ type: 'required', message: 'Display name is required' }],
     password: [
@@ -63,7 +69,11 @@ export class SignUpComponent {
     ]
   };
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private router: Router,
+    private snackBarService: SnackbarService
+  ) {}
 
   signUp() {
     if (this.signUpForm.valid) {
@@ -74,15 +84,22 @@ export class SignUpComponent {
         .get('password')!.value;
       const role = 'user';
       const user: CreateUserRequest = { email, displayName, password, role };
-      this.usersService.create(user).subscribe(() => {
-        console.log('Sign Up Successful');
+      this.usersService.create(user).subscribe({
+        next: () => {
+          this.signUpForm.reset();
+          this.snackBarService.showSnackbar(
+            'Sign Up Successful',
+            'Ok',
+            'success',
+            3000
+          );
+          this.router.navigate(['sign-in']);
+        },
+        error: (error) => {
+          this.snackBarService.showSnackbar(error.error.message, 'Ok', 'error');
+        }
       });
-      alert('Sign Up Presed');
-    } else {
-      alert('Sign Up Form Error');
     }
-
-    console.log(this.signUpForm.value);
   }
 
   passwordMatch(): ValidatorFn {

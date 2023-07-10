@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavItem } from 'src/app/models/nav-item.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-main',
@@ -31,8 +32,16 @@ export class MainComponent {
   ];
   user: any;
 
-  constructor(private authService: AuthService, private permissionsService: PermissionsService) {
-    authService.user$.subscribe((user) => (this.user = user));
+  constructor(
+    private authService: AuthService,
+    private permissionsService: PermissionsService,
+    private snackBarService: SnackbarService
+  ) {
+    authService.user$.subscribe({
+      next: (user) => (this.user = user),
+      error: (error) =>
+        this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
+    });
   }
 
   checkRoles(roles: string[] | undefined): boolean {
