@@ -2,45 +2,65 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { BehaviorSubject, Observable, from, of, switchMap } from 'rxjs';
-import { User } from 'firebase/auth';
+import { BehaviorSubject, Observable, from, switchMap } from 'rxjs';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: BehaviorSubject<Observable<any> | null> =
-    new BehaviorSubject<Observable<any> | null>(null);
+  private user: BehaviorSubject<Observable<unknown> | null> =
+    new BehaviorSubject<Observable<unknown> | null>(null);
 
   user$ = this.user.asObservable().pipe(switchMap((user: any) => user));
 
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private snackBarService: SnackbarService
   ) {
     this.user.next(this.angularFireAuth.authState);
-    this.user$.subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['sign-in']);
-      }
-    });
+  }
+
+  emailAuth(email: string, password: string): Observable<unknown> {
+    return from(
+      this.angularFireAuth
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          this.snackBarService.showSnackbar(
+            'Login Successful',
+            'Ok',
+            'success',
+            3000
+          );
+          this.router.navigate(['home']);
+        })
+        .catch((error) => {
+          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
+        })
+    );
   }
 
   // Google Sign In
-  googleAuth(): Observable<any> {
+  googleAuth(): Observable<unknown> {
     return from(this.authLogin(new GoogleAuthProvider()));
   }
 
-  authLogin(provider: GoogleAuthProvider | any): Observable<any> {
+  authLogin(provider: GoogleAuthProvider | never): Observable<unknown> {
     return from(
       this.angularFireAuth
         .signInWithPopup(provider)
         .then(() => {
+          this.snackBarService.showSnackbar(
+            'Login Successful',
+            'Ok',
+            'success',
+            3000
+          );
           this.router.navigate(['home']);
-          console.log("You've been successfully logged in!");
         })
         .catch((error) => {
-          console.log('An error has occured: ', error);
+          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
         })
     );
   }
@@ -48,8 +68,13 @@ export class AuthService {
   authLogout(): Observable<void> {
     return from(
       this.angularFireAuth.signOut().then(() => {
+        this.snackBarService.showSnackbar(
+          'Logout Successful',
+          'Ok',
+          'success',
+          3000
+        );
         this.router.navigate(['sign-in']);
-        console.log("You've been successfully logged out!");
       })
     );
   }

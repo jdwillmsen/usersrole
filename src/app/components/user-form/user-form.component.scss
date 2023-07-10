@@ -1,0 +1,9 @@
+.user-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 16px;
+}
+
+mat-dialog-content {
+    padding: 0 24px !important;
+}

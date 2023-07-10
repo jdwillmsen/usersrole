@@ -1,9 +1,11 @@
 <button mat-mini-fab color="primary" class="avatar-button" [matMenuTriggerFor]="beforeMenu">
-    <img [alt]="user.displayName" [src]="user.photoURL" class="avatar" referrerPolicy="no-referrer" />
+    <mat-icon *ngIf="checkForPhoto(user.photoURL)">person</mat-icon>
+    <img *ngIf="!checkForPhoto(user.photoURL)" [alt]="user.displayName" [src]="user.photoURL" class="avatar" referrerPolicy="no-referrer" />
 </button>
 <mat-menu #beforeMenu="matMenu" xPosition="before">
     <div class="profile-card">
-        <img [alt]="user.displayName" [src]="user.photoURL" class="big-avatar" referrerPolicy="no-referrer" />
+        <mat-icon *ngIf="checkForPhoto(user.photoURL)" class="empty-avatar">person</mat-icon>
+        <img *ngIf="!checkForPhoto(user.photoURL)" [alt]="user.displayName" [src]="user.photoURL" class="big-avatar" referrerPolicy="no-referrer" />
         <h4>{{ user.displayName }}</h4>
         <p>{{ user.email }}</p>
         <mat-divider></mat-divider>

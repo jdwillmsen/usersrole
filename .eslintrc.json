@@ -40,7 +40,10 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "object-curly-spacing": ["error", "always"],
+        "quotes": ["error"]
+      }
     }
   ]
 }

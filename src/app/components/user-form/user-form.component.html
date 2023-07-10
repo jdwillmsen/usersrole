@@ -1,0 +1,30 @@
+<ng-container *ngIf="user$ | async"></ng-container>
+<h2 mat-dialog-title>{{ title$ | async}}</h2>
+<mat-dialog-content>
+    <form class="user-form" [formGroup]="form" (ngSubmit)="save()">
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Enter email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Password">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Display Name</mat-label>
+            <input matInput type="string" formControlName="displayName" placeholder="Enter display name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+                <mat-option value="admin">Admin</mat-option>
+                <mat-option value="manager">Manager</mat-option>
+                <mat-option value="user">User</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

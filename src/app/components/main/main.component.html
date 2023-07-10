@@ -3,7 +3,7 @@
         <div class="sideNavContainer">
             <mat-nav-list data-cy="sidenav-links-list">
                 <ng-template ngFor let-item [ngForOf]="navItems">
-                    <app-nav-item [navItem]="item" [isExpanded]="isExpanded"></app-nav-item>
+                    <app-nav-item *ngIf="checkRoles(item.roles)" [navItem]="item" [isExpanded]="isExpanded"></app-nav-item>
                 </ng-template>
             </mat-nav-list>
             <button mat-icon-button (click)="toggleSideNav()" class="expand" data-cy="expand-toggle-button">
