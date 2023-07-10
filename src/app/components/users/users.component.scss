@@ -1,0 +1,23 @@
+mat-card-header {
+    h5 {
+        padding: 0;
+        margin: 0;
+        font-size: medium;
+    }
+}
+
+h4 {
+    margin-bottom: 8px;
+}
+
+.user-group {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

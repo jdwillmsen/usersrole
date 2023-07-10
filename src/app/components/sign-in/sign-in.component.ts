@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EMPTY, catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 const googleLogoURL =
   'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg';
@@ -16,7 +17,8 @@ export class SignInComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly matIconRegistry: MatIconRegistry,
-    private readonly domSanitizer: DomSanitizer
+    private readonly domSanitizer: DomSanitizer,
+    private snackBarService: SnackbarService
   ) {
     this.matIconRegistry.addSvgIcon(
       'logo',
@@ -30,7 +32,7 @@ export class SignInComponent {
       .pipe(
         take(1),
         catchError((error) => {
-          console.log(error.message);
+          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
           return EMPTY;
         })
       )

@@ -15,16 +15,22 @@ import {
   UserTrackingService
 } from '@angular/fire/analytics';
 import { AuthService } from './services/auth.service';
+import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 
 import { AppComponent } from './app.component';
 import { NavItemComponent } from './components/nav-item/nav-item.component';
 import { HomeComponent } from './components/home/home.component';
-import { UploadComponent } from './components/upload/upload.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignOutComponent } from './components/sign-out/sign-out.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { EmailSignInComponent } from './components/email-sign-in/email-sign-in.component';
+import { UsersComponent } from './components/users/users.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 
 @NgModule({
   imports: [
@@ -48,15 +54,25 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
     AppComponent,
     NavItemComponent,
     HomeComponent,
-    UploadComponent,
     SignInComponent,
     SignOutComponent,
     HeaderComponent,
     MainComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    EmailSignInComponent,
+    UsersComponent,
+    UserFormComponent,
+    ProfileComponent,
+    SignUpComponent,
+    CustomSnackbarComponent
   ],
   bootstrap: [AppComponent],
-  providers: [ScreenTrackingService, UserTrackingService, AuthService],
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService,
+    AuthService,
+    AuthTokenHttpInterceptorProvider
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
