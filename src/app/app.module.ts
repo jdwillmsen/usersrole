@@ -31,6 +31,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import { CustomSnackbarComponent } from './components/custom-snackbar/custom-sna
     UserFormComponent,
     ProfileComponent,
     SignUpComponent,
-    CustomSnackbarComponent
+    CustomSnackbarComponent,
+    ThemeSelectorComponent
   ],
   bootstrap: [AppComponent],
   providers: [
