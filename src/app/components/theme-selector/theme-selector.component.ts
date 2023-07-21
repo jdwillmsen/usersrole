@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SiteTheme } from 'src/app/models/site-theme.model';
 import { StyleManagerService } from 'src/app/services/style-manager.service';
 
@@ -56,14 +54,8 @@ export class ThemeSelectorComponent {
   ];
 
   constructor(
-    private styleManagerService: StyleManagerService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
+    private styleManagerService: StyleManagerService
   ) {
-    iconRegistry.addSvgIcon(
-      'theme-icon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/theme-icon.svg')
-    );
     this.themes.find((themes) => {
       if (themes.isDefault === true) {
         this.selectTheme(themes.name);
