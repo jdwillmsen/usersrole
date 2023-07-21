@@ -75,6 +75,16 @@
                 "inject": false,
                 "input": "src/styles/themes/purple-green.scss",
                 "bundleName": "purple-green"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/red-teal.scss",
+                "bundleName": "red-teal"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/black-white.scss",
+                "bundleName": "black-white"
               }
             ],
             "stylePreprocessorOptions": {
@@ -159,7 +169,7 @@
             ],
             "styles": [
               {
-              "input": "src/styles.scss"
+                "input": "src/styles.scss"
               },
               {
                 "inject": false,
@@ -180,6 +190,16 @@
                 "inject": false,
                 "input": "src/styles/themes/purple-green.scss",
                 "bundleName": "purple-green"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/red-teal.scss",
+                "bundleName": "red-teal"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/black-white.scss",
+                "bundleName": "black-white"
               }
             ],
             "stylePreprocessorOptions": {

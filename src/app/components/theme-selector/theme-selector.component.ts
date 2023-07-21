@@ -11,6 +11,16 @@ export class ThemeSelectorComponent {
   currentTheme: SiteTheme | undefined;
   themes: SiteTheme[] = [
     {
+      primary: '#FFFFFF',
+      accent: '#000000',
+      displayName: 'Black & White',
+      name: 'black-white',
+      isDark: false,
+      background: '#fafafa',
+      button: '#FFFFFF',
+      toolbar: '#000000'
+    },
+    {
       primary: '#673AB7',
       accent: '#FFC107',
       displayName: 'Deep Purple & Amber',
@@ -50,12 +60,20 @@ export class ThemeSelectorComponent {
       background: '#303030',
       button: '#4CAF50',
       toolbar: '#9C27B0'
+    },
+    {
+      primary: '#FF0000',
+      accent: '#00FFFF',
+      displayName: 'Red & Teal',
+      name: 'red-teal',
+      isDark: true,
+      background: '#303030',
+      button: '#00FFFF',
+      toolbar: '#FF0000'
     }
   ];
 
-  constructor(
-    private styleManagerService: StyleManagerService
-  ) {
+  constructor(private styleManagerService: StyleManagerService) {
     this.themes.find((themes) => {
       if (themes.isDefault === true) {
         this.selectTheme(themes.name);
