@@ -10,9 +10,9 @@
     $dark-icon: black;
     $light-icon: white;
 
-    a {
+    .nav {
 
-        mat-icon {
+        .icon {
             @if $is-dark-theme {
                 color: $light-icon !important;
             }
@@ -34,7 +34,7 @@
                 background-color: rgba($light-color, 0.2);
             }
 
-            mat-icon {
+            .icon {
                 @if $is-dark-theme {
                     color: $dark-color !important;
                 }
