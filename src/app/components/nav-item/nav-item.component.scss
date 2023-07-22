@@ -4,7 +4,6 @@ a {
 
   mat-icon {
     margin: 0 16px;
-    color: black;
   }
 
   span {
@@ -12,20 +11,9 @@ a {
   }
 
   &.active {
-    border-left: 3px solid #45a3e5;
-    background-color: rgba(#45a3e5, 0.2);
 
     mat-icon {
       margin: 0 16px 0 13px;
-      color: #45a3e5;
-    }
-  }
-
-  &:hover {
-    background-color: #fff;
-
-    mat-icon {
-      color: black;
     }
   }
 }

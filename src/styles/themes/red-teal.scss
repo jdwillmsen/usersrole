@@ -1,4 +1,6 @@
 @use '@angular/material' as mat;
+@use '../../app/components/nav-item/nav-item-theme' as nav-item;
+
 $dark-primary-text: rgba(black, 0.87);
 $light-primary-text: white;
 $red-palette: (
@@ -43,3 +45,4 @@ $theme: mat.define-dark-theme((color: (primary: $theme-primary,
 @include mat.all-component-themes($theme);
 // Enables typography to be configured to what is defined in theme
 // @include mat.typography-hierarchy($theme);
+@include nav-item.theme($theme);
