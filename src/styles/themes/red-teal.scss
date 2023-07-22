@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use '../../app/components/nav-item/nav-item-theme' as nav-item;
+@use '../../app/components/profile-card/profile-card-theme' as profile-card;
 
 $dark-primary-text: rgba(black, 0.87);
 $light-primary-text: white;
@@ -46,3 +47,4 @@ $theme: mat.define-dark-theme((color: (primary: $theme-primary,
 // Enables typography to be configured to what is defined in theme
 // @include mat.typography-hierarchy($theme);
 @include nav-item.theme($theme);
+@include profile-card.theme($theme);
