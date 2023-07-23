@@ -62,6 +62,9 @@
       "port": 9299
     }
   },
+  "storage": {
+    "rules": "storage.rules"
+  },
   "functions": [
     {
       "source": "functions",
