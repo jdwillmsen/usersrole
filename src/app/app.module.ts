@@ -30,7 +30,7 @@ import { UsersComponent } from './components/users/users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @NgModule({
@@ -65,7 +65,7 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
     UserFormComponent,
     ProfileComponent,
     SignUpComponent,
-    CustomSnackbarComponent,
+    SnackbarComponent,
     ThemeSelectorComponent
   ],
   bootstrap: [AppComponent],

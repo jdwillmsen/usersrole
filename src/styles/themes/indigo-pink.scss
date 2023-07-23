@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 @use '../../app/components/nav-item/nav-item-theme' as nav-item;
 @use '../../app/components/profile-card/profile-card-theme' as profile-card;
+@use '../../app/components/snackbar/snackbar-theme' as snackbar;
 
 $theme-primary: mat.define-palette(mat.$indigo-palette);
 $theme-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
@@ -15,3 +16,4 @@ $theme: mat.define-light-theme((color: (primary: $theme-primary,
 // @include mat.typography-hierarchy($theme);
 @include nav-item.theme($theme);
 @include profile-card.theme($theme);
+@include snackbar.theme($theme);
