@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { SiteTheme } from 'src/app/models/site-theme.model';
 import { StyleManagerService } from 'src/app/services/style-manager.service';
-import { Firestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { User } from 'firebase/auth';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-theme-selector',
@@ -12,90 +13,45 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 })
 export class ThemeSelectorComponent {
   currentTheme: SiteTheme | undefined;
-  themes: SiteTheme[] = [
-    {
-      primary: '#FFFFFF',
-      accent: '#000000',
-      displayName: 'Black & White',
-      name: 'black-white',
-      isDark: false,
-      background: '#fafafa',
-      button: '#FFFFFF',
-      toolbar: '#000000'
-    },
-    {
-      primary: '#673AB7',
-      accent: '#FFC107',
-      displayName: 'Deep Purple & Amber',
-      name: 'deeppurple-amber',
-      isDark: false,
-      background: '#fafafa',
-      button: '#FFC107',
-      toolbar: '#673AB7'
-    },
-    {
-      primary: '#3F51B5',
-      accent: '#E91E63',
-      displayName: 'Indigo & Pink',
-      name: 'indigo-pink',
-      isDark: false,
-      isDefault: true,
-      background: '#fafafa',
-      button: '#E91E63',
-      toolbar: '#3F51B5'
-    },
-    {
-      primary: '#E91E63',
-      accent: '#607D8B',
-      displayName: 'Pink & Blue-grey',
-      name: 'pink-bluegrey',
-      isDark: true,
-      background: '#303030',
-      button: '#607D8B',
-      toolbar: '#E91E63'
-    },
-    {
-      primary: '#9C27B0',
-      accent: '#4CAF50',
-      displayName: 'Purple & Green',
-      name: 'purple-green',
-      isDark: true,
-      background: '#303030',
-      button: '#4CAF50',
-      toolbar: '#9C27B0'
-    },
-    {
-      primary: '#FF0000',
-      accent: '#00FFFF',
-      displayName: 'Red & Teal',
-      name: 'red-teal',
-      isDark: true,
-      background: '#303030',
-      button: '#00FFFF',
-      toolbar: '#FF0000'
-    }
-  ];
-  user: any;
+  themes: SiteTheme[];
+  uid = '';
 
-  constructor(private styleManagerService: StyleManagerService, private firestore: Firestore, private authService: AuthService, private snackBarService: SnackbarService) {
+  constructor(
+    private styleManagerService: StyleManagerService,
+    private firestoreService: FirestoreService,
+    private authService: AuthService,
+    private snackBarService: SnackbarService
+  ) {
+    this.themes = this.styleManagerService.themes;
     this.authService.user$.subscribe({
       next: (user) => {
-        console.log(user);
+        this.uid = (user as User).uid;
+        this.firestoreService.getUsersDoc(this.uid).then((data) => {
+          if (data) {
+            this.selectTheme(data['theme']);
+          } else {
+            this.themes.find((themes) => {
+              if (themes.isDefault === true) {
+                this.selectTheme(themes.name);
+                this.firestoreService.setUsersDoc(this.uid, themes.name);
+              }
+            });
+          }
+        });
       },
       error: (error) =>
         this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
     });
-    this.themes.find((themes) => {
-      if (themes.isDefault === true) {
-        this.selectTheme(themes.name);
-      }
+    this.styleManagerService.currentThemeName.subscribe((themeName) => {
+      this.firestoreService.setUsersDoc(this.uid, themeName);
     });
   }
 
   selectTheme(themeName: string) {
-    const theme = this.themes.find(
-      (currentTheme) => currentTheme.name === themeName
-    );
+    const theme = this.themes.find((currentTheme) => {
+      this.styleManagerService.currentThemeName.next(themeName);
+      return currentTheme.name === themeName;
+    });
 
     if (!theme) {
       return;
@@ -107,11 +63,6 @@ export class ThemeSelectorComponent {
       this.styleManagerService.removeStyle('theme');
     } else {
       this.styleManagerService.setStyle('theme', `${theme.name}.css`);
-    }
-
-    if (this.currentTheme) {
-      // TODO: Implement storage theme, check out this: https://github.com/angular/material.angular.io/blob/main/src/app/shared/theme-picker/theme-storage/theme-storage.ts
-      // this._themeStorage.storeTheme(this.currentTheme);
     }
   }
 }
