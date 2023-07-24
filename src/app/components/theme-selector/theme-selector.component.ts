@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { SiteTheme } from 'src/app/models/site-theme.model';
 import { StyleManagerService } from 'src/app/services/style-manager.service';
+import { Firestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/services/auth.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-theme-selector',
@@ -72,8 +75,16 @@ export class ThemeSelectorComponent {
       toolbar: '#FF0000'
     }
   ];
+  user: any;
 
-  constructor(private styleManagerService: StyleManagerService) {
+  constructor(private styleManagerService: StyleManagerService, private firestore: Firestore, private authService: AuthService, private snackBarService: SnackbarService) {
+    this.authService.user$.subscribe({
+      next: (user) => {
+        console.log(user);
+      },
+      error: (error) =>
+        this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
+    });
     this.themes.find((themes) => {
       if (themes.isDefault === true) {
         this.selectTheme(themes.name);

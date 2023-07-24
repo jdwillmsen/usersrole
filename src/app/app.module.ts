@@ -10,10 +10,6 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { AppMaterialModule } from './modules/app-material.module';
 import { AppFirebaseModule } from './modules/app-firebase.module';
 
-import {
-  ScreenTrackingService,
-  UserTrackingService
-} from '@angular/fire/analytics';
 import { AuthService } from './services/auth.service';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 
@@ -70,8 +66,6 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
   ],
   bootstrap: [AppComponent],
   providers: [
-    ScreenTrackingService,
-    UserTrackingService,
     AuthService,
     AuthTokenHttpInterceptorProvider
   ],
