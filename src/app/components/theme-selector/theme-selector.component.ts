@@ -49,20 +49,22 @@ export class ThemeSelectorComponent {
         this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
     });
     this.styleManagerService.currentThemeName.subscribe((themeName) => {
-      this.firestoreService.setUsersDoc(this.uid, themeName);
+      if (this.currentTheme?.name !== themeName) {
+        this.firestoreService.setUsersDoc(this.uid, themeName);
+      }
     });
   }
 
   selectTheme(themeName: string) {
-    const theme = this.themes.find((currentTheme) => {
-      this.styleManagerService.currentThemeName.next(themeName);
-      return currentTheme.name === themeName;
-    });
+    const theme = this.themes.find(
+      (currentTheme) => currentTheme.name === themeName
+    );
 
     if (!theme) {
       return;
     }
 
+    this.styleManagerService.currentThemeName.next(themeName);
     this.currentTheme = theme;
 
     if (theme.isDefault) {
