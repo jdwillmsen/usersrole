@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { User } from 'firebase/auth';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { ThemeStorageService } from 'src/app/services/theme-storage.service';
 
 @Component({
   selector: 'app-theme-selector',
@@ -20,9 +21,14 @@ export class ThemeSelectorComponent {
     private styleManagerService: StyleManagerService,
     private firestoreService: FirestoreService,
     private authService: AuthService,
-    private snackBarService: SnackbarService
+    private snackBarService: SnackbarService,
+    private _themeStorageService: ThemeStorageService
   ) {
     this.themes = this.styleManagerService.themes;
+    const themeName = _themeStorageService.getStoredThemeName();
+    if (themeName) {
+      this.selectTheme(themeName);
+    }
     this.authService.user$.subscribe({
       next: (user) => {
         this.uid = (user as User).uid;
@@ -63,6 +69,10 @@ export class ThemeSelectorComponent {
       this.styleManagerService.removeStyle('theme');
     } else {
       this.styleManagerService.setStyle('theme', `${theme.name}.css`);
+    }
+
+    if (this.currentTheme) {
+      this._themeStorageService.storeTheme(this.currentTheme);
     }
   }
 }
