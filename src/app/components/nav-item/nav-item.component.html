@@ -4,9 +4,10 @@
     [routerLink]="navItem.path"
     [routerLinkActive]="['active']"
     role="navigation"
+    class="nav"
     data-cy="nav-link"
   >
-    <mat-icon matListItemIcon data-cy="nav-icon">{{ navItem.icon }}</mat-icon>
+    <mat-icon matListItemIcon class="icon" data-cy="nav-icon">{{ navItem.icon }}</mat-icon>
     <span matListItemTitle *ngIf="isExpanded" data-cy="nav-title">{{ navItem.title }}</span>
   </a>
 </ng-container>

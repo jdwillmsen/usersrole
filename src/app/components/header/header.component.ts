@@ -13,7 +13,7 @@ export class HeaderComponent {
     private authService: AuthService,
     private snackBarService: SnackbarService
   ) {
-    authService.user$.subscribe({
+    this.authService.user$.subscribe({
       next: (user) => (this.user = user),
       error: (error) =>
         this.snackBarService.showSnackbar(error.error, 'Ok', 'error')

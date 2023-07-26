@@ -5,17 +5,17 @@
         it's assisted by Firebase functions with an Express server for the role authorization.</p>
     <p>There are 3 primary routes once authenticated:</p>
     <ul>
-        <li><a mat-button href="/home">/home</a></li>
+        <li><a mat-button routerLink="/home">/home</a></li>
         <ul>
             <li>This is the home link and is currently being displayed.</li>
             <li>This page is not restricted to any logged in user.</li>
         </ul>
-        <li><a mat-button href="/profile">/profile</a></li>
+        <li><a mat-button routerLink="/profile">/profile</a></li>
         <ul>
             <li>This is a profile page for viewing information about the logged in user.</li>
             <li>This page is restricted to users with the user role.</li>
         </ul>
-        <li><a mat-button href="/users">/users</a></li>
+        <li><a mat-button routerLink="/users">/users</a></li>
         <ul>
             <li>This is a page for viewing all the users associated with the application.</li>
             <li>This page is restricted to users with the manager and admin roles.</li>

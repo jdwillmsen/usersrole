@@ -6,13 +6,13 @@ import * as expressRateLimit from 'express-rate-limit';
 
 export function routesConfig(app: Application) {
   const limiter = expressRateLimit.rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
+    windowMs: 1 * 30 * 1000, // 30 seconds
     max: 5,
     message: 'You cannot make any more request at the moment. Try again later'
   });
   const createLimiter = expressRateLimit.rateLimit({
     windowMs: 1 * 60 * 60 * 1000, // 1 hour
-    max: 3,
+    max: 5,
     message: 'You have exceeded the account creation limit requests at this time. Try again later'
   });
   // creates user
