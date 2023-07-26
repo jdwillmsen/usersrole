@@ -9,6 +9,7 @@ admin.initializeApp();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({ origin: true }));
+app.set('trust proxy', 1);
 routesConfig(app);
 
 export const api = functions.https.onRequest(app);

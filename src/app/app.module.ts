@@ -10,10 +10,6 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { AppMaterialModule } from './modules/app-material.module';
 import { AppFirebaseModule } from './modules/app-firebase.module';
 
-import {
-  ScreenTrackingService,
-  UserTrackingService
-} from '@angular/fire/analytics';
 import { AuthService } from './services/auth.service';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 
@@ -30,7 +26,8 @@ import { UsersComponent } from './components/users/users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @NgModule({
   imports: [
@@ -64,12 +61,11 @@ import { CustomSnackbarComponent } from './components/custom-snackbar/custom-sna
     UserFormComponent,
     ProfileComponent,
     SignUpComponent,
-    CustomSnackbarComponent
+    SnackbarComponent,
+    ThemeSelectorComponent
   ],
   bootstrap: [AppComponent],
   providers: [
-    ScreenTrackingService,
-    UserTrackingService,
     AuthService,
     AuthTokenHttpInterceptorProvider
   ],

@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { EMPTY, catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { StyleManagerService } from 'src/app/services/style-manager.service';
 
 const googleLogoURL =
   'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg';
@@ -18,12 +19,14 @@ export class SignInComponent {
     private readonly authService: AuthService,
     private readonly matIconRegistry: MatIconRegistry,
     private readonly domSanitizer: DomSanitizer,
-    private snackBarService: SnackbarService
+    private snackBarService: SnackbarService,
+    private readonly styleManagerService: StyleManagerService
   ) {
     this.matIconRegistry.addSvgIcon(
       'logo',
       this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL)
     );
+    this.styleManagerService.removeStyle('theme');
   }
 
   login() {
