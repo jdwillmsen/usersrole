@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+
+/// Defines a theme with success and error colors.
+/// @param {Map} $primary The primary color palette.
+/// @param {Map} $accent The accent color palette.
+/// @param {Map} $warn The warn color palette.
+/// @param {Map} $success The success color palette.
+/// @param {Map} $error The error color palette.
+/// @param {Map} $info The info color palette.
+/// @param {Boolean} $create-light-theme If true a light theme is created, otherwise a dark theme is created
+/// @param {Boolean} $typography The typography config
+/// @param {Boolean} $density The density config
+@function define-theme($primary,
+    $accent,
+    $warn: mat.$orange-palette,
+    $success: mat.$green-palette,
+    $error: mat.$red-palette,
+    $info: mat.$blue-palette,
+    $create-light-theme: true,
+    $typography: mat.define-typography-config(),
+    $density: 0) {
+    $primary: mat.define-palette($primary);
+    $accent: mat.define-palette($accent);
+    $warn: mat.define-palette($warn);
+    $success: mat.define-palette($success);
+    $error: mat.define-palette($error);
+    $info: mat.define-palette($info);
+
+
+    $theme: null;
+
+    @if ($create-light-theme) {
+        $theme: mat.define-light-theme((color: (primary: $primary,
+                    accent: $accent,
+                    warn: $warn,
+                ),
+                typography: $typography,
+                density: $density ));
+    }
+
+    @else {
+        $theme: mat.define-dark-theme((color: (primary: $primary,
+                    accent: $accent,
+                    warn: $warn,
+                ),
+                typography: $typography,
+                density: $density ));
+    }
+
+    $extra: (
+        success: $success,
+        error: $error,
+        info: $info
+    );
+@return map-merge($theme, $extra);
+}
