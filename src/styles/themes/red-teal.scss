@@ -1,48 +1,25 @@
 @use '@angular/material' as mat;
 @use '../all-themes';
+@use '../theming';
+@use '../palette';
 
-$dark-primary-text: rgba(black, 0.87);
-$light-primary-text: white;
-$red-palette: (
-    50: #ffe7e6,
-    100: #ffc7b8,
-    200: #ffa28a,
-    300: #ff795b,
-    400: #ff5436,
-    500: #ff200c,
-    600: #ff1507,
-    700: #ff0000,
-    800: #f10000,
-    900: #da0000,
-    A100: #ff8a80,
-    A200: #ff5252,
-    A400: #ff1744,
-    A700: #d50000,
-    contrast: (50: $dark-primary-text,
-        100: $dark-primary-text,
-        200: $dark-primary-text,
-        300: $dark-primary-text,
-        400: $dark-primary-text,
-        500: $light-primary-text,
-        600: $light-primary-text,
-        700: $light-primary-text,
-        800: $light-primary-text,
-        900: $light-primary-text,
-        A100: $dark-primary-text,
-        A200: $light-primary-text,
-        A400: $light-primary-text,
-        A700: $light-primary-text,
-    )
-);
-$theme-primary: mat.define-palette($red-palette, 700);
-$theme-accent: mat.define-palette(mat.$teal-palette, A200, A100, A400);
-$theme-warn: mat.define-palette(mat.$red-palette);
-$theme: mat.define-dark-theme((color: (primary: $theme-primary,
-                accent: $theme-accent,
-                warn: $theme-warn ),
-            typography: mat.define-typography-config(),
-            density: 0, ));
+$theme-primary: mat.define-palette(palette.$red-palette, 700, 100, 900);
+$theme-accent: mat.define-palette(palette.$teal-palette, 200, 100, 700);
+$theme-warn: mat.define-palette(mat.$orange-palette);
+$theme-success: mat.define-palette(mat.$green-palette);
+$theme-error: mat.define-palette(mat.$red-palette);
+$theme-info: mat.define-palette(mat.$blue-palette);
+$theme-typography: mat.define-typography-config();
+$theme-density: 0;
+$theme-light: false;
+$theme: theming.define-theme($theme-primary,
+        $theme-accent,
+        $theme-warn,
+        $theme-success,
+        $theme-error,
+        $theme-info,
+        $theme-light,
+        $theme-typography,
+        $theme-density);
 @include mat.all-component-themes($theme);
-// Enables typography to be configured to what is defined in theme
-// @include mat.typography-hierarchy($theme);
 @include all-themes.all-component-themes($theme);

@@ -11,7 +11,7 @@ $theme-info: mat.define-palette(mat.$blue-palette);
 $theme-typography: mat.define-typography-config();
 $theme-density: 0;
 $theme-light: false;
-$theme-new: theming.define-theme($theme-primary,
+$theme: theming.define-theme($theme-primary,
         $theme-accent,
         $theme-warn,
         $theme-success,
@@ -20,12 +20,5 @@ $theme-new: theming.define-theme($theme-primary,
         $theme-light,
         $theme-typography,
         $theme-density);
-$theme: mat.define-dark-theme((color: (primary: $theme-primary,
-                accent: $theme-accent,
-                warn: $theme-warn ),
-            typography: mat.define-typography-config(),
-            density: 0, ));
-@include mat.all-component-themes($theme-new);
-// Enables typography to be configured to what is defined in theme
-// @include mat.typography-hierarchy($theme);
-@include all-themes.all-component-themes($theme-new);
+@include mat.all-component-themes($theme);
+@include all-themes.all-component-themes($theme);
