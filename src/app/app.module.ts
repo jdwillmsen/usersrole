@@ -28,6 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
     ProfileComponent,
     SignUpComponent,
     SnackbarComponent,
-    ThemeSelectorComponent
+    ThemeSelectorComponent,
+    AlertComponent
   ],
   bootstrap: [AppComponent],
   providers: [
