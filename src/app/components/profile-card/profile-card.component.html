@@ -1,4 +1,4 @@
-<button mat-mini-fab color="primary" class="avatar-button" [matMenuTriggerFor]="beforeMenu">
+<button mat-mini-fab color="primary" [ngClass]="{'avatar-button': !checkForPhoto(user.photoURL)}" [matMenuTriggerFor]="beforeMenu">
     <mat-icon *ngIf="checkForPhoto(user.photoURL)">person</mat-icon>
     <img *ngIf="!checkForPhoto(user.photoURL)" [alt]="user.displayName" [src]="user.photoURL" class="avatar" referrerPolicy="no-referrer" />
 </button>

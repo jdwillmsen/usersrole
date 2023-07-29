@@ -1,9 +1,9 @@
 mat-sidenav-container {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 52px);
 
     mat-sidenav {
         .sideNavContainer {
-            height: calc(100vh - 64px);
+            height: calc(100vh - 52px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;

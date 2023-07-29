@@ -4,8 +4,6 @@
     </a>
     <span class="spacer"></span>
     <app-theme-selector *ngIf="user"></app-theme-selector>
-    <ng-container *ngIf="user">
-        <app-profile-card [user]="user" data-cy="profile-icon-button">
-        </app-profile-card>
-    </ng-container>
+    <app-profile-card *ngIf="user" [user]="user" data-cy="profile-icon-button">
+    </app-profile-card>
 </mat-toolbar>
