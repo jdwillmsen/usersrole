@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../components/snackbar/snackbar.component';
+import { PaletteColors } from '../models/palette-colors.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class SnackbarService {
   showSnackbar(
     displayMessage: string,
     buttonText: string,
-    messageType: 'error' | 'success',
+    messageType: PaletteColors,
     duration?: number
   ) {
     this.snackBar.openFromComponent(SnackbarComponent, {
