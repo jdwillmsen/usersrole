@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @use '../app/components/nav-item/nav-item-theme' as nav-item;
 @use '../app/components/profile-card/profile-card-theme' as profile-card;
 @use '../app/components/snackbar/snackbar-theme' as snackbar;
@@ -6,4 +7,5 @@
     @include nav-item.theme($theme);
     @include profile-card.theme($theme);
     @include snackbar.theme($theme);
+    @include mat.all-component-themes($theme);
 }

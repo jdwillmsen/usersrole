@@ -21,5 +21,4 @@ $theme: theming.define-theme($theme-primary,
         $theme-light,
         $theme-typography,
         $theme-density);
-@include mat.all-component-themes($theme);
 @include all-themes.all-component-themes($theme);
