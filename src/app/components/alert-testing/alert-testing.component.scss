@@ -1,0 +1,101 @@
+.alert-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 16px;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        height: calc((100vh / 2) - 52px);
+        width: 100%;
+    }
+
+    .left {
+        grid-column: 1 / 2;
+    }
+
+    .right {
+        grid-column: 2 / 3;
+    }
+
+    .default {
+        grid-column: 1 / 3;
+    }
+
+    .buttons-container {
+        flex-shrink: 0;
+
+        button {
+            margin: 4px;
+        }
+
+        .auto-close {
+            padding-left: 12px;
+            padding-top: 4px;
+
+            mat-form-field {
+                max-width: 127px;
+            }
+        }
+
+        .fade-time {
+            padding-left: 12px;
+            padding-top: 4px;
+
+            mat-form-field {
+                max-width: 95px;
+            }
+        }
+
+        .icon-select {
+            padding-left: 12px;
+            padding-top: 4px;
+
+            mat-form-field {
+                max-width: 95px;
+
+                mat-select {
+
+                    mat-icon {
+                        display: flex;
+                        align-self: end;
+                    }
+
+                    mat-select-trigger {
+                        display: flex;
+                        align-self: end;
+                    }
+                }
+            }
+        }
+
+        .max-size {
+            padding-left: 12px;
+            padding-top: 4px;
+
+            mat-form-field {
+                max-width: 120px;
+            }
+        }
+    }
+
+    .alerts-container {
+        overflow-y: auto;
+    }
+}
+
+.success {
+    background-color: green;
+}
+
+.warn {
+    background-color: orange;
+}
+
+.info {
+    background-color: blue;
+}
+
+.error {
+    background-color: red;
+}

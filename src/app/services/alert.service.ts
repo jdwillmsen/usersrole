@@ -1,50 +1,58 @@
 import { Injectable } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { Alert } from '../models/alert.model';
+import { Observable, Subject, filter } from 'rxjs';
+import { Alert, AlertOptions } from '../models/alert.model';
 import { PaletteColors } from '../models/palette-colors.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-  private subject = new Subject<Alert | null>();
-  private keepAfterNavigationChange = false;
+  private subject = new Subject<Alert>();
+  private defaultId = 'default-alert';
+  private closeButton = true;
 
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (this.keepAfterNavigationChange) {
-          this.keepAfterNavigationChange = false;
-        } else {
-          this.subject.next(null);
-        }
-      }
-    });
+  onAlert(id = this.defaultId): Observable<Alert> {
+    return this.subject
+      .asObservable()
+      .pipe(filter((alert) => alert && alert.id === id));
   }
 
-  send(type: PaletteColors, message: string, keepAfterNavigationChange = false) {
-    this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({ type: type, text: message });
+  alert(alert: Alert) {
+    alert.id = alert.id || this.defaultId;
+    alert.closeButton =
+      alert.closeButton === false ? alert.closeButton : this.closeButton;
+    this.subject.next(alert);
   }
 
-  success(message: string, keepAfterNavigationChange = false) {
-    this.send('success', message, keepAfterNavigationChange);
+  clear(id = this.defaultId) {
+    this.subject.next({ id });
   }
 
-  error(message: string, keepAfterNavigationChange = false) {
-    this.send('error', message, keepAfterNavigationChange);
+  send(type: PaletteColors, message: string, options?: AlertOptions) {
+    this.alert({ ...options, type, message });
   }
 
-  warn(message: string, keepAfterNavigationChange = false) {
-    this.send('warn', message, keepAfterNavigationChange);
+  success(message: string, options?: AlertOptions, defaultIcon = false) {
+    if (defaultIcon) options = { ...options, icon: 'check_circle' };
+    this.alert({ ...options, type: 'success', message });
   }
 
-  info(message: string, keepAfterNavigationChange = false) {
-    this.send('info', message, keepAfterNavigationChange);
+  error(message: string, options?: AlertOptions, defaultIcon = false) {
+    if (defaultIcon) options = { ...options, icon: 'report' };
+    this.alert({ ...options, type: 'error', message });
   }
 
-  getAlert(): Observable<Alert | null> {
+  warn(message: string, options?: AlertOptions, defaultIcon = false) {
+    if (defaultIcon) options = { ...options, icon: 'warning' };
+    this.alert({ ...options, type: 'warn', message });
+  }
+
+  info(message: string, options?: AlertOptions, defaultIcon = false) {
+    if (defaultIcon) options = { ...options, icon: 'info' };
+    this.alert({ ...options, type: 'info', message });
+  }
+
+  getAlert(): Observable<Alert> {
     return this.subject.asObservable();
   }
 }

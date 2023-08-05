@@ -28,6 +28,11 @@ export class MainComponent {
       icon: 'supervised_user_circle',
       title: 'Users',
       roles: ['admin', 'manager']
+    },
+    {
+      path: '/alerts',
+      icon: 'notification_important',
+      title: 'Alerts'
     }
   ];
   user: any;
@@ -37,7 +42,7 @@ export class MainComponent {
     private permissionsService: PermissionsService,
     private snackBarService: SnackbarService
   ) {
-    authService.user$.subscribe({
+    this.authService.user$.subscribe({
       next: (user) => (this.user = user),
       error: (error) =>
         this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
