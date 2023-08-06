@@ -63,6 +63,8 @@
     .mat-mdc-raised-button.mat-#{$type}:hover {
         color: $color-contrast;
         background-color: $color;
+        --mat-mdc-button-persistent-ripple-color: #{$color-contrast};
+        --mat-mdc-button-ripple-color: #{rgba($color, 0.1)};
     }
 
     .mat-mdc-unelevated-button:not(:disabled, :hover).mat-#{$type},
@@ -71,6 +73,8 @@
     .mat-mdc-mini-fab:not(:disabled).mat-#{$type} {
         color: $color-contrast;
         background-color: $color;
+        --mat-mdc-button-persistent-ripple-color: #{$color-contrast};
+        --mat-mdc-button-ripple-color: #{rgba($color, 0.1)};
     }
 
     .mat-mdc-icon-button.mat-#{$type} {
