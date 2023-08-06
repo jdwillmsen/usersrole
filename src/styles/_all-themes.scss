@@ -3,11 +3,13 @@
 @use '../app/components/profile-card/profile-card-theme' as profile-card;
 @use '../app/components/snackbar/snackbar-theme' as snackbar;
 @use '../app/components/alert/alert-theme' as alert;
+@use '../styles/components/button/variants' as button-variants;
 
 @mixin all-component-themes($theme) {
     @include nav-item.theme($theme);
     @include profile-card.theme($theme);
     @include snackbar.theme($theme);
     @include alert.theme($theme);
+    @include button-variants.theme($theme);
     @include mat.all-component-themes($theme);
 }

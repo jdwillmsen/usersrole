@@ -33,6 +33,11 @@ export class MainComponent {
       path: '/alerts',
       icon: 'notification_important',
       title: 'Alerts'
+    },
+    {
+      path: '/buttons',
+      icon: 'ballot',
+      title: 'Buttons'
     }
   ];
   user: any;

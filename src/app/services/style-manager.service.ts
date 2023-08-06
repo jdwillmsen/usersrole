@@ -34,7 +34,6 @@ export class StyleManagerService {
       displayName: 'Indigo & Pink',
       name: 'indigo-pink',
       isDark: false,
-      isDefault: true,
       background: '#fafafa',
       button: '#E91E63',
       toolbar: '#3F51B5'
