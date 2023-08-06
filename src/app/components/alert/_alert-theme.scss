@@ -9,6 +9,7 @@
     $error-palette: map.get($theme, 'error');
     $success-palette: map.get($theme, 'success');
     $info-palette: map.get($theme, 'info');
+
     $primary-color: mat.get-color-from-palette($primary-palette, default);
     $accent-color: mat.get-color-from-palette($accent-palette, default);
     $warn-color: mat.get-color-from-palette($warn-palette, default);
@@ -16,32 +17,44 @@
     $success-color: mat.get-color-from-palette($success-palette, default);
     $info-color: mat.get-color-from-palette($info-palette, default);
 
-    .primary.alert {
-        background-color: $primary-color;
-    }
-
-    .accent.alert {
-        background-color: $accent-color;
-    }
-
-    .warn.alert {
-        background-color: $warn-color;
-    }
-
-    .error.alert {
-        background-color: $error-color;
-    }
-
-    .info.alert {
-        background-color: $info-color;
-    }
-
-    .success.alert {
-        background-color: $success-color;
-    }
+    $primary-color-contrast: mat.get-color-from-palette($primary-palette, default-contrast);
+    $accent-color-contrast: mat.get-color-from-palette($accent-palette, default-contrast);
+    $warn-color-contrast: mat.get-color-from-palette($warn-palette, default-contrast);
+    $error-color-contrast: mat.get-color-from-palette($error-palette, default-contrast);
+    $success-color-contrast: mat.get-color-from-palette($success-palette, default-contrast);
+    $info-color-contrast: mat.get-color-from-palette($info-palette, default-contrast);
 
     .alert {
-        color: white;
+
+        &.primary {
+            background-color: $primary-color;
+            color: $primary-color-contrast;
+        }
+
+        &.accent {
+            background-color: $accent-color;
+            color: $accent-color-contrast;
+        }
+
+        &.warn {
+            background-color: $warn-color;
+            color: $warn-color-contrast;
+        }
+
+        &.error {
+            background-color: $error-color;
+            color: $error-color-contrast;
+        }
+
+        &.info {
+            background-color: $info-color;
+            color: $info-color-contrast;
+        }
+
+        &.success {
+            background-color: $success-color;
+            color: $success-color-contrast;
+        }
     }
 }
 
