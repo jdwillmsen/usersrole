@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Alert } from 'src/app/models/alert.model';
+import { Alert, AlertVariants } from 'src/app/models/alert.model';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';
   @Input() fade = false;
   @Input() fadeTime = 500;
+  @Input() variant: AlertVariants = 'default';
   private autoCloseTimeout = 3000;
 
   alerts: Alert[] = [];
@@ -88,6 +89,10 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     if (alert.type !== undefined) {
       classes.push(alert.type);
+    }
+
+    if (this.variant !== 'default') {
+      classes.push(this.variant);
     }
 
     return classes.join(' ');

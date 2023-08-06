@@ -25,36 +25,12 @@
     $info-color-contrast: mat.get-color-from-palette($info-palette, default-contrast);
 
     .alert {
-
-        &.primary {
-            background-color: $primary-color;
-            color: $primary-color-contrast;
-        }
-
-        &.accent {
-            background-color: $accent-color;
-            color: $accent-color-contrast;
-        }
-
-        &.warn {
-            background-color: $warn-color;
-            color: $warn-color-contrast;
-        }
-
-        &.error {
-            background-color: $error-color;
-            color: $error-color-contrast;
-        }
-
-        &.info {
-            background-color: $info-color;
-            color: $info-color-contrast;
-        }
-
-        &.success {
-            background-color: $success-color;
-            color: $success-color-contrast;
-        }
+        @include _variant('primary', $primary-color, $primary-color-contrast);
+        @include _variant('accent', $accent-color, $accent-color-contrast);
+        @include _variant('warn', $warn-color, $warn-color-contrast);
+        @include _variant('error', $error-color, $error-color-contrast);
+        @include _variant('success', $success-color, $success-color-contrast);
+        @include _variant('info', $info-color, $info-color-contrast);
     }
 }
 
@@ -73,5 +49,23 @@
 
     @if $typography-config !=null {
         @include typography($theme);
+    }
+}
+
+@mixin _variant($type, $color, $color-contrast) {
+    &.#{$type} {
+        background-color: rgba($color, .25);
+        color: $color;
+
+        &.filled {
+            background-color: $color;
+            color: $color-contrast;
+        }
+
+        &.outlined {
+            background-color: transparent;
+            color: $color;
+            border: 1px solid $color;
+        }
     }
 }

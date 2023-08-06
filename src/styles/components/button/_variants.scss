@@ -24,12 +24,12 @@
     $success-color-contrast: mat.get-color-from-palette($success-palette, default-contrast);
     $info-color-contrast: mat.get-color-from-palette($info-palette, default-contrast);
 
-    @include variant($primary-color, 'primary', $primary-color-contrast);
-    @include variant($accent-color, 'accent', $accent-color-contrast);
-    @include variant($warn-color, 'warn', $warn-color-contrast);
-    @include variant($error-color, 'error', $error-color-contrast);
-    @include variant($success-color, 'success', $success-color-contrast);
-    @include variant($info-color, 'info', $info-color-contrast);
+    @include _variant('primary', $primary-color, $primary-color-contrast);
+    @include _variant('accent', $accent-color, $accent-color-contrast);
+    @include _variant('warn', $warn-color, $warn-color-contrast);
+    @include _variant('error', $error-color, $error-color-contrast);
+    @include _variant('success', $success-color, $success-color-contrast);
+    @include _variant('info', $info-color, $info-color-contrast);
 }
 
 @mixin typography($theme) {
@@ -50,7 +50,7 @@
     }
 }
 
-@mixin variant($color, $type, $color-contrast) {
+@mixin _variant($type, $color, $color-contrast) {
 
     .mdc-button.mat-#{$type},
     .mat-mdc-stroked-button.mat-#{$type} {

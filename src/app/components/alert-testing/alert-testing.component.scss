@@ -25,57 +25,74 @@
     .buttons-container {
         flex-shrink: 0;
 
+        h1 {
+            margin: 4px 0;
+        }
+
         button {
             margin: 4px;
         }
 
-        .auto-close {
-            padding-left: 12px;
-            padding-top: 4px;
+        .default {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
 
-            mat-form-field {
-                max-width: 127px;
-            }
-        }
+            .options {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
 
-        .fade-time {
-            padding-left: 12px;
-            padding-top: 4px;
-
-            mat-form-field {
-                max-width: 95px;
-            }
-        }
-
-        .icon-select {
-            padding-left: 12px;
-            padding-top: 4px;
-
-            mat-form-field {
-                max-width: 95px;
-                padding-bottom: 4px;
-
-                mat-select {
-
-                    mat-icon {
-                        display: flex;
-                        align-self: end;
-                    }
-
-                    mat-select-trigger {
-                        display: flex;
-                        align-self: end;
-                    }
+                .checkboxes {
+                    display: inline-grid;
+                    grid-template-columns: auto auto;
                 }
-            }
-        }
 
-        .max-size {
-            padding-left: 12px;
-            padding-top: 4px;
+                .form-fields {
+                    display: inline-flex;
+                    flex-wrap: wrap;
 
-            mat-form-field {
-                max-width: 120px;
+                    span {
+                        padding-left: 12px;
+                        padding-top: 4px;
+                    }
+
+                    .auto-close {
+                        mat-form-field {
+                            max-width: 127px;
+                        }
+                    }
+
+                    .fade-time {
+
+                        mat-form-field {
+                            max-width: 95px;
+                        }
+                    }
+
+                    .icon-select {
+                        mat-form-field {
+                            max-width: 95px;
+                            padding-bottom: 4px;
+
+                            mat-select-trigger {
+                                display: flex;
+                            }
+                        }
+                    }
+
+                    .max-size {
+                        mat-form-field {
+                            max-width: 120px;
+                        }
+                    }
+
+                    .variant {
+                        mat-form-field {
+                            max-width: 120px;
+                        }
+                    }
+
+                }
             }
         }
     }

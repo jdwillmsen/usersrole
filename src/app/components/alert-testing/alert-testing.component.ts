@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
-import { AlertOptions } from 'src/app/models/alert.model';
+import { FormControl } from '@angular/forms';
+import { AlertOptions, AlertVariants } from 'src/app/models/alert.model';
 import { AlertService } from 'src/app/services/alert.service';
+
+type Icon = {
+  display: string;
+  value: string;
+}
+type Variant = {
+  display: string;
+  value: AlertVariants;
+}
 
 @Component({
   selector: 'app-alert-testing',
@@ -15,11 +25,11 @@ export class AlertTestingComponent {
     icon: undefined,
     closeButton: true,
     maxSize: undefined
-  }
+  };
   defaultIcons = false;
   fade = false;
   fadeTime = 500;
-  iconList = [
+  iconList: Icon[] = [
     {
       display: 'Delete',
       value: 'delete'
@@ -36,7 +46,22 @@ export class AlertTestingComponent {
       display: 'New Releases',
       value: 'new_releases'
     }
-  ]
+  ];
+  variantList: Variant[] = [
+    {
+      display: 'Default',
+      value: 'default'
+    },
+    {
+      display: 'Filled',
+      value: 'filled'
+    },
+    {
+      display: 'Outlined',
+      value: 'outlined'
+    }
+  ];
+  variant = new FormControl(this.variantList[0])
 
   constructor(protected alertService: AlertService) {}
 }
