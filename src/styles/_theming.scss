@@ -24,7 +24,7 @@
     @if ($create-light-theme) {
         $theme: mat.define-light-theme((color: (primary: $primary,
                     accent: $accent,
-                    warn: $warn,
+                    warn: $error,
                 ),
                 typography: $typography,
                 density: $density, ));
@@ -33,7 +33,7 @@
     @else {
         $theme: mat.define-dark-theme((color: (primary: $primary,
                     accent: $accent,
-                    warn: $warn,
+                    warn: $error,
                 ),
                 typography: $typography,
                 density: $density, ));
@@ -42,7 +42,8 @@
     $extra: (
         success: $success,
         error: $error,
-        info: $info
+        info: $info,
+        warn: $warn
     );
 @return map-merge($theme, $extra);
 }

@@ -5,10 +5,10 @@
 
 $theme-primary: mat.define-palette(palette.$red-palette, 700, 100, 900);
 $theme-accent: mat.define-palette(palette.$teal-palette, 200, 100, 700);
-$theme-warn: mat.define-palette(mat.$orange-palette);
-$theme-success: mat.define-palette(mat.$green-palette);
-$theme-error: mat.define-palette(mat.$red-palette);
-$theme-info: mat.define-palette(mat.$blue-palette);
+$theme-warn: mat.define-palette(mat.$orange-palette, 900);
+$theme-success: mat.define-palette(mat.$green-palette, 900);
+$theme-error: mat.define-palette(mat.$red-palette, 900);
+$theme-info: mat.define-palette(mat.$blue-palette, 900);
 $theme-typography: mat.define-typography-config();
 $theme-density: 0;
 $theme-light: false;
@@ -21,5 +21,4 @@ $theme: theming.define-theme($theme-primary,
         $theme-light,
         $theme-typography,
         $theme-density);
-@include mat.all-component-themes($theme);
 @include all-themes.all-component-themes($theme);

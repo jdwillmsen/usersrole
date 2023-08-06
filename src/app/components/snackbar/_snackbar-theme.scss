@@ -5,7 +5,7 @@
     $color-config: mat.get-color-config($theme);
     $primary-palette: map.get($color-config, 'primary');
     $accent-palette: map.get($color-config, 'accent');
-    $warn-palette: map.get($color-config, 'warn');
+    $warn-palette: map.get($theme, 'warn');
     $error-palette: map.get($theme, 'error');
     $success-palette: map.get($theme, 'success');
     $info-palette: map.get($theme, 'info');
