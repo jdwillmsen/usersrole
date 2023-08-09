@@ -32,6 +32,7 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
 import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
+import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { ButtonsTestingComponent } from './components/buttons-testing/buttons-te
     ThemeSelectorComponent,
     AlertComponent,
     AlertTestingComponent,
-    ButtonsTestingComponent
+    ButtonsTestingComponent,
+    SnackbarTestingComponent
   ],
   bootstrap: [AppComponent],
   providers: [

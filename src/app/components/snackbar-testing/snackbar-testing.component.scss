@@ -1,0 +1,19 @@
+.container {
+    padding: 16px;
+
+    button {
+        margin: 0 0 8px 8px;
+    }
+    
+    mat-form-field {
+        margin: 8px 0 8px 8px;
+    }
+
+    mat-select-trigger {
+        display: flex;
+    }
+
+    mat-checkbox {
+        margin: 8px 0 8px 8px;
+    }
+}

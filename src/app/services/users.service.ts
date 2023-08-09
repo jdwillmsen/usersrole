@@ -18,7 +18,7 @@ export type UpdateUserRequest = { uid: string } & CreateUserRequest;
 })
 export class UsersService {
   private baseUrl = `${environment.functionsBaseUrl}/api/users`;
-  constructor(private http: HttpClient, private snackBarService: SnackbarService) {}
+  constructor(private http: HttpClient, private snackbarService: SnackbarService) {}
 
   get users$(): Observable<User[]> {
     return this.http.get<{ users: User[] }>(`${this.baseUrl}`).pipe(
@@ -26,7 +26,7 @@ export class UsersService {
         return result.users;
       }),
       catchError((error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
         return EMPTY;
       })
     );
@@ -38,7 +38,7 @@ export class UsersService {
         return result.user;
       }),
       catchError((error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
         return EMPTY;
       })
     );

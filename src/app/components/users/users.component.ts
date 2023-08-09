@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private dialog: MatDialog,
     private userFormService: UserFormService,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
       filter((user) => !!user),
       switchMap((user) => this.userService.user$(user!.uid)),
       catchError((error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
         return EMPTY;
       })
     );
@@ -45,17 +45,19 @@ export class UsersComponent implements OnInit {
       next: (user) => {
         if (user) {
           this.userService.create(user).subscribe(() => {
-            this.snackBarService.showSnackbar(
+            this.snackbarService.success(
               'User Created Successfully',
-              'Ok',
-              'success',
-              3000
+              {
+                variant: 'filled',
+                autoClose: true
+              },
+              true
             );
           });
         }
       },
       error: (error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
       }
     });
   }
@@ -67,17 +69,19 @@ export class UsersComponent implements OnInit {
       next: (user) => {
         if (user) {
           this.userService.edit(user).subscribe(() => {
-            this.snackBarService.showSnackbar(
+            this.snackbarService.success(
               'User Edited Successfully',
-              'Ok',
-              'success',
-              3000
+              {
+                variant: 'filled',
+                autoClose: true
+              },
+              true
             );
           });
         }
       },
       error: (error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
       }
     });
   }

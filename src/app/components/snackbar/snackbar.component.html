@@ -1,6 +1,11 @@
 <div class="snackbar-container">
-    <div>{{data.message}}</div>
-    <button mat-flat-button (click)="snackBarRef.dismiss()">
+    <mat-icon class="icon" *ngIf="data.icon">{{data.icon}}</mat-icon>
+    <span *ngIf="!data.icon"></span>
+    <div class="message" [innerHTML]="data.message"></div>
+    <button *ngIf="!data.buttonText" class="icon-button" mat-icon-button type="button" (click)="snackbarRef.dismiss()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <button *ngIf="data.buttonText" mat-flat-button (click)="snackbarRef.dismiss()">
         {{data.buttonText}}
     </button>
 </div>

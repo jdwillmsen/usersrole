@@ -35,6 +35,11 @@ export class MainComponent {
       title: 'Alerts'
     },
     {
+      path: '/snackbars',
+      icon: 'announcement',
+      title: 'Snackbars'
+    },
+    {
       path: '/buttons',
       icon: 'ballot',
       title: 'Buttons'
@@ -45,12 +50,12 @@ export class MainComponent {
   constructor(
     private authService: AuthService,
     private permissionsService: PermissionsService,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {
     this.authService.user$.subscribe({
       next: (user) => (this.user = user),
       error: (error) =>
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
+        this.snackbarService.error(error.error, { variant: 'filled' }, true)
     });
   }
 
