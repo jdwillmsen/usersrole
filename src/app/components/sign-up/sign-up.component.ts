@@ -72,7 +72,7 @@ export class SignUpComponent {
   constructor(
     private usersService: UsersService,
     private router: Router,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {}
 
   signUp() {
@@ -87,16 +87,24 @@ export class SignUpComponent {
       this.usersService.create(user).subscribe({
         next: () => {
           this.signUpForm.reset();
-          this.snackBarService.showSnackbar(
+          this.snackbarService.success(
             'Sign Up Successful',
-            'Ok',
-            'success',
-            3000
+            {
+              variant: 'filled',
+              autoClose: true
+            },
+            true
           );
           this.router.navigate(['sign-in']);
         },
         error: (error) => {
-          this.snackBarService.showSnackbar(error.error.message, 'Ok', 'error');
+          this.snackbarService.error(
+            error.error.message,
+            {
+              variant: 'filled'
+            },
+            true
+          );
         }
       });
     }

@@ -19,7 +19,7 @@ export class PermissionsService {
     private router: Router,
     private usersService: UsersService,
     private afAuth: AngularFireAuth,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {
     this.getRole();
   }
@@ -53,7 +53,11 @@ export class PermissionsService {
         });
       },
       error: (error) => {
-        this.snackBarService.showSnackbar(error.error.message, 'Ok', 'error');
+        this.snackbarService.error(
+          error.error.message,
+          { variant: 'filled' },
+          true
+        );
       }
     });
   }

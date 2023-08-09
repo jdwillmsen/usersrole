@@ -31,7 +31,6 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private alertService: AlertService) {}
 
-  // TODO: Add support for outline style
   ngOnInit() {
     this.alertSubscription = this.alertService
       .onAlert(this.id)

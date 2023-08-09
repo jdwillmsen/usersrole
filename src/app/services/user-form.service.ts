@@ -7,7 +7,7 @@ import { SnackbarService } from './snackbar.service';
 })
 export class UserFormService {
 
-  constructor(private snackBarService: SnackbarService) {}
+  constructor(private snackbarService: SnackbarService) {}
 
   private _behaviorSubject = new BehaviorSubject<{title: string, user: any}>({ title: '', user: {} });
 
@@ -23,7 +23,7 @@ export class UserFormService {
     return this._behaviorSubject.asObservable().pipe(
       map((userForm) => userForm.title),
       catchError((error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
         return EMPTY;
       })
     );
@@ -33,7 +33,7 @@ export class UserFormService {
     return this._behaviorSubject.asObservable().pipe(
       map(userForm => userForm.user),
       catchError((error) => {
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error');
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
         return EMPTY;
       })
     );

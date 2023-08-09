@@ -1,16 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AlertOptions, AlertVariants } from 'src/app/models/alert.model';
+import { AlertOptions, Icon, Variant } from 'src/app/models/alert.model';
 import { AlertService } from 'src/app/services/alert.service';
-
-type Icon = {
-  display: string;
-  value: string;
-}
-type Variant = {
-  display: string;
-  value: AlertVariants;
-}
 
 @Component({
   selector: 'app-alert-testing',

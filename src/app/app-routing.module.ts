@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
 import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
+import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
@@ -52,6 +53,14 @@ const routes: Routes = [
   {
     path: 'alerts',
     component: AlertTestingComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    }
+  },
+  {
+    path: 'snackbars',
+    component: SnackbarTestingComponent,
     canActivate: [AngularFireAuthGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin

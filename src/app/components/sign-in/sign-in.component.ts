@@ -19,7 +19,7 @@ export class SignInComponent {
     private readonly authService: AuthService,
     private readonly matIconRegistry: MatIconRegistry,
     private readonly domSanitizer: DomSanitizer,
-    private snackBarService: SnackbarService,
+    private snackbarService: SnackbarService,
     private readonly styleManagerService: StyleManagerService
   ) {
     this.matIconRegistry.addSvgIcon(
@@ -35,7 +35,11 @@ export class SignInComponent {
       .pipe(
         take(1),
         catchError((error) => {
-          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
+          this.snackbarService.error(
+            error.message,
+            { variant: 'filled' },
+            true
+          );
           return EMPTY;
         })
       )

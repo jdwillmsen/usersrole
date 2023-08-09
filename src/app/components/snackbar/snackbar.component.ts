@@ -3,6 +3,7 @@ import {
   MAT_SNACK_BAR_DATA,
   MatSnackBarRef
 } from '@angular/material/snack-bar';
+import { SnackbarData } from 'src/app/models/snackbar.model';
 
 @Component({
   selector: 'app-snackbar',
@@ -11,7 +12,7 @@ import {
 })
 export class SnackbarComponent {
   constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public data: any,
-    public snackBarRef: MatSnackBarRef<SnackbarComponent>
+    @Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData,
+    public snackbarRef: MatSnackBarRef<SnackbarComponent>
   ) {}
 }

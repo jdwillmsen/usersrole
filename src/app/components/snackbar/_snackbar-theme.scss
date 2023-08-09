@@ -9,6 +9,7 @@
     $error-palette: map.get($theme, 'error');
     $success-palette: map.get($theme, 'success');
     $info-palette: map.get($theme, 'info');
+
     $primary-color: mat.get-color-from-palette($primary-palette, default);
     $accent-color: mat.get-color-from-palette($accent-palette, default);
     $warn-color: mat.get-color-from-palette($warn-palette, default);
@@ -16,55 +17,19 @@
     $success-color: mat.get-color-from-palette($success-palette, default);
     $info-color: mat.get-color-from-palette($info-palette, default);
 
-    .snackbar-container {
-        button {
-            background-color: white !important;
-            color: black !important;
-        }
-    }
+    $primary-color-contrast: mat.get-color-from-palette($primary-palette, default-contrast);
+    $accent-color-contrast: mat.get-color-from-palette($accent-palette, default-contrast);
+    $warn-color-contrast: mat.get-color-from-palette($warn-palette, default-contrast);
+    $error-color-contrast: mat.get-color-from-palette($error-palette, default-contrast);
+    $success-color-contrast: mat.get-color-from-palette($success-palette, default-contrast);
+    $info-color-contrast: mat.get-color-from-palette($info-palette, default-contrast);
 
-    .primary.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background: $primary-color;
-        }
-    }
-
-    .accent.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background: $accent-color;
-        }
-    }
-
-    .warn.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background: $warn-color;
-        }
-    }
-
-    .error.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background: $error-color;
-        }
-    }
-
-    .success.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background: $success-color;
-        }
-    }
-
-    .info.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background: $info-color;
-        }
-    }
-
-    .mat-mdc-snack-bar-container {
-        .mat-mdc-snack-bar-label.mdc-snackbar__label {
-            color: white;
-        }
-    }
-
+    @include _variant('primary', $primary-color, $primary-color-contrast);
+    @include _variant('accent', $accent-color, $accent-color-contrast);
+    @include _variant('warn', $warn-color, $warn-color-contrast);
+    @include _variant('error', $error-color, $error-color-contrast);
+    @include _variant('success', $success-color, $success-color-contrast);
+    @include _variant('info', $info-color, $info-color-contrast);
 }
 
 @mixin typography($theme) {
@@ -76,6 +41,16 @@
             font-size: 16px;
             font-weight: 500;
             white-space: pre-wrap
+        }
+    }
+
+    .icon.mat-mdc-snack-bar-container {
+        .mdc-snackbar__surface {
+            padding-right: 0;
+        }
+
+        .mdc-snackbar__label {
+            padding-right: 0;
         }
     }
 }
@@ -91,5 +66,31 @@
 
     @if $typography-config !=null {
         @include typography($theme);
+    }
+}
+
+@mixin _variant($type, $color, $color-contrast) {
+    .#{$type}.mat-mdc-snack-bar-container {
+        .mdc-snackbar__surface {
+            --mdc-snackbar-container-color: #{rgba($color, .25)};
+            --mdc-snackbar-supporting-text-color: #{$color};
+        }
+    }
+
+    .#{$type}.filled.mat-mdc-snack-bar-container {
+        .mdc-snackbar__surface {
+            --mdc-snackbar-container-color: #{$color};
+            --mdc-snackbar-supporting-text-color: #{$color-contrast};
+        }
+    }
+
+    .#{$type}.outlined.mat-mdc-snack-bar-container {
+        border: 1px solid $color;
+        border-radius: 4px;
+
+        .mdc-snackbar__surface {
+            --mdc-snackbar-container-color: #{transparent};
+            --mdc-snackbar-supporting-text-color: #{$color};
+        }
     }
 }
