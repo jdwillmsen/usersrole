@@ -9,9 +9,11 @@
         </mat-card-header>
         <mat-card-content class="user-group">
             <div>{{user.email}}</div>
-            <mat-chip highlighted color="primary" *ngIf="user.role">
-                {{user.role.toUpperCase()}}
-            </mat-chip>
+            <div>
+                <mat-chip highlighted color="primary" *ngFor="let role of user.roles">
+                    {{role.toUpperCase()}}
+                </mat-chip>
+            </div>
         </mat-card-content>
     </mat-card>
 </mat-card-content>
@@ -31,9 +33,11 @@
                     <div>{{user.email}}</div>
                     <div>{{user.uid}}</div>
                 </div>
-                <mat-chip highlighted color="primary" *ngIf="user.role">
-                    {{user.role.toUpperCase()}}
-                </mat-chip>
+                <div>
+                    <mat-chip highlighted color="primary" *ngFor="let role of user.roles">
+                        {{role.toUpperCase()}}
+                    </mat-chip>
+                </div>
             </mat-card-content>
         </mat-card>
     </mat-card-stack>

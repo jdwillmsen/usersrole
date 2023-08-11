@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import { remove, patch, get, all, create } from './controller';
+import { remove, patch, get, all, create, roles } from './controller';
 import { isAuthenticated } from '../auth/authenticated';
 import { isAuthorized } from '../auth/authorized';
 import * as expressRateLimit from 'express-rate-limit';
@@ -40,5 +40,11 @@ export function routesConfig(app: Application) {
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'] }),
     remove
+  ]);
+  // updates roles :id user
+  app.patch('/users/roles/:id', limiter, [
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin'] }),
+    roles
   ]);
 }
