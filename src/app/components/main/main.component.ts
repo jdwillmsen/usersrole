@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavItem } from 'src/app/models/nav-item.model';
+import { Role } from 'src/app/models/users.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
@@ -59,7 +60,7 @@ export class MainComponent {
     });
   }
 
-  checkRoles(roles: string[] | undefined): boolean {
+  checkRoles(roles: Role[] | undefined): boolean {
     if (roles == undefined || roles.length == 0) {
       return true;
     }

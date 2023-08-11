@@ -9,12 +9,13 @@ import { UsersService } from './users.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map, switchMap } from 'rxjs';
 import { SnackbarService } from './snackbar.service';
+import { Role } from '../models/users.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PermissionsService {
-  role = '';
+  roles: Role[] = [];
   constructor(
     private router: Router,
     private usersService: UsersService,
@@ -29,7 +30,7 @@ export class PermissionsService {
       switchMap((user) =>
         this.usersService.user$(user!.uid).pipe(
           map((user) => {
-            if (next.data['roles'].includes(user.role)) {
+            if (next.data['roles'].some((role: Role) => user.roles.includes(role))) {
               return true;
             } else {
               this.router.navigate(['home']);
@@ -41,15 +42,15 @@ export class PermissionsService {
     );
   }
 
-  hasRole(roles: string[]): boolean {
-    return roles.includes(this.role);
+  hasRole(roles: Role[]): boolean {
+    return roles.some((role: Role) => this.roles.includes(role));
   }
 
   getRole() {
     this.afAuth.user.subscribe({
       next: (user) => {
         this.usersService.user$(user!.uid).subscribe((user) => {
-          this.role = user.role;
+          this.roles = user.roles;
         });
       },
       error: (error) => {

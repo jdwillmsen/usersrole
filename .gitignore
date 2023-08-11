@@ -50,6 +50,7 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+/emulators-data
 
 # Environment
 /src/environments/environment.ts

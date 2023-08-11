@@ -32,7 +32,7 @@ export async function isAuthenticated(
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,
-      role: decodedToken.role,
+      roles: decodedToken.roles,
       email: decodedToken.email
     };
     return next();

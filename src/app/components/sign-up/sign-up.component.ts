@@ -7,6 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/models/users.model';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import {
   CreateUserRequest,
@@ -82,8 +83,8 @@ export class SignUpComponent {
       const password = this.signUpForm
         .get('matchingPassword')!
         .get('password')!.value;
-      const role = 'user';
-      const user: CreateUserRequest = { email, displayName, password, role };
+      const roles: Role[] = ['user'];
+      const user: CreateUserRequest = { email, displayName, password, roles };
       this.usersService.create(user).subscribe({
         next: () => {
           this.signUpForm.reset();
