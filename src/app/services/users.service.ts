@@ -45,10 +45,20 @@ export class UsersService {
   }
 
   create(user: CreateUserRequest) {
-    return this.http.post(`${this.baseUrl}`, user);
+    return this.http.post(`${this.baseUrl}`, user).pipe(
+      catchError((error) => {
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
+        return EMPTY;
+      })
+    );
   }
 
   edit(user: UpdateUserRequest) {
-    return this.http.patch(`${this.baseUrl}/${user.uid}`, user);
+    return this.http.patch(`${this.baseUrl}/${user.uid}`, user).pipe(
+      catchError((error) => {
+        this.snackbarService.error(error.error.message, { variant: 'filled' }, true);
+        return EMPTY;
+      })
+    );
   }
 }

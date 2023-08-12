@@ -66,12 +66,7 @@ export class ThemeSelectorComponent {
 
     this.styleManagerService.currentThemeName.next(themeName);
     this.currentTheme = theme;
-
-    if (theme.isDefault) {
-      this.styleManagerService.removeStyle('theme');
-    } else {
-      this.styleManagerService.setStyle('theme', `${theme.name}.css`);
-    }
+    this.styleManagerService.setStyle('theme', `${theme.name}.css`);
 
     if (this.currentTheme) {
       this._themeStorageService.storeTheme(this.currentTheme);
