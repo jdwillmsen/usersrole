@@ -17,7 +17,7 @@ export class AuthService {
   constructor(
     private angularFireAuth: AngularFireAuth,
     private router: Router,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {
     this.user.next(this.angularFireAuth.authState);
   }
@@ -27,16 +27,24 @@ export class AuthService {
       this.angularFireAuth
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-          this.snackBarService.showSnackbar(
+          this.snackbarService.success(
             'Login Successful',
-            'Ok',
-            'success',
-            3000
+            {
+              variant: 'filled',
+              autoClose: true
+            },
+            true
           );
           this.router.navigate(['home']);
         })
         .catch((error) => {
-          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
+          this.snackbarService.error(
+            error.message,
+            {
+              variant: 'filled'
+            },
+            true
+          );
         })
     );
   }
@@ -51,16 +59,24 @@ export class AuthService {
       this.angularFireAuth
         .signInWithPopup(provider)
         .then(() => {
-          this.snackBarService.showSnackbar(
+          this.snackbarService.success(
             'Login Successful',
-            'Ok',
-            'success',
-            3000
+            {
+              variant: 'filled',
+              autoClose: true
+            },
+            true
           );
           this.router.navigate(['home']);
         })
         .catch((error) => {
-          this.snackBarService.showSnackbar(error.message, 'Ok', 'error');
+          this.snackbarService.error(
+            error.message,
+            {
+              variant: 'filled'
+            },
+            true
+          );
         })
     );
   }
@@ -68,11 +84,13 @@ export class AuthService {
   authLogout(): Observable<void> {
     return from(
       this.angularFireAuth.signOut().then(() => {
-        this.snackBarService.showSnackbar(
+        this.snackbarService.success(
           'Logout Successful',
-          'Ok',
-          'success',
-          3000
+          {
+            variant: 'filled',
+            autoClose: true
+          },
+          true
         );
         this.router.navigate(['sign-in']);
       })

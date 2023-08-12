@@ -1,7 +1,10 @@
 mat-toolbar {
+    height: 52px;
+
     span.spacer {
         flex: 1;
     }
+
     .no-underline {
         text-decoration: none;
     }

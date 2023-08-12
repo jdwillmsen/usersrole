@@ -3,7 +3,7 @@
     <p>Welcome to the Users Role project!</p>
     <p>This is an Angular Frontend Application with role base users. It uses firebase for the user authentication and
         it's assisted by Firebase functions with an Express server for the role authorization.</p>
-    <p>There are 3 primary routes once authenticated:</p>
+    <p>The following are the primary routes once authenticated:</p>
     <ul>
         <li><a mat-button routerLink="/home">/home</a></li>
         <ul>
@@ -19,6 +19,21 @@
         <ul>
             <li>This is a page for viewing all the users associated with the application.</li>
             <li>This page is restricted to users with the manager and admin roles.</li>
+        </ul>
+        <li><a mat-button routerLink="/alerts">/alerts</a></li>
+        <ul>
+            <li>This is a page for viewing the alert service/alerts provided in this application.</li>
+            <li>This page is not restricted to any logged in user.</li>
+        </ul>
+        <li><a mat-button routerLink="/snackbars">/snackbars</a></li>
+        <ul>
+            <li>This is a page for viewing the snackbar service/snackbars provided in this application.</li>
+            <li>This page is not restricted to any logged in user.</li>
+        </ul>
+        <li><a mat-button routerLink="/buttons">/buttons</a></li>
+        <ul>
+            <li>This is a page for viewing the additonal palettes applied on buttons provided in this application.</li>
+            <li>This page is not restricted to any logged in user.</li>
         </ul>
     </ul>
 </div>

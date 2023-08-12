@@ -21,7 +21,7 @@ export class ThemeSelectorComponent {
     private styleManagerService: StyleManagerService,
     private firestoreService: FirestoreService,
     private authService: AuthService,
-    private snackBarService: SnackbarService,
+    private snackbarService: SnackbarService,
     private _themeStorageService: ThemeStorageService
   ) {
     this.themes = this.styleManagerService.themes;
@@ -46,7 +46,7 @@ export class ThemeSelectorComponent {
         });
       },
       error: (error) =>
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
+        this.snackbarService.error(error.error, { variant: 'filled' }, true)
     });
     this.styleManagerService.currentThemeName.subscribe((themeName) => {
       if (this.currentTheme?.name !== themeName) {
@@ -66,12 +66,7 @@ export class ThemeSelectorComponent {
 
     this.styleManagerService.currentThemeName.next(themeName);
     this.currentTheme = theme;
-
-    if (theme.isDefault) {
-      this.styleManagerService.removeStyle('theme');
-    } else {
-      this.styleManagerService.setStyle('theme', `${theme.name}.css`);
-    }
+    this.styleManagerService.setStyle('theme', `${theme.name}.css`);
 
     if (this.currentTheme) {
       this._themeStorageService.storeTheme(this.currentTheme);

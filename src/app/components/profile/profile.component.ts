@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
   profileForm = new FormGroup({
     email: new FormControl(''),
     displayName: new FormControl(''),
-    role: new FormControl('')
+    roles: new FormControl()
   });
   user$!: Observable<any>;
   constructor(

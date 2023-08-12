@@ -1,5 +1,7 @@
 import {
-  AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo
+  AngularFireAuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo
 } from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,6 +11,9 @@ import { UsersComponent } from './components/users/users.component';
 import { RoleGuard } from './services/permissions.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
+import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
+import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
@@ -43,6 +48,30 @@ const routes: Routes = [
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
       roles: ['manager', 'admin']
+    }
+  },
+  {
+    path: 'alerts',
+    component: AlertTestingComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    }
+  },
+  {
+    path: 'snackbars',
+    component: SnackbarTestingComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    }
+  },
+  {
+    path: 'buttons',
+    component: ButtonsTestingComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
     }
   },
   {

@@ -3,9 +3,9 @@ import * as admin from 'firebase-admin';
 
 export async function create(req: Request, res: Response) {
   try {
-    const { displayName, password, email, role } = req.body;
+    const { displayName, password, email, roles } = req.body;
 
-    if (!displayName || !password || !email || !role) {
+    if (!displayName || !password || !email || !roles) {
       return res.status(400).send({ message: 'Missing fields' });
     }
 
@@ -14,7 +14,7 @@ export async function create(req: Request, res: Response) {
       password,
       email
     });
-    await admin.auth().setCustomUserClaims(uid, { role });
+    await admin.auth().setCustomUserClaims(uid, { roles });
 
     return res.status(201).send({ uid });
   } catch (err) {
@@ -37,13 +37,13 @@ export async function all(req: Request, res: Response) {
 }
 
 function mapUser(user: admin.auth.UserRecord) {
-  const customClaims = (user.customClaims || { role: '' }) as { role?: string };
-  const role = customClaims.role ? customClaims.role : '';
+  const customClaims = (user.customClaims || { roles: [] }) as { roles?: string[] };
+  const roles = customClaims.roles ? customClaims.roles : [];
   return {
     uid: user.uid,
     email: user.email || '',
     displayName: user.displayName || '',
-    role,
+    roles,
     lastSignInTime: user.metadata.lastSignInTime,
     creationTime: user.metadata.creationTime
   };
@@ -62,14 +62,14 @@ export async function get(req: Request, res: Response) {
 export async function patch(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const { displayName, password, email, role } = req.body;
+    const { displayName, password, email, roles } = req.body;
 
-    if (!id || !displayName || !password || !email || !role) {
+    if (!id || !displayName || !password || !email || !roles) {
       return res.status(400).send({ message: 'Missing fields' });
     }
 
     await admin.auth().updateUser(id, { displayName, password, email });
-    await admin.auth().setCustomUserClaims(id, { role });
+    await admin.auth().setCustomUserClaims(id, { roles });
     const user = await admin.auth().getUser(id);
 
     return res.status(204).send({ user: mapUser(user) });
@@ -83,6 +83,23 @@ export async function remove(req: Request, res: Response) {
     const { id } = req.params;
     await admin.auth().deleteUser(id);
     return res.status(204).send({});
+  } catch (err) {
+    return handleError(res, err);
+  }
+}
+
+export async function roles(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const { roles } = req.body;
+    if (!roles) {
+      return res.status(400).send({ message: 'Missing fields' });
+    }
+
+    await admin.auth().setCustomUserClaims(id, { roles });
+    const user = await admin.auth().getUser(id);
+
+    return res.status(204).send({ user: mapUser(user) });
   } catch (err) {
     return handleError(res, err);
   }

@@ -15,7 +15,7 @@ export class UserFormComponent implements OnInit {
     email: new FormControl(''),
     displayName: new FormControl(''),
     password: new FormControl(''),
-    role: new FormControl('')
+    roles: new FormControl([])
   });
   title$!: Observable<string>;
   user$!: Observable<any>;
@@ -43,7 +43,7 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
-    const { displayName, email, role, password, uid } = this.form.value;
-    this.dialogRef.close({ displayName, email, role, password, uid });
+    const { displayName, email, roles, password, uid } = this.form.value;
+    this.dialogRef.close({ displayName, email, roles, password, uid });
   }
 }

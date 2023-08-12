@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,10 +29,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
+import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
+import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -62,7 +68,11 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
     ProfileComponent,
     SignUpComponent,
     SnackbarComponent,
-    ThemeSelectorComponent
+    ThemeSelectorComponent,
+    AlertComponent,
+    AlertTestingComponent,
+    ButtonsTestingComponent,
+    SnackbarTestingComponent
   ],
   bootstrap: [AppComponent],
   providers: [

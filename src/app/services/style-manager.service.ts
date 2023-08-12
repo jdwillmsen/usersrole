@@ -34,10 +34,10 @@ export class StyleManagerService {
       displayName: 'Indigo & Pink',
       name: 'indigo-pink',
       isDark: false,
-      isDefault: true,
       background: '#fafafa',
       button: '#E91E63',
-      toolbar: '#3F51B5'
+      toolbar: '#3F51B5',
+      isDefault: true
     },
     {
       primary: '#E91E63',

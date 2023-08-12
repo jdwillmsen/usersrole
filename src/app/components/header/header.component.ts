@@ -11,12 +11,12 @@ export class HeaderComponent {
   user: any;
   constructor(
     private authService: AuthService,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {
     this.authService.user$.subscribe({
       next: (user) => (this.user = user),
       error: (error) =>
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
+        this.snackbarService.error(error.error, { variant: 'filled' }, true)
     });
   }
 }

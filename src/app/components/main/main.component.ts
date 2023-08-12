@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavItem } from 'src/app/models/nav-item.model';
+import { Role } from 'src/app/models/users.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
@@ -28,6 +29,21 @@ export class MainComponent {
       icon: 'supervised_user_circle',
       title: 'Users',
       roles: ['admin', 'manager']
+    },
+    {
+      path: '/alerts',
+      icon: 'notification_important',
+      title: 'Alerts'
+    },
+    {
+      path: '/snackbars',
+      icon: 'announcement',
+      title: 'Snackbars'
+    },
+    {
+      path: '/buttons',
+      icon: 'ballot',
+      title: 'Buttons'
     }
   ];
   user: any;
@@ -35,16 +51,16 @@ export class MainComponent {
   constructor(
     private authService: AuthService,
     private permissionsService: PermissionsService,
-    private snackBarService: SnackbarService
+    private snackbarService: SnackbarService
   ) {
-    authService.user$.subscribe({
+    this.authService.user$.subscribe({
       next: (user) => (this.user = user),
       error: (error) =>
-        this.snackBarService.showSnackbar(error.error, 'Ok', 'error')
+        this.snackbarService.error(error.error, { variant: 'filled' }, true)
     });
   }
 
-  checkRoles(roles: string[] | undefined): boolean {
+  checkRoles(roles: Role[] | undefined): boolean {
     if (roles == undefined || roles.length == 0) {
       return true;
     }

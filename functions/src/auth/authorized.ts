@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Request, Response } from 'express';
 
+export type Roles = 'admin' | 'manager' | 'user';
+
 export function isAuthorized(opts: {
-  hasRole: Array<'admin' | 'manager' | 'user'>;
+  hasRole: Array<Roles>;
   allowSameUser?: boolean;
 }) {
   return (req: Request, res: Response, next: Function) => {
-    const { role, uid } = res.locals;
+    const { roles, uid } = res.locals;
     const { id } = req.params;
 
     // Only for testing purposes
-    // if (email === 'root@usersrole.com') {
-    //   return next();
-    // }
+    // return next();
 
     if (opts.allowSameUser && id && uid === id) {
       return next();
     }
 
-    if (!role) {
+    if (!roles) {
       return res.status(403).send();
     }
 
-    if (opts.hasRole.includes(role)) {
+    if (opts.hasRole.some((role) => roles.includes(role))) {
       return next();
     }
 
