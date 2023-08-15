@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-profile-card',
@@ -7,11 +8,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./profile-card.component.scss']
 })
 export class ProfileCardComponent {
-  @Input() user: any;
+  @Input() user!: firebase.User;
 
   constructor(public authService: AuthService) { }
   
-  checkForPhoto(url: any): boolean {
+  checkForPhoto(url: string | null): boolean {
     return url == null;
   }
 

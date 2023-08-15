@@ -4,6 +4,7 @@ import { Role } from 'src/app/models/users.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-main',
@@ -52,7 +53,7 @@ export class MainComponent {
       title: 'Buttons'
     }
   ];
-  user: any;
+  user: firebase.User | null = null;
 
   constructor(
     private authService: AuthService,

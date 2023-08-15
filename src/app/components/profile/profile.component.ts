@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable, filter, switchMap, tap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UsersService } from 'src/app/services/users.service';
+import { User } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ export class ProfileComponent implements OnInit {
     displayName: new FormControl(''),
     roles: new FormControl()
   });
-  user$!: Observable<any>;
+  user$!: Observable<User>;
   constructor(
     private afAuth: AngularFireAuth,
     private usersService: UsersService
