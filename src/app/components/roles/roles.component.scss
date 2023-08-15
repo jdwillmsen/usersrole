@@ -1,0 +1,21 @@
+.roles-container {
+    padding: 16px;
+
+    h1 {
+        padding: 0;
+        margin: 0;
+    }
+
+    .roles-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-top: 16px;
+    }
+
+    .buttons-container {
+        button {
+            margin-top: 16px;
+            margin-right: 8px;
+        }
+    }
+}

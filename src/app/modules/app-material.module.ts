@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { NgModule } from '@angular/core';
 
@@ -34,7 +35,8 @@ import { NgModule } from '@angular/core';
     MatDialogModule,
     MatSelectModule,
     MatTooltipModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule
   ]
 })
 export class AppMaterialModule {}

@@ -31,6 +31,12 @@ export class MainComponent {
       roles: ['admin', 'manager']
     },
     {
+      path: '/roles',
+      icon: 'lock',
+      title: 'Roles',
+      roles: ['admin', 'manager']
+    },
+    {
       path: '/alerts',
       icon: 'notification_important',
       title: 'Alerts'
