@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { UsersService } from './users.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { map, switchMap } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import { SnackbarService } from './snackbar.service';
 import { Role } from '../models/users.model';
 
@@ -27,18 +27,23 @@ export class PermissionsService {
 
   canActivateRole(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.afAuth.user.pipe(
-      switchMap((user) =>
-        this.usersService.user$(user!.uid).pipe(
+      switchMap((user) => {
+        if (user === null) {
+          return of(false);
+        }
+        return this.usersService.user$(user.uid).pipe(
           map((user) => {
-            if (next.data['roles'].some((role: Role) => user.roles.includes(role))) {
+            if (
+              next.data['roles'].some((role: Role) => user.roles.includes(role))
+            ) {
               return true;
             } else {
               this.router.navigate(['home']);
               return false;
             }
           })
-        )
-      )
+        );
+      })
     );
   }
 
@@ -49,9 +54,11 @@ export class PermissionsService {
   getRole() {
     this.afAuth.user.subscribe({
       next: (user) => {
-        this.usersService.user$(user!.uid).subscribe((user) => {
-          this.roles = user.roles;
-        });
+        if (user !== null) {
+          this.usersService.user$(user.uid).subscribe((user) => {
+            this.roles = user.roles;
+          });
+        }
       },
       error: (error) => {
         this.snackbarService.error(
