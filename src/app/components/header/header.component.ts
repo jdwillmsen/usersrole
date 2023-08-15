@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  user: any;
+  user: firebase.User | null = null;
   constructor(
     private authService: AuthService,
     private snackbarService: SnackbarService

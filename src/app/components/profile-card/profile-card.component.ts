@@ -11,7 +11,7 @@ export class ProfileCardComponent {
 
   constructor(public authService: AuthService) { }
   
-  checkForPhoto(url: any): boolean {
+  checkForPhoto(url: string): boolean {
     return url == null;
   }
 
