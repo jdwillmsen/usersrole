@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { BehaviorSubject, Observable, from, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, from, of, switchMap } from 'rxjs';
 import { SnackbarService } from './snackbar.service';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: BehaviorSubject<Observable<unknown> | null> =
-    new BehaviorSubject<Observable<unknown> | null>(null);
+  private user: BehaviorSubject<Observable<firebase.User | null>> =
+    new BehaviorSubject<Observable<firebase.User | null>>(of(null));
 
-  user$ = this.user.asObservable().pipe(switchMap((user: any) => user));
+  user$ = this.user.asObservable().pipe(switchMap((user) => user));
 
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -22,7 +23,7 @@ export class AuthService {
     this.user.next(this.angularFireAuth.authState);
   }
 
-  emailAuth(email: string, password: string): Observable<unknown> {
+  emailAuth(email: string, password: string): Observable<void> {
     return from(
       this.angularFireAuth
         .signInWithEmailAndPassword(email, password)
@@ -49,12 +50,11 @@ export class AuthService {
     );
   }
 
-  // Google Sign In
-  googleAuth(): Observable<unknown> {
+  googleAuth(): Observable<void> {
     return from(this.authLogin(new GoogleAuthProvider()));
   }
 
-  authLogin(provider: GoogleAuthProvider | never): Observable<unknown> {
+  authLogin(provider: GoogleAuthProvider): Observable<void> {
     return from(
       this.angularFireAuth
         .signInWithPopup(provider)

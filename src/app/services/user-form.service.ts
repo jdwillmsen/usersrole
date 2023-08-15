@@ -1,22 +1,34 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, catchError, map } from 'rxjs';
 import { SnackbarService } from './snackbar.service';
+import { User } from '../models/users.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserFormService {
-
   constructor(private snackbarService: SnackbarService) {}
 
-  private _behaviorSubject = new BehaviorSubject<{title: string, user: any}>({ title: '', user: {} });
+  defaultUser: User = {
+    uid: '',
+    displayName: '',
+    roles: [],
+    email: ''
+  };
 
-  edit(user: any) {
+  private _behaviorSubject = new BehaviorSubject<{ title: string; user: User }>(
+    {
+      title: '',
+      user: this.defaultUser
+    }
+  );
+
+  edit(user: User) {
     this._behaviorSubject.next({ title: 'Edit User', user });
   }
 
   create() {
-    this._behaviorSubject.next({ title: 'Create User', user: null });
+    this._behaviorSubject.next({ title: 'Create User', user: this.defaultUser });
   }
 
   get title$() {
@@ -31,12 +43,11 @@ export class UserFormService {
 
   get user$() {
     return this._behaviorSubject.asObservable().pipe(
-      map(userForm => userForm.user),
+      map((userForm) => userForm.user),
       catchError((error) => {
         this.snackbarService.error(error.error, { variant: 'filled' }, true);
         return EMPTY;
       })
     );
   }
-
 }

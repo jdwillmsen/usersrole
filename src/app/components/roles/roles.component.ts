@@ -39,7 +39,7 @@ export class RolesComponent implements OnInit {
     private usersService: UsersService,
     private rolesService: RolesService,
     private snackbarService: SnackbarService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.filteredOptions$ = this.filteredOptionsSubject.asObservable();
@@ -70,8 +70,8 @@ export class RolesComponent implements OnInit {
       !lowerSearchText
         ? options
         : options.filter((option) =>
-          option.displayName.toLowerCase().includes(lowerSearchText)
-        )
+            option.displayName.toLowerCase().includes(lowerSearchText)
+          )
     );
   }
 
@@ -117,17 +117,10 @@ export class RolesComponent implements OnInit {
       const matches =
         typeof this.rolesForm?.controls.usersName?.value !== 'string'
           ? compareArrays(
-            this.rolesForm?.controls.usersName?.value.roles,
-            this.rolesForm?.controls.roles?.value
-          )
+              this.rolesForm?.controls.usersName?.value.roles,
+              this.rolesForm?.controls.roles?.value
+            )
           : false;
-      console.log(
-        typeof this.rolesForm?.controls.usersName?.value !== 'string'
-          ? this.rolesForm?.controls.usersName?.value.roles
-          : '',
-        this.rolesForm?.controls.roles?.value,
-        matches
-      );
       return matches ? { noMatchRequired: true } : null;
     };
   }

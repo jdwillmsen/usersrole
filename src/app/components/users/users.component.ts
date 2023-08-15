@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  edit(userToEdit: any) {
+  edit(userToEdit: User) {
     this.userFormService.edit(userToEdit);
     const dialogRef = this.dialog.open(UserFormComponent, { minWidth: 350 });
     dialogRef.afterClosed().subscribe({

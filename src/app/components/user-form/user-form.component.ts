@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, tap } from 'rxjs';
+import { Role, User } from 'src/app/models/users.model';
 import { UserFormService } from 'src/app/services/user-form.service';
 
 @Component({
@@ -15,10 +16,10 @@ export class UserFormComponent implements OnInit {
     email: new FormControl(''),
     displayName: new FormControl(''),
     password: new FormControl(''),
-    roles: new FormControl([])
+    roles: new FormControl<Role[]>([])
   });
   title$!: Observable<string>;
-  user$!: Observable<any>;
+  user$!: Observable<User>;
 
   constructor(
     private dialogRef: MatDialogRef<UserFormComponent>,

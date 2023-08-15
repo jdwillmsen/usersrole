@@ -31,19 +31,21 @@ export class ThemeSelectorComponent {
     }
     this.authService.user$.subscribe({
       next: (user) => {
-        this.uid = (user as User).uid;
-        this.firestoreService.getUsersDoc(this.uid).then((data) => {
-          if (data) {
-            this.selectTheme(data['theme']);
-          } else {
-            this.themes.find((themes) => {
-              if (themes.isDefault === true) {
-                this.selectTheme(themes.name);
-                this.firestoreService.setUsersDoc(this.uid, themes.name);
-              }
-            });
-          }
-        });
+        if (user !== null) {
+          this.uid = user.uid;
+          this.firestoreService.getUsersDoc(this.uid).then((data) => {
+            if (data) {
+              this.selectTheme(data['theme']);
+            } else {
+              this.themes.find((themes) => {
+                if (themes.isDefault === true) {
+                  this.selectTheme(themes.name);
+                  this.firestoreService.setUsersDoc(this.uid, themes.name);
+                }
+              });
+            }
+          });
+        }
       },
       error: (error) =>
         this.snackbarService.error(error.error, { variant: 'filled' }, true)
