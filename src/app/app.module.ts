@@ -33,6 +33,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
 import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
 import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
+import { RolesComponent } from './components/roles/roles.component';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar
     AlertComponent,
     AlertTestingComponent,
     ButtonsTestingComponent,
-    SnackbarTestingComponent
+    SnackbarTestingComponent,
+    RolesComponent
   ],
   bootstrap: [AppComponent],
   providers: [

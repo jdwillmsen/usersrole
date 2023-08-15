@@ -52,7 +52,7 @@
 
 @mixin _variant($type, $color, $color-contrast) {
 
-    .mdc-button.mat-#{$type},
+    .mdc-button.mat:not(:disabled)-#{$type},
     .mat-mdc-stroked-button.mat-#{$type} {
         color: $color;
         --mat-mdc-button-persistent-ripple-color: #{$color};
@@ -68,7 +68,7 @@
     }
 
     .mat-mdc-unelevated-button:not(:disabled, :hover).mat-#{$type},
-    .mat-mdc-raised-button.mat-#{$type},
+    .mat-mdc-raised-button:not(:disabled).mat-#{$type},
     .mat-mdc-fab:not(:disabled).mat-#{$type},
     .mat-mdc-mini-fab:not(:disabled).mat-#{$type} {
         color: $color-contrast;
