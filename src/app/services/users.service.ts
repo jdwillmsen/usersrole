@@ -18,7 +18,10 @@ export type UpdateUserRequest = { uid: string } & CreateUserRequest;
 })
 export class UsersService {
   private baseUrl = `${environment.functionsBaseUrl}/api/users`;
-  constructor(private http: HttpClient, private snackbarService: SnackbarService) {}
+  constructor(
+    private http: HttpClient,
+    private snackbarService: SnackbarService
+  ) {}
 
   get users$(): Observable<User[]> {
     return this.http.get<{ users: User[] }>(`${this.baseUrl}`).pipe(
@@ -56,7 +59,11 @@ export class UsersService {
   edit(user: UpdateUserRequest) {
     return this.http.patch(`${this.baseUrl}/${user.uid}`, user).pipe(
       catchError((error) => {
-        this.snackbarService.error(error.error.message, { variant: 'filled' }, true);
+        this.snackbarService.error(
+          error.error.message,
+          { variant: 'filled' },
+          true
+        );
         return EMPTY;
       })
     );
