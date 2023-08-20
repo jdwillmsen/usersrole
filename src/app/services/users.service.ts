@@ -12,6 +12,7 @@ export type CreateUserRequest = {
   roles: Role[];
 };
 export type UpdateUserRequest = { uid: string } & CreateUserRequest;
+export type DeleteUserRequest = { uid: string };
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,7 @@ export class UsersService {
   create(user: CreateUserRequest) {
     return this.http.post(`${this.baseUrl}`, user).pipe(
       catchError((error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
+        this.snackbarService.error(error.error.message, { variant: 'filled' }, true);
         return EMPTY;
       })
     );
@@ -58,6 +59,19 @@ export class UsersService {
 
   edit(user: UpdateUserRequest) {
     return this.http.patch(`${this.baseUrl}/${user.uid}`, user).pipe(
+      catchError((error) => {
+        this.snackbarService.error(
+          error.error.message,
+          { variant: 'filled' },
+          true
+        );
+        return EMPTY;
+      })
+    );
+  }
+
+  delete(user: DeleteUserRequest) {
+    return this.http.delete(`${this.baseUrl}/${user.uid}`).pipe(
       catchError((error) => {
         this.snackbarService.error(
           error.error.message,
