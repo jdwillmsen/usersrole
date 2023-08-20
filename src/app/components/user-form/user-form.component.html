@@ -4,27 +4,103 @@
     <form class="user-form" [formGroup]="form" (ngSubmit)="save()">
         <mat-form-field appearance="outline">
             <mat-label>Email Address</mat-label>
-            <input matInput type="email" formControlName="email" placeholder="Enter email">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Password">
+            <input matInput type="email" formControlName="email" placeholder="Enter your email"
+                [readonly]="(type$ | async) === 'View'" required>
+            <ng-container *ngFor="let validation of validationMessages.email">
+                <mat-error *ngIf="form.get('email')?.hasError(validation.type) 
+                                            && (form.get('email')?.dirty 
+                                            || form.get('email')?.touched)">
+                    {{validation.message}}
+                </mat-error>
+            </ng-container>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Display Name</mat-label>
-            <input matInput type="string" formControlName="displayName" placeholder="Enter display name">
+            <input matInput type="text" formControlName="displayName" placeholder="Enter your display name"
+                [readonly]="(type$ | async) === 'View'" required>
+            <ng-container *ngFor="let validation of validationMessages.displayName">
+                <mat-error *ngIf="form.get('displayName')?.hasError(validation.type) 
+                                            && (form.get('displayName')?.dirty 
+                                            || form.get('displayName')?.touched)">
+                    {{validation.message}}
+                </mat-error>
+            </ng-container>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="roles" appearance="outline" subscriptSizing="dynamic">
             <mat-label>Roles</mat-label>
-            <mat-select formControlName="roles" multiple>
+            <input *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'" matInput type="text"
+                formControlName="roles" placeholder="Enter roles" readonly required>
+            <mat-select *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'" formControlName="roles"
+                multiple required>
                 <mat-option value="admin">Admin</mat-option>
                 <mat-option value="manager">Manager</mat-option>
                 <mat-option value="user">User</mat-option>
             </mat-select>
+            <ng-container *ngFor="let validation of validationMessages.roles">
+                <mat-error *ngIf="form.get('roles')?.hasError(validation.type) 
+                                        && (form.get('roles')?.dirty 
+                                        || form.get('roles')?.touched)">
+                    {{validation.message}}
+                </mat-error>
+            </ng-container>
         </mat-form-field>
+        <mat-form-field *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'" appearance="outline">
+            <mat-label>Uid</mat-label>
+            <input matInput type="text" formControlName="uid" placeholder="Your uid" readonly>
+        </mat-form-field>
+        <mat-form-field *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'" appearance="outline">
+            <mat-label>Last Sign In Time</mat-label>
+            <input matInput type="text" formControlName="lastSignInTime" placeholder="Your last sign in time" readonly>
+        </mat-form-field>
+        <mat-form-field *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'" appearance="outline">
+            <mat-label>Account Creation Time</mat-label>
+            <input matInput type="text" formControlName="creationTime" placeholder="Your account creation time"
+                readonly>
+        </mat-form-field>
+        <ng-container *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
+            formGroupName="matchingPassword">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                    placeholder="Enter your password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide" type="button">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <ng-container *ngFor="let validation of validationMessages.password">
+                    <mat-error *ngIf="form.get('matchingPassword')?.get('password')?.hasError(validation.type) 
+                                        && (form.get('matchingPassword')?.get('password')?.dirty 
+                                        || form.get('matchingPassword')?.get('password')?.touched)">
+                        {{validation.message}}
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword"
+                    placeholder="Enter your confirm password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide" type="button">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <ng-container *ngFor="let validation of validationMessages.confirmPassword">
+                    <mat-error *ngIf="(form.get('matchingPassword')?.get('confirmPassword')?.hasError(validation.type) 
+                                        || form.get('matchingPassword')?.hasError(validation.type))
+                                        && (form.get('matchingPassword')?.get('confirmPassword')?.dirty 
+                                        || form.get('matchingPassword')?.get('confirmPassword')?.touched)">
+                        {{validation.message}}
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+        </ng-container>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-raised-button (click)="close()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <button mat-raised-button type="button" (click)="close()">
+        {{ ((type$ | async) === 'View') ? "Close" : "Cancel" }}
+    </button>
+    <button *ngIf="(type$ | async) !== 'View'" mat-raised-button color="primary" type="submit"
+        [disabled]="!form.valid && (type$ | async) !== 'Delete'" (click)="save()">
+        {{ (type$ | async) }}
+    </button>
 </mat-dialog-actions>

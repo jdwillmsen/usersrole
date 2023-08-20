@@ -1,6 +1,6 @@
 export const environment = {
-  functionsBaseUrl: '',
   production: false,
+  functionsBaseUrl: '',
   firebase: {
     apiKey: '',
     authDomain: '',

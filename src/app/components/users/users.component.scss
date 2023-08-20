@@ -1,23 +1,18 @@
-mat-card-header {
-    h5 {
-        padding: 0;
-        margin: 0;
-        font-size: medium;
+.users-grid {
+    height: calc(100vh - 52px - 78px);
+    padding: 16px;
+
+    .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        h1 {
+            margin: 0;
+        }
     }
-}
 
-h4 {
-    margin-bottom: 8px;
-}
-
-.user-group {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr auto;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    ag-grid-angular {
+        margin-top: 8px;
+        height: 100%;
+    }
 }

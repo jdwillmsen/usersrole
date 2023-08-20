@@ -10,6 +10,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 import { AppMaterialModule } from './modules/app-material.module';
 import { AppFirebaseModule } from './modules/app-firebase.module';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { AuthService } from './services/auth.service';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
@@ -34,6 +35,8 @@ import { AlertTestingComponent } from './components/alert-testing/alert-testing.
 import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
 import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 import { RolesComponent } from './components/roles/roles.component';
+import { ActionsButtonCellRendererComponent } from './components/actions-button-cell-renderer/actions-button-cell-renderer.component';
+import { RolesCellRendererComponent } from './components/roles-cell-renderer/roles-cell-renderer.component';
 
 @NgModule({
   imports: [
@@ -44,6 +47,7 @@ import { RolesComponent } from './components/roles/roles.component';
     RouterModule,
     HttpClientModule,
     AppRoutingModule,
+    AgGridModule,
 
     // CDK
     A11yModule,
@@ -74,7 +78,9 @@ import { RolesComponent } from './components/roles/roles.component';
     AlertTestingComponent,
     ButtonsTestingComponent,
     SnackbarTestingComponent,
-    RolesComponent
+    RolesComponent,
+    ActionsButtonCellRendererComponent,
+    RolesCellRendererComponent
   ],
   bootstrap: [AppComponent],
   providers: [
