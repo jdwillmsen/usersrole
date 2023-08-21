@@ -1,17 +1,22 @@
 .user-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 16px;
 
-    .roles {
-        margin-bottom: 22px;
-    }
+  .roles {
+    margin-bottom: 22px;
+  }
 }
 
 mat-dialog-content {
-    padding: 0 24px !important;
+  padding: 0 24px !important;
 }
 
 mat-dialog-actions {
-    padding-top: 0;
+  padding-top: 0;
+}
+
+.match-password {
+  padding: 0 16px;
+  font-size: 12px;
 }
