@@ -78,12 +78,13 @@
           {{getPasswordErrorMessage('password')}}
         </mat-error>
       </mat-form-field>
-      <mat-form-field [subscriptSizing]="this.form.get('matchingPassword')?.invalid
+      <mat-form-field
+        [subscriptSizing]="this.form.get('matchingPassword')?.invalid
         && (this.form.get('matchingPassword')?.get('confirmPassword')?.dirty
         || this.form.get('matchingPassword')?.get('confirmPassword')?.touched)
-      ? 'dynamic'
-      : 'fixed'"
-                      appearance="outline">
+        ? 'dynamic'
+        : 'fixed'"
+        appearance="outline">
         <mat-label>Confirm Password</mat-label>
         <input [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" matInput
                placeholder="Enter your confirm password" required>
@@ -95,8 +96,7 @@
                 type="button">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error
-          *ngIf="this.form.get('matchingPassword')?.get('confirmPassword')?.invalid">
+        <mat-error *ngIf="this.form.get('matchingPassword')?.get('confirmPassword')?.invalid">
           {{getPasswordErrorMessage('confirmPassword')}}
         </mat-error>
       </mat-form-field>
