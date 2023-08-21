@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -65,9 +64,9 @@ export class SignUpComponent {
       {
         type: 'minlength',
         message: 'Password must be at least 6 characters long'
-      },
-      { type: 'passwordMatch', message: 'Password mismatch' }
-    ]
+      }
+    ],
+    matchingPassword: [{ type: 'passwordMatch', message: 'Password mismatch' }]
   };
 
   constructor(
@@ -119,5 +118,30 @@ export class SignUpComponent {
           ?.value;
       return !matches ? { passwordMatch: true } : null;
     };
+  }
+
+  getErrorMessage(
+    formControlName: 'email' | 'displayName' | 'matchingPassword'
+  ) {
+    for (const validation of this.validationMessages[formControlName]) {
+      if (this.signUpForm.get(formControlName)?.hasError(validation.type)) {
+        return validation.message;
+      }
+    }
+    return '';
+  }
+
+  getPasswordErrorMessage(formControlName: 'password' | 'confirmPassword') {
+    for (const validation of this.validationMessages[formControlName]) {
+      if (
+        this.signUpForm
+          .get('matchingPassword')
+          ?.get(formControlName)
+          ?.hasError(validation.type)
+      ) {
+        return validation.message;
+      }
+    }
+    return '';
   }
 }

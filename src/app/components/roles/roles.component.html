@@ -1,39 +1,43 @@
 <div class="roles-container">
-    <h1>Roles</h1>
-    <form class="roles-form" [formGroup]="rolesForm">
-        <ng-container *ngIf="options$ | async as options">
-            <mat-form-field appearance="outline" *ngIf="filteredOptions$ | async as filteredOptions">
-                <mat-label>
-                    Select User
-                </mat-label>
-                <input type="text" placeholder="Select user by display name" matInput formControlName="usersName"
-                    [matAutocomplete]="auto" #input (keyup)="onAutocompleteKeyUp(input.value, options)" required />
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn" opened="true">
-                    <mat-option *ngFor="let option of filteredOptions" [value]="option">
-                        {{option.displayName}} ({{option.uid}})
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="rolesForm.controls.usersName.errors?.['matchRequired']">
-                    Please select a user from the list.
-                </mat-error>
-            </mat-form-field>
-        </ng-container>
-        <mat-form-field appearance="outline" class="roles" subscriptSizing="dynamic">
-            <mat-label>Roles</mat-label>
-            <mat-select formControlName="roles" multiple>
-                <mat-option value="admin">Admin</mat-option>
-                <mat-option value="manager">Manager</mat-option>
-                <mat-option value="user">User</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-error *ngIf="rolesForm.hasError('noMatchRequired')">
-            The user already has these roles
+  <h1>Roles</h1>
+  <form [formGroup]="rolesForm" class="roles-form">
+    <ng-container *ngIf="options$ | async as options">
+      <mat-form-field *ngIf="filteredOptions$ | async as filteredOptions" appearance="outline">
+        <mat-label>
+          Select User
+        </mat-label>
+        <input #input (keyup)="onAutocompleteKeyUp(input.value, options)" [matAutocomplete]="auto"
+               formControlName="usersName"
+               matInput placeholder="Select user by display name" required type="text"/>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" autoActiveFirstOption opened="true">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option">
+            {{option.displayName}} ({{option.uid}})
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="rolesForm.controls.usersName.errors?.['matchRequired']">
+          Please select a user from the list.
         </mat-error>
-        <div class="buttons-container">
-            <button mat-raised-button color="primary" [disabled]="!this.rolesForm.valid" (click)="onAssign()">
-                Assign Roles
-            </button>
-            <button mat-raised-button (click)="resetForm()">Reset</button>
-        </div>
-    </form>
+      </mat-form-field>
+    </ng-container>
+    <mat-form-field appearance="outline" class="roles" subscriptSizing="dynamic">
+      <mat-label>Roles</mat-label>
+      <mat-select formControlName="roles" multiple required>
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="manager">Manager</mat-option>
+        <mat-option value="user">User</mat-option>
+      </mat-select>
+      <mat-error *ngIf="rolesForm.get('roles')?.invalid">
+        At least one role must be selected.
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="rolesForm.hasError('noMatchRequired')" class="matching-roles">
+      The user already has these roles
+    </mat-error>
+    <div class="buttons-container">
+      <button (click)="onAssign()" [disabled]="!this.rolesForm.valid" color="primary" mat-raised-button>
+        Assign Roles
+      </button>
+      <button (click)="resetForm()" mat-raised-button>Reset</button>
+    </div>
+  </form>
 </div>

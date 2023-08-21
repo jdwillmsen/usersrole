@@ -72,9 +72,9 @@ export class UserFormComponent implements OnInit {
       {
         type: 'minlength',
         message: 'Password must be at least 6 characters long'
-      },
-      { type: 'passwordMatch', message: 'Password mismatch' }
-    ]
+      }
+    ],
+    matchingPassword: [{ type: 'passwordMatch', message: 'Password mismatch' }]
   };
 
   title$!: Observable<string>;
@@ -119,5 +119,30 @@ export class UserFormComponent implements OnInit {
         this.form?.controls.matchingPassword.get('confirmPassword')?.value;
       return !matches ? { passwordMatch: true } : null;
     };
+  }
+
+  getErrorMessage(
+    formControlName: 'email' | 'displayName' | 'roles' | 'matchingPassword'
+  ) {
+    for (const validation of this.validationMessages[formControlName]) {
+      if (this.form.get(formControlName)?.hasError(validation.type)) {
+        return validation.message;
+      }
+    }
+    return '';
+  }
+
+  getPasswordErrorMessage(formControlName: 'password' | 'confirmPassword') {
+    for (const validation of this.validationMessages[formControlName]) {
+      if (
+        this.form
+          .get('matchingPassword')
+          ?.get(formControlName)
+          ?.hasError(validation.type)
+      ) {
+        return validation.message;
+      }
+    }
+    return '';
   }
 }
