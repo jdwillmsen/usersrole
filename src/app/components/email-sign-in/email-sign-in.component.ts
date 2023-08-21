@@ -41,4 +41,13 @@ export class EmailSignInComponent {
       this.authService.emailAuth(email, password);
     }
   }
+
+  getErrorMessage(formControlName: 'email' | 'password') {
+    for (const validation of this.validationMessages[formControlName]) {
+      if (this.form.get(formControlName)?.hasError(validation.type)) {
+        return validation.message;
+      }
+    }
+    return '';
+  }
 }
