@@ -1,9 +1,21 @@
-<button mat-icon-button (click)="viewUser()" color="info">
-    <mat-icon>info</mat-icon>
+<button (click)="viewUser()"
+        color="info"
+        mat-icon-button
+        matTooltip="View User"
+        matTooltipShowDelay="1000">
+  <mat-icon>info</mat-icon>
 </button>
-<button mat-icon-button (click)="editUser()" color="warn">
-    <mat-icon>edit</mat-icon>
+<button (click)="editUser()"
+        color="warn"
+        mat-icon-button
+        matTooltip="Edit User"
+        matTooltipShowDelay="1000">
+  <mat-icon>edit</mat-icon>
 </button>
-<button mat-icon-button (click)="deleteUser()" color="error">
-    <mat-icon>delete</mat-icon>
+<button (click)="deleteUser()"
+        color="error"
+        mat-icon-button
+        matTooltip="Delete User"
+        matTooltipShowDelay="1000">
+  <mat-icon>delete</mat-icon>
 </button>
