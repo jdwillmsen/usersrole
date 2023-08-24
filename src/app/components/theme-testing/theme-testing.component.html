@@ -1,0 +1,6 @@
+<div class="theme-container">
+  <div *ngFor="let palette of palettes">
+    <h1>{{palette}}</h1>
+    <app-palette [class]="palette.toLowerCase()"></app-palette>
+  </div>
+</div>
