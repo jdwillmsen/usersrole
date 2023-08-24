@@ -51,6 +51,11 @@ export class MainComponent {
       path: '/buttons',
       icon: 'ballot',
       title: 'Buttons'
+    },
+    {
+      path: '/theme',
+      icon: 'format_color_fill',
+      title: 'Theme'
     }
   ];
   user: firebase.User | null = null;

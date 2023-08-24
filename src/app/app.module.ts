@@ -37,6 +37,8 @@ import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar
 import { RolesComponent } from './components/roles/roles.component';
 import { ActionsButtonCellRendererComponent } from './components/actions-button-cell-renderer/actions-button-cell-renderer.component';
 import { RolesCellRendererComponent } from './components/roles-cell-renderer/roles-cell-renderer.component';
+import { ThemeTestingComponent } from './components/theme-testing/theme-testing.component';
+import { PaletteComponent } from './components/palette/palette.component';
 
 @NgModule({
   imports: [
@@ -80,7 +82,9 @@ import { RolesCellRendererComponent } from './components/roles-cell-renderer/rol
     SnackbarTestingComponent,
     RolesComponent,
     ActionsButtonCellRendererComponent,
-    RolesCellRendererComponent
+    RolesCellRendererComponent,
+    ThemeTestingComponent,
+    PaletteComponent
   ],
   bootstrap: [AppComponent],
   providers: [

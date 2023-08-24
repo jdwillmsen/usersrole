@@ -1,0 +1,29 @@
+.shades-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .color {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+
+    width: 168px;
+    height: 60px;
+  }
+}
+
+.palette-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .color {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+
+    height: 60px;
+    width: 60px;
+  }
+}
