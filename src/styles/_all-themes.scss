@@ -4,14 +4,16 @@
 @use '../app/components/snackbar/snackbar-theme' as snackbar;
 @use '../app/components/alert/alert-theme' as alert;
 @use '../app/components/users/users-theme' as users;
+@use '../app/components/palette/palette-theme' as palette;
 @use '../styles/components/button/variants' as button-variants;
 
 @mixin all-component-themes($theme) {
-    @include nav-item.theme($theme);
-    @include profile-card.theme($theme);
-    @include snackbar.theme($theme);
-    @include alert.theme($theme);
-    @include button-variants.theme($theme);
-    @include users.theme($theme);
-    @include mat.all-component-themes($theme);
+  @include nav-item.theme($theme);
+  @include profile-card.theme($theme);
+  @include snackbar.theme($theme);
+  @include alert.theme($theme);
+  @include button-variants.theme($theme);
+  @include users.theme($theme);
+  @include palette.theme($theme);
+  @include mat.all-component-themes($theme);
 }

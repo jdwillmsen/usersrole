@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-/// Defines a theme with succes, error, and info colors.
+/// Defines a theme with success, error, warn, and info colors.
 /// @param {Map} $primary The primary color palette.
 /// @param {Map} $accent The accent color palette.
 /// @param {Map} $warn The warn color palette.
@@ -19,31 +19,42 @@
     $create-light-theme: true,
     $typography: mat.define-typography-config(),
     $density: 0) {
-    $theme: null;
+  $theme: null;
 
-    @if ($create-light-theme) {
-        $theme: mat.define-light-theme((color: (primary: $primary,
-                    accent: $accent,
-                    warn: $error,
-                ),
-                typography: $typography,
-                density: $density, ));
-    }
+  @if ($create-light-theme) {
+    $theme: mat.define-light-theme((color: (primary: $primary,
+      accent: $accent,
+      warn: $error,
+    ),
+      typography: $typography,
+      density: $density,));
+  } @else {
+    $theme: mat.define-dark-theme((color: (primary: $primary,
+      accent: $accent,
+      warn: $error,
+    ),
+      typography: $typography,
+      density: $density,));
+  }
 
-    @else {
-        $theme: mat.define-dark-theme((color: (primary: $primary,
-                    accent: $accent,
-                    warn: $error,
-                ),
-                typography: $typography,
-                density: $density, ));
-    }
+  $extra: (
+    success: $success,
+    error: $error,
+    info: $info,
+    warn: $warn
+  );
+  @return map-merge($theme, $extra);
+}
 
-    $extra: (
-        success: $success,
-        error: $error,
-        info: $info,
-        warn: $warn
-    );
-@return map-merge($theme, $extra);
+@function define-palette($base-palette, $default: 500, $lighter: 100, $darker: 700, $extra-light: 50, $extra-dark: 900, $text: $default) {
+  $new-palette: mat.define-palette($base-palette, $default, $lighter, $darker, $text: $default);
+
+  $extra-palette: (
+    extra-light: map-get($base-palette, $extra-light),
+    extra-dark: map-get($base-palette, $extra-dark),
+    extra-light-contrast: mat.get-contrast-color-from-palette($base-palette, $extra-light),
+    extra-dark-contrast: mat.get-contrast-color-from-palette($base-palette, $extra-dark),
+  );
+
+  @return map-merge($new-palette, $extra-palette);
 }
