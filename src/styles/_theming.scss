@@ -22,19 +22,23 @@
   $theme: null;
 
   @if ($create-light-theme) {
-    $theme: mat.define-light-theme((color: (primary: $primary,
-      accent: $accent,
-      warn: $error,
-    ),
+    $theme: mat.define-light-theme((
+      color: (
+        primary: $primary,
+        accent: $accent,
+        warn: $error,
+      ),
       typography: $typography,
-      density: $density,));
+      density: $density));
   } @else {
-    $theme: mat.define-dark-theme((color: (primary: $primary,
-      accent: $accent,
-      warn: $error,
-    ),
+    $theme: mat.define-dark-theme((
+      color: (
+        primary: $primary,
+        accent: $accent,
+        warn: $error,
+      ),
       typography: $typography,
-      density: $density,));
+      density: $density));
   }
 
   $extra: (

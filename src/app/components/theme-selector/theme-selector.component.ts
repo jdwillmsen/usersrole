@@ -3,7 +3,6 @@ import { SiteTheme } from 'src/app/models/site-theme.model';
 import { StyleManagerService } from 'src/app/services/style-manager.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
-import { User } from 'firebase/auth';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { ThemeStorageService } from 'src/app/services/theme-storage.service';
 
@@ -74,4 +73,7 @@ export class ThemeSelectorComponent {
       this._themeStorageService.storeTheme(this.currentTheme);
     }
   }
+
+  // TODO: Add login for selecting custom theme and loading dynamic colors
+  // document.documentElement.style.setProperty('--primary-50', myPrimary50Value);
 }
