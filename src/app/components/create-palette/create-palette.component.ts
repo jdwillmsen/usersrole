@@ -3,6 +3,7 @@ import { AbstractControl, FormGroup, FormGroupDirective } from '@angular/forms';
 import { PaletteColors } from '../../models/palette-colors.model';
 import tinycolor from 'tinycolor2';
 import { PaletteFormGroup } from '../../models/palette-form-group';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-create-palette',
@@ -16,6 +17,7 @@ export class CreatePaletteComponent implements OnInit {
   lightTextColor: string;
   colorDetailsBaseUrl = 'https://www.colorhexa.com/';
   paletteForm!: FormGroup;
+  colorSelectionUpdate = new Subject<string>();
 
   colors = [
     '50',
@@ -36,17 +38,26 @@ export class CreatePaletteComponent implements OnInit {
 
   lightTextIcon = 'wb_sunny';
   darkTextIcon = 'nightlight_round';
+  colorSelection = '#000000';
 
   constructor(private rootFormGroup: FormGroupDirective) {
     const paletteGroup = new PaletteFormGroup();
     this.lightTextColor = paletteGroup.lightTextColor;
     this.darkTextColor = paletteGroup.darkTextColor;
+    this.colorSelectionUpdate
+      .pipe(debounceTime(250))
+      .subscribe((value) => this.applyAlgorithm(value));
   }
 
   ngOnInit() {
     this.paletteForm = this.rootFormGroup.control.get(
       this.formGroupName
     ) as FormGroup;
+  }
+
+  reset() {
+    this.paletteForm.reset();
+    this.colorSelection = '#000000';
   }
 
   getTextIcon(currentColor: string) {
@@ -70,8 +81,7 @@ export class CreatePaletteComponent implements OnInit {
     return this.colorDetailsBaseUrl + hexColor.replace('#', '');
   }
 
-  applyAlgorithm(event: Event) {
-    const hexColor = (event.target as HTMLInputElement).value;
+  applyAlgorithm(hexColor: string) {
     const color50 = tinycolor(hexColor).lighten(52);
     const color100 = tinycolor(hexColor).lighten(37);
     const color200 = tinycolor(hexColor).lighten(26);
