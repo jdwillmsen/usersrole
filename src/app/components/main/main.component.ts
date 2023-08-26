@@ -53,8 +53,13 @@ export class MainComponent {
       title: 'Buttons'
     },
     {
-      path: '/theme',
+      path: '/palettes',
       icon: 'format_color_fill',
+      title: 'Palettes'
+    },
+    {
+      path: '/theme',
+      icon: 'color_lens',
       title: 'Theme'
     }
   ];

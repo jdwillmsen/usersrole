@@ -39,6 +39,8 @@ import { ActionsButtonCellRendererComponent } from './components/actions-button-
 import { RolesCellRendererComponent } from './components/roles-cell-renderer/roles-cell-renderer.component';
 import { ThemeTestingComponent } from './components/theme-testing/theme-testing.component';
 import { PaletteComponent } from './components/palette/palette.component';
+import { CreateThemeComponent } from './components/create-theme/create-theme.component';
+import { CreatePaletteComponent } from './components/create-palette/create-palette.component';
 
 @NgModule({
   imports: [
@@ -84,7 +86,9 @@ import { PaletteComponent } from './components/palette/palette.component';
     ActionsButtonCellRendererComponent,
     RolesCellRendererComponent,
     ThemeTestingComponent,
-    PaletteComponent
+    PaletteComponent,
+    CreateThemeComponent,
+    CreatePaletteComponent
   ],
   bootstrap: [AppComponent],
   providers: [
