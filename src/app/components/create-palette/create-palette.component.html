@@ -2,10 +2,12 @@
     <div [formGroup]="paletteForm">
         <div [ngClass]="paletteType" class="palette-header">
             <h3>{{paletteType | titlecase}}</h3>
-            <button (click)="paletteForm.reset()" [matTooltip]="'Restore Defaults'" mat-icon-button>
+            <button (click)="reset()" [matTooltip]="'Restore Defaults'" mat-icon-button>
                 <mat-icon>restore</mat-icon>
             </button>
-            <input (change)="applyAlgorithm($event)" [matTooltip]="'Select Color'" class="color-selector" type="color"/>
+            <input (ngModelChange)="this.colorSelectionUpdate.next($event)" [(ngModel)]="colorSelection"
+                   [matTooltip]="'Select Color'"
+                   [ngModelOptions]="{standalone: true}" class="color-selector" type="color"/>
         </div>
         <ng-container *ngFor="let color of colors">
             <div [ngStyle]="{'background-color': paletteForm.get('color' + color)?.value}" class="palette-row">
