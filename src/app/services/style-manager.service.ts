@@ -40,6 +40,16 @@ export class StyleManagerService {
       isDefault: true
     },
     {
+      primary: '#7dcf2a',
+      accent: '#ff9500',
+      displayName: 'User Custom Light',
+      name: 'custom-light',
+      isDark: false,
+      background: '#fafafa',
+      button: '#ff9500',
+      toolbar: '#7dcf2a'
+    },
+    {
       primary: '#E91E63',
       accent: '#607D8B',
       displayName: 'Pink & Blue-grey',
@@ -68,6 +78,16 @@ export class StyleManagerService {
       background: '#303030',
       button: '#00FFFF',
       toolbar: '#FF0000'
+    },
+    {
+      primary: '#7dcf2a',
+      accent: '#ff9500',
+      displayName: 'User Custom Dark',
+      name: 'custom-dark',
+      isDark: true,
+      background: '#303030',
+      button: '#ff9500',
+      toolbar: '#7dcf2a'
     }
   ];
 
@@ -76,9 +96,9 @@ export class StyleManagerService {
   }
 
   removeStyle(key: string) {
-    const exisitingLinkElement = getExistingLinkElementByKey(key);
-    if (exisitingLinkElement) {
-      document.head.removeChild(exisitingLinkElement);
+    const existingLinkElement = getExistingLinkElementByKey(key);
+    if (existingLinkElement) {
+      document.head.removeChild(existingLinkElement);
     }
   }
 }
@@ -88,7 +108,9 @@ function getLinkElementForKey(key: string) {
 }
 
 function getExistingLinkElementByKey(key: string) {
-  return document.head.querySelector(`link[rel="stylesheet"].${getClassNameForKey(key)}`)
+  return document.head.querySelector(
+    `link[rel="stylesheet"].${getClassNameForKey(key)}`
+  );
 }
 
 function createLinkElementWithKey(key: string) {

@@ -1,0 +1,30 @@
+.create-theme-container {
+  padding: 16px;
+
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    h1 {
+      margin: 0 16px 0 0;
+      padding: 8px 0;
+    }
+
+    button {
+      margin: 8px 16px 8px 0;
+    }
+  }
+
+  .palettes-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+
+    app-create-palette {
+      max-width: 240px;
+      width: 100%;
+    }
+  }
+}

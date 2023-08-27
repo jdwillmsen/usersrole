@@ -37,7 +37,9 @@
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -85,10 +87,24 @@
                 "inject": false,
                 "input": "src/styles/themes/black-white.scss",
                 "bundleName": "black-white"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/user-custom-dark.scss",
+                "bundleName": "custom-dark"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/user-custom-light.scss",
+                "bundleName": "custom-light"
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules", "src", "src/styles"]
+              "includePaths": [
+                "node_modules",
+                "src",
+                "src/styles"
+              ]
             },
             "scripts": []
           },
@@ -200,10 +216,24 @@
                 "inject": false,
                 "input": "src/styles/themes/black-white.scss",
                 "bundleName": "black-white"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/user-custom-dark.scss",
+                "bundleName": "custom-dark"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/themes/user-custom-light.scss",
+                "bundleName": "custom-light"
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules", "src", "src/styles"]
+              "includePaths": [
+                "node_modules",
+                "src",
+                "src/styles"
+              ]
             },
             "scripts": []
           }
@@ -256,7 +286,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         },
         "deploy": {

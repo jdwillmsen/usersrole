@@ -5,6 +5,7 @@
 @use '../app/components/alert/alert-theme' as alert;
 @use '../app/components/users/users-theme' as users;
 @use '../app/components/palette/palette-theme' as palette;
+@use '../app/components/create-palette/create-palette-theme' as create-palette;
 @use '../styles/components/button/variants' as button-variants;
 
 @mixin all-component-themes($theme) {
@@ -15,5 +16,6 @@
   @include button-variants.theme($theme);
   @include users.theme($theme);
   @include palette.theme($theme);
+  @include create-palette.theme($theme);
   @include mat.all-component-themes($theme);
 }

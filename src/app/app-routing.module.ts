@@ -16,6 +16,7 @@ import { ButtonsTestingComponent } from './components/buttons-testing/buttons-te
 import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { ThemeTestingComponent } from './components/theme-testing/theme-testing.component';
+import { CreateThemeComponent } from './components/create-theme/create-theme.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
@@ -86,8 +87,16 @@ const routes: Routes = [
     }
   },
   {
-    path: 'theme',
+    path: 'palettes',
     component: ThemeTestingComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    }
+  },
+  {
+    path: 'theme',
+    component: CreateThemeComponent,
     canActivate: [AngularFireAuthGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin
