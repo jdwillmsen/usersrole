@@ -125,9 +125,14 @@ export class ThemeSelectorComponent {
     ];
     for (const color of colors) {
       const paletteColor: string = `color${color}`;
+      const paletteContrastColor: string = `colorContrast${color}`;
       document.documentElement.style.setProperty(
         `--${paletteName}-${color}`,
         palette[paletteColor]
+      );
+      document.documentElement.style.setProperty(
+        `--${paletteName}-contrast-${color}`,
+        palette[paletteContrastColor]
       );
     }
   }
