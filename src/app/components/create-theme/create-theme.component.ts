@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PaletteColors } from '../../models/palette-colors.model';
 import { PaletteFormGroup } from '../../models/palette-form-group';
+import { FirestoreService } from '../../services/firestore.service';
+import { AuthService } from '../../services/auth.service';
+import { SnackbarService } from '../../services/snackbar.service';
+import { Theme } from '../../models/theme.model';
 
 @Component({
   selector: 'app-create-theme',
@@ -25,4 +29,52 @@ export class CreateThemeComponent {
     { name: 'errorPalette', type: 'error' },
     { name: 'infoPalette', type: 'info' }
   ];
+  uid = '';
+
+  constructor(
+    private firestoreService: FirestoreService,
+    private authService: AuthService,
+    private snackbarService: SnackbarService
+  ) {
+    this.authService.user$.subscribe({
+      next: (user) => {
+        if (user !== null) {
+          this.uid = user.uid;
+        }
+      },
+      error: (error) => {
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
+      }
+    });
+  }
+
+  saveLightTheme() {
+    this.firestoreService
+      .setCustomLightTheme(this.uid, this.themeForm.value as Theme)
+      .then(() => {
+        this.snackbarService.success(
+          'Successfully Saved Light Theme',
+          { variant: 'filled' },
+          true
+        );
+      })
+      .catch((error) => {
+        this.snackbarService.error(error, { variant: 'filled' }, true);
+      });
+  }
+
+  saveDarkTheme() {
+    this.firestoreService
+      .setCustomDarkTheme(this.uid, this.themeForm.value as Theme)
+      .then(() => {
+        this.snackbarService.success(
+          'Successfully Saved Dark Theme',
+          { variant: 'filled' },
+          true
+        );
+      })
+      .catch((error) => {
+        this.snackbarService.error(error, { variant: 'filled' }, true);
+      });
+  }
 }
