@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { ThemeStorageService } from 'src/app/services/theme-storage.service';
+import { Palette, Theme } from '../../models/theme.model';
 
 @Component({
   selector: 'app-theme-selector',
@@ -15,6 +16,8 @@ export class ThemeSelectorComponent {
   currentTheme: SiteTheme | undefined;
   themes: SiteTheme[];
   uid = '';
+  customLightTheme: Theme | null = null;
+  customDarkTheme: Theme | null = null;
 
   constructor(
     private styleManagerService: StyleManagerService,
@@ -34,12 +37,18 @@ export class ThemeSelectorComponent {
           this.uid = user.uid;
           this.firestoreService.getUsersDoc(this.uid).then((data) => {
             if (data) {
-              this.selectTheme(data['theme']);
+              this.selectTheme(
+                data['theme'],
+                data['lightTheme'],
+                data['darkTheme']
+              );
+              this.customLightTheme = data['lightTheme'];
+              this.customDarkTheme = data['darkTheme'];
             } else {
               this.themes.find((themes) => {
                 if (themes.isDefault === true) {
                   this.selectTheme(themes.name);
-                  this.firestoreService.setUsersDoc(this.uid, themes.name);
+                  this.firestoreService.setThemeName(this.uid, themes.name);
                 }
               });
             }
@@ -51,12 +60,18 @@ export class ThemeSelectorComponent {
     });
     this.styleManagerService.currentThemeName.subscribe((themeName) => {
       if (this.currentTheme?.name !== themeName) {
-        this.firestoreService.setUsersDoc(this.uid, themeName);
+        if (this.customLightTheme && themeName === 'custom-light') {
+          this.applyCustomTheme(this.customLightTheme);
+        }
+        if (this.customDarkTheme && themeName === 'custom-dark') {
+          this.applyCustomTheme(this.customDarkTheme);
+        }
+        this.firestoreService.setThemeName(this.uid, themeName);
       }
     });
   }
 
-  selectTheme(themeName: string) {
+  selectTheme(themeName: string, lightTheme?: Theme, darkTheme?: Theme) {
     const theme = this.themes.find(
       (currentTheme) => currentTheme.name === themeName
     );
@@ -69,11 +84,51 @@ export class ThemeSelectorComponent {
     this.currentTheme = theme;
     this.styleManagerService.setStyle('theme', `${theme.name}.css`);
 
+    if (lightTheme && theme.name === 'custom-light') {
+      this.applyCustomTheme(lightTheme);
+    }
+
+    if (darkTheme && theme.name === 'custom-dark') {
+      this.applyCustomTheme(darkTheme);
+    }
+
     if (this.currentTheme) {
       this._themeStorageService.storeTheme(this.currentTheme);
     }
   }
 
-  // TODO: Add login for selecting custom theme and loading dynamic colors
-  // document.documentElement.style.setProperty('--primary-50', myPrimary50Value);
+  applyCustomTheme(theme: Theme) {
+    this.applyCustomPalette('primary', theme.primaryPalette);
+    this.applyCustomPalette('accent', theme.accentPalette);
+    this.applyCustomPalette('warn', theme.warnPalette);
+    this.applyCustomPalette('success', theme.successPalette);
+    this.applyCustomPalette('error', theme.errorPalette);
+    this.applyCustomPalette('info', theme.infoPalette);
+  }
+
+  applyCustomPalette(paletteName: string, palette: Palette) {
+    const colors: string[] = [
+      '50',
+      '100',
+      '200',
+      '300',
+      '400',
+      '500',
+      '600',
+      '700',
+      '800',
+      '900',
+      'A100',
+      'A200',
+      'A400',
+      'A700'
+    ];
+    for (const color of colors) {
+      const paletteColor: string = `color${color}`;
+      document.documentElement.style.setProperty(
+        `--${paletteName}-${color}`,
+        palette[paletteColor]
+      );
+    }
+  }
 }

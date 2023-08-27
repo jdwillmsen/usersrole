@@ -96,9 +96,9 @@ export class StyleManagerService {
   }
 
   removeStyle(key: string) {
-    const exisitingLinkElement = getExistingLinkElementByKey(key);
-    if (exisitingLinkElement) {
-      document.head.removeChild(exisitingLinkElement);
+    const existingLinkElement = getExistingLinkElementByKey(key);
+    if (existingLinkElement) {
+      document.head.removeChild(existingLinkElement);
     }
   }
 }
