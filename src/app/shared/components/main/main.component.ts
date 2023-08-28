@@ -1,0 +1,90 @@
+import { Component } from '@angular/core';
+import { NavItem } from 'src/app/shared/models/nav-item.model';
+import { Role } from 'src/app/core/models/users.model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { PermissionsService } from 'src/app/core/services/permissions/permissions.service';
+import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
+import firebase from 'firebase/compat/app';
+
+@Component({
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
+})
+export class MainComponent {
+  isExpanded = false;
+  navItems: NavItem[] = [
+    {
+      path: '/home',
+      icon: 'home',
+      title: 'Home'
+    },
+    {
+      path: '/profile',
+      icon: 'person',
+      title: 'Profile',
+      roles: ['user']
+    },
+    {
+      path: '/users',
+      icon: 'supervised_user_circle',
+      title: 'Users',
+      roles: ['admin', 'manager']
+    },
+    {
+      path: '/roles',
+      icon: 'lock',
+      title: 'Roles',
+      roles: ['admin', 'manager']
+    },
+    {
+      path: '/alerts',
+      icon: 'notification_important',
+      title: 'Alerts'
+    },
+    {
+      path: '/snackbars',
+      icon: 'announcement',
+      title: 'Snackbars'
+    },
+    {
+      path: '/buttons',
+      icon: 'ballot',
+      title: 'Buttons'
+    },
+    {
+      path: '/palettes',
+      icon: 'format_color_fill',
+      title: 'Palettes'
+    },
+    {
+      path: '/theme',
+      icon: 'color_lens',
+      title: 'Theme'
+    }
+  ];
+  user: firebase.User | null = null;
+
+  constructor(
+    private authService: AuthService,
+    private permissionsService: PermissionsService,
+    private snackbarService: SnackbarService
+  ) {
+    this.authService.user$.subscribe({
+      next: (user) => (this.user = user),
+      error: (error) =>
+        this.snackbarService.error(error.error, { variant: 'filled' }, true)
+    });
+  }
+
+  checkRoles(roles: Role[] | undefined): boolean {
+    if (roles == undefined || roles.length == 0) {
+      return true;
+    }
+    return this.permissionsService.hasRole(roles);
+  }
+
+  toggleSideNav() {
+    this.isExpanded = !this.isExpanded;
+  }
+}
