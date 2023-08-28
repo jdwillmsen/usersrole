@@ -1,11 +1,11 @@
 @use '@angular/material' as mat;
-@use '../app/components/nav-item/nav-item-theme' as nav-item;
-@use '../app/components/profile-card/profile-card-theme' as profile-card;
-@use '../app/components/snackbar/snackbar-theme' as snackbar;
-@use '../app/components/alert/alert-theme' as alert;
-@use '../app/components/users/users-theme' as users;
-@use '../app/components/palette/palette-theme' as palette;
-@use '../app/components/create-palette/create-palette-theme' as create-palette;
+@use '../app/shared/components/nav-item/nav-item-theme' as nav-item;
+@use '../app/shared/components/profile-card/profile-card-theme' as profile-card;
+@use '../app/shared/components/snackbar/snackbar-theme' as snackbar;
+@use '../app/shared/components/alert/alert-theme' as alert;
+@use '../app/admin/components/users/users-theme' as users;
+@use '../app/theme/components/palette/palette-theme' as palette;
+@use '../app/theme/components/create-palette/create-palette-theme' as create-palette;
 @use '../styles/components/button/variants' as button-variants;
 
 @mixin all-component-themes($theme) {

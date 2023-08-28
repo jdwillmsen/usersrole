@@ -5,21 +5,22 @@ import {
 } from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { UsersComponent } from './components/users/users.component';
-import { RoleGuard } from './services/permissions.service';
-import { ProfileComponent } from './components/profile/profile.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
-import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
-import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
-import { RolesComponent } from './components/roles/roles.component';
-import { ThemeTestingComponent } from './components/theme-testing/theme-testing.component';
-import { CreateThemeComponent } from './components/create-theme/create-theme.component';
+import { HomeComponent } from './home/components/home/home.component';
+import { SignInComponent } from './authentication/components/sign-in/sign-in.component';
+import { UsersComponent } from './admin/components/users/users.component';
+import { RoleGuard } from './core/services/permissions/permissions.service';
+import { ProfileComponent } from './home/components/profile/profile.component';
+import { SignUpComponent } from './authentication/components/sign-up/sign-up.component';
+import { AlertTestingComponent } from './testing/components/alert-testing/alert-testing.component';
+import { ButtonsTestingComponent } from './testing/components/buttons-testing/buttons-testing.component';
+import { SnackbarTestingComponent } from './testing/components/snackbar-testing/snackbar-testing.component';
+import { RolesComponent } from './admin/components/roles/roles.component';
+import { ThemeTestingComponent } from './theme/components/theme-testing/theme-testing.component';
+import { CreateThemeComponent } from './theme/components/create-theme/create-theme.component';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
+export const redirectUnauthorizedToLogin = () =>
+  redirectUnauthorizedTo(['login']);
+export const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
