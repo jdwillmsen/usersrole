@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
+
 import { AdminModule } from './admin/admin.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { HomeModule } from './home/home.module';
@@ -12,6 +12,9 @@ import { TestingModule } from './testing/testing.module';
 import { ThemeModule } from './theme/theme.module';
 import { ProfileModule } from './profile/profile.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { MainComponent } from './shared/components/main/main.component';
 
 @NgModule({
   imports: [
@@ -19,13 +22,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    SharedModule,
     AdminModule,
     AuthenticationModule,
     HomeModule,
     ProfileModule,
     TestingModule,
-    ThemeModule
+    ThemeModule,
+
+    MatSnackBarModule,
+    HeaderComponent,
+    MainComponent
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
