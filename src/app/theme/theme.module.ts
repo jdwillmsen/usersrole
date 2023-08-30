@@ -10,13 +10,14 @@ import { ThemeTestingComponent } from './components/theme-testing/theme-testing.
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
+  imports: [
+    ThemeRoutingModule,
+    SharedModule,
     CreatePaletteComponent,
     CreateThemeComponent,
     PaletteComponent,
     ThemeTestingComponent
   ],
-  imports: [ThemeRoutingModule, SharedModule],
   providers: [FirestoreService, ThemeStorageService]
 })
 export class ThemeModule {}

@@ -1,16 +1,29 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteColors } from '../../../shared/models/palette-colors.model';
 import { PaletteFormGroup } from '../../models/palette-form-group';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
 import { Theme } from '../../models/theme.model';
+import { CreatePaletteComponent } from '../create-palette/create-palette.component';
+import { NgFor } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-theme',
   templateUrl: './create-theme.component.html',
-  styleUrls: ['./create-theme.component.scss']
+  styleUrls: ['./create-theme.component.scss'],
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    CreatePaletteComponent
+  ]
 })
 export class CreateThemeComponent {
   themeForm = new FormGroup({

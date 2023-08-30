@@ -11,14 +11,16 @@ import { UsersComponent } from './components/users/users.component';
 import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
-  declarations: [
+  providers: [RolesService, UserFormService],
+  imports: [
+    AdminRoutingModule,
+    SharedModule,
+    AgGridModule,
     ActionsButtonCellRendererComponent,
     RolesComponent,
     RolesCellRendererComponent,
     UserFormComponent,
     UsersComponent
-  ],
-  providers: [RolesService, UserFormService],
-  imports: [AdminRoutingModule, SharedModule, AgGridModule]
+  ]
 })
 export class AdminModule {}

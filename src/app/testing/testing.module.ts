@@ -6,11 +6,12 @@ import { ButtonsTestingComponent } from './components/buttons-testing/buttons-te
 import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 
 @NgModule({
-  declarations: [
+  imports: [
+    TestingRoutingModule,
+    SharedModule,
     AlertTestingComponent,
     ButtonsTestingComponent,
     SnackbarTestingComponent
-  ],
-  imports: [TestingRoutingModule, SharedModule]
+  ]
 })
 export class TestingModule {}

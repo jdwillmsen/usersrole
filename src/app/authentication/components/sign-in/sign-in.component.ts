@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { catchError, EMPTY, take } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
 import { StyleManagerService } from 'src/app/core/services/style-manager/style-manager.service';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { EmailSignInComponent } from '../email-sign-in/email-sign-in.component';
+import { MatCardModule } from '@angular/material/card';
 
 const googleLogoURL =
   'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg';
@@ -12,7 +16,15 @@ const googleLogoURL =
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
+  standalone: true,
+  imports: [
+    MatCardModule,
+    EmailSignInComponent,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink
+  ]
 })
 export class SignInComponent {
   constructor(

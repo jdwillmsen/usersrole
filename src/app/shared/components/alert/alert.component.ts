@@ -4,19 +4,24 @@ import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Alert, AlertVariants } from 'src/app/core/models/alert.model';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss'],
-  animations: [
-    trigger('fade', [
-      transition('true => void', [
-        style({ opacity: 1 }),
-        animate('{{fadeTime}}ms', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+    selector: 'app-alert',
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss'],
+    animations: [
+        trigger('fade', [
+            transition('true => void', [
+                style({ opacity: 1 }),
+                animate('{{fadeTime}}ms', style({ opacity: 0 }))
+            ])
+        ])
+    ],
+    standalone: true,
+    imports: [NgFor, NgIf, MatIconModule, MatButtonModule]
 })
 export class AlertComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';

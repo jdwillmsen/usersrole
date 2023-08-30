@@ -1,14 +1,36 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup, FormGroupDirective } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  FormGroupDirective,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { PaletteColors } from '../../../shared/models/palette-colors.model';
 import tinycolor from 'tinycolor2';
 import { PaletteFormGroup } from '../../models/palette-form-group';
 import { debounceTime, Subject } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { NgClass, NgFor, NgStyle, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-palette',
   templateUrl: './create-palette.component.html',
-  styleUrls: ['./create-palette.component.scss']
+  styleUrls: ['./create-palette.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    NgFor,
+    NgStyle,
+    TitleCasePipe
+  ]
 })
 export class CreatePaletteComponent implements OnInit {
   @Input() paletteType: PaletteColors = 'primary';

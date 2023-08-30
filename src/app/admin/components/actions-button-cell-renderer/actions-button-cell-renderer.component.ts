@@ -7,11 +7,16 @@ import { User } from 'src/app/core/models/users.model';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from 'src/app/core/services/users/users.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-actions-button-cell-renderer',
-  templateUrl: './actions-button-cell-renderer.component.html',
-  styleUrls: ['./actions-button-cell-renderer.component.scss']
+    selector: 'app-actions-button-cell-renderer',
+    templateUrl: './actions-button-cell-renderer.component.html',
+    styleUrls: ['./actions-button-cell-renderer.component.scss'],
+    standalone: true,
+    imports: [MatButtonModule, MatTooltipModule, MatIconModule]
 })
 export class ActionsButtonCellRendererComponent
   implements ICellRendererAngularComp
