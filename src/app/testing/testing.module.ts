@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
+
 import { TestingRoutingModule } from './testing-routing.module';
 import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
 import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
@@ -8,10 +8,9 @@ import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar
 @NgModule({
   imports: [
     TestingRoutingModule,
-    SharedModule,
     AlertTestingComponent,
     ButtonsTestingComponent,
     SnackbarTestingComponent
-  ]
+]
 })
 export class TestingModule {}
