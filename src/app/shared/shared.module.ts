@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppMaterialModule } from './app-material.module';
 import { A11yModule } from '@angular/cdk/a11y';
 import { AlertComponent } from './components/alert/alert.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -13,42 +12,43 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppMaterialModule,
-        A11yModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AgGridModule,
-        RouterLink,
-        RouterLinkActive,
-        AlertComponent,
-        HeaderComponent,
-        MainComponent,
-        NavItemComponent,
-        ProfileCardComponent,
-        SignOutComponent,
-        SnackbarComponent,
-        ThemeSelectorComponent
-    ],
-    exports: [
-        CommonModule,
-        AppMaterialModule,
-        A11yModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AlertComponent,
-        HeaderComponent,
-        MainComponent,
-        NavItemComponent,
-        ProfileCardComponent,
-        SignOutComponent,
-        SnackbarComponent,
-        ThemeSelectorComponent,
-        RouterLink,
-        RouterLinkActive
-    ]
+  imports: [
+    CommonModule,
+    MatSnackBarModule,
+    A11yModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AgGridModule,
+    RouterLink,
+    RouterLinkActive,
+    AlertComponent,
+    HeaderComponent,
+    MainComponent,
+    NavItemComponent,
+    ProfileCardComponent,
+    SignOutComponent,
+    SnackbarComponent,
+    ThemeSelectorComponent
+  ],
+  exports: [
+    CommonModule,
+    MatSnackBarModule,
+    A11yModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AlertComponent,
+    HeaderComponent,
+    MainComponent,
+    NavItemComponent,
+    ProfileCardComponent,
+    SignOutComponent,
+    SnackbarComponent,
+    ThemeSelectorComponent,
+    RouterLink,
+    RouterLinkActive
+  ]
 })
 export class SharedModule {}
