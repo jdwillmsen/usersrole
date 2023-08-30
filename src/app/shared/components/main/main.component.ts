@@ -26,41 +26,41 @@ export class MainComponent {
       roles: ['user']
     },
     {
-      path: '/users',
+      path: '/testing/alerts',
+      icon: 'notification_important',
+      title: 'Alerts'
+    },
+    {
+      path: '/testing/snackbars',
+      icon: 'announcement',
+      title: 'Snackbars'
+    },
+    {
+      path: '/testing/buttons',
+      icon: 'ballot',
+      title: 'Buttons'
+    },
+    {
+      path: '/theme/view',
+      icon: 'format_color_fill',
+      title: 'Palettes'
+    },
+    {
+      path: '/theme/create',
+      icon: 'color_lens',
+      title: 'Theme'
+    },
+    {
+      path: '/admin/users',
       icon: 'supervised_user_circle',
       title: 'Users',
       roles: ['admin', 'manager']
     },
     {
-      path: '/roles',
+      path: '/admin/roles',
       icon: 'lock',
       title: 'Roles',
       roles: ['admin', 'manager']
-    },
-    {
-      path: '/alerts',
-      icon: 'notification_important',
-      title: 'Alerts'
-    },
-    {
-      path: '/snackbars',
-      icon: 'announcement',
-      title: 'Snackbars'
-    },
-    {
-      path: '/buttons',
-      icon: 'ballot',
-      title: 'Buttons'
-    },
-    {
-      path: '/palettes',
-      icon: 'format_color_fill',
-      title: 'Palettes'
-    },
-    {
-      path: '/theme',
-      icon: 'color_lens',
-      title: 'Theme'
     }
   ];
   user: firebase.User | null = null;

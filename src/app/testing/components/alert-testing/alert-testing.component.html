@@ -80,8 +80,9 @@
                                 <input [(ngModel)]="options.maxSize" matInput
                                        min="1"
                                        type="number">
-                                <button (click)="options.maxSize=undefined" *ngIf="options.maxSize" aria-label="Clear"
-                                        mat-icon-button matSuffix>
+                                                     <button (click)="options.maxSize=undefined" *ngIf="options.maxSize"
+                                                             aria-label="Clear"
+                                                             mat-icon-button matSuffix>
                                     <mat-icon>close</mat-icon>
                                 </button>
                             </mat-form-field>
