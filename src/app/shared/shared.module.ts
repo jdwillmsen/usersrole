@@ -15,42 +15,40 @@ import { AgGridModule } from 'ag-grid-angular';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AlertComponent,
-    HeaderComponent,
-    MainComponent,
-    NavItemComponent,
-    ProfileCardComponent,
-    SignOutComponent,
-    SnackbarComponent,
-    ThemeSelectorComponent
-  ],
-  imports: [
-    CommonModule,
-    AppMaterialModule,
-    A11yModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AgGridModule,
-    RouterLink,
-    RouterLinkActive
-  ],
-  exports: [
-    CommonModule,
-    AppMaterialModule,
-    A11yModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AlertComponent,
-    HeaderComponent,
-    MainComponent,
-    NavItemComponent,
-    ProfileCardComponent,
-    SignOutComponent,
-    SnackbarComponent,
-    ThemeSelectorComponent,
-    RouterLink,
-    RouterLinkActive
-  ]
+    imports: [
+        CommonModule,
+        AppMaterialModule,
+        A11yModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AgGridModule,
+        RouterLink,
+        RouterLinkActive,
+        AlertComponent,
+        HeaderComponent,
+        MainComponent,
+        NavItemComponent,
+        ProfileCardComponent,
+        SignOutComponent,
+        SnackbarComponent,
+        ThemeSelectorComponent
+    ],
+    exports: [
+        CommonModule,
+        AppMaterialModule,
+        A11yModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AlertComponent,
+        HeaderComponent,
+        MainComponent,
+        NavItemComponent,
+        ProfileCardComponent,
+        SignOutComponent,
+        SnackbarComponent,
+        ThemeSelectorComponent,
+        RouterLink,
+        RouterLinkActive
+    ]
 })
 export class SharedModule {}

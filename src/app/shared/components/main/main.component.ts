@@ -5,11 +5,29 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PermissionsService } from 'src/app/core/services/permissions/permissions.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
 import firebase from 'firebase/compat/app';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { NavItemComponent } from '../nav-item/nav-item.component';
+import { MatListModule } from '@angular/material/list';
+import { NgFor, NgIf } from '@angular/common';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    NgIf,
+    MatListModule,
+    NgFor,
+    NavItemComponent,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule
+  ]
 })
 export class MainComponent {
   isExpanded = false;
