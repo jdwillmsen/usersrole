@@ -72,13 +72,13 @@ export class MainComponent {
       path: '/admin/users',
       icon: 'supervised_user_circle',
       title: 'Users',
-      roles: ['admin', 'manager']
+      roles: ['read', 'admin', 'manager']
     },
     {
       path: '/admin/roles',
       icon: 'lock',
       title: 'Roles',
-      roles: ['admin', 'manager']
+      roles: ['read', 'admin', 'manager']
     }
   ];
   user: firebase.User | null = null;

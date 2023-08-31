@@ -72,13 +72,13 @@ export class HomeComponent {
       link: '/admin/users',
       description:
         'This is a page for viewing all the users associated with the application.',
-      access: ['Admin', 'Manager']
+      access: ['Read', 'Admin', 'Manager']
     },
     {
       title: 'Roles',
       link: '/admin/roles',
       description: 'This is the home link and is currently being displayed.',
-      access: ['Admin', 'Manager']
+      access: ['Read', 'Admin', 'Manager']
     }
   ];
 }

@@ -20,7 +20,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { RoleOption } from '../roles/roles.component';
 
 @Component({
   selector: 'app-user-form',
@@ -39,7 +40,8 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
     MatOptionModule,
     MatButtonModule,
     MatIconModule,
-    AsyncPipe
+    AsyncPipe,
+    NgForOf
   ]
 })
 export class UserFormComponent implements OnInit {
@@ -100,7 +102,24 @@ export class UserFormComponent implements OnInit {
     ],
     matchingPassword: [{ type: 'passwordMatch', message: 'Password mismatch' }]
   };
-
+  rolesOptions: RoleOption[] = [
+    {
+      value: 'admin',
+      display: 'Admin'
+    },
+    {
+      value: 'manager',
+      display: 'Manager'
+    },
+    {
+      value: 'user',
+      display: 'User'
+    },
+    {
+      value: 'read',
+      display: 'Read'
+    }
+  ];
   title$!: Observable<string>;
   user$!: Observable<User>;
   type$!: Observable<ActionType>;

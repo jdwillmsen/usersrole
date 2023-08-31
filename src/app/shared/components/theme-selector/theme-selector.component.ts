@@ -130,8 +130,8 @@ export class ThemeSelectorComponent {
       'A700'
     ];
     for (const color of colors) {
-      const paletteColor: string = `color${color}`;
-      const paletteContrastColor: string = `colorContrast${color}`;
+      const paletteColor = `color${color}`;
+      const paletteContrastColor = `colorContrast${color}`;
       document.documentElement.style.setProperty(
         `--${paletteName}-${color}`,
         palette[paletteColor]
