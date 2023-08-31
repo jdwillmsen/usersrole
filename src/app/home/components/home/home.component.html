@@ -1,4 +1,4 @@
-<div class="home-container">
+<div class='home-container'>
   <h1>Users Role</h1>
   <p>
     This is a frontend application that is supposed to provided a template for users authentication and authorization
@@ -17,15 +17,21 @@
     (CodeQL). Also there is a server.js script in the repo that is used within CI/CD to retrieve and setup the
     environment file since they contain secrets. Which are managed with GitHub secrets.
   </p>
-  <p>The following are the primary routes once authenticated:</p>
-  <div class="routes">
-    <ng-container *ngFor="let route of routes">
-      <app-route-tile [description]="route.description"
+  <p>
+    The following are the primary routes once authenticated:
+    <span class='read-message'>
+      **Read access will be able to see all pages but will get 403 error when trying to action
+    </span>
+  </p>
+  <div class='routes'>
+    <ng-container *ngFor='let route of routes'>
+      <app-route-tile [description]='route.description'
                       [footer]="route.access.join(', ')"
-                      [link]="route.link"
-                      [title]="route.title"
-                      class="route">
+                      [link]='route.link'
+                      [title]='route.title'
+                      class='route'>
       </app-route-tile>
     </ng-container>
   </div>
+
 </div>

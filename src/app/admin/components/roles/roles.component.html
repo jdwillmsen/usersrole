@@ -22,9 +22,8 @@
     <mat-form-field appearance="outline" class="roles" subscriptSizing="dynamic">
       <mat-label>Roles</mat-label>
       <mat-select formControlName="roles" multiple required>
-        <mat-option value="admin">Admin</mat-option>
-        <mat-option value="manager">Manager</mat-option>
-        <mat-option value="user">User</mat-option>
+        <mat-option *ngFor="let roleOption of rolesOptions"
+                    [value]="roleOption.value">{{roleOption.display}}</mat-option>
       </mat-select>
       <mat-error *ngIf="rolesForm.get('roles')?.invalid">
         At least one role must be selected.

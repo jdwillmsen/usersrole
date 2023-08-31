@@ -21,6 +21,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
+export type RoleOption = {
+  value: Role;
+  display: string;
+};
+
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
@@ -56,6 +61,24 @@ export class RolesComponent implements OnInit {
   );
   options$!: Observable<User[]>;
   filteredOptions$!: Observable<User[]>;
+  rolesOptions: RoleOption[] = [
+    {
+      value: 'admin',
+      display: 'Admin'
+    },
+    {
+      value: 'manager',
+      display: 'Manager'
+    },
+    {
+      value: 'user',
+      display: 'User'
+    },
+    {
+      value: 'read',
+      display: 'Read'
+    }
+  ];
   private filteredOptionsSubject = new BehaviorSubject<User[]>([]);
 
   constructor(
