@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { redirectLoggedInToHome } from '../app-routing.module';
+import {
+  redirectLoggedInToHome,
+  redirectUnauthorizedToLogin
+} from '../app-routing.module';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 const routes: Routes = [
   {
@@ -20,6 +24,14 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToHome
+    }
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
     }
   }
 ];

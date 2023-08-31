@@ -39,7 +39,7 @@ export class PermissionsService {
             ) {
               return true;
             } else {
-              this.router.navigate(['home']);
+              this.router.navigate(['/forbidden']);
               return false;
             }
           })
