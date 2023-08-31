@@ -1,54 +1,31 @@
 <div class="home-container">
   <h1>Users Role</h1>
-  <p>Welcome to the Users Role project!</p>
-  <p>This is an Angular Frontend Application with role base users. It uses firebase for the user authentication and
-    it's assisted by Firebase functions with an Express server for the role authorization.</p>
+  <p>
+    This is a frontend application that is supposed to provided a template for users authentication and authorization
+    since these are common features to be used in most applications. It also includes features such as theme selection,
+    snackbar service, alerts service, and a general site layout with header, collapsable sidebar/navigation, and main
+    content area.
+  </p>
+  <p>
+    The authentication is provided by Firebase with Google Identity Platform and the authorization is built off of a
+    node server that makes use of Firebase functions. The production server and all deployments are hosted with Firebase
+    hosting.
+  </p>
+  <p>
+    The CI/CD tools used here are GitHub actions. There are two different actions/workflows, one for deploying
+    production and the other for raising previews during pull requests. As well as few other checks within GitHub
+    (CodeQL). Also there is a server.js script in the repo that is used within CI/CD to retrieve and setup the
+    environment file since they contain secrets. Which are managed with GitHub secrets.
+  </p>
   <p>The following are the primary routes once authenticated:</p>
-  <ul>
-    <li><a mat-button routerLink="/home">/home</a></li>
-    <ul>
-      <li>This is the home link and is currently being displayed.</li>
-      <li>This page is not restricted to any logged in user.</li>
-    </ul>
-    <li><a mat-button routerLink="/profile">/profile</a></li>
-    <ul>
-      <li>This is a profile page for viewing information about the logged in user.</li>
-      <li>This page is restricted to users with the user role.</li>
-    </ul>
-    <li><a mat-button routerLink="/users">/users</a></li>
-    <ul>
-      <li>This is a page for viewing all the users associated with the application.</li>
-      <li>This page is restricted to users with the manager and admin roles.</li>
-    </ul>
-    <li><a mat-button routerLink="/roles">/roles</a></li>
-    <ul>
-      <li>This is a page for assigning/revoking roles to users.</li>
-      <li>This page is restricted to users with the manager and admin roles.</li>
-    </ul>
-    <li><a mat-button routerLink="/alerts">/alerts</a></li>
-    <ul>
-      <li>This is a page for viewing the alert service/alerts provided in this application.</li>
-      <li>This page is not restricted to any logged in user.</li>
-    </ul>
-    <li><a mat-button routerLink="/snackbars">/snackbars</a></li>
-    <ul>
-      <li>This is a page for viewing the snackbar service/snackbars provided in this application.</li>
-      <li>This page is not restricted to any logged in user.</li>
-    </ul>
-    <li><a mat-button routerLink="/buttons">/buttons</a></li>
-    <ul>
-      <li>This is a page for viewing the additional palettes applied on buttons provided in this application.</li>
-      <li>This page is not restricted to any logged in user.</li>
-    </ul>
-    <li><a mat-button routerLink="/palettes">/palettes</a></li>
-    <ul>
-      <li>This is a page for viewing the different color palettes for the current theme.</li>
-      <li>This page is not restricted to any logged in user.</li>
-    </ul>
-    <li><a mat-button routerLink="/theme">/theme</a></li>
-    <ul>
-      <li>This is a page for creating a custom theme.</li>
-      <li>This page is not restricted to any logged in user.</li>
-    </ul>
-  </ul>
+  <div class="routes">
+    <ng-container *ngFor="let route of routes">
+      <app-route-tile [description]="route.description"
+                      [footer]="route.access.join(', ')"
+                      [link]="route.link"
+                      [title]="route.title"
+                      class="route">
+      </app-route-tile>
+    </ng-container>
+  </div>
 </div>
