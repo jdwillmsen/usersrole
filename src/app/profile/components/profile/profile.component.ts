@@ -8,7 +8,7 @@ import {
 import { filter, Observable, switchMap, tap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UsersService } from 'src/app/core/services/users/users.service';
-import { User } from 'src/app/core/models/users.model';
+import { Role, User } from 'src/app/core/models/users.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -31,9 +31,10 @@ export class ProfileComponent implements OnInit {
   profileForm = new FormGroup({
     email: new FormControl(''),
     displayName: new FormControl(''),
-    roles: new FormControl()
+    roles: new FormControl<Role[]>([])
   });
   user$!: Observable<User>;
+  displayRoles: string = '';
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -48,10 +49,17 @@ export class ProfileComponent implements OnInit {
           tap((user) => {
             if (user) {
               this.profileForm.patchValue(user);
+              this.displayRoles = user.roles
+                .map((role) => capitalizeFirstLetter(role))
+                .join(', ');
             }
           })
         )
       )
     );
   }
+}
+
+function capitalizeFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
