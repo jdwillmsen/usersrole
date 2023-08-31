@@ -3,6 +3,8 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
   ValidatorFn,
   Validators
 } from '@angular/forms';
@@ -11,11 +13,32 @@ import { Role, User } from 'src/app/core/models/users.model';
 import { RolesService } from 'src/app/admin/services/roles/roles.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.scss']
+  styleUrls: ['./roles.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    NgFor,
+    MatOptionModule,
+    MatSelectModule,
+    MatButtonModule,
+    AsyncPipe
+  ]
 })
 export class RolesComponent implements OnInit {
   rolesForm = new FormGroup(

@@ -9,11 +9,17 @@ import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
 import { ActionsButtonCellRendererComponent } from '../actions-button-cell-renderer/actions-button-cell-renderer.component';
 import { RolesCellRendererComponent } from '../roles-cell-renderer/roles-cell-renderer.component';
+import { AsyncPipe } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  standalone: true,
+  imports: [MatButtonModule, MatIconModule, AgGridModule, AsyncPipe]
 })
 export class UsersComponent implements OnInit {
   users$!: Observable<User[]>;

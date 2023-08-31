@@ -6,11 +6,17 @@ import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service
 import { FirestoreService } from 'src/app/theme/services/firestore/firestore.service';
 import { ThemeStorageService } from 'src/app/theme/services/theme-storage/theme-storage.service';
 import { Palette, Theme } from '../../../theme/models/theme.model';
+import { NgFor } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-theme-selector',
   templateUrl: './theme-selector.component.html',
-  styleUrls: ['./theme-selector.component.scss']
+  styleUrls: ['./theme-selector.component.scss'],
+  standalone: true,
+  imports: [MatButtonModule, MatMenuModule, MatIconModule, NgFor]
 })
 export class ThemeSelectorComponent {
   currentTheme: SiteTheme | undefined;

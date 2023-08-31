@@ -7,16 +7,16 @@ import { CreatePaletteComponent } from './components/create-palette/create-palet
 import { CreateThemeComponent } from './components/create-theme/create-theme.component';
 import { PaletteComponent } from './components/palette/palette.component';
 import { ThemeTestingComponent } from './components/theme-testing/theme-testing.component';
-import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
-  declarations: [
+  imports: [
+    ThemeRoutingModule,
     CreatePaletteComponent,
     CreateThemeComponent,
     PaletteComponent,
     ThemeTestingComponent
-  ],
-  imports: [ThemeRoutingModule, SharedModule],
+],
   providers: [FirestoreService, ThemeStorageService]
 })
 export class ThemeModule {}
