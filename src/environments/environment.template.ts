@@ -9,5 +9,8 @@ export const environment = {
     messagingSenderId: '',
     appId: '',
     measurementId: ''
+  },
+  recaptcha: {
+    siteKey: ''
   }
 };
