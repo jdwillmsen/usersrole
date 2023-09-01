@@ -1,6 +1,7 @@
+import { NgModule } from '@angular/core';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import {
@@ -10,9 +11,9 @@ import {
   UserTrackingService
 } from '@angular/fire/analytics';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { NgModule } from '@angular/core';
-
 import { environment } from 'src/environments/environment';
+import { initializeAppCheck, provideAppCheck } from '@angular/fire/app-check';
+import { ReCaptchaV3Provider } from 'firebase/app-check';
 
 @NgModule({
   imports: [
@@ -21,7 +22,13 @@ import { environment } from 'src/environments/environment';
     provideFunctions(() => getFunctions()),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideFirebaseApp(() => initializeApp(environment.firebase))
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAppCheck(() =>
+      initializeAppCheck(getApp(), {
+        provider: new ReCaptchaV3Provider(environment.recaptcha.siteKey),
+        isTokenAutoRefreshEnabled: true
+      })
+    )
   ],
   providers: [
     ScreenTrackingService,
