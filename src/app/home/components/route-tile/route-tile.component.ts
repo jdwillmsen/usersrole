@@ -11,8 +11,8 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./route-tile.component.scss']
 })
 export class RouteTileComponent {
-  @Input() title: string = '';
-  @Input() link: string = '/';
-  @Input() description: string = '';
-  @Input() footer: string = '';
+  @Input() title = '';
+  @Input() link = '/';
+  @Input() description = '';
+  @Input() footer = '';
 }

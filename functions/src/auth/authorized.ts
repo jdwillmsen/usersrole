@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Request, Response } from 'express';
 
-export type Roles = 'admin' | 'manager' | 'user';
+export type Roles = 'admin' | 'manager' | 'user' | 'read';
 
 export function isAuthorized(opts: {
   hasRole: Array<Roles>;

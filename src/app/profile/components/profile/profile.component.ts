@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
     roles: new FormControl<Role[]>([])
   });
   user$!: Observable<User>;
-  displayRoles: string = '';
+  displayRoles = '';
 
   constructor(
     private afAuth: AngularFireAuth,
