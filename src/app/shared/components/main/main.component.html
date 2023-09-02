@@ -1,9 +1,10 @@
 <mat-sidenav-container autosize data-cy='sidenav-container'>
   <mat-sidenav
     #sidenav
+    (openedChange)='openedChanged($event)'
     *ngIf='user'
     [mode]='sideNavMode'
-    [opened]='sideNavOpened'
+    [opened]='isSideNavOpened'
     data-cy='sidenav-links'
     role='navigation'
   >
@@ -12,13 +13,14 @@
         <ng-template [ngForOf]='navItems' let-item ngFor>
           <app-nav-item
             *ngIf='checkRoles(item.roles)'
-            [isExpanded]='isExpanded'
+            [isExpanded]='sideNavMode === "side" ? isExpanded : true'
             [navItem]='item'
           ></app-nav-item>
         </ng-template>
       </mat-nav-list>
       <button
         (click)='toggleSideNav()'
+        *ngIf='sideNavMode === "side"'
         [matTooltip]="isExpanded ? 'Toggle Collapse' : 'Toggle Expand'"
         class='expand'
         data-cy='expand-toggle-button'
