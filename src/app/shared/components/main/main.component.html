@@ -1,22 +1,35 @@
-<mat-sidenav-container autosize data-cy="sidenav-container">
-  <mat-sidenav #sidenav *ngIf="user" data-cy="sidenav-links" mode="side" opened role="navigation">
-    <div class="sideNavContainer">
-      <mat-nav-list data-cy="sidenav-links-list">
-        <ng-template [ngForOf]="navItems" let-item ngFor>
-          <app-nav-item *ngIf="checkRoles(item.roles)" [isExpanded]="isExpanded" [navItem]="item"></app-nav-item>
+<mat-sidenav-container autosize data-cy='sidenav-container'>
+  <mat-sidenav
+    #sidenav
+    *ngIf='user'
+    [mode]='sideNavMode'
+    [opened]='sideNavOpened'
+    data-cy='sidenav-links'
+    role='navigation'
+  >
+    <div class='sideNavContainer'>
+      <mat-nav-list data-cy='sidenav-links-list'>
+        <ng-template [ngForOf]='navItems' let-item ngFor>
+          <app-nav-item
+            *ngIf='checkRoles(item.roles)'
+            [isExpanded]='isExpanded'
+            [navItem]='item'
+          ></app-nav-item>
         </ng-template>
       </mat-nav-list>
-      <button (click)="toggleSideNav()"
-              [matTooltip]="isExpanded ? 'Toggle Collapse' : 'Toggle Expand'"
-              class="expand"
-              data-cy="expand-toggle-button"
-              mat-icon-button>
-        <mat-icon *ngIf="!isExpanded">keyboard_double_arrow_right</mat-icon>
-        <mat-icon *ngIf="isExpanded">keyboard_double_arrow_left</mat-icon>
+      <button
+        (click)='toggleSideNav()'
+        [matTooltip]="isExpanded ? 'Toggle Collapse' : 'Toggle Expand'"
+        class='expand'
+        data-cy='expand-toggle-button'
+        mat-icon-button
+      >
+        <mat-icon *ngIf='!isExpanded'>keyboard_double_arrow_right</mat-icon>
+        <mat-icon *ngIf='isExpanded'>keyboard_double_arrow_left</mat-icon>
       </button>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content data-cy="sidenav-content">
+  <mat-sidenav-content data-cy='sidenav-content'>
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

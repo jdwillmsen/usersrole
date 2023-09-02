@@ -1,181 +1,302 @@
-<div class="alert-container">
-  <div class="default container">
-    <div class="buttons-container">
+<div class='alert-container'>
+  <div class='default container'>
+    <div class='buttons-container'>
       <h1>Default</h1>
-      <div class="default">
-                <span class="alert-buttons">
-                    <button (click)="alertService.send('primary', 'Primary Message', options)" color="primary"
-                            mat-raised-button>
-                        Primary Alert
-                    </button>
-                    <button (click)="alertService.send('accent', 'Accent Message', options)" color="accent"
-                            mat-raised-button>
-                        Accent Alert
-                    </button>
-                    <button (click)="alertService.info('Info Message', options, defaultIcons)" color="info"
-                            mat-raised-button>
-                        Info Alert
-                    </button>
-                    <button (click)="alertService.error('Error Message', options, defaultIcons)" color="error"
-                            mat-raised-button>
-                        Error Alert
-                    </button>
-                    <button (click)="alertService.success('Success Message', options, defaultIcons)" color="success"
-                            mat-raised-button>
-                        Success Alert
-                    </button>
-                    <button (click)="alertService.warn('Warn Message', options, defaultIcons)" color="warn"
-                            mat-raised-button>
-                        Warn Alert
-                    </button>
-                    <button (click)="alertService.clear()" mat-raised-button>
-                        Close Alerts
-                    </button>
-                </span>
-        <span class="options">
-                    <span class="checkboxes">
-                        <mat-checkbox [(ngModel)]="options.closeButton">Close Button</mat-checkbox>
-                        <mat-checkbox [(ngModel)]="defaultIcons">Default Icons</mat-checkbox>
-                        <mat-checkbox [(ngModel)]="fade">Fade</mat-checkbox>
-                        <mat-checkbox [(ngModel)]="options.autoClose">Auto Close</mat-checkbox>
-                    </span>
-                    <span class="form-fields">
-                        <span class="auto-close">
-                            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                                <mat-label>Auto Close Time</mat-label>
-                                <input [(ngModel)]="options.autoCloseTimeout"
-                                       [min]="(options.autoCloseTimeout && options.autoCloseTimeout > 500) ? 0 : 1"
-                                       [step]="500"
-                                       matInput
-                                       type="number">
-                            </mat-form-field>
-                        </span>
-                        <span class="fade-time">
-                            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                                <mat-label>Fade Time</mat-label>
-                                <input [(ngModel)]="fadeTime" [min]="(fadeTime > 100) ? 0 : 1" [step]="100" matInput
-                                       type="number">
-                            </mat-form-field>
-                        </span>
-                        <span class="icon-select">
-                            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                                <mat-label>Icon</mat-label>
-                                <mat-select [(value)]="options.icon">
-                                    <mat-select-trigger>
-                                        &#x200B;
-                                        <mat-icon>
-                                            {{options.icon}}
-                                        </mat-icon>
-                                    </mat-select-trigger>
-                                    <mat-option>None</mat-option>
-                                    <mat-option *ngFor="let icon of iconList" [value]="icon.value">
-                                        <mat-icon>{{icon.value}}</mat-icon>
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </span>
-                        <span class="max-size">
-                            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                                <mat-label>Max Alerts</mat-label>
-                                <input [(ngModel)]="options.maxSize" matInput
-                                       min="1"
-                                       type="number">
-                                                     <button (click)="options.maxSize=undefined" *ngIf="options.maxSize"
-                                                             aria-label="Clear"
-                                                             mat-icon-button matSuffix>
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                            </mat-form-field>
-                        </span>
-                        <span class="variant">
-                            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                                <mat-label>Variant</mat-label>
-                                <mat-select [formControl]="variant">
-                                    <mat-select-trigger>
-                                        {{variant.value?.display}}
-                                    </mat-select-trigger>
-                                    <mat-option *ngFor="let variant of variantList" [value]="variant">
-                                        {{variant.display}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </span>
-                    </span>
-                </span>
+      <div class='default-container'>
+        <span class='alert-buttons'>
+          <button
+            (click)="alertService.send('primary', 'Primary Message', options)"
+            color='primary'
+            mat-raised-button
+          >
+            Primary Alert
+          </button>
+          <button
+            (click)="alertService.send('accent', 'Accent Message', options)"
+            color='accent'
+            mat-raised-button
+          >
+            Accent Alert
+          </button>
+          <button
+            (click)="alertService.info('Info Message', options, defaultIcons)"
+            color='info'
+            mat-raised-button
+          >
+            Info Alert
+          </button>
+          <button
+            (click)="alertService.error('Error Message', options, defaultIcons)"
+            color='error'
+            mat-raised-button
+          >
+            Error Alert
+          </button>
+          <button
+            (click)="
+              alertService.success('Success Message', options, defaultIcons)
+            "
+            color='success'
+            mat-raised-button
+          >
+            Success Alert
+          </button>
+          <button
+            (click)="alertService.warn('Warn Message', options, defaultIcons)"
+            color='warn'
+            mat-raised-button
+          >
+            Warn Alert
+          </button>
+          <button (click)='alertService.clear()' mat-raised-button>
+            Close Alerts
+          </button>
+        </span>
+        <span class='options'>
+          <span class='checkboxes'>
+            <mat-checkbox [(ngModel)]='options.closeButton'>
+              Close Button
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]='defaultIcons'>
+              Default Icons
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]='fade'>Fade</mat-checkbox>
+            <mat-checkbox [(ngModel)]='options.autoClose'>
+              Auto Close
+            </mat-checkbox>
+          </span>
+          <span class='form-fields'>
+            <span class='auto-close'>
+              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+                <mat-label>Auto Close Time</mat-label>
+                <input
+                  [(ngModel)]='options.autoCloseTimeout'
+                  [min]='
+                    options.autoCloseTimeout && options.autoCloseTimeout > 500
+                      ? 0
+                      : 1
+                  '
+                  [step]='500'
+                  matInput
+                  type='number'
+                />
+              </mat-form-field>
+            </span>
+            <span class='fade-time'>
+              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+                <mat-label>Fade Time</mat-label>
+                <input
+                  [(ngModel)]='fadeTime'
+                  [min]='fadeTime > 100 ? 0 : 1'
+                  [step]='100'
+                  matInput
+                  type='number'
+                />
+              </mat-form-field>
+            </span>
+            <span class='icon-select'>
+              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+                <mat-label>Icon</mat-label>
+                <mat-select [(value)]='options.icon'>
+                  <mat-select-trigger>
+                    &#x200B;
+                    <mat-icon>
+                      {{ options.icon }}
+                    </mat-icon>
+                  </mat-select-trigger>
+                  <mat-option>None</mat-option>
+                  <mat-option
+                    *ngFor='let icon of iconList'
+                    [value]='icon.value'
+                  >
+                    <mat-icon>{{ icon.value }}</mat-icon>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </span>
+            <span class='max-size'>
+              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+                <mat-label>Max Alerts</mat-label>
+                <input
+                  [(ngModel)]='options.maxSize'
+                  matInput
+                  min='1'
+                  type='number'
+                />
+                <button
+                  (click)='options.maxSize = undefined'
+                  *ngIf='options.maxSize'
+                  aria-label='Clear'
+                  mat-icon-button
+                  matSuffix
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </span>
+            <span class='variant'>
+              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+                <mat-label>Variant</mat-label>
+                <mat-select [formControl]='variant'>
+                  <mat-select-trigger>
+                    {{ variant.value?.display }}
+                  </mat-select-trigger>
+                  <mat-option
+                    *ngFor='let variant of variantList'
+                    [value]='variant'
+                  >
+                    {{ variant.display }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </span>
+          </span>
+        </span>
       </div>
     </div>
-    <div class="alerts-container">
-      <app-alert [fadeTime]="fadeTime" [fade]="fade"
-                 [variant]="this.variant.value ? this.variant.value!.value : 'default'"></app-alert>
+    <div class='alerts-container'>
+      <app-alert
+        [fadeTime]='fadeTime'
+        [fade]='fade'
+        [variant]="this.variant.value ? this.variant.value!.value : 'default'"
+      ></app-alert>
     </div>
   </div>
-  <div class="left container">
-    <div class="buttons-container">
-      <h1>Left</h1>
-      <button (click)="alertService.send('primary', 'Primary Message', {id: 'left', icon: 'new_releases'})"
-              color="primary"
-              mat-raised-button>
+  <div class='one container'>
+    <div class='buttons-container'>
+      <h1>One</h1>
+      <button
+        (click)="
+          alertService.send('primary', 'Primary Message', {
+            id: 'one',
+            icon: 'new_releases'
+          })
+        "
+        color='primary'
+        mat-raised-button
+      >
         Primary Alert
       </button>
-      <button (click)="alertService.send('accent',  'Accent Message',  {id: 'left', icon: 'add_circle'})" color="accent"
-              mat-raised-button>
+      <button
+        (click)="
+          alertService.send('accent', 'Accent Message', {
+            id: 'one',
+            icon: 'add_circle'
+          })
+        "
+        color='accent'
+        mat-raised-button
+      >
         Accent Alert
       </button>
-      <button (click)="alertService.info('Info Message', {id: 'left'}, true)" color="info" mat-raised-button>
+      <button
+        (click)="alertService.info('Info Message', { id: 'one' }, true)"
+        color='info'
+        mat-raised-button
+      >
         Info Alert
       </button>
-      <button (click)="alertService.error('Error Message', {id: 'left'}, true)" color="error" mat-raised-button>
+      <button
+        (click)="alertService.error('Error Message', { id: 'one' }, true)"
+        color='error'
+        mat-raised-button
+      >
         Error Alert
       </button>
-      <button (click)="alertService.success('Success Message', {id: 'left'}, true)" color="success"
-              mat-raised-button>
+      <button
+        (click)="alertService.success('Success Message', { id: 'one' }, true)"
+        color='success'
+        mat-raised-button
+      >
         Success Alert
       </button>
-      <button (click)="alertService.warn('Warn Message', {id: 'left'}, true)" color="warn" mat-raised-button>
+      <button
+        (click)="alertService.warn('Warn Message', { id: 'one' }, true)"
+        color='warn'
+        mat-raised-button
+      >
         Warn Alert
       </button>
-      <button (click)="alertService.clear('left')" mat-raised-button>
+      <button (click)="alertService.clear('one')" mat-raised-button>
         Close Alerts
       </button>
     </div>
-    <div class="alerts-container">
-      <app-alert id="left" variant="filled"></app-alert>
+    <div class='alerts-container'>
+      <app-alert id='one' variant='filled'></app-alert>
     </div>
   </div>
-  <div class="right container">
-    <div class="buttons-container">
-      <h1>Right</h1>
-      <button (click)="alertService.send('primary', 'Primary Message', {id: 'right', closeButton: false})"
-              color="primary"
-              mat-raised-button>
+  <div class='two container'>
+    <div class='buttons-container'>
+      <h1>Two</h1>
+      <button
+        (click)="
+          alertService.send('primary', 'Primary Message', {
+            id: 'two',
+            closeButton: false
+          })
+        "
+        color='primary'
+        mat-raised-button
+      >
         Primary Alert
       </button>
-      <button (click)="alertService.send('accent', 'Accent Message', {id: 'right', closeButton: false})" color="accent"
-              mat-raised-button>
+      <button
+        (click)="
+          alertService.send('accent', 'Accent Message', {
+            id: 'two',
+            closeButton: false
+          })
+        "
+        color='accent'
+        mat-raised-button
+      >
         Accent Alert
       </button>
-      <button (click)="alertService.info('Info Message', {id: 'right', closeButton: false})" color="info"
-              mat-raised-button>
+      <button
+        (click)="
+          alertService.info('Info Message', { id: 'two', closeButton: false })
+        "
+        color='info'
+        mat-raised-button
+      >
         Info Alert
       </button>
-      <button (click)="alertService.error('Error Message', {id: 'right', closeButton: false})" color="error"
-              mat-raised-button>
+      <button
+        (click)="
+          alertService.error('Error Message', { id: 'two', closeButton: false })
+        "
+        color='error'
+        mat-raised-button
+      >
         Error Alert
       </button>
-      <button (click)="alertService.success('Success Message', {id: 'right', closeButton: false})" color="success"
-              mat-raised-button>
+      <button
+        (click)="
+          alertService.success('Success Message', {
+            id: 'two',
+            closeButton: false
+          })
+        "
+        color='success'
+        mat-raised-button
+      >
         Success Alert
       </button>
-      <button (click)="alertService.warn('Warn Message', {id: 'right', closeButton: false})" color="warn"
-              mat-raised-button>
+      <button
+        (click)="
+          alertService.warn('Warn Message', { id: 'two', closeButton: false })
+        "
+        color='warn'
+        mat-raised-button
+      >
         Warn Alert
       </button>
-      <button (click)="alertService.clear('right')" mat-raised-button>
+      <button (click)="alertService.clear('two')" mat-raised-button>
         Close Alerts
       </button>
     </div>
-    <div class="alerts-container">
-      <app-alert id="right" variant="outlined"></app-alert>
+    <div class='alerts-container'>
+      <app-alert id='two' variant='outlined'></app-alert>
     </div>
   </div>
 </div>

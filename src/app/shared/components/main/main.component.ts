@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavItem } from 'src/app/shared/models/nav-item.model';
 import { Role } from 'src/app/core/models/users.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NavItemComponent } from '../nav-item/nav-item.component';
 import { MatListModule } from '@angular/material/list';
 import { NgFor, NgIf } from '@angular/common';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main',
@@ -30,7 +30,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   ]
 })
 export class MainComponent {
-  isExpanded = false;
+  @Input() sideNavMode: MatDrawerMode = 'side';
+  @Input() sideNavOpened = true;
+  @Input() isExpanded = false;
   navItems: NavItem[] = [
     {
       path: '/home',
