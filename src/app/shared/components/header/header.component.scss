@@ -1,11 +1,15 @@
 mat-toolbar {
-    height: 52px;
+  height: 52px;
 
-    span.spacer {
-        flex: 1;
-    }
+  span.spacer {
+    flex: 1;
+  }
 
-    .no-underline {
-        text-decoration: none;
-    }
+  .no-underline {
+    text-decoration: none;
+  }
+}
+
+.menu {
+  margin-left: -10px;
 }

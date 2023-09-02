@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NavItem } from 'src/app/shared/models/nav-item.model';
 import { Role } from 'src/app/core/models/users.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NavItemComponent } from '../nav-item/nav-item.component';
 import { MatListModule } from '@angular/material/list';
 import { NgFor, NgIf } from '@angular/common';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main',
@@ -30,6 +30,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   ]
 })
 export class MainComponent {
+  @Input() sideNavMode: MatDrawerMode = 'side';
+  @Input() isSideNavOpened = true;
+  @Output() onSideNavChange = new EventEmitter<boolean>();
   isExpanded = false;
   navItems: NavItem[] = [
     {
@@ -104,5 +107,9 @@ export class MainComponent {
 
   toggleSideNav() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  openedChanged(isOpen: boolean) {
+    this.onSideNavChange.emit(isOpen);
   }
 }
