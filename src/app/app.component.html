@@ -1,4 +1,9 @@
-<app-header></app-header>
-<app-main>
+<app-header (toggleSideNav)='handleToggle()' [isXSmallScreen]='isXSmallScreen'>
+</app-header>
+<app-main
+  (onSideNavChange)='onSideNavChange($event)'
+  [isSideNavOpened]='isSideNavOpened'
+  [sideNavMode]='sideNavMode'
+>
   <router-outlet></router-outlet>
 </app-main>

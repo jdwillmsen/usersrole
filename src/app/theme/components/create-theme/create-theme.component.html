@@ -1,18 +1,20 @@
-<div class="create-theme-container">
-  <div class="header">
+<div class='create-theme-container'>
+  <div class='header'>
     <h1>Create Custom Theme</h1>
-    <button (click)="saveLightTheme()" color="primary" mat-raised-button>
-      <mat-icon>wb_sunny</mat-icon>
-      Save Light Theme
-    </button>
-    <button (click)="saveDarkTheme()" color="primary" mat-raised-button>
-      <mat-icon>nightlight_round</mat-icon>
-      Save Dark Theme
-    </button>
+    <div>
+      <button (click)='saveLightTheme()' color='primary' mat-raised-button>
+        <mat-icon>wb_sunny</mat-icon>
+        Save Light Theme
+      </button>
+      <button (click)='saveDarkTheme()' color='primary' mat-raised-button>
+        <mat-icon>nightlight_round</mat-icon>
+        Save Dark Theme
+      </button>
+    </div>
   </div>
-  <form [formGroup]="themeForm" class="palettes-container">
-    <ng-container *ngFor="let palette of palettes">
-      <app-create-palette [formGroupName]="palette.name" [paletteType]="palette.type"></app-create-palette>
+  <form [formGroup]='themeForm' class='palettes-container'>
+    <ng-container *ngFor='let palette of palettes'>
+      <app-create-palette [formGroupName]='palette.name' [paletteType]='palette.type'></app-create-palette>
     </ng-container>
   </form>
 </div>

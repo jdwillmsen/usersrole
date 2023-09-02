@@ -8,6 +8,7 @@ import { AlertService } from './services/alert/alert.service';
 import { UsersService } from './services/users/users.service';
 import { StyleManagerService } from './services/style-manager/style-manager.service';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
+import { FirestoreService } from './services/firestore/firestore.service';
 
 @NgModule({
   imports: [AppFirebaseModule, HttpClientModule],
@@ -18,6 +19,7 @@ import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.inte
     AlertService,
     UsersService,
     StyleManagerService,
+    FirestoreService,
     AuthTokenHttpInterceptorProvider
   ],
   exports: [AppFirebaseModule, HttpClientModule]

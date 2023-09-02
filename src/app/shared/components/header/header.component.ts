@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
 import firebase from 'firebase/compat/app';
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
@@ -22,10 +23,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     RouterLink,
     NgIf,
     ThemeSelectorComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    MatIconModule
   ]
 })
 export class HeaderComponent {
+  @Input() isXSmallScreen = false;
+  @Output() toggleSideNav = new EventEmitter<boolean>();
   user: firebase.User | null = null;
 
   constructor(
@@ -37,5 +41,9 @@ export class HeaderComponent {
       error: (error) =>
         this.snackbarService.error(error.error, { variant: 'filled' }, true)
     });
+  }
+
+  toggle() {
+    this.toggleSideNav.emit();
   }
 }

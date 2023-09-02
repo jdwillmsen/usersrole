@@ -1,20 +1,23 @@
-<mat-toolbar color="primary" data-cy="navbar-header">
-  <a class="no-underline"
-     mat-button matTooltip="Home"
-     matTooltipShowDelay="3000"
-     routerLink="/home">
-    <span data-cy="app-name">Users Role</span>
+<mat-toolbar color='primary' data-cy='navbar-header'>
+  <button (click)='toggle()' *ngIf='isXSmallScreen && user' class='menu' mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a class='no-underline'
+     mat-button matTooltip='Home'
+     matTooltipShowDelay='3000'
+     routerLink='/home'>
+    <span data-cy='app-name'>Users Role</span>
   </a>
-  <span class="spacer"></span>
+  <span class='spacer'></span>
   <app-theme-selector
-    *ngIf="user"
-    matTooltip="Theme Selection">
+    *ngIf='user'
+    matTooltip='Theme Selection'>
   </app-theme-selector>
   <app-profile-card
-    *ngIf="user"
-    [user]="user"
-    data-cy="profile-icon-button"
-    matTooltip="Sign Out"
-    matTooltipShowDelay="3000">
+    *ngIf='user'
+    [user]='user'
+    data-cy='profile-icon-button'
+    matTooltip='Sign Out'
+    matTooltipShowDelay='3000'>
   </app-profile-card>
 </mat-toolbar>
