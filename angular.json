@@ -20,7 +20,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "usersrole": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -34,7 +34,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/usersrole",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -52,7 +52,8 @@
                 "glob": "favicon.ico",
                 "input": "src",
                 "output": "/"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               {
@@ -106,7 +107,9 @@
                 "src/styles"
               ]
             },
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -153,10 +156,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "frontend:build:production"
+              "browserTarget": "usersrole:build:production"
             },
             "development": {
-              "browserTarget": "frontend:build:development"
+              "browserTarget": "usersrole:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -164,7 +167,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "usersrole:build"
           }
         },
         "test": {
@@ -241,11 +244,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "frontend:serve"
+            "devServerTarget": "usersrole:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "frontend:serve:production"
+              "devServerTarget": "usersrole:serve:production"
             }
           }
         },
@@ -259,27 +262,27 @@
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "frontend:serve",
+            "devServerTarget": "usersrole:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "frontend:serve:development"
+              "devServerTarget": "usersrole:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "frontend:serve",
+            "devServerTarget": "usersrole:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "frontend:serve:production"
+              "devServerTarget": "usersrole:serve:production"
             }
           }
         },
@@ -297,7 +300,7 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "frontend:build:production",
+            "browserTarget": "usersrole:build:production",
             "firebaseProject": "usersrole",
             "firebaseHostingSite": "usersrole"
           }
