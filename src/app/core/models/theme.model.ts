@@ -7,7 +7,7 @@ export interface Theme {
   infoPalette: Palette;
 }
 
-export interface Palette extends Record<string, any> {
+export interface Palette extends Record<string, string> {
   color50: string;
   color100: string;
   color200: string;

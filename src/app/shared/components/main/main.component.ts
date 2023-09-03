@@ -32,7 +32,7 @@ import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 export class MainComponent {
   @Input() sideNavMode: MatDrawerMode = 'side';
   @Input() isSideNavOpened = true;
-  @Output() onSideNavChange = new EventEmitter<boolean>();
+  @Output() sideNavChange = new EventEmitter<boolean>();
   isExpanded = false;
   navItems: NavItem[] = [
     {
@@ -110,6 +110,6 @@ export class MainComponent {
   }
 
   openedChanged(isOpen: boolean) {
-    this.onSideNavChange.emit(isOpen);
+    this.sideNavChange.emit(isOpen);
   }
 }

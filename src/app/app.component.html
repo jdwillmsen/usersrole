@@ -1,7 +1,7 @@
 <app-header (toggleSideNav)='handleToggle()' [isXSmallScreen]='isXSmallScreen'>
 </app-header>
 <app-main
-  (onSideNavChange)='onSideNavChange($event)'
+  (sideNavChange)='sideNavChange($event)'
   [isSideNavOpened]='isSideNavOpened'
   [sideNavMode]='sideNavMode'
 >

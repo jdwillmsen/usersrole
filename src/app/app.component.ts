@@ -28,7 +28,7 @@ export class AppComponent {
     this.isSideNavOpened = !this.isSideNavOpened;
   }
 
-  onSideNavChange(isOpen: boolean) {
+  sideNavChange(isOpen: boolean) {
     this.isSideNavOpened = isOpen;
   }
 
