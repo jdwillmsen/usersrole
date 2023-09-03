@@ -31,7 +31,7 @@ export class HomeComponent {
       link: '/profile',
       description:
         'This is a profile page for viewing information about the logged in user.',
-      access: ['Everyone']
+      access: ['User']
     },
     {
       title: 'Alerts',
