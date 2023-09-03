@@ -8,11 +8,6 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Role, User } from 'src/app/core/models/users.model';
-import { RolesService } from 'src/app/admin/services/roles/roles.service';
-import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
-import { UsersService } from 'src/app/core/services/users/users.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
@@ -20,6 +15,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Role, User } from 'src/app/core/models/users.model';
+import { RolesService } from 'src/app/admin/services/roles/roles.service';
+import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
 
 export type RoleOption = {
   value: Role;
@@ -172,9 +172,12 @@ export class RolesComponent implements OnInit {
   }
 }
 
-function instanceOfUser(user: any): user is User {
+function instanceOfUser(user: unknown): user is User {
+  if (typeof user !== 'object' || user === null) {
+    return false;
+  }
   return (
-    !!user && typeof user !== 'string' && 'displayName' in user && 'uid' in user
+    'uid' in user && 'displayName' in user && 'roles' in user && 'email' in user
   );
 }
 

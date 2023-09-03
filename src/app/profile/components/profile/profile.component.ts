@@ -12,6 +12,7 @@ import { Role, User } from 'src/app/core/models/users.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe, NgIf } from '@angular/common';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-profile',
@@ -43,9 +44,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user$ = this.afAuth.user.pipe(
-      filter((user) => !!user),
+      filter((user): user is firebase.User => !!user),
       switchMap((user) =>
-        this.usersService.user$(user!.uid).pipe(
+        this.usersService.user$(user.uid).pipe(
           tap((user) => {
             if (user) {
               this.profileForm.patchValue(user);
