@@ -1,7 +1,7 @@
 {
   "hosting": {
-    "target": "frontend",
-    "public": "dist/frontend",
+    "target": "usersrole",
+    "public": "dist/usersrole",
     "ignore": [
       "**/.*"
     ],
