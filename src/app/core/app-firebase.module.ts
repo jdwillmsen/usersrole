@@ -11,9 +11,9 @@ import {
   UserTrackingService
 } from '@angular/fire/analytics';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { environment } from 'src/environments/environment';
 import { initializeAppCheck, provideAppCheck } from '@angular/fire/app-check';
 import { ReCaptchaV3Provider } from 'firebase/app-check';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   imports: [

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Role, User } from '../../models/users.model';
 import { SnackbarService } from '../snackbar/snackbar.service';
+import { environment } from '../../../../environments/environment';
 
 export type CreateUserRequest = {
   displayName: string;

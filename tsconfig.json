@@ -24,7 +24,8 @@
       "dom"
     ],
     "typeRoots": ["node_modules/@types"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["jest"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
