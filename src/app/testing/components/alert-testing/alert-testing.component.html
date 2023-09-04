@@ -1,33 +1,33 @@
-<div class='alert-container'>
-  <div class='default container'>
-    <div class='buttons-container'>
+<div class="alert-container">
+  <div class="default container">
+    <div class="buttons-container">
       <h1>Default</h1>
-      <div class='default-container'>
-        <span class='alert-buttons'>
+      <div class="default-container">
+        <span class="alert-buttons">
           <button
             (click)="alertService.send('primary', 'Primary Message', options)"
-            color='primary'
+            color="primary"
             mat-raised-button
           >
             Primary Alert
           </button>
           <button
             (click)="alertService.send('accent', 'Accent Message', options)"
-            color='accent'
+            color="accent"
             mat-raised-button
           >
             Accent Alert
           </button>
           <button
             (click)="alertService.info('Info Message', options, defaultIcons)"
-            color='info'
+            color="info"
             mat-raised-button
           >
             Info Alert
           </button>
           <button
             (click)="alertService.error('Error Message', options, defaultIcons)"
-            color='error'
+            color="error"
             mat-raised-button
           >
             Error Alert
@@ -36,68 +36,68 @@
             (click)="
               alertService.success('Success Message', options, defaultIcons)
             "
-            color='success'
+            color="success"
             mat-raised-button
           >
             Success Alert
           </button>
           <button
             (click)="alertService.warn('Warn Message', options, defaultIcons)"
-            color='warn'
+            color="warn"
             mat-raised-button
           >
             Warn Alert
           </button>
-          <button (click)='alertService.clear()' mat-raised-button>
+          <button (click)="alertService.clear()" mat-raised-button>
             Close Alerts
           </button>
         </span>
-        <span class='options'>
-          <span class='checkboxes'>
-            <mat-checkbox [(ngModel)]='options.closeButton'>
+        <span class="options">
+          <span class="checkboxes">
+            <mat-checkbox [(ngModel)]="options.closeButton">
               Close Button
             </mat-checkbox>
-            <mat-checkbox [(ngModel)]='defaultIcons'>
+            <mat-checkbox [(ngModel)]="defaultIcons">
               Default Icons
             </mat-checkbox>
-            <mat-checkbox [(ngModel)]='fade'>Fade</mat-checkbox>
-            <mat-checkbox [(ngModel)]='options.autoClose'>
+            <mat-checkbox [(ngModel)]="fade">Fade</mat-checkbox>
+            <mat-checkbox [(ngModel)]="options.autoClose">
               Auto Close
             </mat-checkbox>
           </span>
-          <span class='form-fields'>
-            <span class='auto-close'>
-              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+          <span class="form-fields">
+            <span class="auto-close">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-label>Auto Close Time</mat-label>
                 <input
-                  [(ngModel)]='options.autoCloseTimeout'
-                  [min]='
+                  [(ngModel)]="options.autoCloseTimeout"
+                  [min]="
                     options.autoCloseTimeout && options.autoCloseTimeout > 500
                       ? 0
                       : 1
-                  '
-                  [step]='500'
+                  "
+                  [step]="500"
                   matInput
-                  type='number'
+                  type="number"
                 />
               </mat-form-field>
             </span>
-            <span class='fade-time'>
-              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+            <span class="fade-time">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-label>Fade Time</mat-label>
                 <input
-                  [(ngModel)]='fadeTime'
-                  [min]='fadeTime > 100 ? 0 : 1'
-                  [step]='100'
+                  [(ngModel)]="fadeTime"
+                  [min]="fadeTime > 100 ? 0 : 1"
+                  [step]="100"
                   matInput
-                  type='number'
+                  type="number"
                 />
               </mat-form-field>
             </span>
-            <span class='icon-select'>
-              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+            <span class="icon-select">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-label>Icon</mat-label>
-                <mat-select [(value)]='options.icon'>
+                <mat-select [(value)]="options.icon">
                   <mat-select-trigger>
                     &#x200B;
                     <mat-icon>
@@ -106,27 +106,27 @@
                   </mat-select-trigger>
                   <mat-option>None</mat-option>
                   <mat-option
-                    *ngFor='let icon of iconList'
-                    [value]='icon.value'
+                    *ngFor="let icon of iconList"
+                    [value]="icon.value"
                   >
                     <mat-icon>{{ icon.value }}</mat-icon>
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </span>
-            <span class='max-size'>
-              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+            <span class="max-size">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-label>Max Alerts</mat-label>
                 <input
-                  [(ngModel)]='options.maxSize'
+                  [(ngModel)]="options.maxSize"
                   matInput
-                  min='1'
-                  type='number'
+                  min="1"
+                  type="number"
                 />
                 <button
-                  (click)='options.maxSize = undefined'
-                  *ngIf='options.maxSize'
-                  aria-label='Clear'
+                  (click)="options.maxSize = undefined"
+                  *ngIf="options.maxSize"
+                  aria-label="Clear"
                   mat-icon-button
                   matSuffix
                 >
@@ -134,16 +134,16 @@
                 </button>
               </mat-form-field>
             </span>
-            <span class='variant'>
-              <mat-form-field appearance='outline' subscriptSizing='dynamic'>
+            <span class="variant">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-label>Variant</mat-label>
-                <mat-select [formControl]='variant'>
+                <mat-select [formControl]="variant">
                   <mat-select-trigger>
                     {{ variant.value?.display }}
                   </mat-select-trigger>
                   <mat-option
-                    *ngFor='let variant of variantList'
-                    [value]='variant'
+                    *ngFor="let variant of variantList"
+                    [value]="variant"
                   >
                     {{ variant.display }}
                   </mat-option>
@@ -154,16 +154,16 @@
         </span>
       </div>
     </div>
-    <div class='alerts-container'>
+    <div class="alerts-container">
       <app-alert
-        [fadeTime]='fadeTime'
-        [fade]='fade'
+        [fadeTime]="fadeTime"
+        [fade]="fade"
         [variant]="this.variant.value ? this.variant.value!.value : 'default'"
       ></app-alert>
     </div>
   </div>
-  <div class='one container'>
-    <div class='buttons-container'>
+  <div class="one container">
+    <div class="buttons-container">
       <h1>One</h1>
       <button
         (click)="
@@ -172,7 +172,7 @@
             icon: 'new_releases'
           })
         "
-        color='primary'
+        color="primary"
         mat-raised-button
       >
         Primary Alert
@@ -184,35 +184,35 @@
             icon: 'add_circle'
           })
         "
-        color='accent'
+        color="accent"
         mat-raised-button
       >
         Accent Alert
       </button>
       <button
         (click)="alertService.info('Info Message', { id: 'one' }, true)"
-        color='info'
+        color="info"
         mat-raised-button
       >
         Info Alert
       </button>
       <button
         (click)="alertService.error('Error Message', { id: 'one' }, true)"
-        color='error'
+        color="error"
         mat-raised-button
       >
         Error Alert
       </button>
       <button
         (click)="alertService.success('Success Message', { id: 'one' }, true)"
-        color='success'
+        color="success"
         mat-raised-button
       >
         Success Alert
       </button>
       <button
         (click)="alertService.warn('Warn Message', { id: 'one' }, true)"
-        color='warn'
+        color="warn"
         mat-raised-button
       >
         Warn Alert
@@ -221,12 +221,12 @@
         Close Alerts
       </button>
     </div>
-    <div class='alerts-container'>
-      <app-alert id='one' variant='filled'></app-alert>
+    <div class="alerts-container">
+      <app-alert id="one" variant="filled"></app-alert>
     </div>
   </div>
-  <div class='two container'>
-    <div class='buttons-container'>
+  <div class="two container">
+    <div class="buttons-container">
       <h1>Two</h1>
       <button
         (click)="
@@ -235,7 +235,7 @@
             closeButton: false
           })
         "
-        color='primary'
+        color="primary"
         mat-raised-button
       >
         Primary Alert
@@ -247,7 +247,7 @@
             closeButton: false
           })
         "
-        color='accent'
+        color="accent"
         mat-raised-button
       >
         Accent Alert
@@ -256,7 +256,7 @@
         (click)="
           alertService.info('Info Message', { id: 'two', closeButton: false })
         "
-        color='info'
+        color="info"
         mat-raised-button
       >
         Info Alert
@@ -265,7 +265,7 @@
         (click)="
           alertService.error('Error Message', { id: 'two', closeButton: false })
         "
-        color='error'
+        color="error"
         mat-raised-button
       >
         Error Alert
@@ -277,7 +277,7 @@
             closeButton: false
           })
         "
-        color='success'
+        color="success"
         mat-raised-button
       >
         Success Alert
@@ -286,7 +286,7 @@
         (click)="
           alertService.warn('Warn Message', { id: 'two', closeButton: false })
         "
-        color='warn'
+        color="warn"
         mat-raised-button
       >
         Warn Alert
@@ -295,8 +295,8 @@
         Close Alerts
       </button>
     </div>
-    <div class='alerts-container'>
-      <app-alert id='two' variant='outlined'></app-alert>
+    <div class="alerts-container">
+      <app-alert id="two" variant="outlined"></app-alert>
     </div>
   </div>
 </div>

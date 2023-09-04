@@ -17,12 +17,30 @@
   $success-color: mat.get-color-from-palette($success-palette, default);
   $info-color: mat.get-color-from-palette($info-palette, default);
 
-  $primary-color-contrast: mat.get-color-from-palette($primary-palette, default-contrast);
-  $accent-color-contrast: mat.get-color-from-palette($accent-palette, default-contrast);
-  $warn-color-contrast: mat.get-color-from-palette($warn-palette, default-contrast);
-  $error-color-contrast: mat.get-color-from-palette($error-palette, default-contrast);
-  $success-color-contrast: mat.get-color-from-palette($success-palette, default-contrast);
-  $info-color-contrast: mat.get-color-from-palette($info-palette, default-contrast);
+  $primary-color-contrast: mat.get-color-from-palette(
+    $primary-palette,
+    default-contrast
+  );
+  $accent-color-contrast: mat.get-color-from-palette(
+    $accent-palette,
+    default-contrast
+  );
+  $warn-color-contrast: mat.get-color-from-palette(
+    $warn-palette,
+    default-contrast
+  );
+  $error-color-contrast: mat.get-color-from-palette(
+    $error-palette,
+    default-contrast
+  );
+  $success-color-contrast: mat.get-color-from-palette(
+    $success-palette,
+    default-contrast
+  );
+  $info-color-contrast: mat.get-color-from-palette(
+    $info-palette,
+    default-contrast
+  );
 
   @include _variant('primary', $primary-color, $primary-color-contrast);
   @include _variant('accent', $accent-color, $accent-color-contrast);
@@ -36,11 +54,10 @@
   $typography-config: mat.get-typography-config($theme);
 
   .mat-mdc-snack-bar-container {
-
     .mat-mdc-snack-bar-label.mdc-snackbar__label {
       font-size: 16px;
       font-weight: 500;
-      white-space: pre-wrap
+      white-space: pre-wrap;
     }
   }
 
@@ -72,7 +89,11 @@
 @mixin _variant($type, $color, $color-contrast) {
   .#{$type}.mat-mdc-snack-bar-container {
     .mdc-snackbar__surface {
-      --mdc-snackbar-container-color: #{color-mix(in srgb, $color 25%, transparent)};
+      --mdc-snackbar-container-color: #{color-mix(
+          in srgb,
+          $color 25%,
+          transparent
+        )};
       --mdc-snackbar-supporting-text-color: #{$color};
     }
   }

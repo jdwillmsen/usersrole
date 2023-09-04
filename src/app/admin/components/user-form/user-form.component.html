@@ -1,124 +1,201 @@
-<ng-container *ngIf='user$ | async'></ng-container>
-<h2 mat-dialog-title>{{ title$ | async}}</h2>
+<ng-container *ngIf="user$ | async"></ng-container>
+<h2 mat-dialog-title>{{ title$ | async }}</h2>
 <mat-dialog-content>
-  <form (ngSubmit)='save()' [formGroup]='form' class='user-form'>
-    <mat-form-field appearance='outline'>
+  <form (ngSubmit)="save()" [formGroup]="form" class="user-form">
+    <mat-form-field appearance="outline">
       <mat-label>Email Address</mat-label>
-      <input [readonly]="(type$ | async) === 'View'"
-             formControlName='email' matInput placeholder='Enter your email'
-             required type='email'>
+      <input
+        [readonly]="(type$ | async) === 'View'"
+        formControlName="email"
+        matInput
+        placeholder="Enter your email"
+        required
+        type="email"
+      />
       <mat-error *ngIf="this.form.get('email')?.invalid">
-        {{getErrorMessage('email')}}
+        {{ getErrorMessage('email') }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance='outline'>
+    <mat-form-field appearance="outline">
       <mat-label>Display Name</mat-label>
-      <input [readonly]="(type$ | async) === 'View'" formControlName='displayName' matInput
-             placeholder='Enter your display name'
-             required type='text'>
+      <input
+        [readonly]="(type$ | async) === 'View'"
+        formControlName="displayName"
+        matInput
+        placeholder="Enter your display name"
+        required
+        type="text"
+      />
       <mat-error *ngIf="this.form.get('displayName')?.invalid">
-        {{getErrorMessage('displayName')}}
+        {{ getErrorMessage('displayName') }}
       </mat-error>
     </mat-form-field>
     <mat-form-field
-      [ngClass]="{roles: !this.form.get('roles')?.invalid
-      || !(this.form.get('roles')?.dirty
-      || this.form.get('roles')?.touched)}"
-      appearance='outline'
-      subscriptSizing='dynamic'>
+      [ngClass]="{
+        roles:
+          !this.form.get('roles')?.invalid ||
+          !(this.form.get('roles')?.dirty || this.form.get('roles')?.touched)
+      }"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
       <mat-label>Roles</mat-label>
-      <input *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-             formControlName='roles' matInput
-             placeholder='Enter roles' readonly required type='text'>
-      <mat-select *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
-                  formControlName='roles'
-                  multiple required>
-        <mat-option *ngFor='let roleOption of rolesOptions'
-                    [value]='roleOption.value'>{{roleOption.display}}</mat-option>
+      <input
+        *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
+        formControlName="roles"
+        matInput
+        placeholder="Enter roles"
+        readonly
+        required
+        type="text"
+      />
+      <mat-select
+        *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
+        formControlName="roles"
+        multiple
+        required
+      >
+        <mat-option
+          *ngFor="let roleOption of rolesOptions"
+          [value]="roleOption.value"
+          >{{ roleOption.display }}</mat-option
+        >
       </mat-select>
       <mat-error *ngIf="this.form.get('roles')?.invalid">
-        {{getErrorMessage('roles')}}
+        {{ getErrorMessage('roles') }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-                    appearance='outline'>
+    <mat-form-field
+      *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
+      appearance="outline"
+    >
       <mat-label>Uid</mat-label>
-      <input formControlName='uid' matInput placeholder='Your uid' readonly type='text'>
+      <input
+        formControlName="uid"
+        matInput
+        placeholder="Your uid"
+        readonly
+        type="text"
+      />
     </mat-form-field>
-    <mat-form-field *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-                    appearance='outline'>
+    <mat-form-field
+      *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
+      appearance="outline"
+    >
       <mat-label>Last Sign In Time</mat-label>
-      <input formControlName='lastSignInTime'
-             matInput
-             placeholder='Your last sign in time'
-             readonly type='text'>
+      <input
+        formControlName="lastSignInTime"
+        matInput
+        placeholder="Your last sign in time"
+        readonly
+        type="text"
+      />
     </mat-form-field>
-    <mat-form-field *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-                    appearance='outline'>
+    <mat-form-field
+      *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
+      appearance="outline"
+    >
       <mat-label>Account Creation Time</mat-label>
-      <input formControlName='creationTime' matInput placeholder='Your account creation time'
-             readonly type='text'>
+      <input
+        formControlName="creationTime"
+        matInput
+        placeholder="Your account creation time"
+        readonly
+        type="text"
+      />
     </mat-form-field>
-    <ng-container *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
-                  formGroupName='matchingPassword'>
-      <mat-form-field appearance='outline'>
+    <ng-container
+      *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
+      formGroupName="matchingPassword"
+    >
+      <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input [type]="hide ? 'password' : 'text'" formControlName='password' matInput
-               placeholder='Enter your password' required>
-        <button (click)='hide = !hide'
-                [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]='hide'
-                mat-icon-button
-                matSuffix
-                type='button'>
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          matInput
+          placeholder="Enter your password"
+          required
+        />
+        <button
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          mat-icon-button
+          matSuffix
+          type="button"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-error *ngIf="this.form.get('matchingPassword')?.get('password')?.invalid">
-          {{getPasswordErrorMessage('password')}}
+        <mat-error
+          *ngIf="this.form.get('matchingPassword')?.get('password')?.invalid"
+        >
+          {{ getPasswordErrorMessage('password') }}
         </mat-error>
       </mat-form-field>
       <mat-form-field
-        [subscriptSizing]="this.form.get('matchingPassword')?.invalid
-        && (this.form.get('matchingPassword')?.get('confirmPassword')?.dirty
-        || this.form.get('matchingPassword')?.get('confirmPassword')?.touched)
-        ? 'dynamic'
-        : 'fixed'"
-        appearance='outline'>
+        [subscriptSizing]="
+          this.form.get('matchingPassword')?.invalid &&
+          (this.form.get('matchingPassword')?.get('confirmPassword')?.dirty ||
+            this.form.get('matchingPassword')?.get('confirmPassword')?.touched)
+            ? 'dynamic'
+            : 'fixed'
+        "
+        appearance="outline"
+      >
         <mat-label>Confirm Password</mat-label>
-        <input [type]="hide ? 'password' : 'text'" formControlName='confirmPassword' matInput
-               placeholder='Enter your confirm password' required>
-        <button (click)='hide = !hide'
-                [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]='hide'
-                mat-icon-button
-                matSuffix
-                type='button'>
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          formControlName="confirmPassword"
+          matInput
+          placeholder="Enter your confirm password"
+          required
+        />
+        <button
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          mat-icon-button
+          matSuffix
+          type="button"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-error *ngIf="this.form.get('matchingPassword')?.get('confirmPassword')?.invalid">
-          {{getPasswordErrorMessage('confirmPassword')}}
+        <mat-error
+          *ngIf="
+            this.form.get('matchingPassword')?.get('confirmPassword')?.invalid
+          "
+        >
+          {{ getPasswordErrorMessage('confirmPassword') }}
         </mat-error>
       </mat-form-field>
       <mat-error
-        *ngIf="this.form.get('matchingPassword')?.invalid
-        && (this.form.get('matchingPassword')?.get('confirmPassword')?.dirty
-        || this.form.get('matchingPassword')?.get('confirmPassword')?.touched)
-        && getErrorMessage('matchingPassword') !== ''"
-        class='match-password'>
-        {{getErrorMessage('matchingPassword')}}
+        *ngIf="
+          this.form.get('matchingPassword')?.invalid &&
+          (this.form.get('matchingPassword')?.get('confirmPassword')?.dirty ||
+            this.form.get('matchingPassword')?.get('confirmPassword')
+              ?.touched) &&
+          getErrorMessage('matchingPassword') !== ''
+        "
+        class="match-password"
+      >
+        {{ getErrorMessage('matchingPassword') }}
       </mat-error>
     </ng-container>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions align='end'>
-  <button (click)='close()' mat-raised-button type='button'>
-    {{ ((type$ | async) === 'View') ? "Close" : "Cancel" }}
+<mat-dialog-actions align="end">
+  <button (click)="close()" mat-raised-button type="button">
+    {{ (type$ | async) === 'View' ? 'Close' : 'Cancel' }}
   </button>
-  <button (click)='save()'
-          *ngIf="(type$ | async) !== 'View'"
-          [disabled]="!form.valid && (type$ | async) !== 'Delete'"
-          color='primary'
-          mat-raised-button type='submit'>
-    {{ (type$ | async) }}
+  <button
+    (click)="save()"
+    *ngIf="(type$ | async) !== 'View'"
+    [disabled]="!form.valid && (type$ | async) !== 'Delete'"
+    color="primary"
+    mat-raised-button
+    type="submit"
+  >
+    {{ type$ | async }}
   </button>
 </mat-dialog-actions>

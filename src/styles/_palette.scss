@@ -30,7 +30,7 @@ $red-palette: (
     A100: $dark-text,
     A200: $light-text,
     A400: $light-text,
-    A700: $light-text,
+    A700: $light-text
   )
 );
 
@@ -63,7 +63,7 @@ $teal-palette: (
     A100: $dark-text,
     A200: $dark-text,
     A400: $dark-text,
-    A700: $dark-text,
+    A700: $dark-text
   )
 );
 
@@ -96,7 +96,7 @@ $black-palette: (
     A100: $light-text,
     A200: $light-text,
     A400: $light-text,
-    A700: $light-text,
+    A700: $light-text
   )
 );
 
@@ -129,7 +129,7 @@ $white-palette: (
     A100: $light-text,
     A200: $light-text,
     A400: $light-text,
-    A700: $light-text,
+    A700: $light-text
   )
 );
 
@@ -162,7 +162,7 @@ $primary-palette: (
     A100: var(--primary-contrast-A100, $dark-text),
     A200: var(--primary-contrast-A200, $dark-text),
     A400: var(--primary-contrast-A400, $light-text),
-    A700: var(--primary-contrast-A700, $light-text),
+    A700: var(--primary-contrast-A700, $light-text)
   )
 );
 
@@ -195,7 +195,7 @@ $accent-palette: (
     A100: var(--accent-contrast-A100, $dark-text),
     A200: var(--accent-contrast-A200, $dark-text),
     A400: var(--accent-contrast-A400, $light-text),
-    A700: var(--accent-contrast-A700, $light-text),
+    A700: var(--accent-contrast-A700, $light-text)
   )
 );
 
@@ -228,7 +228,7 @@ $warn-palette: (
     A100: var(--warn-contrast-A100, $dark-text),
     A200: var(--warn-contrast-A200, $dark-text),
     A400: var(--warn-contrast-A400, $light-text),
-    A700: var(--warn-contrast-A700, $light-text),
+    A700: var(--warn-contrast-A700, $light-text)
   )
 );
 
@@ -261,7 +261,7 @@ $success-palette: (
     A100: var(--success-contrast-A100, $dark-text),
     A200: var(--success-contrast-A200, $dark-text),
     A400: var(--success-contrast-A400, $light-text),
-    A700: var(--success-contrast-A700, $light-text),
+    A700: var(--success-contrast-A700, $light-text)
   )
 );
 
@@ -294,7 +294,7 @@ $error-palette: (
     A100: var(--error-contrast-A100, $dark-text),
     A200: var(--error-contrast-A200, $dark-text),
     A400: var(--error-contrast-A400, $light-text),
-    A700: var(--error-contrast-A700, $light-text),
+    A700: var(--error-contrast-A700, $light-text)
   )
 );
 
@@ -327,6 +327,6 @@ $info-palette: (
     A100: var(--info-contrast-A100, $dark-text),
     A200: var(--info-contrast-A200, $dark-text),
     A400: var(--info-contrast-A400, $light-text),
-    A700: var(--info-contrast-A700, $light-text),
+    A700: var(--info-contrast-A700, $light-text)
   )
 );

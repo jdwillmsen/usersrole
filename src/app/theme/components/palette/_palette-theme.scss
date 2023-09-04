@@ -58,27 +58,38 @@
   $color-A400: mat.get-color-from-palette($palette, A400);
   $color-A700: mat.get-color-from-palette($palette, A700);
 
-  $color-default-contrast: mat.get-color-from-palette($palette, default-contrast);
-  $color-lighter-contrast: mat.get-color-from-palette($palette, lighter-contrast);
+  $color-default-contrast: mat.get-color-from-palette(
+    $palette,
+    default-contrast
+  );
+  $color-lighter-contrast: mat.get-color-from-palette(
+    $palette,
+    lighter-contrast
+  );
   $color-darker-contrast: mat.get-color-from-palette($palette, darker-contrast);
-  $color-extra-light-contrast: mat.get-color-from-palette($palette, extra-light-contrast);
-  $color-extra-dark-contrast: mat.get-color-from-palette($palette, extra-dark-contrast);
+  $color-extra-light-contrast: mat.get-color-from-palette(
+    $palette,
+    extra-light-contrast
+  );
+  $color-extra-dark-contrast: mat.get-color-from-palette(
+    $palette,
+    extra-dark-contrast
+  );
 
-  $color-contrast-900: mat.get-color-from-palette($palette, "900-contrast");
-  $color-contrast-800: mat.get-color-from-palette($palette, "800-contrast");
-  $color-contrast-700: mat.get-color-from-palette($palette, "700-contrast");
-  $color-contrast-600: mat.get-color-from-palette($palette, "600-contrast");
-  $color-contrast-500: mat.get-color-from-palette($palette, "500-contrast");
-  $color-contrast-400: mat.get-color-from-palette($palette, "400-contrast");
-  $color-contrast-300: mat.get-color-from-palette($palette, "300-contrast");
-  $color-contrast-200: mat.get-color-from-palette($palette, "200-contrast");
-  $color-contrast-100: mat.get-color-from-palette($palette, "100-contrast");
-  $color-contrast-50: mat.get-color-from-palette($palette, "50-contrast");
+  $color-contrast-900: mat.get-color-from-palette($palette, '900-contrast');
+  $color-contrast-800: mat.get-color-from-palette($palette, '800-contrast');
+  $color-contrast-700: mat.get-color-from-palette($palette, '700-contrast');
+  $color-contrast-600: mat.get-color-from-palette($palette, '600-contrast');
+  $color-contrast-500: mat.get-color-from-palette($palette, '500-contrast');
+  $color-contrast-400: mat.get-color-from-palette($palette, '400-contrast');
+  $color-contrast-300: mat.get-color-from-palette($palette, '300-contrast');
+  $color-contrast-200: mat.get-color-from-palette($palette, '200-contrast');
+  $color-contrast-100: mat.get-color-from-palette($palette, '100-contrast');
+  $color-contrast-50: mat.get-color-from-palette($palette, '50-contrast');
   $color-contrast-A100: mat.get-color-from-palette($palette, A100-contrast);
   $color-contrast-A200: mat.get-color-from-palette($palette, A200-contrast);
   $color-contrast-A400: mat.get-color-from-palette($palette, A400-contrast);
   $color-contrast-A700: mat.get-color-from-palette($palette, A700-contrast);
-
 
   .#{$type} {
     .color-default {

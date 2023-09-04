@@ -7,60 +7,120 @@
       <form [formGroup]="signUpForm">
         <mat-form-field appearance="outline">
           <mat-label>Enter your email</mat-label>
-          <input formControlName="email" matInput placeholder="Email Address" required type="email">
+          <input
+            formControlName="email"
+            matInput
+            placeholder="Email Address"
+            required
+            type="email"
+          />
           <mat-error *ngIf="this.signUpForm.get('email')?.invalid">
-            {{getErrorMessage('email')}}
+            {{ getErrorMessage('email') }}
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Enter your display name</mat-label>
-          <input formControlName="displayName" matInput placeholder="Display Name" required type="text">
+          <input
+            formControlName="displayName"
+            matInput
+            placeholder="Display Name"
+            required
+            type="text"
+          />
           <mat-error *ngIf="this.signUpForm.get('displayName')?.invalid">
-            {{getErrorMessage('displayName')}}
+            {{ getErrorMessage('displayName') }}
           </mat-error>
         </mat-form-field>
         <ng-container formGroupName="matchingPassword">
           <mat-form-field appearance="outline">
             <mat-label>Enter your password</mat-label>
-            <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput
-                   placeholder="Password" required>
-            <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
-                    mat-icon-button
-                    matSuffix type="button">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              matInput
+              placeholder="Password"
+              required
+            />
+            <button
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+              mat-icon-button
+              matSuffix
+              type="button"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
-            <mat-error *ngIf="this.signUpForm.get('matchingPassword')?.get('password')?.invalid">
-              {{getPasswordErrorMessage('password')}}
+            <mat-error
+              *ngIf="
+                this.signUpForm.get('matchingPassword')?.get('password')
+                  ?.invalid
+              "
+            >
+              {{ getPasswordErrorMessage('password') }}
             </mat-error>
           </mat-form-field>
           <mat-form-field
-            [subscriptSizing]="this.signUpForm.get('matchingPassword')?.invalid
-            && (this.signUpForm.get('matchingPassword')?.get('confirmPassword')?.dirty
-            || this.signUpForm.get('matchingPassword')?.get('confirmPassword')?.touched)
-            ? 'dynamic'
-            : 'fixed'"
-            appearance="outline">
+            [subscriptSizing]="
+              this.signUpForm.get('matchingPassword')?.invalid &&
+              (this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                ?.dirty ||
+                this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                  ?.touched)
+                ? 'dynamic'
+                : 'fixed'
+            "
+            appearance="outline"
+          >
             <mat-label>Enter your confirm password</mat-label>
-            <input [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" matInput
-                   placeholder="Confirm Password" required>
-            <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
-                    mat-icon-button
-                    matSuffix type="button">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input
+              [type]="hide ? 'password' : 'text'"
+              formControlName="confirmPassword"
+              matInput
+              placeholder="Confirm Password"
+              required
+            />
+            <button
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+              mat-icon-button
+              matSuffix
+              type="button"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
-            <mat-error *ngIf="this.signUpForm.get('matchingPassword')?.get('confirmPassword')?.invalid">
-              {{getPasswordErrorMessage('confirmPassword')}}
+            <mat-error
+              *ngIf="
+                this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                  ?.invalid
+              "
+            >
+              {{ getPasswordErrorMessage('confirmPassword') }}
             </mat-error>
           </mat-form-field>
-          <mat-error *ngIf="this.signUpForm.get('matchingPassword')?.invalid
-                     && (this.signUpForm.get('matchingPassword')?.get('confirmPassword')?.dirty
-                     || this.signUpForm.get('matchingPassword')?.get('confirmPassword')?.touched)
-                     && getErrorMessage('matchingPassword') !== ''"
-                     class="match-password">
-            {{getErrorMessage('matchingPassword')}}
+          <mat-error
+            *ngIf="
+              this.signUpForm.get('matchingPassword')?.invalid &&
+              (this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                ?.dirty ||
+                this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                  ?.touched) &&
+              getErrorMessage('matchingPassword') !== ''
+            "
+            class="match-password"
+          >
+            {{ getErrorMessage('matchingPassword') }}
           </mat-error>
         </ng-container>
-        <button (click)="signUp()" color="primary" mat-raised-button type="submit">Sign Up</button>
+        <button
+          (click)="signUp()"
+          color="primary"
+          mat-raised-button
+          type="submit"
+        >
+          Sign Up
+        </button>
       </form>
     </mat-card-content>
     <mat-card-actions>

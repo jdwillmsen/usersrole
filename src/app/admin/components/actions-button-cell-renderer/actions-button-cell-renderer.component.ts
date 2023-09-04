@@ -12,11 +12,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-actions-button-cell-renderer',
-    templateUrl: './actions-button-cell-renderer.component.html',
-    styleUrls: ['./actions-button-cell-renderer.component.scss'],
-    standalone: true,
-    imports: [MatButtonModule, MatTooltipModule, MatIconModule]
+  selector: 'app-actions-button-cell-renderer',
+  templateUrl: './actions-button-cell-renderer.component.html',
+  styleUrls: ['./actions-button-cell-renderer.component.scss'],
+  standalone: true,
+  imports: [MatButtonModule, MatTooltipModule, MatIconModule]
 })
 export class ActionsButtonCellRendererComponent
   implements ICellRendererAngularComp

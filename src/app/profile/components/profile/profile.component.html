@@ -4,16 +4,34 @@
   <form [formGroup]="profileForm" class="profile-form">
     <mat-form-field appearance="outline">
       <mat-label>Email Address</mat-label>
-      <input formControlName="email" matInput placeholder="Email Address" readonly type="email">
+      <input
+        formControlName="email"
+        matInput
+        placeholder="Email Address"
+        readonly
+        type="email"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Display Name</mat-label>
-      <input formControlName="displayName" matInput placeholder="Display Name" readonly type="text">
+      <input
+        formControlName="displayName"
+        matInput
+        placeholder="Display Name"
+        readonly
+        type="text"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Roles</mat-label>
-      <input [(ngModel)]="displayRoles" [ngModelOptions]="{standalone: true}" matInput placeholder="Roles" readonly
-             type="text">
+      <input
+        [(ngModel)]="displayRoles"
+        [ngModelOptions]="{ standalone: true }"
+        matInput
+        placeholder="Roles"
+        readonly
+        type="text"
+      />
     </mat-form-field>
   </form>
 </div>

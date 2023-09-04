@@ -17,12 +17,30 @@
   $success-color: mat.get-color-from-palette($success-palette, default);
   $info-color: mat.get-color-from-palette($info-palette, default);
 
-  $primary-color-contrast: mat.get-color-from-palette($primary-palette, default-contrast);
-  $accent-color-contrast: mat.get-color-from-palette($accent-palette, default-contrast);
-  $warn-color-contrast: mat.get-color-from-palette($warn-palette, default-contrast);
-  $error-color-contrast: mat.get-color-from-palette($error-palette, default-contrast);
-  $success-color-contrast: mat.get-color-from-palette($success-palette, default-contrast);
-  $info-color-contrast: mat.get-color-from-palette($info-palette, default-contrast);
+  $primary-color-contrast: mat.get-color-from-palette(
+    $primary-palette,
+    default-contrast
+  );
+  $accent-color-contrast: mat.get-color-from-palette(
+    $accent-palette,
+    default-contrast
+  );
+  $warn-color-contrast: mat.get-color-from-palette(
+    $warn-palette,
+    default-contrast
+  );
+  $error-color-contrast: mat.get-color-from-palette(
+    $error-palette,
+    default-contrast
+  );
+  $success-color-contrast: mat.get-color-from-palette(
+    $success-palette,
+    default-contrast
+  );
+  $info-color-contrast: mat.get-color-from-palette(
+    $info-palette,
+    default-contrast
+  );
 
   .alert {
     @include _variant('primary', $primary-color, $primary-color-contrast);
