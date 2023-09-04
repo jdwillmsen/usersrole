@@ -1,7 +1,7 @@
-import { UserFormComponent } from './user-form.component'
+import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
   it('should mount', () => {
-    cy.mount(UserFormComponent)
-  })
-})
+    cy.mount(UserFormComponent);
+  });
+});

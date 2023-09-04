@@ -1,7 +1,7 @@
-import { CreateThemeComponent } from './create-theme.component'
+import { CreateThemeComponent } from './create-theme.component';
 
 describe('CreateThemeComponent', () => {
   it('should mount', () => {
-    cy.mount(CreateThemeComponent)
-  })
-})
+    cy.mount(CreateThemeComponent);
+  });
+});

@@ -1,14 +1,14 @@
 .container {
-    form {
-        display: grid;
-        grid-template-columns: 1fr;
+  form {
+    display: grid;
+    grid-template-columns: 1fr;
 
-        input {
-            margin-top: 5px;
-        }
-
-        mat-error {
-            font-size: 12px;
-        }
+    input {
+      margin-top: 5px;
     }
+
+    mat-error {
+      font-size: 12px;
+    }
+  }
 }

@@ -20,6 +20,6 @@ import { AgGridModule } from 'ag-grid-angular';
     RolesCellRendererComponent,
     UserFormComponent,
     UsersComponent
-]
+  ]
 })
 export class AdminModule {}

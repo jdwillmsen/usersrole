@@ -34,7 +34,6 @@
     }
 
     .default-container {
-
       .options {
         display: flex;
         flex-wrap: wrap;
@@ -61,7 +60,6 @@
           }
 
           .fade-time {
-
             mat-form-field {
               max-width: 95px;
             }
@@ -89,7 +87,6 @@
               max-width: 120px;
             }
           }
-
         }
       }
     }
@@ -123,6 +120,5 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
-
   }
 }

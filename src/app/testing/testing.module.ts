@@ -11,6 +11,6 @@ import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar
     AlertTestingComponent,
     ButtonsTestingComponent,
     SnackbarTestingComponent
-]
+  ]
 })
 export class TestingModule {}

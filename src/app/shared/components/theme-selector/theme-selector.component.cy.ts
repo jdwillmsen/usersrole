@@ -1,7 +1,7 @@
-import { ThemeSelectorComponent } from './theme-selector.component'
+import { ThemeSelectorComponent } from './theme-selector.component';
 
 describe('ThemeSelectorComponent', () => {
   it('should mount', () => {
-    cy.mount(ThemeSelectorComponent)
-  })
-})
+    cy.mount(ThemeSelectorComponent);
+  });
+});

@@ -1,7 +1,7 @@
-import { ForbiddenComponent } from './forbidden.component'
+import { ForbiddenComponent } from './forbidden.component';
 
 describe('ForbiddenComponent', () => {
   it('should mount', () => {
-    cy.mount(ForbiddenComponent)
-  })
-})
+    cy.mount(ForbiddenComponent);
+  });
+});

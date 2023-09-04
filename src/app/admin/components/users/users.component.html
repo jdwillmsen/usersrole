@@ -1,12 +1,16 @@
 <div class="users-grid">
-    <div class="header">
-        <h1>Users</h1>
-        <button mat-raised-button color="primary" (click)="create()">
-            <mat-icon>person_add</mat-icon>
-            Create User
-        </button>
-    </div>
-    <ag-grid-angular class="ag-theme-usersrole" [gridOptions]="gridOptions" [rowData]="users$ | async"
-        (firstDataRendered)="onFirstDataRendered($event)">
-    </ag-grid-angular>
+  <div class="header">
+    <h1>Users</h1>
+    <button mat-raised-button color="primary" (click)="create()">
+      <mat-icon>person_add</mat-icon>
+      Create User
+    </button>
+  </div>
+  <ag-grid-angular
+    class="ag-theme-usersrole"
+    [gridOptions]="gridOptions"
+    [rowData]="users$ | async"
+    (firstDataRendered)="onFirstDataRendered($event)"
+  >
+  </ag-grid-angular>
 </div>

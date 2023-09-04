@@ -1,7 +1,7 @@
-import { HomeComponent } from './home.component'
+import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
   it('should mount', () => {
-    cy.mount(HomeComponent)
-  })
-})
+    cy.mount(HomeComponent);
+  });
+});

@@ -1,16 +1,16 @@
 .alert {
-    display: grid;
-    align-items: center;
-    grid-template-columns: auto 1fr auto;
-    padding: 4px;
-    margin: 4px;
-    border-radius: 4px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  padding: 4px;
+  margin: 4px;
+  border-radius: 4px;
 
-    .icon {
-        padding: 4px 0 4px 4px;
-    }
+  .icon {
+    padding: 4px 0 4px 4px;
+  }
 
-    .message {
-        padding: 8px;
-    }
+  .message {
+    padding: 8px;
+  }
 }

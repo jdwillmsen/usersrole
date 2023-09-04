@@ -10,9 +10,9 @@
   .profile-card {
     p {
       @if $is-dark-theme {
-        color: $light-text
+        color: $light-text;
       } @else {
-        color: $dark-text
+        color: $dark-text;
       }
     }
   }

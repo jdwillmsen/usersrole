@@ -1,7 +1,7 @@
-import { ProfileComponent } from './profile.component'
+import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
   it('should mount', () => {
-    cy.mount(ProfileComponent)
-  })
-})
+    cy.mount(ProfileComponent);
+  });
+});

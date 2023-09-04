@@ -1,7 +1,7 @@
-import { AlertComponent } from './alert.component'
+import { AlertComponent } from './alert.component';
 
 describe('AlertComponent', () => {
   it('should mount', () => {
-    cy.mount(AlertComponent)
-  })
-})
+    cy.mount(AlertComponent);
+  });
+});

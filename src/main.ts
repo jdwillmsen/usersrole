@@ -15,11 +15,22 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, AppRoutingModule, CoreModule, AdminModule, AuthenticationModule, HomeModule, ProfileModule, TestingModule, ThemeModule, MatSnackBarModule),
+    importProvidersFrom(
+      BrowserModule,
+      AppRoutingModule,
+      CoreModule,
+      AdminModule,
+      AuthenticationModule,
+      HomeModule,
+      ProfileModule,
+      TestingModule,
+      ThemeModule,
+      MatSnackBarModule
+    ),
     provideAnimations(),
     provideServiceWorker('ngsw-worker.js', {
-        enabled: !isDevMode(),
-        registrationStrategy: 'registerWhenStable:30000'
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
     })
-]
+  ]
 }).catch((err) => console.error(err));

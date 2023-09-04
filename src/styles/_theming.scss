@@ -10,35 +10,43 @@
 /// @param {Boolean} $create-light-theme If true a light theme is created, otherwise a dark theme is created
 /// @param {Boolean} $typography The typography config
 /// @param {Boolean} $density The density config
-@function define-theme($primary,
-    $accent,
-    $warn: mat.$orange-palette,
-    $success: mat.$green-palette,
-    $error: mat.$red-palette,
-    $info: mat.$blue-palette,
-    $create-light-theme: true,
-    $typography: mat.define-typography-config(),
-    $density: 0) {
+@function define-theme(
+  $primary,
+  $accent,
+  $warn: mat.$orange-palette,
+  $success: mat.$green-palette,
+  $error: mat.$red-palette,
+  $info: mat.$blue-palette,
+  $create-light-theme: true,
+  $typography: mat.define-typography-config(),
+  $density: 0
+) {
   $theme: null;
 
   @if ($create-light-theme) {
-    $theme: mat.define-light-theme((
-      color: (
-        primary: $primary,
-        accent: $accent,
-        warn: $error,
-      ),
-      typography: $typography,
-      density: $density));
+    $theme: mat.define-light-theme(
+      (
+        color: (
+          primary: $primary,
+          accent: $accent,
+          warn: $error
+        ),
+        typography: $typography,
+        density: $density
+      )
+    );
   } @else {
-    $theme: mat.define-dark-theme((
-      color: (
-        primary: $primary,
-        accent: $accent,
-        warn: $error,
-      ),
-      typography: $typography,
-      density: $density));
+    $theme: mat.define-dark-theme(
+      (
+        color: (
+          primary: $primary,
+          accent: $accent,
+          warn: $error
+        ),
+        typography: $typography,
+        density: $density
+      )
+    );
   }
 
   $extra: (
@@ -50,14 +58,30 @@
   @return map-merge($theme, $extra);
 }
 
-@function define-palette($base-palette, $default: 500, $lighter: 100, $darker: 700, $extra-light: 50, $extra-dark: 900, $text: $default) {
-  $new-palette: mat.define-palette($base-palette, $default, $lighter, $darker, $text: $default);
+@function define-palette(
+  $base-palette,
+  $default: 500,
+  $lighter: 100,
+  $darker: 700,
+  $extra-light: 50,
+  $extra-dark: 900,
+  $text: $default
+) {
+  $new-palette: mat.define-palette(
+    $base-palette,
+    $default,
+    $lighter,
+    $darker,
+    $text: $default
+  );
 
   $extra-palette: (
     extra-light: map-get($base-palette, $extra-light),
     extra-dark: map-get($base-palette, $extra-dark),
-    extra-light-contrast: mat.get-contrast-color-from-palette($base-palette, $extra-light),
-    extra-dark-contrast: mat.get-contrast-color-from-palette($base-palette, $extra-dark),
+    extra-light-contrast:
+      mat.get-contrast-color-from-palette($base-palette, $extra-light),
+    extra-dark-contrast:
+      mat.get-contrast-color-from-palette($base-palette, $extra-dark)
   );
 
   @return map-merge($new-palette, $extra-palette);

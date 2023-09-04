@@ -1,7 +1,7 @@
-import { SignUpComponent } from './sign-up.component'
+import { SignUpComponent } from './sign-up.component';
 
 describe('SignUpComponent', () => {
   it('should mount', () => {
-    cy.mount(SignUpComponent)
-  })
-})
+    cy.mount(SignUpComponent);
+  });
+});
