@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { MatButtonModule } from '@angular/material/button';
+import { ThemeStorageService } from '../../../theme/services/theme-storage/theme-storage.service';
 
 @Component({
   selector: 'app-sign-out',
@@ -10,10 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatButtonModule]
 })
 export class SignOutComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private themeStorageService: ThemeStorageService
+  ) {}
 
   logout() {
     this.authService.authLogout();
+    this.themeStorageService.clearStorage();
     removeCustomTheme();
   }
 }

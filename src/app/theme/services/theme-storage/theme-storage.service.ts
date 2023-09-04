@@ -25,7 +25,6 @@ export class ThemeStorageService {
     }
   }
 
-  // TODO: investigate if this is needed in logout
   clearStorage() {
     try {
       window.localStorage.removeItem(ThemeStorageService.storageKey);
