@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AuthService } from './auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { expect } from '@jest/globals';
 
 describe('AuthService', () => {
   let service: AuthService;
