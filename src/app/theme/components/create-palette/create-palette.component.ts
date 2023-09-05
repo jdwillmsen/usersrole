@@ -34,7 +34,7 @@ import { NgClass, NgFor, NgStyle, TitleCasePipe } from '@angular/common';
 })
 export class CreatePaletteComponent implements OnInit {
   @Input() paletteType: PaletteColors = 'primary';
-  @Input() formGroupName!: string;
+  @Input() formGroupName: string = '';
   darkTextColor: string;
   lightTextColor: string;
   colorDetailsBaseUrl = 'https://www.colorhexa.com/';
