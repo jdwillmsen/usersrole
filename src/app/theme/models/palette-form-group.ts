@@ -4,7 +4,7 @@ export class PaletteFormGroup {
   darkTextColor = '#000000FF';
   lightTextColor = '#FFFFFF';
 
-  paletteFormGroup = {
+  paletteFormGroup: Record<string, FormControl<String>> = {
     color50: new FormControl('#FFFFFF', {
       nonNullable: true
     }),
