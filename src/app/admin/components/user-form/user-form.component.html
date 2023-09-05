@@ -31,6 +31,29 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field
+      *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
+      [ngClass]="{
+        roles:
+          !this.form.get('roles')?.invalid ||
+          !(this.form.get('roles')?.dirty || this.form.get('roles')?.touched)
+      }"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>Roles</mat-label>
+      <mat-select formControlName="roles" multiple required>
+        <mat-option
+          *ngFor="let roleOption of rolesOptions"
+          [value]="roleOption.value"
+          >{{ roleOption.display }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="this.form.get('roles')?.invalid">
+        {{ getErrorMessage('roles') }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field
+      *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
       [ngClass]="{
         roles:
           !this.form.get('roles')?.invalid ||
@@ -41,7 +64,6 @@
     >
       <mat-label>Roles</mat-label>
       <input
-        *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
         formControlName="roles"
         matInput
         placeholder="Enter roles"
@@ -49,18 +71,6 @@
         required
         type="text"
       />
-      <mat-select
-        *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
-        formControlName="roles"
-        multiple
-        required
-      >
-        <mat-option
-          *ngFor="let roleOption of rolesOptions"
-          [value]="roleOption.value"
-          >{{ roleOption.display }}</mat-option
-        >
-      </mat-select>
       <mat-error *ngIf="this.form.get('roles')?.invalid">
         {{ getErrorMessage('roles') }}
       </mat-error>
