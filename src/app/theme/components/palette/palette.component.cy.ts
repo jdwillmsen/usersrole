@@ -1,7 +1,7 @@
-import { PaletteComponent } from './palette.component'
+import { PaletteComponent } from './palette.component';
 
 describe('PaletteComponent', () => {
   it('should mount', () => {
-    cy.mount(PaletteComponent)
-  })
-})
+    cy.mount(PaletteComponent);
+  });
+});

@@ -11,6 +11,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     EmailSignInComponent,
     SignInComponent,
     SignUpComponent
-]
+  ]
 })
 export class AuthenticationModule {}

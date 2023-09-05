@@ -7,7 +7,11 @@
     class="nav"
     data-cy="nav-link"
   >
-    <mat-icon matListItemIcon class="icon" data-cy="nav-icon">{{ navItem.icon }}</mat-icon>
-    <span matListItemTitle *ngIf="isExpanded" data-cy="nav-title">{{ navItem.title }}</span>
+    <mat-icon matListItemIcon class="icon" data-cy="nav-icon">
+      {{ navItem.icon }}
+    </mat-icon>
+    <span matListItemTitle *ngIf="isExpanded" data-cy="nav-title">
+      {{ navItem.title }}
+    </span>
   </a>
 </ng-container>

@@ -1,6 +1,4 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -23,16 +21,13 @@
       "ES2022",
       "dom"
     ],
-    "typeRoots": ["node_modules/@types"],
     "esModuleInterop": true
   },
+  "compileOnSave": false,
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  }
 }

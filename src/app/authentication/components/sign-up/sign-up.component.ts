@@ -96,37 +96,48 @@ export class SignUpComponent {
   ) {}
 
   signUp() {
-    if (this.signUpForm.valid) {
-      const email = this.signUpForm.get('email')!.value;
-      const displayName = this.signUpForm.get('displayName')!.value;
-      const password = this.signUpForm
-        .get('matchingPassword')!
-        .get('password')!.value;
-      const roles: Role[] = ['user'];
-      const user: CreateUserRequest = { email, displayName, password, roles };
-      this.usersService.create(user).subscribe({
-        next: () => {
-          this.signUpForm.reset();
-          this.snackbarService.success(
-            'Sign Up Successful',
-            {
-              variant: 'filled',
-              autoClose: true
-            },
-            true
-          );
-          this.router.navigate(['sign-in']);
-        },
-        error: (error) => {
-          this.snackbarService.error(
-            error.error.message,
-            {
-              variant: 'filled'
-            },
-            true
-          );
-        }
-      });
+    const emailControl = this.signUpForm.get('email');
+    const displayNameControl = this.signUpForm.get('displayName');
+    const matchingPasswordControl = this.signUpForm.get('matchingPassword');
+    if (
+      emailControl &&
+      displayNameControl &&
+      matchingPasswordControl &&
+      emailControl.valid &&
+      displayNameControl.valid &&
+      matchingPasswordControl.valid
+    ) {
+      const email = emailControl.value;
+      const displayName = displayNameControl.value;
+      const passwordControl = matchingPasswordControl.get('password');
+      if (passwordControl) {
+        const password = passwordControl.value;
+        const roles: Role[] = ['user'];
+        const user: CreateUserRequest = { email, displayName, password, roles };
+        this.usersService.create(user).subscribe({
+          next: () => {
+            this.signUpForm.reset();
+            this.snackbarService.success(
+              'Sign Up Successful',
+              {
+                variant: 'filled',
+                autoClose: true
+              },
+              true
+            );
+            this.router.navigate(['sign-in']);
+          },
+          error: (error) => {
+            this.snackbarService.error(
+              error.error.message,
+              {
+                variant: 'filled'
+              },
+              true
+            );
+          }
+        });
+      }
     }
   }
 

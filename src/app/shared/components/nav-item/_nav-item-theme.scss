@@ -11,7 +11,6 @@
   $light-icon: white;
 
   .nav {
-
     .icon {
       @if $is-dark-theme {
         color: $light-icon !important;

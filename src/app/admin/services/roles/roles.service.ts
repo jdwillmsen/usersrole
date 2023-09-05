@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { catchError, EMPTY } from 'rxjs';
 import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
 import { Role } from '../../../core/models/users.model';
-import { catchError, EMPTY } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 export type UpdateUserRolesRequest = { uid: string; roles: Role[] };
 

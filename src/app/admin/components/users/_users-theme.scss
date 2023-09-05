@@ -7,9 +7,25 @@
   $is-dark-theme: map.get($color-config, 'is-dark');
 
   @if $is-dark-theme {
-    @include ag.grid-styles((themes: (usersrole: (extend-theme: alpine-dark))));
+    @include ag.grid-styles(
+      (
+        themes: (
+          usersrole: (
+            extend-theme: alpine-dark
+          )
+        )
+      )
+    );
   } @else {
-    @include ag.grid-styles((themes: (usersrole: (extend-theme: alpine))));
+    @include ag.grid-styles(
+      (
+        themes: (
+          usersrole: (
+            extend-theme: alpine
+          )
+        )
+      )
+    );
   }
 }
 

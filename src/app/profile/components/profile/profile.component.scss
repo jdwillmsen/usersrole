@@ -1,17 +1,17 @@
 .profile-container {
-    padding: 16px;
+  padding: 16px;
 
-    h1 {
-        margin: 0;
+  h1 {
+    margin: 0;
+  }
+
+  .profile-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 16px;
+
+    input {
+      margin-top: 5px;
     }
-
-    .profile-form {
-        display: grid;
-        grid-template-columns: 1fr;
-        margin-top: 16px;
-
-        input {
-            margin-top: 5px;
-        }
-    }
+  }
 }

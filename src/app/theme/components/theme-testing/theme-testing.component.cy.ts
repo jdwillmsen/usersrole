@@ -1,7 +1,7 @@
-import { ThemeTestingComponent } from './theme-testing.component'
+import { ThemeTestingComponent } from './theme-testing.component';
 
 describe('ThemeTestingComponent', () => {
   it('should mount', () => {
-    cy.mount(ThemeTestingComponent)
-  })
-})
+    cy.mount(ThemeTestingComponent);
+  });
+});

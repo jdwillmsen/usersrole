@@ -11,7 +11,8 @@ $theme-info: theming.define-palette(mat.$blue-palette);
 $theme-typography: mat.define-typography-config();
 $theme-density: 0;
 $theme-light: false;
-$theme: theming.define-theme($theme-primary,
+$theme: theming.define-theme(
+  $theme-primary,
   $theme-accent,
   $theme-warn,
   $theme-success,
@@ -19,5 +20,6 @@ $theme: theming.define-theme($theme-primary,
   $theme-info,
   $theme-light,
   $theme-typography,
-  $theme-density);
+  $theme-density
+);
 @include all-themes.all-component-themes($theme);

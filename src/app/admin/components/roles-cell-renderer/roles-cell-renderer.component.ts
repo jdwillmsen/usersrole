@@ -7,11 +7,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-roles-cell-renderer',
-    templateUrl: './roles-cell-renderer.component.html',
-    styleUrls: ['./roles-cell-renderer.component.scss'],
-    standalone: true,
-    imports: [NgFor, MatChipsModule, MatTooltipModule]
+  selector: 'app-roles-cell-renderer',
+  templateUrl: './roles-cell-renderer.component.html',
+  styleUrls: ['./roles-cell-renderer.component.scss'],
+  standalone: true,
+  imports: [NgFor, MatChipsModule, MatTooltipModule]
 })
 export class RolesCellRendererComponent implements ICellRendererAngularComp {
   roles!: Role[];

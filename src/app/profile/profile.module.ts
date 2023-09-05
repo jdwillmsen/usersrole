@@ -4,6 +4,6 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
-    imports: [ProfileRoutingModule, ProfileComponent]
+  imports: [ProfileRoutingModule, ProfileComponent]
 })
 export class ProfileModule {}

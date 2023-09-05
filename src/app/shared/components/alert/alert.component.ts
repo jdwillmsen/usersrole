@@ -9,19 +9,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-alert',
-    templateUrl: './alert.component.html',
-    styleUrls: ['./alert.component.scss'],
-    animations: [
-        trigger('fade', [
-            transition('true => void', [
-                style({ opacity: 1 }),
-                animate('{{fadeTime}}ms', style({ opacity: 0 }))
-            ])
-        ])
-    ],
-    standalone: true,
-    imports: [NgFor, NgIf, MatIconModule, MatButtonModule]
+  selector: 'app-alert',
+  templateUrl: './alert.component.html',
+  styleUrls: ['./alert.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition('true => void', [
+        style({ opacity: 1 }),
+        animate('{{fadeTime}}ms', style({ opacity: 0 }))
+      ])
+    ])
+  ],
+  standalone: true,
+  imports: [NgFor, NgIf, MatIconModule, MatButtonModule]
 })
 export class AlertComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';
