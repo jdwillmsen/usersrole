@@ -123,6 +123,7 @@ export class UserFormComponent implements OnInit {
   title$!: Observable<string>;
   user$!: Observable<User>;
   type$!: Observable<ActionType>;
+  displayRoles = '';
 
   constructor(
     private dialogRef: MatDialogRef<UserFormComponent>,
@@ -136,6 +137,9 @@ export class UserFormComponent implements OnInit {
       tap((user) => {
         if (user) {
           this.form.patchValue(user);
+          this.displayRoles = user.roles
+            .map((role) => capitalizeFirstLetter(role))
+            .join(', ');
         } else {
           this.form.reset({});
         }
@@ -188,4 +192,8 @@ export class UserFormComponent implements OnInit {
     }
     return '';
   }
+}
+
+function capitalizeFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
