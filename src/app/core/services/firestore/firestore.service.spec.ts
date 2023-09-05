@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../../../../environments/environment';
+import { expect } from '@jest/globals';
 
 describe('FirestoreService', () => {
   let service: FirestoreService;
