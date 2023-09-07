@@ -24,8 +24,6 @@ export class UserFormService {
     type: 'Unknown'
   });
 
-  constructor() {}
-
   get title$() {
     return this._behaviorSubject
       .asObservable()

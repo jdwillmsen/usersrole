@@ -51,8 +51,4 @@ export class AlertService {
     if (defaultIcon) options = { ...options, icon: 'info' };
     this.alert({ ...options, type: 'info', message });
   }
-
-  getAlert(): Observable<Alert> {
-    return this.subject.asObservable();
-  }
 }
