@@ -4,7 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { EMPTY, throwError } from 'rxjs';
 
 describe('RolesService', () => {
-  let service: RolesService;
+  let rolesService: RolesService;
   let httpClientMock: jest.Mocked<any>;
   let snackbarServiceMock: jest.Mocked<any>;
   let baseUrl = `${environment.functionsBaseUrl}/api/users`;
@@ -16,11 +16,11 @@ describe('RolesService', () => {
     snackbarServiceMock = {
       error: jest.fn()
     };
-    service = new RolesService(httpClientMock, snackbarServiceMock);
+    rolesService = new RolesService(httpClientMock, snackbarServiceMock);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(rolesService).toBeTruthy();
   });
 
   it('should send a update request and return nothing on success', () => {
@@ -31,7 +31,7 @@ describe('RolesService', () => {
     const url = `${baseUrl}/roles/${user.uid}`;
     jest.spyOn(httpClientMock, 'patch').mockReturnValue(EMPTY);
 
-    service.update(user).subscribe((result) => {
+    rolesService.update(user).subscribe((result) => {
       expect(result).toBe(EMPTY);
       expect(httpClientMock.patch).toBeCalledTimes(1);
       expect(httpClientMock.patch).toHaveBeenCalledWith(url, user);
@@ -50,7 +50,7 @@ describe('RolesService', () => {
       .spyOn(httpClientMock, 'patch')
       .mockReturnValue(throwError(() => errorResponse));
 
-    service.update(user).subscribe((result) => {
+    rolesService.update(user).subscribe((result) => {
       expect(result).toBe(EMPTY);
       expect(httpClientMock.patch).toBeCalledTimes(1);
       expect(httpClientMock.patch).toHaveBeenCalledWith(url, user);
