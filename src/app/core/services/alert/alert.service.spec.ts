@@ -5,9 +5,9 @@ import { PaletteColors } from '../../../shared/models/palette-colors.model';
 
 describe('AlertService', () => {
   let alertService: AlertService;
-  let defaultAlertType: PaletteColors = 'primary';
-  let defaultAlertMessage = 'default alert message';
-  let defaultAlert = {
+  const defaultAlertType: PaletteColors = 'primary';
+  const defaultAlertMessage = 'default alert message';
+  const defaultAlert = {
     type: defaultAlertType,
     message: defaultAlertMessage
   };

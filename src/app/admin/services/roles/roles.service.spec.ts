@@ -5,17 +5,15 @@ import { EMPTY, throwError } from 'rxjs';
 
 describe('RolesService', () => {
   let rolesService: RolesService;
-  let httpClientMock: jest.Mocked<any>;
-  let snackbarServiceMock: jest.Mocked<any>;
-  let baseUrl = `${environment.functionsBaseUrl}/api/users`;
+  const httpClientMock: jest.Mocked<any> = {
+    patch: jest.fn()
+  };
+  const snackbarServiceMock: jest.Mocked<any> = {
+    error: jest.fn()
+  };
+  const baseUrl = `${environment.functionsBaseUrl}/api/users`;
 
   beforeEach(() => {
-    httpClientMock = {
-      patch: jest.fn()
-    };
-    snackbarServiceMock = {
-      error: jest.fn()
-    };
     rolesService = new RolesService(httpClientMock, snackbarServiceMock);
   });
 
