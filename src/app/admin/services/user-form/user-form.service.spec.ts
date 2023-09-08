@@ -21,8 +21,8 @@ describe('UserFormService', () => {
     userFormService = new UserFormService();
   });
 
-  it('should be created', () => {
-    expect(userFormService).toBeTruthy();
+  it('should create an instance of UserFormService', () => {
+    expect(userFormService).toBeInstanceOf(UserFormService);
   });
 
   it('should initialize with default values', () => {

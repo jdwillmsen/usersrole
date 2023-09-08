@@ -16,8 +16,8 @@ describe('AlertService', () => {
     alertService = new AlertService();
   });
 
-  it('should be created', () => {
-    expect(alertService).toBeTruthy();
+  it('should create an instance of AlertService', () => {
+    expect(alertService).toBeInstanceOf(AlertService);
   });
 
   it('should alert a message', (done) => {

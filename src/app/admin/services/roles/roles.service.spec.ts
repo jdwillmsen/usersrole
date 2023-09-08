@@ -19,8 +19,8 @@ describe('RolesService', () => {
     rolesService = new RolesService(httpClientMock, snackbarServiceMock);
   });
 
-  it('should be created', () => {
-    expect(rolesService).toBeTruthy();
+  it('should create an instance of RolesService', () => {
+    expect(rolesService).toBeInstanceOf(RolesService);
   });
 
   it('should send a update request and return nothing on success', () => {

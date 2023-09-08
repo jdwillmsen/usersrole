@@ -1,29 +1,38 @@
-import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { expect } from '@jest/globals';
+import { of } from 'rxjs';
 
 describe('AuthService', () => {
-  let service: AuthService;
-  let angularFireAuthSpy: jest.Mocked<AngularFireAuth>;
+  let authService: AuthService;
+  let angularFireAuthMock: jest.Mocked<any>;
+  let routerMock: jest.Mocked<any>;
+  let snackbarServiceMock: jest.Mocked<any>;
 
   beforeEach(() => {
-    angularFireAuthSpy = jest.fn() as unknown as jest.Mocked<AngularFireAuth>;
-    TestBed.configureTestingModule({
-      imports: [MatSnackBarModule],
-      providers: [
-        AuthService,
-        {
-          provide: AngularFireAuth,
-          useValue: angularFireAuthSpy
-        }
-      ]
-    });
-    service = TestBed.inject(AuthService);
+    angularFireAuthMock = {
+      authState: of(null),
+      signInWithEmailAndPassword: jest.fn(),
+      signInWithPopup: jest.fn(),
+      signOut: jest.fn()
+    };
+
+    routerMock = {
+      navigate: jest.fn()
+    };
+
+    snackbarServiceMock = {
+      success: jest.fn(),
+      error: jest.fn()
+    };
+
+    authService = new AuthService(
+      angularFireAuthMock,
+      routerMock,
+      snackbarServiceMock
+    );
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should create an instance of AuthService', () => {
+    expect(authService).toBeInstanceOf(AuthService);
   });
 });
