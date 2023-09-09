@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 })
 export class StyleManagerService {
   currentThemeName: Subject<string> = new Subject<string>();
-  themes: SiteTheme[] = [
+  private themes: SiteTheme[] = [
     {
       primary: '#FFFFFF',
       accent: '#000000',
@@ -91,36 +91,43 @@ export class StyleManagerService {
     }
   ];
 
+  getThemes(): SiteTheme[] {
+    return this.themes;
+  }
+
   setStyle(key: string, href: string) {
-    getLinkElementForKey(key).setAttribute('href', href);
+    this.getLinkElementForKey(key).setAttribute('href', href);
   }
 
   removeStyle(key: string) {
-    const existingLinkElement = getExistingLinkElementByKey(key);
+    const existingLinkElement = this.getExistingLinkElementByKey(key);
     if (existingLinkElement) {
       document.head.removeChild(existingLinkElement);
     }
   }
-}
 
-function getLinkElementForKey(key: string) {
-  return getExistingLinkElementByKey(key) || createLinkElementWithKey(key);
-}
+  private getLinkElementForKey(key: string) {
+    return (
+      this.getExistingLinkElementByKey(key) ||
+      this.createLinkElementWithKey(key)
+    );
+  }
 
-function getExistingLinkElementByKey(key: string) {
-  return document.head.querySelector(
-    `link[rel="stylesheet"].${getClassNameForKey(key)}`
-  );
-}
+  private getExistingLinkElementByKey(key: string) {
+    return document.head.querySelector(
+      `link[rel="stylesheet"].${this.getClassNameForKey(key)}`
+    );
+  }
 
-function createLinkElementWithKey(key: string) {
-  const linkEl = document.createElement('link');
-  linkEl.setAttribute('rel', 'stylesheet');
-  linkEl.classList.add(getClassNameForKey(key));
-  document.head.appendChild(linkEl);
-  return linkEl;
-}
+  private createLinkElementWithKey(key: string) {
+    const linkEl = document.createElement('link');
+    linkEl.setAttribute('rel', 'stylesheet');
+    linkEl.classList.add(this.getClassNameForKey(key));
+    document.head.appendChild(linkEl);
+    return linkEl;
+  }
 
-function getClassNameForKey(key: string) {
-  return `style-manager-${key}`;
+  private getClassNameForKey(key: string) {
+    return `style-manager-${key}`;
+  }
 }

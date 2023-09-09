@@ -32,7 +32,7 @@ export class ThemeSelectorComponent {
     private snackbarService: SnackbarService,
     private _themeStorageService: ThemeStorageService
   ) {
-    this.themes = this.styleManagerService.themes;
+    this.themes = this.styleManagerService.getThemes();
     const themeName = _themeStorageService.getStoredThemeName();
     if (themeName) {
       this.selectTheme(themeName);
