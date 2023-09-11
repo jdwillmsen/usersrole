@@ -10,7 +10,7 @@ export class ThemeStorageService {
 
   storeTheme(theme: SiteTheme) {
     try {
-      window.localStorage[ThemeStorageService.storageKey] = theme.name;
+      window.localStorage.setItem(ThemeStorageService.storageKey, theme.name);
     } catch (error) {
       console.error(error);
     }
@@ -19,7 +19,7 @@ export class ThemeStorageService {
 
   getStoredThemeName(): string | null {
     try {
-      return window.localStorage[ThemeStorageService.storageKey] || null;
+      return window.localStorage.getItem(ThemeStorageService.storageKey);
     } catch {
       return null;
     }
