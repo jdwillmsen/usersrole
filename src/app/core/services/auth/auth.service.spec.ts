@@ -37,6 +37,13 @@ describe('AuthService', () => {
     expect(authService).toBeInstanceOf(AuthService);
   });
 
+  it('should have an initial user$ observable with null user', (done) => {
+    authService.user$.subscribe((user) => {
+      expect(user).toBeNull();
+      done();
+    });
+  });
+
   it('should call emailAuth and navigate to home on success', (done) => {
     angularFireAuthMock.signInWithEmailAndPassword.mockResolvedValueOnce({});
 
