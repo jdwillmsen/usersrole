@@ -10,7 +10,7 @@ import { SnackbarOptions } from '../../models/snackbar.model';
 
 describe('SnackbarService', () => {
   let snackbarService: SnackbarService;
-  let snackbarMock: jest.Mocked<any> = {
+  const snackbarMock: jest.Mocked<any> = {
     openFromComponent: jest.fn(),
     dismiss: jest.fn()
   };

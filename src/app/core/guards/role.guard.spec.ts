@@ -29,7 +29,7 @@ class TestUserComponent {}
 class TestSignInComponent {}
 
 describe('RoleGuard', () => {
-  let routes: Route[] = [
+  const routes: Route[] = [
     {
       path: 'test/admin',
       canActivate: [RoleGuard],
@@ -51,14 +51,14 @@ describe('RoleGuard', () => {
       component: TestSignInComponent
     }
   ];
-  let angularFireAuthMock: jest.Mocked<any> = {
+  const angularFireAuthMock: jest.Mocked<any> = {
     user: of(null)
   };
-  let usersServiceMock: jest.Mocked<any> = {
+  const usersServiceMock: jest.Mocked<any> = {
     users$: jest.fn()
   };
-  let snackBarServiceMock: jest.Mocked<any> = {};
-  let permissionsServiceMock: jest.Mocked<any> = {
+  const snackBarServiceMock: jest.Mocked<any> = {};
+  const permissionsServiceMock: jest.Mocked<any> = {
     canActivateRole: jest.fn()
   };
 

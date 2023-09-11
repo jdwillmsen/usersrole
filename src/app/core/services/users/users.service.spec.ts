@@ -11,13 +11,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 describe('UsersService', () => {
   let usersService: UsersService;
-  let httpClientMock: jest.Mocked<any> = {
+  const httpClientMock: jest.Mocked<any> = {
     get: jest.fn(),
     post: jest.fn(),
     patch: jest.fn(),
     delete: jest.fn()
   };
-  let snackbarServiceMock: jest.Mocked<any> = {
+  const snackbarServiceMock: jest.Mocked<any> = {
     error: jest.fn()
   };
   const testUser1: User = {
