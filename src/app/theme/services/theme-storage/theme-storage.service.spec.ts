@@ -84,6 +84,9 @@ describe('ThemeStorageService', () => {
       'getItem'
     );
     Object.setPrototypeOf(window.localStorage.getItem, jest.fn());
+    localStorageGetItemSpy.mockImplementation(() => {
+      throw new Error('localStorage unavailable');
+    });
 
     const result = themeStorageService.getStoredThemeName();
 
