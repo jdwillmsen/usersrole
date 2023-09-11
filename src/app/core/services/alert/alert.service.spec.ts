@@ -1,6 +1,6 @@
 import { AlertService } from './alert.service';
 import { expect } from '@jest/globals';
-import { AlertOptions } from '../../models/alert.model';
+import { Alert, AlertOptions } from '../../models/alert.model';
 import { PaletteColors } from '../../../shared/models/palette-colors.model';
 
 describe('AlertService', () => {
@@ -68,6 +68,19 @@ describe('AlertService', () => {
     });
 
     alertService.send(defaultAlertType, defaultAlertMessage, alertOptions);
+  });
+
+  it('should send an alert with a close button', (done) => {
+    const testAlert: Alert = {
+      closeButton: false
+    };
+
+    alertService.onAlert().subscribe((alert) => {
+      expect(alert.closeButton).toEqual(testAlert.closeButton);
+      done();
+    });
+
+    alertService.alert(testAlert);
   });
 
   it('should send a primary alert', (done) => {
