@@ -41,8 +41,22 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        "object-curly-spacing": ["error", "always"],
-        "quotes": ["error"]
+        "object-curly-spacing": [
+          "error",
+          "always"
+        ],
+        "quotes": [
+          "error"
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.spec.ts"
+      ],
+      "rules": {
+        // Disabling any checks for testing only due to difficult nature of mocks
+        "@typescript-eslint/no-explicit-any": "off"
       }
     }
   ]

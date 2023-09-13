@@ -16,16 +16,16 @@ import { SnackbarService } from '../services/snackbar/snackbar.service';
 import { PermissionsService } from '../services/permissions/permissions.service';
 
 @Component({
-  selector: 'test-admin',
+  selector: 'app-test-admin',
   standalone: true,
   template: ''
 })
 class TestAdminComponent {}
 
-@Component({ selector: 'test-user', standalone: true, template: '' })
+@Component({ selector: 'app-test-user', standalone: true, template: '' })
 class TestUserComponent {}
 
-@Component({ selector: 'test-sign-in', standalone: true, template: '' })
+@Component({ selector: 'app-test-sign-in', standalone: true, template: '' })
 class TestSignInComponent {}
 
 describe('RoleGuard', () => {
