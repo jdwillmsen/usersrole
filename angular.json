@@ -32,7 +32,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/usersrole",
             "index": "src/index.html",
@@ -148,6 +148,15 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ]
+            },
+            "cypress": {
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "customWebpackConfig": {
+                "path": "./cypress/coverage.webpack.ts"
+              }
             }
           },
           "defaultConfiguration": "production"
@@ -163,6 +172,13 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "serve-coverage": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "usersrole:build:cypress",
+            "port": 4004
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -192,24 +208,6 @@
             "scripts": []
           }
         },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "usersrole:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "usersrole:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
-        },
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
@@ -234,6 +232,33 @@
           "configurations": {
             "production": {
               "devServerTarget": "usersrole:serve:production"
+            }
+          }
+        },
+        "ct-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "usersrole:serve-coverage",
+            "watch": false,
+            "headless": true,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "usersrole:serve:development"
+            }
+          }
+        },
+        "e2e-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "usersrole:serve-coverage",
+            "watch": false,
+            "headless": true
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "usersrole:serve-coverage:production"
             }
           }
         },

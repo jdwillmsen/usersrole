@@ -1,17 +1,15 @@
 import { NavItemComponent } from './nav-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
 
 describe('NavItemComponent', () => {
   it('can mount', () => {
     cy.mount(NavItemComponent, {
-      providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {}
-        }
-      ]
+      componentProperties: {
+        navItem: { path: '/home', icon: 'home', title: 'Home' },
+        isExpanded: false
+      },
+      imports: [MatIconModule, RouterTestingModule]
     });
   });
 
