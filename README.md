@@ -12,56 +12,99 @@ and the other for raising previews during pull requests. As well as few other ch
 is a server.js script in the repo that is used within CI/CD to retrieve and setup the environment file since they
 contain secrets. Which are managed with GitHub secrets.
 
-### Project Details
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
-
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you
-change any of the source files.
+Run `ng serve` for a dev server.\
+Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.\
+Run `firebase deploy` to upload the latest snapshot to the firebase servers.\
+Run `firebase hosting:channel:deploy` to create and deploy a preview channel.
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also
-use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng generate component [module-folder]/components/component-name --standalone` to generate a new component.\
+Run `ng generate service [module-folder]/services/service-name` to generate a new service.\
+You can also use `ng generate directive|pipe|class|guard|interface|enum|module`.
 
 ### Cypress scaffolding
 
 Running `ng generate component component-name` will generate Cypress component test instead of default karma testing
 file. This is due to the Cypress scaffolding declared in angular.json
 
+## Code Structure
+
+- src
+  - app
+    - modules
+      - components
+      - services
+      - etc
+    - shared
+      - components
+      - models
+    - core
+      - guards
+      - interceptors
+      - models
+      - services
+
+The current code base is split it feature modules with there also being a shared module and a core module.
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Format
 
-Run `ng test` to execute the unit tests via [Jest](https://jestjs.io/).
+Run `npm run format` to format via [Prettier](https://prettier.io/)
 
-## Running end-to-end tests
+## Testing
 
-Run `ng e2e` to execute the end-to-end tests via [Cypress](https://www.cypress.io/)
+### Running lint test
 
-### Configuration:
+Run `npm run lint` or `ng lint` to execute the lint testing via [ESLint](https://eslint.org/)
 
---watch (true/false) runs cypress testing in headless mode if false else runs in Cypress app
+### Running unit tests
 
-## Running component test
+Run `npm run jest` to execute the unit tests via [Jest](https://jestjs.io/).
 
-Run `npm run ct` or `npx cypress open --component` to execute the cypress component tests in watch mode
-via [Cypress](https://docs.cypress.io/guides/component-testing/overview)
+### Running component tests
 
-## Running lint test
+Run `npm run ct` to execute component tests in watch mode.\
+Run `npm run ct:ci` to execute component tests in headless mode.\
+The component tests are making use of a testing framework called [Cypress](https://docs.cypress.io/guides/component-testing/overview).
 
-Run `ng lint` or npm run lint to execute the lint testing via [ESLint](https://eslint.org/)
+### Running end-to-end tests
 
-## Deployment
+Run `npm run e2e` to execute e2e tests in watch mode.\
+Run `npm run e2e:ci` to execute e2e tests in headless mode.\
+The e2e tests are making use of a testing framework called [Cypress](https://docs.cypress.io/guides/end-to-end-testing/writing-your-first-end-to-end-test).
 
-Run `firebase deploy` to upload the latest snapshot to the firebase servers. Run `firebase hosting:channel:deploy` to
-create and deploy a preview channel.
+## Code Coverage
 
-## Further help
+Code coverage will appear in the `coverage` folder in a structure like:
 
-To get more help on the Angular CLI use `ng help` or go check out
-the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- cypress-and-jest
+  - coverage
+    - .nyc_output
+    - cypress
+    - jest
+    - merged-report
+
+`.nyc_output` is the temporary directory where instrumented code output is placed.\
+`cypress` is the directory where the coverage information/reports are for component and e2e tests.\
+`jest` is the directory where the coverage information/reports are for the jest/unit tests.\
+`merged-report` is the directory where the combine information/reports of jest, component, and e2e tests
+
+### Coverage commands
+
+Run `npm run jest:coverage` to get the unit tests coverage report.\
+Run `npm run cypress:coverage` to get the cypress tests (component and e2e) report.\
+Run `npm run all:coverage` to get the combined report (jest and cypress).
+
+## Project Info
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+
+### Developers
+
+- Jake Willmsen
