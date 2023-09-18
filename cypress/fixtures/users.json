@@ -1,0 +1,161 @@
+{
+  "users": [
+    {
+      "uid": "test-uid-1",
+      "email": "test-user-1@usersrole.com",
+      "displayName": "Basic Test User #1",
+      "roles": [
+        "user"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Sun, 23 Jul 2023 20:36:56 GMT"
+    },
+    {
+      "uid": "test-uid-2",
+      "email": "test-user-2@usersrole.com",
+      "displayName": "Basic Test User #2",
+      "roles": [
+        "user"
+      ],
+      "lastSignInTime": "Fri, 11 Aug 2023 06:00:02 GMT",
+      "creationTime": "Sun, 23 Jul 2023 20:36:56 GMT"
+    },
+    {
+      "uid": "test-uid-3",
+      "email": "test-user-3@usersrole.com",
+      "displayName": "Basic Test User #3",
+      "roles": [
+        "user"
+      ],
+      "lastSignInTime": "Sat, 12 Aug 2023 19:51:08 GMT",
+      "creationTime": "Sat, 12 Aug 2023 15:54:33 GMT"
+    },
+    {
+      "uid": "test-uid-4",
+      "email": "test-user-4@usersrole.com",
+      "displayName": "Admin Manager Test User #1",
+      "roles": [
+        "admin",
+        "manager",
+        "user"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Fri, 11 Aug 2023 05:53:21 GMT"
+    },
+    {
+      "uid": "test-uid-5",
+      "email": "test-user-5@usersrole.com",
+      "displayName": "Admin Manager Test User #2",
+      "roles": [
+        "admin",
+        "manager",
+        "user"
+      ],
+      "lastSignInTime": "Mon, 10 Jul 2023 05:05:57 GMT",
+      "creationTime": "Mon, 10 Jul 2023 05:05:45 GMT"
+    },
+    {
+      "uid": "test-uid-6",
+      "email": "test-user-6@usersrole.com",
+      "displayName": "Admin Test User #1",
+      "roles": [
+        "admin",
+        "user"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Mon, 10 Jul 2023 05:05:45 GMT"
+    },
+    {
+      "uid": "test-uid-7",
+      "email": "test-user-7@usersrole.com",
+      "displayName": "Admin Test User #2",
+      "roles": [
+        "admin",
+        "user"
+      ],
+      "lastSignInTime": "Thu, 31 Aug 2023 20:30:27 GMT",
+      "creationTime": "Sun, 27 Aug 2023 04:32:45 GMT"
+    },
+    {
+      "uid": "test-uid-8",
+      "email": "test-user-8@usersrole.com",
+      "displayName": "Manager Test User #1",
+      "roles": [
+        "manager",
+        "user"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Sun, 13 Aug 2023 06:14:28 GMT"
+    },
+    {
+      "uid": "test-uid-9",
+      "email": "test-user-9@usersrole.com",
+      "displayName": "Manager Test User #2",
+      "roles": [
+        "manager",
+        "user"
+      ],
+      "lastSignInTime": "Sun, 13 Aug 2023 06:14:28 GMT",
+      "creationTime": "Sun, 13 Aug 2023 06:14:28 GMT"
+    },
+    {
+      "uid": "test-uid-10",
+      "email": "test-user-10@usersrole.com",
+      "displayName": "Read Test User #1",
+      "roles": [
+        "read",
+        "user"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Wed, 07 Jun 2023 01:57:45 GMT"
+    },
+    {
+      "uid": "test-uid-10",
+      "email": "test-user-10@usersrole.com",
+      "displayName": "Read Test User #1",
+      "roles": [
+        "read",
+        "user"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Wed, 07 Jun 2023 01:57:45 GMT"
+    },
+    {
+      "uid": "test-uid-11",
+      "email": "test-user-11@usersrole.com",
+      "displayName": "Read Test User #2",
+      "roles": [
+        "read",
+        "user"
+      ],
+      "lastSignInTime": "Sun, 23 Jul 2023 23:09:43 GMT",
+      "creationTime": "Tue, 11 Jul 2023 03:37:45 GMT"
+    },
+    {
+      "uid": "test-uid-12",
+      "email": "test-user-12@usersrole.com",
+      "displayName": "All Test User #1",
+      "roles": [
+        "admin",
+        "user",
+        "manager",
+        "read"
+      ],
+      "lastSignInTime": null,
+      "creationTime": "Tue, 30 May 2023 05:45:52 GMT"
+    },
+    {
+      "uid": "test-uid-13",
+      "email": "test-user-13@usersrole.com",
+      "displayName": "All Test User #2",
+      "roles": [
+        "admin",
+        "user",
+        "manager",
+        "read"
+      ],
+      "lastSignInTime": "Thu, 31 Aug 2023 05:34:14 GMT",
+      "creationTime": "Thu, 31 Aug 2023 05:26:17 GMT"
+    }
+  ]
+}

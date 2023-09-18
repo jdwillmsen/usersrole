@@ -4,9 +4,112 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('RolesComponent', () => {
+  beforeEach(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: '/api/users'
+      },
+      {
+        fixture: 'users.json'
+      }
+    ).as('getUsers');
+  });
+
   it('should mount', () => {
     cy.mount(RolesComponent, {
       imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
     });
+  });
+
+  it('should be setup correctly', () => {
+    cy.mount(RolesComponent, {
+      imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
+    });
+    cy.getByCy('title').should('be.visible').and('have.text', 'Roles');
+    cy.getByCy('selectUserField')
+      .should('be.visible')
+      .and('have.text', 'Select User');
+    cy.getByCy('selectRolesField')
+      .should('be.visible')
+      .and('have.text', 'Roles');
+    cy.getByCy('assignRolesButton')
+      .should('be.visible')
+      .and('contain.text', 'Assign Roles')
+      .and('be.disabled');
+    cy.getByCy('resetButton')
+      .should('be.visible')
+      .and('contain.text', 'Reset')
+      .and('be.enabled');
+  });
+
+  it('should have error messages after touched form', () => {
+    cy.mount(RolesComponent, {
+      imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
+    });
+    cy.getByCy('selectUserField').click();
+    cy.getByCy('title').click();
+    cy.getByCy('selectRolesField').click();
+    cy.get('.cdk-overlay-backdrop').click({ force: true });
+    cy.getByCy('assignRolesButton').should('be.disabled');
+    cy.getByCy('selectUserField').contains(
+      'Please select a user from the list'
+    );
+    cy.getByCy('selectRolesField').contains(
+      'At least one role must be selected'
+    );
+  });
+
+  it('should populate roles field when user is selected', () => {
+    cy.mount(RolesComponent, {
+      imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
+    });
+    cy.getByCy('selectUserField')
+      .type('Basic Test User #1{enter}')
+      .get('input')
+      .should('contain.value', 'Basic Test User #1 (test-uid-1)');
+    cy.getByCy('selectRolesField').should('contain.text', 'User');
+    cy.getByCy('matchingRolesError')
+      .should('be.visible')
+      .and('contain.text', 'The user already has these roles');
+    cy.getByCy('assignRolesButton').should('be.disabled');
+  });
+
+  it.only('should assign roles correctly', () => {
+    cy.intercept(
+      {
+        method: 'PATCH',
+        url: '/api/users/roles/**'
+      },
+      ''
+    ).as('assignRoles');
+    cy.mount(RolesComponent, {
+      imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
+    });
+    cy.getByCy('selectUserField').type('Basic Test User #1{enter}');
+    cy.getByCy('selectRolesField').click();
+    cy.get('#mat-option-3').click();
+    cy.get('.cdk-overlay-backdrop').click({ force: true });
+    cy.getByCy('selectRolesField').should('contain.text', 'User, Read');
+    cy.getByCy('assignRolesButton').should('be.enabled').click();
+    cy.get('.snackbar-container')
+      .should('be.visible')
+      .and('contain.text', 'Roles Assigned Successfully');
+    cy.getByCy('resetButton').click();
+    cy.getByCy('assignRolesButton').should('be.disabled');
+    cy.getByCy('selectUserField').get('input').should('have.value', '');
+    cy.getByCy('selectRolesField').get('input').should('have.value', '');
+    cy.getByCy('selectUserField').type('All Test User #1{enter}');
+    cy.getByCy('selectRolesField')
+      .should('contain.text', 'Admin, Manager, User, Read')
+      .click();
+    cy.get('#mat-option-0').click();
+    cy.get('#mat-option-1').click();
+    cy.get('#mat-option-3').click();
+    cy.get('.cdk-overlay-backdrop').click({ force: true });
+    cy.getByCy('assignRolesButton').should('be.enabled').click();
+    cy.get('.snackbar-container')
+      .should('be.visible')
+      .and('contain.text', 'Roles Assigned Successfully');
   });
 });
