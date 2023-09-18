@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { Role } from 'src/app/core/models/users.model';
@@ -14,7 +14,7 @@ import { NgFor } from '@angular/common';
   imports: [NgFor, MatChipsModule, MatTooltipModule]
 })
 export class RolesCellRendererComponent implements ICellRendererAngularComp {
-  roles!: Role[];
+  @Input() roles!: Role[];
 
   agInit(params: ICellRendererParams): void {
     this.roles = params.value;
