@@ -3,6 +3,11 @@ import { BehaviorSubject, map } from 'rxjs';
 import { User } from '../../../core/models/users.model';
 
 export type ActionType = 'Create' | 'View' | 'Delete' | 'Edit' | 'Unknown';
+export type UserFormType = {
+  title: string;
+  user: User;
+  type: ActionType;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +19,7 @@ export class UserFormService {
     roles: [],
     email: ''
   };
-  private _behaviorSubject = new BehaviorSubject<{
-    title: string;
-    user: User;
-    type: ActionType;
-  }>({
+  private _behaviorSubject = new BehaviorSubject<UserFormType>({
     title: '',
     user: this.defaultUser,
     type: 'Unknown'
