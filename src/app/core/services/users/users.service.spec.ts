@@ -92,7 +92,7 @@ describe('UsersService', () => {
     );
   });
 
-  it('should retrieve an user by Id', () => {
+  it('should retrieve a user by Id', () => {
     httpClientMock.get.mockReturnValue(of(testUser1));
 
     usersService.user$(testUser1.uid).subscribe({
@@ -119,7 +119,7 @@ describe('UsersService', () => {
     );
   });
 
-  it('should create an user', () => {
+  it('should create a user', () => {
     const response = { uid: testUser1.uid };
     httpClientMock.post.mockReturnValue(of(response));
 
@@ -147,7 +147,7 @@ describe('UsersService', () => {
     );
   });
 
-  it('should edit an user', () => {
+  it('should edit a user', () => {
     httpClientMock.patch.mockReturnValue(of(''));
 
     usersService.edit(defaultEditUser).subscribe({
@@ -176,7 +176,7 @@ describe('UsersService', () => {
     );
   });
 
-  it('should delete an user', () => {
+  it('should delete a user', () => {
     httpClientMock.delete.mockReturnValue(of(''));
 
     usersService.delete(defaultDeleteUser).subscribe({
