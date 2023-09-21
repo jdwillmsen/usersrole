@@ -1,32 +1,33 @@
-<div class="container">
-  <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+<div class='container'>
+  <form [formGroup]='form'>
+    <mat-form-field appearance='outline' data-cy='emailAddressField'>
       <mat-label>Enter your email</mat-label>
       <input
-        formControlName="email"
+        formControlName='email'
         matInput
-        placeholder="Email Address"
-        type="email"
+        placeholder='Email Address'
+        type='email'
       />
       <mat-error *ngIf="this.form.get('email')?.invalid">
         {{ getErrorMessage('email') }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance='outline' data-cy='passwordField'>
       <mat-label>Enter your password</mat-label>
       <input
         [type]="hide ? 'password' : 'text'"
-        formControlName="password"
+        formControlName='password'
         matInput
-        placeholder="Password"
+        placeholder='Password'
       />
       <button
-        (click)="hide = !hide"
+        (click)='hide = !hide'
         [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
+        [attr.aria-pressed]='hide'
+        data-cy='passwordVisibilityButton'
         mat-icon-button
         matSuffix
-        type="button"
+        type='button'
       >
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
@@ -34,7 +35,7 @@
         {{ getErrorMessage('password') }}
       </mat-error>
     </mat-form-field>
-    <button (click)="signIn()" color="primary" mat-raised-button type="submit">
+    <button (click)='signIn()' color='primary' data-cy='signInButton' mat-raised-button type='submit'>
       Sign In
     </button>
   </form>
