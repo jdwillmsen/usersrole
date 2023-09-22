@@ -19,4 +19,23 @@ describe('HeaderComponent', () => {
       ]
     });
   });
+
+  it('should be setup properly', () => {
+    cy.mount(HeaderComponent, {
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        MatSnackBarModule
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {}
+        }
+      ]
+    });
+    cy.getByCy('navbar-header').should('be.visible');
+    cy.getByCy('app-name')
+      .should('be.visible')
+      .and('contain.text', 'Users Role');
+  });
 });
