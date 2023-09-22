@@ -1,11 +1,12 @@
-<div class='snackbar-container' data-cy='snackbarContainer'>
-  <mat-icon *ngIf='data.icon' class='icon'>{{ data.icon }}</mat-icon>
-  <span *ngIf='!data.icon'></span>
-  <div [innerHTML]='data.message' class='message'></div>
+<div class='snackbar-container' data-cy='snackbar-container'>
+  <mat-icon *ngIf='data.icon' class='icon' data-cy='icon'>{{ data.icon }}</mat-icon>
+  <span *ngIf='!data.icon' data-cy='icon'></span>
+  <div [innerHTML]='data.message' class='message' data-cy='message'></div>
   <button
     (click)='snackbarRef.dismiss()'
     *ngIf='!data.buttonText'
     class='icon-button'
+    data-cy='close-button'
     mat-icon-button
     type='button'
   >
@@ -14,6 +15,7 @@
   <button
     (click)='snackbarRef.dismiss()'
     *ngIf='data.buttonText'
+    data-cy='close-button'
     mat-flat-button
   >
     {{ data.buttonText }}
