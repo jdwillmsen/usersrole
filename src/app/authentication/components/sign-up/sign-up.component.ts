@@ -86,7 +86,9 @@ export class SignUpComponent {
         message: 'Password must be at least 6 characters long'
       }
     ],
-    matchingPassword: [{ type: 'passwordMatch', message: 'Password mismatch' }]
+    matchingPassword: [
+      { type: 'passwordMatch', message: 'Passwords must match' }
+    ]
   };
 
   constructor(

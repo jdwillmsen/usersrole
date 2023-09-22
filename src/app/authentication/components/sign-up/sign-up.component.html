@@ -1,53 +1,54 @@
-<div class="sign-up">
+<div class='sign-up'>
   <mat-card>
     <mat-card-title>
-      <h1>Sign Up</h1>
+      <h1 data-cy='title'>Sign Up</h1>
     </mat-card-title>
     <mat-card-content>
-      <form [formGroup]="signUpForm">
-        <mat-form-field appearance="outline">
+      <form [formGroup]='signUpForm'>
+        <mat-form-field appearance='outline' data-cy='emailAddressField'>
           <mat-label>Enter your email</mat-label>
           <input
-            formControlName="email"
+            formControlName='email'
             matInput
-            placeholder="Email Address"
+            placeholder='Email Address'
             required
-            type="email"
+            type='email'
           />
           <mat-error *ngIf="this.signUpForm.get('email')?.invalid">
             {{ getErrorMessage('email') }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance='outline' data-cy='displayNameField'>
           <mat-label>Enter your display name</mat-label>
           <input
-            formControlName="displayName"
+            formControlName='displayName'
             matInput
-            placeholder="Display Name"
+            placeholder='Display Name'
             required
-            type="text"
+            type='text'
           />
           <mat-error *ngIf="this.signUpForm.get('displayName')?.invalid">
             {{ getErrorMessage('displayName') }}
           </mat-error>
         </mat-form-field>
-        <ng-container formGroupName="matchingPassword">
-          <mat-form-field appearance="outline">
+        <ng-container formGroupName='matchingPassword'>
+          <mat-form-field appearance='outline' data-cy='passwordField'>
             <mat-label>Enter your password</mat-label>
             <input
               [type]="hide ? 'password' : 'text'"
-              formControlName="password"
+              formControlName='password'
               matInput
-              placeholder="Password"
+              placeholder='Password'
               required
             />
             <button
-              (click)="hide = !hide"
+              (click)='hide = !hide'
               [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
+              [attr.aria-pressed]='hide'
+              data-cy='passwordVisibilityButton'
               mat-icon-button
               matSuffix
-              type="button"
+              type='button'
             >
               <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
@@ -70,23 +71,25 @@
                 ? 'dynamic'
                 : 'fixed'
             "
-            appearance="outline"
+            appearance='outline'
+            data-cy='confirmPasswordField'
           >
             <mat-label>Enter your confirm password</mat-label>
             <input
               [type]="hide ? 'password' : 'text'"
-              formControlName="confirmPassword"
+              formControlName='confirmPassword'
               matInput
-              placeholder="Confirm Password"
+              placeholder='Confirm Password'
               required
             />
             <button
-              (click)="hide = !hide"
+              (click)='hide = !hide'
               [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
+              [attr.aria-pressed]='hide'
+              data-cy='confirmPasswordVisibilityButton'
               mat-icon-button
               matSuffix
-              type="button"
+              type='button'
             >
               <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
@@ -108,24 +111,26 @@
                   ?.touched) &&
               getErrorMessage('matchingPassword') !== ''
             "
-            class="match-password"
+            class='match-password'
+            data-cy='matchingPasswordError'
           >
             {{ getErrorMessage('matchingPassword') }}
           </mat-error>
         </ng-container>
         <button
-          (click)="signUp()"
-          color="primary"
+          (click)='signUp()'
+          color='primary'
+          data-cy='signUpButton'
           mat-raised-button
-          type="submit"
+          type='submit'
         >
           Sign Up
         </button>
       </form>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions data-cy='signIn'>
       Already have an account?
-      <a routerLink="/sign-in">Sign in</a>
+      <a data-cy='signInLink' routerLink='/sign-in'>Sign in</a>
     </mat-card-actions>
   </mat-card>
 </div>
