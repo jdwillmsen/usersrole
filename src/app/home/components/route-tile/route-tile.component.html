@@ -1,5 +1,5 @@
-<mat-card [routerLink]="link" class="tile">
-  <h3 class="header">{{ title }}</h3>
-  <div class="body">{{ description }}</div>
-  <div class="footer"><b>Access:&nbsp;</b>{{ footer }}</div>
+<mat-card [routerLink]='link' class='tile'>
+  <h3 class='header' data-cy='title'>{{ title }}</h3>
+  <div class='body' data-cy='message'>{{ description }}</div>
+  <div class='footer' data-cy='access'><b data-cy='accessTitle'>Access:&nbsp;</b>{{ footer }}</div>
 </mat-card>
