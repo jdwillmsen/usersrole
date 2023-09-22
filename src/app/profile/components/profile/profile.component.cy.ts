@@ -23,4 +23,29 @@ describe('ProfileComponent', () => {
       ]
     });
   });
+
+  it('should be setup properly', () => {
+    cy.mount(ProfileComponent, {
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        HttpClientModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule
+      ],
+      providers: [
+        {
+          provide: AngularFireAuth,
+          useValue: {}
+        }
+      ]
+    });
+    cy.getByCy('title').should('be.visible').and('contain.text', 'Profile');
+    cy.getByCy('emailAddressField')
+      .should('be.visible')
+      .and('contain.text', 'Email Address');
+    cy.getByCy('displayNameField')
+      .should('be.visible')
+      .and('contain.text', 'Display Name');
+    cy.getByCy('rolesField').should('be.visible').and('contain.text', 'Roles');
+  });
 });

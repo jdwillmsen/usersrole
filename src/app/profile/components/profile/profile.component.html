@@ -1,36 +1,36 @@
-<ng-container *ngIf="user$ | async"></ng-container>
-<div class="profile-container">
-  <h1>Profile</h1>
-  <form [formGroup]="profileForm" class="profile-form">
-    <mat-form-field appearance="outline">
+<ng-container *ngIf='user$ | async'></ng-container>
+<div class='profile-container'>
+  <h1 data-cy='title'>Profile</h1>
+  <form [formGroup]='profileForm' class='profile-form'>
+    <mat-form-field appearance='outline' data-cy='emailAddressField'>
       <mat-label>Email Address</mat-label>
       <input
-        formControlName="email"
+        formControlName='email'
         matInput
-        placeholder="Email Address"
+        placeholder='Email Address'
         readonly
-        type="email"
+        type='email'
       />
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance='outline' data-cy='displayNameField'>
       <mat-label>Display Name</mat-label>
       <input
-        formControlName="displayName"
+        formControlName='displayName'
         matInput
-        placeholder="Display Name"
+        placeholder='Display Name'
         readonly
-        type="text"
+        type='text'
       />
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance='outline' data-cy='rolesField'>
       <mat-label>Roles</mat-label>
       <input
-        [(ngModel)]="displayRoles"
-        [ngModelOptions]="{ standalone: true }"
+        [(ngModel)]='displayRoles'
+        [ngModelOptions]='{ standalone: true }'
         matInput
-        placeholder="Roles"
+        placeholder='Roles'
         readonly
-        type="text"
+        type='text'
       />
     </mat-form-field>
   </form>
