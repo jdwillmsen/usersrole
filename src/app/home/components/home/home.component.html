@@ -1,19 +1,19 @@
-<div class="home-container">
-  <h1>Users Role</h1>
-  <p>
+<div class='home-container'>
+  <h1 data-cy='title'>Users Role</h1>
+  <p data-cy='p1'>
     This is a frontend application that is supposed to provide a template for
     users authentication and authorization since these are common features to be
     used in most applications. It also includes features such as theme
     selection, snackbar service, alerts service, and a general site layout with
     header, collapsable sidebar/navigation, and main content area.
   </p>
-  <p>
+  <p data-cy='p2'>
     The authentication is provided by Firebase with Google Identity Platform and
     the authorization is built off of a node server that makes use of Firebase
     functions. The production server and all deployments are hosted with
     Firebase hosting.
   </p>
-  <p>
+  <p data-cy='p3'>
     The CI/CD tools used here are GitHub actions. There are two different
     actions/workflows, one for deploying production and the other for raising
     previews during pull requests. As well as few other checks within GitHub
@@ -21,21 +21,22 @@
     CI/CD to retrieve and setup the environment file since they contain secrets.
     Which are managed with GitHub secrets.
   </p>
-  <p>
+  <p data-cy='p4'>
     The following are the primary routes once authenticated:
-    <span class="read-message">
+    <span class='read-message' data-cy='readMessage'>
       **Read access will be able to see all pages but will get 403 error when
       trying to action
     </span>
   </p>
-  <div class="routes">
-    <ng-container *ngFor="let route of routes">
+  <div class='routes'>
+    <ng-container *ngFor='let route of routes'>
       <app-route-tile
-        [description]="route.description"
+        [attr.data-cy]='"tile"+route.title'
+        [description]='route.description'
         [footer]="route.access.join(', ')"
-        [link]="route.link"
-        [title]="route.title"
-        class="route"
+        [link]='route.link'
+        [title]='route.title'
+        class='route'
       >
       </app-route-tile>
     </ng-container>
