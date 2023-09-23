@@ -9,12 +9,12 @@
   <button
     (click)='removeAlert(alert)'
     *ngIf='alert.closeButton'
-    data-cy='closeButton'
+    data-cy='close-button'
     mat-icon-button
     type='button'
   >
     <mat-icon>close</mat-icon>
   </button>
   <div *ngIf='!alert.closeButton'
-       data-cy='closeButton'></div>
+       data-cy='close-button'></div>
 </div>
