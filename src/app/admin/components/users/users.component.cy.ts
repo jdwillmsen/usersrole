@@ -97,7 +97,7 @@ describe('UsersComponent', () => {
     cy.getByCy('passwordField').type('testPassword');
     cy.getByCy('confirmPasswordField').type('testPassword');
     cy.getByCy('saveButton').click();
-    cy.getByCy('snackbarContainer')
+    cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'User Created Successfully');
   });
@@ -184,7 +184,7 @@ describe('UsersComponent', () => {
       .should('have.value', '')
       .type('testPassword', { force: true });
     cy.getByCy('saveButton').click();
-    cy.getByCy('snackbarContainer')
+    cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'User Edited Successfully');
   });
@@ -224,7 +224,7 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
     cy.getByCy('saveButton').click();
-    cy.getByCy('snackbarContainer')
+    cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'User Deleted Successfully');
   });

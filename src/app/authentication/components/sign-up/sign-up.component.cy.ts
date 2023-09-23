@@ -124,7 +124,7 @@ describe('SignUpComponent', () => {
     cy.getByCy('passwordField').type('testPassword');
     cy.getByCy('confirmPasswordField').type('testPassword');
     cy.getByCy('signUpButton').click();
-    cy.getByCy('snackbarContainer')
+    cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Sign Up Successful');
   });

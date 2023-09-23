@@ -61,7 +61,7 @@ describe('ProfileCardComponent', () => {
     });
     cy.getByCy('profile-card-button').click();
     cy.getByCy('sign-out').click();
-    cy.getByCy('snackbarContainer')
+    cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Logout Successful');
   });

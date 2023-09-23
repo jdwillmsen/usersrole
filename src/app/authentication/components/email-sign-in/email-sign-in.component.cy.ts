@@ -94,7 +94,7 @@ describe('EmailSignInComponent', () => {
     cy.getByCy('emailAddressField').type('test-user-1@usersrole.com');
     cy.getByCy('passwordField').type('testPassword');
     cy.getByCy('signInButton').click();
-    cy.getByCy('snackbarContainer')
+    cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Login Successful');
   });
