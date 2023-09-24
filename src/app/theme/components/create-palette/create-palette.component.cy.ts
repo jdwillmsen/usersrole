@@ -191,7 +191,7 @@ describe('CreatePaletteComponent', () => {
     checkColor('A200', '#ff9999');
     checkColor('A400', '#ff3333');
     checkColor('A700', '#e60000');
-    cy.getByCy('restore-button').click();
+    cy.getByCy('restore-button').click().blur();
     cy.getByCy('main-color-input').should('contain.value', '#000000');
     checkDefaultColors();
     changeAndCheckColor('50', '#fffffe');
