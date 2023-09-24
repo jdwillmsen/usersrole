@@ -1,51 +1,61 @@
-<div class="palette-container">
-  <div [formGroup]="paletteForm">
-    <div [ngClass]="paletteType" class="palette-header">
-      <h3>{{ paletteType | titlecase }}</h3>
+<div class='palette-container' data-cy='palette-container'>
+  <div [formGroup]='paletteForm'>
+    <div [ngClass]='paletteType' class='palette-header'>
+      <h3 data-cy='title'>{{ paletteType | titlecase }}</h3>
       <button
-        (click)="reset()"
+        (click)='reset()'
         [matTooltip]="'Restore Defaults'"
+        data-cy='restore-button'
         mat-icon-button
       >
         <mat-icon>restore</mat-icon>
       </button>
       <input
-        (ngModelChange)="this.colorSelectionUpdate.next($event)"
-        [(ngModel)]="colorSelection"
+        (ngModelChange)='this.colorSelectionUpdate.next($event)'
+        [(ngModel)]='colorSelection'
         [matTooltip]="'Select Color'"
-        [ngModelOptions]="{ standalone: true }"
-        class="color-selector"
-        type="color"
+        [ngModelOptions]='{ standalone: true }'
+        class='color-selector'
+        data-cy='main-color-input'
+        type='color'
       />
     </div>
-    <ng-container *ngFor="let color of colors">
+    <ng-container *ngFor='let color of colors'>
       <div
+        [attr.data-cy]='color+"-palette-row"'
         [ngStyle]="{
           'background-color': paletteForm.get('color' + color)?.value
         }"
-        class="palette-row"
+        class='palette-row'
       >
         <span
+          [attr.data-cy]='color+"-color"'
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
-          >{{ color }}</span
+        >
+          {{ color }}
+        </span
         >
         <span
+          [attr.data-cy]='color+"-color-value"'
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
-          class="palette-color-text"
-          >{{ paletteForm.get('color' + color)?.value }}
+          class='palette-color-text'
+        >
+          {{ paletteForm.get('color' + color)?.value }}
         </span>
         <a
+          [attr.data-cy]='color+"-color-link"'
           [href]="getColorsUrl(paletteForm.get('color' + color)?.value)"
           [matTooltip]="'Open Color Details'"
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
-          class="palette-color-link"
-          target="_blank"
+          class='palette-color-link'
+          target='_blank'
         >
           <mat-icon>launch</mat-icon>
         </a>
-        <span class="palette-spacer"></span>
+        <span class='palette-spacer'></span>
         <button
           (click)="toggleTextColor(paletteForm.get('colorContrast' + color))"
+          [attr.data-cy]='color+"-color-contrast-button"'
           [matTooltip]="'Toggle Contrast'"
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
           mat-icon-button
@@ -55,10 +65,11 @@
           </mat-icon>
         </button>
         <input
+          [attr.data-cy]='color+"-color-input"'
           [formControlName]="'color' + color"
           [matTooltip]="'Select Color'"
-          class="color-selector"
-          type="color"
+          class='color-selector'
+          type='color'
         />
       </div>
     </ng-container>

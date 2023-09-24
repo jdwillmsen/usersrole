@@ -1,23 +1,23 @@
 import { FormControl } from '@angular/forms';
 
 export class PaletteFormGroup {
-  darkTextColor = '#000000FF';
-  lightTextColor = '#FFFFFF';
+  darkTextColor = '#000000ff';
+  lightTextColor = '#ffffff';
 
   paletteFormGroup: Record<string, FormControl<string>> = {
-    color50: new FormControl('#FFFFFF', {
+    color50: new FormControl('#ffffff', {
       nonNullable: true
     }),
-    color100: new FormControl('#DEDEDE', {
+    color100: new FormControl('#dedede', {
       nonNullable: true
     }),
-    color200: new FormControl('#C2C2C2', {
+    color200: new FormControl('#c2c2c2', {
       nonNullable: true
     }),
-    color300: new FormControl('#9F9F9F', {
+    color300: new FormControl('#9f9f9f', {
       nonNullable: true
     }),
-    color400: new FormControl('#8F8F8F', {
+    color400: new FormControl('#8f8f8f', {
       nonNullable: true
     }),
     color500: new FormControl('#808080', {
@@ -35,10 +35,10 @@ export class PaletteFormGroup {
     color900: new FormControl('#434343', {
       nonNullable: true
     }),
-    colorA100: new FormControl('#EEEEEE', {
+    colorA100: new FormControl('#eeeeee', {
       nonNullable: true
     }),
-    colorA200: new FormControl('#C3C1C3', {
+    colorA200: new FormControl('#c3c1c3', {
       nonNullable: true
     }),
     colorA400: new FormControl('#909090', {
