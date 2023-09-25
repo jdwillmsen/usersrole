@@ -79,6 +79,56 @@ Run `npm run e2e` to execute e2e tests in watch mode.\
 Run `npm run e2e:ci` to execute e2e tests in headless mode.\
 The e2e tests are making use of a testing framework called [Cypress](https://docs.cypress.io/guides/end-to-end-testing/writing-your-first-end-to-end-test).
 
+#### Setup test accounts
+
+In order to run the tests you will have to setup the accounts.json fixture:
+
+```json
+{
+  "basic": {
+    "uid": "rxF10vvSpTSWHQfD5FACZVGP8mm1",
+    "email": "cicd-basic-account@usersrole.com",
+    "displayName": "CICD Basic Account",
+    "password": "password here",
+    "roles": [
+      "user"
+    ]
+  },
+  "read": {
+    "uid": "r8MaoGbXzKSSFMQyBcdsN7Ed4t82",
+    "email": "cicd-read-account@usersrole.com",
+    "displayName": "CICD Read Account",
+    "password": "password here",
+    "roles": [
+      "user",
+      "read"
+    ]
+  },
+  "manager": {
+    "uid": "erRZHm1V63Sm13kUcmL2sH7i6cw2",
+    "email": "cicd-manager-account@usersrole.com",
+    "displayName": "CICD Manager Account",
+    "password": "password here",
+    "roles": [
+      "user",
+      "manager"
+    ]
+  },
+  "admin": {
+    "uid": "5O7R7eMdk8ZfhP5MeF6VDAzrXn13",
+    "email": "cicd-admin-account@usersrole.com",
+    "displayName": "CICD Admin Account",
+    "password": "password here",
+    "roles": [
+      "user",
+      "admin"
+    ]
+  }
+}
+```
+
+This will go in the cypress/fixtures folder and is not included in the repository for security reasons.
+
 ## Code Coverage
 
 Code coverage will appear in the `coverage` folder in a structure like:

@@ -83,7 +83,7 @@ describe('UserFormComponent', () => {
         ]
       });
       cy.getByCy('title').should('be.visible').and('contain.text', viewTitle);
-      cy.getByCy('emailAddressField')
+      cy.getByCy('email-address-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
@@ -181,7 +181,7 @@ describe('UserFormComponent', () => {
         ]
       });
       cy.getByCy('title').should('be.visible').and('contain.text', editTitle);
-      cy.getByCy('emailAddressField')
+      cy.getByCy('email-address-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', user.email);
@@ -199,7 +199,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('rolesLabel')
         .should('be.visible')
         .and('contain.text', 'Roles');
-      cy.getByCy('passwordField')
+      cy.getByCy('password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
@@ -243,8 +243,8 @@ describe('UserFormComponent', () => {
           }
         ]
       });
-      cy.getByCy('emailAddressField').find('input').clear().blur();
-      cy.getByCy('emailAddressField')
+      cy.getByCy('email-address-field').find('input').clear().blur();
+      cy.getByCy('email-address-field')
         .should('contain.text', 'Email is required')
         .type('test')
         .should('contain.text', 'Enter a valid email');
@@ -257,8 +257,8 @@ describe('UserFormComponent', () => {
       cy.getByCy('roleOptionUser').click();
       cy.get('.cdk-overlay-backdrop').click({ force: true });
       cy.getByCy('rolesField').should('contain.text', 'Roles is required');
-      cy.getByCy('passwordField').type('test').find('input').blur();
-      cy.getByCy('passwordField').should(
+      cy.getByCy('password-field').type('test').find('input').blur();
+      cy.getByCy('password-field').should(
         'contain.text',
         'Password must be at least 6 characters long'
       );
@@ -318,12 +318,12 @@ describe('UserFormComponent', () => {
         ]
       });
       cy.getByCy('title').should('be.visible').and('contain.text', deleteTitle);
-      cy.getByCy('emailAddressField')
+      cy.getByCy('email-address-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.email);
-      cy.getByCy('emailAddressLabel')
+      cy.getByCy('email-address-field')
         .should('be.visible')
         .and('contain.text', 'Email Address');
       cy.getByCy('displayNameField')
@@ -420,7 +420,7 @@ describe('UserFormComponent', () => {
         ]
       });
       cy.getByCy('title').should('be.visible').and('contain.text', createTitle);
-      cy.getByCy('emailAddressField')
+      cy.getByCy('email-address-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', defaultUser.email);
@@ -438,7 +438,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('rolesLabel')
         .should('be.visible')
         .and('contain.text', 'Roles');
-      cy.getByCy('passwordField')
+      cy.getByCy('password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
@@ -482,8 +482,8 @@ describe('UserFormComponent', () => {
           }
         ]
       });
-      cy.getByCy('emailAddressField').find('input').clear().blur();
-      cy.getByCy('emailAddressField')
+      cy.getByCy('email-address-field').find('input').clear().blur();
+      cy.getByCy('email-address-field')
         .should('contain.text', 'Email is required')
         .type('test')
         .should('contain.text', 'Enter a valid email');
@@ -495,8 +495,8 @@ describe('UserFormComponent', () => {
       cy.getByCy('rolesField').click();
       cy.get('.cdk-overlay-backdrop').click({ force: true });
       cy.getByCy('rolesField').should('contain.text', 'Roles is required');
-      cy.getByCy('passwordField').type('test').find('input').blur();
-      cy.getByCy('passwordField').should(
+      cy.getByCy('password-field').type('test').find('input').blur();
+      cy.getByCy('password-field').should(
         'contain.text',
         'Password must be at least 6 characters long'
       );

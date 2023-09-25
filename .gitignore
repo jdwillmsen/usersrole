@@ -41,6 +41,7 @@ Thumbs.db
 /cypress/downloads
 /cypress/videos
 /cypress/screenshots
+/cypress/fixtures/accounts.json
 
 # Firebase
 .firebase

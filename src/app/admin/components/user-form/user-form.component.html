@@ -2,7 +2,7 @@
 <h2 data-cy='title' mat-dialog-title>{{ title$ | async }}</h2>
 <mat-dialog-content>
   <form (ngSubmit)='save()' [formGroup]='form' class='user-form'>
-    <mat-form-field appearance='outline' data-cy='emailAddressField'>
+    <mat-form-field appearance='outline' data-cy='email-address-field'>
       <mat-label data-cy='emailAddressLabel'>Email Address</mat-label>
       <input
         [readonly]="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
@@ -125,7 +125,7 @@
       *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
       formGroupName='matchingPassword'
     >
-      <mat-form-field appearance='outline' data-cy='passwordField'>
+      <mat-form-field appearance='outline' data-cy='password-field'>
         <mat-label data-cy='passwordLabel'>Password</mat-label>
         <input
           [type]="hide ? 'password' : 'text'"

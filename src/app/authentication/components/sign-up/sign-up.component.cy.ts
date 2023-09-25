@@ -30,13 +30,13 @@ describe('SignUpComponent', () => {
       ]
     });
     cy.getByCy('title').should('be.visible').and('contain.text', 'Sign Up');
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field')
       .should('be.visible')
       .and('contain.text', 'Enter your email');
     cy.getByCy('displayNameField')
       .should('be.visible')
       .and('contain.text', 'Enter your display name');
-    cy.getByCy('passwordField')
+    cy.getByCy('password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your password');
     cy.getByCy('passwordVisibilityButton')
@@ -70,7 +70,7 @@ describe('SignUpComponent', () => {
       ]
     });
     cy.getByCy('signUpButton').click();
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field')
       .should('contain.text', 'Email is required')
       .type('test')
       .should('contain.text', 'Enter a valid email');
@@ -78,7 +78,7 @@ describe('SignUpComponent', () => {
       'contain.text',
       'Display name is required'
     );
-    cy.getByCy('passwordField')
+    cy.getByCy('password-field')
       .should('contain.text', 'Password is required')
       .type('test')
       .should('contain.text', 'Password must be at least 6 characters long');
@@ -119,9 +119,9 @@ describe('SignUpComponent', () => {
         }
       ]
     });
-    cy.getByCy('emailAddressField').type('test-user-1@usersrole.com');
+    cy.getByCy('email-address-field').type('test-user-1@usersrole.com');
     cy.getByCy('displayNameField').type('Basic Test User #1');
-    cy.getByCy('passwordField').type('testPassword');
+    cy.getByCy('password-field').type('testPassword');
     cy.getByCy('confirmPasswordField').type('testPassword');
     cy.getByCy('signUpButton').click();
     cy.getByCy('snackbar-container')

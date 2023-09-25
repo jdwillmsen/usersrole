@@ -87,14 +87,14 @@ describe('UsersComponent', () => {
       ]
     });
     cy.getByCy('createUserButton').click();
-    cy.getByCy('emailAddressField').type(
+    cy.getByCy('email-address-field').type(
       'admin-create-user-test@usersrole.com'
     );
     cy.getByCy('displayNameField').type('Admin Create User Test');
     cy.getByCy('rolesField').click();
     cy.getByCy('roleOptionUser').click();
     cy.get('.cdk-overlay-transparent-backdrop').click({ force: true });
-    cy.getByCy('passwordField').type('testPassword');
+    cy.getByCy('password-field').type('testPassword');
     cy.getByCy('confirmPasswordField').type('testPassword');
     cy.getByCy('saveButton').click();
     cy.getByCy('snackbar-container')
@@ -125,7 +125,7 @@ describe('UsersComponent', () => {
       .type('test-user-1@usersrole.com');
     cy.getByCy('title').click();
     cy.getByCy('view-button').first().click();
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field')
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com');
     cy.getByCy('displayNameField')
@@ -164,7 +164,7 @@ describe('UsersComponent', () => {
       .type('test-user-1@usersrole.com');
     cy.getByCy('title').click();
     cy.getByCy('edit-button').first().click();
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field')
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com')
       .type('edited-');
@@ -175,7 +175,7 @@ describe('UsersComponent', () => {
     cy.getByCy('rolesField').should('contain.text', 'User').click();
     cy.getByCy('roleOptionRead').click();
     cy.get('.cdk-overlay-transparent-backdrop').click({ force: true });
-    cy.getByCy('passwordField')
+    cy.getByCy('password-field')
       .find('input')
       .should('have.value', '')
       .type('testPassword');
@@ -211,7 +211,7 @@ describe('UsersComponent', () => {
       .type('test-user-1@usersrole.com');
     cy.getByCy('title').click();
     cy.getByCy('delete-button').first().click();
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field')
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com');
     cy.getByCy('displayNameField')

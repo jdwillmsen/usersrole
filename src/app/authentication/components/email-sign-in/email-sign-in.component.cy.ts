@@ -29,17 +29,17 @@ describe('EmailSignInComponent', () => {
         }
       ]
     });
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field')
       .should('be.visible')
       .and('contain.text', 'Enter your email');
-    cy.getByCy('passwordField')
+    cy.getByCy('password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your password');
     cy.getByCy('passwordVisibilityButton')
       .should('be.visible')
       .and('be.enabled')
       .click();
-    cy.getByCy('signInButton')
+    cy.getByCy('sign-in-button')
       .should('be.visible')
       .and('contain.text', 'Sign In')
       .and('be.enabled');
@@ -55,13 +55,13 @@ describe('EmailSignInComponent', () => {
         }
       ]
     });
-    cy.getByCy('emailAddressField').find('input').click().blur();
-    cy.getByCy('emailAddressField')
+    cy.getByCy('email-address-field').find('input').click().blur();
+    cy.getByCy('email-address-field')
       .should('contain.text', 'Email is required')
       .type('test')
       .should('contain.text', 'Enter a valid email');
-    cy.getByCy('passwordField').find('input').click().blur();
-    cy.getByCy('passwordField')
+    cy.getByCy('password-field').find('input').click().blur();
+    cy.getByCy('password-field')
       .should('contain.text', 'Password is required')
       .type('test')
       .should('contain.text', 'Password must be at least 6 characters long');
@@ -91,9 +91,9 @@ describe('EmailSignInComponent', () => {
         }
       ]
     });
-    cy.getByCy('emailAddressField').type('test-user-1@usersrole.com');
-    cy.getByCy('passwordField').type('testPassword');
-    cy.getByCy('signInButton').click();
+    cy.getByCy('email-address-field').type('test-user-1@usersrole.com');
+    cy.getByCy('password-field').type('testPassword');
+    cy.getByCy('sign-in-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Login Successful');
