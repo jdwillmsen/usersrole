@@ -43,7 +43,7 @@ describe('ProfileComponent', () => {
     cy.getByCy('email-address-field')
       .should('be.visible')
       .and('contain.text', 'Email Address');
-    cy.getByCy('displayNameField')
+    cy.getByCy('display-name-field')
       .should('be.visible')
       .and('contain.text', 'Display Name');
     cy.getByCy('rolesField').should('be.visible').and('contain.text', 'Roles');

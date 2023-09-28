@@ -91,7 +91,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('emailAddressLabel')
         .should('be.visible')
         .and('contain.text', 'Email Address');
-      cy.getByCy('displayNameField')
+      cy.getByCy('display-name-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
@@ -188,7 +188,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('emailAddressLabel')
         .should('be.visible')
         .and('contain.text', 'Email Address');
-      cy.getByCy('displayNameField')
+      cy.getByCy('display-name-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', user.displayName);
@@ -209,7 +209,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('passwordVisibilityButton')
         .should('be.visible')
         .and('be.enabled');
-      cy.getByCy('confirmPasswordField')
+      cy.getByCy('confirm-password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
@@ -248,8 +248,8 @@ describe('UserFormComponent', () => {
         .should('contain.text', 'Email is required')
         .type('test')
         .should('contain.text', 'Enter a valid email');
-      cy.getByCy('displayNameField').find('input').clear().blur();
-      cy.getByCy('displayNameField').should(
+      cy.getByCy('display-name-field').find('input').clear().blur();
+      cy.getByCy('display-name-field').should(
         'contain.text',
         'Display name is required'
       );
@@ -262,8 +262,8 @@ describe('UserFormComponent', () => {
         'contain.text',
         'Password must be at least 6 characters long'
       );
-      cy.getByCy('confirmPasswordField').type('tes').find('input').blur();
-      cy.getByCy('confirmPasswordField').should(
+      cy.getByCy('confirm-password-field').type('tes').find('input').blur();
+      cy.getByCy('confirm-password-field').should(
         'contain.text',
         'Password must be at least 6 characters long'
       );
@@ -326,7 +326,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('email-address-field')
         .should('be.visible')
         .and('contain.text', 'Email Address');
-      cy.getByCy('displayNameField')
+      cy.getByCy('display-name-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
@@ -427,7 +427,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('emailAddressLabel')
         .should('be.visible')
         .and('contain.text', 'Email Address');
-      cy.getByCy('displayNameField')
+      cy.getByCy('display-name-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', defaultUser.displayName);
@@ -448,7 +448,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('passwordVisibilityButton')
         .should('be.visible')
         .and('be.enabled');
-      cy.getByCy('confirmPasswordField')
+      cy.getByCy('confirm-password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
@@ -487,8 +487,8 @@ describe('UserFormComponent', () => {
         .should('contain.text', 'Email is required')
         .type('test')
         .should('contain.text', 'Enter a valid email');
-      cy.getByCy('displayNameField').find('input').clear().blur();
-      cy.getByCy('displayNameField').should(
+      cy.getByCy('display-name-field').find('input').clear().blur();
+      cy.getByCy('display-name-field').should(
         'contain.text',
         'Display name is required'
       );
@@ -500,8 +500,8 @@ describe('UserFormComponent', () => {
         'contain.text',
         'Password must be at least 6 characters long'
       );
-      cy.getByCy('confirmPasswordField').type('tes').find('input').blur();
-      cy.getByCy('confirmPasswordField').should(
+      cy.getByCy('confirm-password-field').type('tes').find('input').blur();
+      cy.getByCy('confirm-password-field').should(
         'contain.text',
         'Password must be at least 6 characters long'
       );

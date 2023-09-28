@@ -33,7 +33,7 @@ describe('SignUpComponent', () => {
     cy.getByCy('email-address-field')
       .should('be.visible')
       .and('contain.text', 'Enter your email');
-    cy.getByCy('displayNameField')
+    cy.getByCy('display-name-field')
       .should('be.visible')
       .and('contain.text', 'Enter your display name');
     cy.getByCy('password-field')
@@ -42,13 +42,13 @@ describe('SignUpComponent', () => {
     cy.getByCy('passwordVisibilityButton')
       .should('be.visible')
       .and('be.enabled');
-    cy.getByCy('confirmPasswordField')
+    cy.getByCy('confirm-password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your confirm password');
     cy.getByCy('confirmPasswordVisibilityButton')
       .should('be.visible')
       .and('be.enabled');
-    cy.getByCy('signUpButton')
+    cy.getByCy('sign-up-button')
       .should('be.visible')
       .and('contain.text', 'Sign Up');
     cy.getByCy('signIn')
@@ -69,12 +69,12 @@ describe('SignUpComponent', () => {
         }
       ]
     });
-    cy.getByCy('signUpButton').click();
+    cy.getByCy('sign-up-button').click();
     cy.getByCy('email-address-field')
       .should('contain.text', 'Email is required')
       .type('test')
       .should('contain.text', 'Enter a valid email');
-    cy.getByCy('displayNameField').should(
+    cy.getByCy('display-name-field').should(
       'contain.text',
       'Display name is required'
     );
@@ -82,7 +82,7 @@ describe('SignUpComponent', () => {
       .should('contain.text', 'Password is required')
       .type('test')
       .should('contain.text', 'Password must be at least 6 characters long');
-    cy.getByCy('confirmPasswordField')
+    cy.getByCy('confirm-password-field')
       .should('contain.text', 'Confirm password is required')
       .type('tes')
       .should('contain.text', 'Password must be at least 6 characters long');
@@ -120,10 +120,10 @@ describe('SignUpComponent', () => {
       ]
     });
     cy.getByCy('email-address-field').type('test-user-1@usersrole.com');
-    cy.getByCy('displayNameField').type('Basic Test User #1');
+    cy.getByCy('display-name-field').type('Basic Test User #1');
     cy.getByCy('password-field').type('testPassword');
-    cy.getByCy('confirmPasswordField').type('testPassword');
-    cy.getByCy('signUpButton').click();
+    cy.getByCy('confirm-password-field').type('testPassword');
+    cy.getByCy('sign-up-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Sign Up Successful');

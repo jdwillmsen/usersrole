@@ -1,13 +1,4 @@
 describe('Sign In', () => {
-  before(() => {
-    cy.fixture('accounts')
-      .then((accounts) => {
-        // @ts-ignore
-        this.accounts = accounts;
-      })
-      .as('accounts');
-  });
-
   beforeEach(() => {
     indexedDB.deleteDatabase('firebaseLocalStorageDb');
   });
@@ -17,23 +8,27 @@ describe('Sign In', () => {
   });
 
   it('should be able to sign in with basic account', () => {
-    // @ts-ignore
-    testSignIn(this.accounts.basic.email, this.accounts.basic.password);
+    cy.fixture('accounts').then((accounts) => {
+      testSignIn(accounts.basic.email, accounts.basic.password);
+    });
   });
 
   it('should be able to sign in with read account', () => {
-    // @ts-ignore
-    testSignIn(this.accounts.read.email, this.accounts.read.password);
+    cy.fixture('accounts').then((accounts) => {
+      testSignIn(accounts.read.email, accounts.read.password);
+    });
   });
 
   it('should be able to sign in with manager account', () => {
-    // @ts-ignore
-    testSignIn(this.accounts.manager.email, this.accounts.manager.password);
+    cy.fixture('accounts').then((accounts) => {
+      testSignIn(accounts.manager.email, accounts.manager.password);
+    });
   });
 
   it('should be able to sign in with admin account', () => {
-    // @ts-ignore
-    testSignIn(this.accounts.admin.email, this.accounts.admin.password);
+    cy.fixture('accounts').then((accounts) => {
+      testSignIn(accounts.admin.email, accounts.admin.password);
+    });
   });
 });
 

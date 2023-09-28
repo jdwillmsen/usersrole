@@ -90,12 +90,12 @@ describe('UsersComponent', () => {
     cy.getByCy('email-address-field').type(
       'admin-create-user-test@usersrole.com'
     );
-    cy.getByCy('displayNameField').type('Admin Create User Test');
+    cy.getByCy('display-name-field').type('Admin Create User Test');
     cy.getByCy('rolesField').click();
     cy.getByCy('roleOptionUser').click();
     cy.get('.cdk-overlay-transparent-backdrop').click({ force: true });
     cy.getByCy('password-field').type('testPassword');
-    cy.getByCy('confirmPasswordField').type('testPassword');
+    cy.getByCy('confirm-password-field').type('testPassword');
     cy.getByCy('saveButton').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
@@ -128,7 +128,7 @@ describe('UsersComponent', () => {
     cy.getByCy('email-address-field')
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com');
-    cy.getByCy('displayNameField')
+    cy.getByCy('display-name-field')
       .find('input')
       .should('contain.value', 'Basic Test User #1');
     cy.getByCy('rolesField').find('input').should('contain.value', 'User');
@@ -168,7 +168,7 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com')
       .type('edited-');
-    cy.getByCy('displayNameField')
+    cy.getByCy('display-name-field')
       .find('input')
       .should('contain.value', 'Basic Test User #1')
       .type('Edited ');
@@ -179,7 +179,7 @@ describe('UsersComponent', () => {
       .find('input')
       .should('have.value', '')
       .type('testPassword');
-    cy.getByCy('confirmPasswordField')
+    cy.getByCy('confirm-password-field')
       .find('input')
       .should('have.value', '')
       .type('testPassword', { force: true });
@@ -214,7 +214,7 @@ describe('UsersComponent', () => {
     cy.getByCy('email-address-field')
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com');
-    cy.getByCy('displayNameField')
+    cy.getByCy('display-name-field')
       .find('input')
       .should('contain.value', 'Basic Test User #1');
     cy.getByCy('rolesField').find('input').should('contain.value', 'User');

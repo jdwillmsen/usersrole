@@ -42,7 +42,7 @@ export class HomeComponent {
     },
     {
       title: 'Snackbars',
-      link: '/testing/alerts',
+      link: '/testing/snackbars',
       description:
         'This is a page for viewing the snackbar service/snackbars provided in this application.',
       access: ['Everyone']

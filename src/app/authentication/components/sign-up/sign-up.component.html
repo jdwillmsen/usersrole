@@ -18,7 +18,7 @@
             {{ getErrorMessage('email') }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance='outline' data-cy='displayNameField'>
+        <mat-form-field appearance='outline' data-cy='display-name-field'>
           <mat-label>Enter your display name</mat-label>
           <input
             formControlName='displayName'
@@ -72,7 +72,7 @@
                 : 'fixed'
             "
             appearance='outline'
-            data-cy='confirmPasswordField'
+            data-cy='confirm-password-field'
           >
             <mat-label>Enter your confirm password</mat-label>
             <input
@@ -120,7 +120,7 @@
         <button
           (click)='signUp()'
           color='primary'
-          data-cy='signUpButton'
+          data-cy='sign-up-button'
           mat-raised-button
           type='submit'
         >

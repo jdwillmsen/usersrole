@@ -30,7 +30,7 @@ describe('ForbiddenComponent', () => {
         'contain.text',
         'You do not have permission to access this resource.'
       );
-    cy.getByCy('homeButton')
+    cy.getByCy('home-button')
       .should('be.visible')
       .and('contain.text', 'Home')
       .and('be.enabled');

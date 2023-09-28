@@ -31,7 +31,7 @@
   <div class='routes'>
     <ng-container *ngFor='let route of routes'>
       <app-route-tile
-        [attr.data-cy]='"tile"+route.title'
+        [attr.data-cy]='route.title.toLowerCase()+"-tile"'
         [description]='route.description'
         [footer]="route.access.join(', ')"
         [link]='route.link'

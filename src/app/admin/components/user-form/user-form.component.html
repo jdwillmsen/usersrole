@@ -16,7 +16,7 @@
         {{ getErrorMessage('email') }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance='outline' data-cy='displayNameField'>
+    <mat-form-field appearance='outline' data-cy='display-name-field'>
       <mat-label data-cy='displayNameLabel'>Display Name</mat-label>
       <input
         [readonly]="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
@@ -160,7 +160,7 @@
             : 'fixed'
         "
         appearance='outline'
-        data-cy='confirmPasswordField'
+        data-cy='confirm-password-field'
       >
         <mat-label data-cy='confirmPasswordLabel'>Confirm Password</mat-label>
         <input

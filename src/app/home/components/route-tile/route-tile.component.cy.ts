@@ -47,7 +47,7 @@ describe('TileComponent', () => {
       .should('be.visible')
       .and('contain.text', 'test description');
     cy.getByCy('access').should('be.visible').and('contain.text', 'tester');
-    cy.getByCy('accessTitle')
+    cy.getByCy('access-title')
       .should('be.visible')
       .and('contain.text', 'Access:');
   });
