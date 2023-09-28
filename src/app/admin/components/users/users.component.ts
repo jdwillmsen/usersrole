@@ -103,7 +103,7 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (user) => {
         if (user) {
-          this.userService.create(user).subscribe(() => {
+          this.userService.createAdmin(user).subscribe(() => {
             this.snackbarService.success(
               'User Created Successfully',
               {

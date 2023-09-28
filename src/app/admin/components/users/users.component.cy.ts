@@ -74,7 +74,7 @@ describe('UsersComponent', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/api/users'
+        url: '/api/users/admin'
       },
       '{"uid":"test-uid"}'
     ).as('getUsers');

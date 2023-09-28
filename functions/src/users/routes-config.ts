@@ -1,5 +1,13 @@
 import { Application } from 'express';
-import { all, create, get, patch, remove, roles } from './controller';
+import {
+  adminCreate,
+  all,
+  create,
+  get,
+  patch,
+  remove,
+  roles
+} from './controller';
 import { isAuthenticated } from '../auth/authenticated';
 import { isAuthorized } from '../auth/authorized';
 import * as expressRateLimit from 'express-rate-limit';
@@ -16,7 +24,7 @@ export function routesConfig(app: Application) {
     message:
       'You have exceeded the account creation limit requests at this time. Try again later'
   });
-  // creates user
+  // creates standard user
   app.post('/users', createLimiter, create);
   // lists all users
   app.get('/users', limiter, [
@@ -45,7 +53,13 @@ export function routesConfig(app: Application) {
   // updates roles :id user
   app.patch('/users/roles/:id', limiter, [
     isAuthenticated,
-    isAuthorized({ hasRole: ['admin'] }),
+    isAuthorized({ hasRole: ['admin', 'manager'] }),
     roles
+  ]);
+  // creates user with full options
+  app.post('/users/admin', limiter, [
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin', 'manager'] }),
+    adminCreate
   ]);
 }

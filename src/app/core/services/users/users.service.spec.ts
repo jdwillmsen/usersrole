@@ -48,6 +48,12 @@ describe('UsersService', () => {
     email: 'testUser1@usersrole.com',
     roles: ['user']
   };
+  const defaultCreateAdminUser: CreateUserRequest = {
+    displayName: 'Test User',
+    password: 'testPassword',
+    email: 'testUser1@usersrole.com',
+    roles: ['user', 'admin']
+  };
   const defaultDeleteUser: DeleteUserRequest = {
     uid: 'testUid1'
   };
@@ -124,6 +130,18 @@ describe('UsersService', () => {
     httpClientMock.post.mockReturnValue(of(response));
 
     usersService.create(defaultCreateUser).subscribe({
+      next: (uid) => {
+        expect(uid).toEqual(response);
+      }
+    });
+    expect(httpClientMock.post).toHaveBeenCalled();
+  });
+
+  it('should create a user via admin call', () => {
+    const response = { uid: testUser1.uid };
+    httpClientMock.post.mockReturnValue(of(response));
+
+    usersService.createAdmin(defaultCreateAdminUser).subscribe({
       next: (uid) => {
         expect(uid).toEqual(response);
       }
