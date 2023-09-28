@@ -1,8 +1,8 @@
 import { environment } from '../../src/environments/environment';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import 'firebase/compat/database';
-import 'firebase/compat/firestore';
+import 'firebase/compat/app-check';
+import ReCaptchaV3Provider = firebase.appCheck.ReCaptchaV3Provider;
 
 Cypress.Commands.add('getByCy', (selector: any, ...args: any[]) => {
   return cy.get(`[data-cy=${selector}]`, ...args);
@@ -49,7 +49,47 @@ Cypress.Commands.add('deleteUser', (email: string) => {
 });
 
 Cypress.Commands.add('deleteNewUser', () => {
-  cy.deleteUser('cicd-new-user-account@usersrole.com');
+  cy.fixture('new-user').then((user) => {
+    cy.deleteUser(user.email);
+  });
+});
+
+Cypress.Commands.add('deleteThemeUser', () => {
+  cy.fixture('theme-user').then((user) => {
+    cy.deleteUser(user.email);
+  });
+});
+
+Cypress.Commands.add(
+  'createUser',
+  (email: string, displayName: string, password: string, roles) => {
+    cy.fixture('accounts').then((accounts) => {
+      cy.getToken(accounts.admin.email, accounts.admin.password).then((res) => {
+        console.log(res);
+        cy.request({
+          method: 'POST',
+          url: `${environment.functionsBaseUrl}/api/users/admin`,
+          headers: {
+            authorization: `Bearer ${res.body.idToken}`
+          },
+          body: {
+            email,
+            displayName,
+            password,
+            roles
+          }
+        });
+      });
+    });
+  }
+);
+
+Cypress.Commands.add('createThemeUser', () => {
+  cy.fixture('theme-user').then((user) => {
+    cy.deleteThemeUser().then(() => {
+      cy.createUser(user.email, user.displayName, user.password, user.roles);
+    });
+  });
 });
 
 Cypress.Commands.add('login', (userType) => {
@@ -62,5 +102,19 @@ Cypress.Commands.add('login', (userType) => {
 
 Cypress.Commands.add('loginWithUser', (email: string, password: string) => {
   const app = firebase.initializeApp(environment.firebase);
+  const appCheck = firebase.appCheck();
+  appCheck.activate(new ReCaptchaV3Provider(environment.recaptcha.siteKey));
+  appCheck.setTokenAutoRefreshEnabled(true);
   app.auth().signInWithEmailAndPassword(email, password);
 });
+
+Cypress.Commands.add(
+  'changeColor',
+  (colorSelector: string, colorValue: string) => {
+    cy.getByCy(colorSelector)
+      .click()
+      .invoke('val', colorValue.toLowerCase())
+      .trigger('input')
+      .blur();
+  }
+);

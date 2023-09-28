@@ -1,3 +1,4 @@
+type Role = 'basic' | 'read' | 'manager' | 'admin';
 declare namespace Cypress {
   interface Chainable<Subject = any> {
     getByCy(selector: any, ...args: any[]): Cypress.Chainable<any>;
@@ -8,10 +9,24 @@ declare namespace Cypress {
 
     deleteNewUser(): Cypress.Chainable<any>;
 
+    deleteThemeUser(): Cypress.Chainable<any>;
+
+    createUser(
+      email: string,
+      displayName: string,
+      password: string,
+      roles: Role[]
+    ): Cypress.Chainable<any>;
+
+    createThemeUser(): Cypress.Chainable<any>;
+
     loginWithUser(email: string, password: string): Cypress.Chainable<any>;
 
-    login(
-      userType?: 'basic' | 'read' | 'manager' | 'admin'
+    login(userType?: Role): Cypress.Chainable<any>;
+
+    changeColor(
+      colorSelector: string,
+      colorValue: string
     ): Cypress.Chainable<any>;
   }
 }

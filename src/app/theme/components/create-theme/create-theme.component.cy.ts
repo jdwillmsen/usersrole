@@ -132,9 +132,5 @@ describe('CreateThemeComponent', () => {
 });
 
 function changeColor(colorSelectorNumber: string, colorValue: string) {
-  cy.getByCy(`${colorSelectorNumber}-color-input`)
-    .click()
-    .invoke('val', colorValue.toLowerCase())
-    .trigger('input')
-    .blur();
+  cy.changeColor(`${colorSelectorNumber}-color-input`, colorValue);
 }

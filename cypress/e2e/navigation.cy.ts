@@ -14,6 +14,10 @@ describe('Navigation', () => {
       });
     });
 
+    after('should be able to sign out', () => {
+      checkSignOut();
+    });
+
     it('should have all the nav routes setup correctly', () => {
       cy.visit('/home');
       checkUserNavItems();
@@ -49,8 +53,8 @@ describe('Navigation', () => {
       cy.url().should('include', '/forbidden');
     });
 
-    it('should be able to sign out', () => {
-      checkSignOut();
+    it('should be setup and work properly on small sizes', () => {
+      checkSmallScreens();
     });
   });
 
@@ -314,7 +318,27 @@ function checkSignOut() {
     });
 }
 
+function checkSmallScreens() {
+  cy.viewport(300, 600);
+  cy.visit('/home');
+  cy.getByCy('sidenav-links-list').should('not.be.visible');
+  cy.getByCy('nav-button').click();
+  cy.getByCy('sidenav-links-list').should('be.visible');
+  cy.get('.mat-drawer-backdrop').click({ force: true });
+  cy.getByCy('sidenav-links-list').should('not.be.visible');
+  cy.getByCy('nav-button').click();
+  cy.getByCy('sidenav-links-list').should('be.visible');
+  cy.getByCy('nav-button').click();
+  cy.getByCy('sidenav-links-list').should('not.be.visible');
+  cy.getByCy('nav-button').click();
+  checkUserExpandedNavItems();
+}
+
 function adminTests() {
+  after('should be able to sign out', () => {
+    checkSignOut();
+  });
+
   it('should have all the nav routes setup correctly', () => {
     cy.visit('/home');
     checkUserNavItems();
@@ -343,7 +367,8 @@ function adminTests() {
     checkAdminLinks();
   });
 
-  it('should be able to sign out', () => {
-    checkSignOut();
+  it('should be setup and work properly on small sizes', () => {
+    checkSmallScreens();
+    checkAdminExpandedNavItems();
   });
 }
