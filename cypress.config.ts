@@ -3,7 +3,7 @@ import registerCodeCoverageTasks from '@cypress/code-coverage/task';
 import coverageWebpack from './cypress/coverage.webpack';
 
 export default defineConfig({
-  projectId: 'pxwdhj',
+  projectId: 's9cxbh',
 
   e2e: {
     baseUrl: 'http://localhost:4200',
