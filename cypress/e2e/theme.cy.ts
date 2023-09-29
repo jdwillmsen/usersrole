@@ -3,8 +3,9 @@ describe('Theme', () => {
     indexedDB.deleteDatabase('firebaseLocalStorageDb');
     cy.createThemeUser();
     cy.fixture('theme-user').then((user) => {
-      cy.loginWithUser(user.email, user.password);
-      cy.visit('/');
+      cy.loginWithUser(user.email, user.password).then(() => {
+        cy.visit('/');
+      });
     });
   });
 
