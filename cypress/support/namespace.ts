@@ -18,6 +18,8 @@ declare namespace Cypress {
       roles: Role[]
     ): Cypress.Chainable<any>;
 
+    createNewUser(): Cypress.Chainable<any>;
+
     createThemeUser(): Cypress.Chainable<any>;
 
     loginWithUser(email: string, password: string): Cypress.Chainable<any>;

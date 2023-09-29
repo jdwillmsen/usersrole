@@ -99,7 +99,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('displayNameLabel')
         .should('be.visible')
         .and('contain.text', 'Display Name');
-      cy.getByCy('rolesField')
+      cy.getByCy('roles-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
@@ -129,7 +129,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('accountCreationTimeLabel')
         .should('be.visible')
         .and('contain.text', 'Account Creation Time');
-      cy.getByCy('closeButton')
+      cy.getByCy('close-button')
         .should('be.visible')
         .and('be.enabled')
         .and('contain.text', 'Close');
@@ -195,7 +195,9 @@ describe('UserFormComponent', () => {
       cy.getByCy('displayNameLabel')
         .should('be.visible')
         .and('contain.text', 'Display Name');
-      cy.getByCy('rolesField').should('be.visible').and('contain.text', 'User');
+      cy.getByCy('roles-field')
+        .should('be.visible')
+        .and('contain.text', 'User');
       cy.getByCy('rolesLabel')
         .should('be.visible')
         .and('contain.text', 'Roles');
@@ -219,11 +221,11 @@ describe('UserFormComponent', () => {
       cy.getByCy('confirmPasswordVisibilityButton')
         .should('be.visible')
         .and('be.enabled');
-      cy.getByCy('closeButton')
+      cy.getByCy('close-button')
         .should('be.visible')
         .and('be.enabled')
         .and('contain.text', 'Cancel');
-      cy.getByCy('saveButton')
+      cy.getByCy('save-button')
         .should('be.visible')
         .and('be.disabled')
         .and('contain.text', editType);
@@ -253,10 +255,10 @@ describe('UserFormComponent', () => {
         'contain.text',
         'Display name is required'
       );
-      cy.getByCy('rolesField').click();
-      cy.getByCy('roleOptionUser').click();
+      cy.getByCy('roles-field').click();
+      cy.getByCy('user-role-option').click();
       cy.get('.cdk-overlay-backdrop').click({ force: true });
-      cy.getByCy('rolesField').should('contain.text', 'Roles is required');
+      cy.getByCy('roles-field').should('contain.text', 'Roles is required');
       cy.getByCy('password-field').type('test').find('input').blur();
       cy.getByCy('password-field').should(
         'contain.text',
@@ -334,7 +336,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('displayNameLabel')
         .should('be.visible')
         .and('contain.text', 'Display Name');
-      cy.getByCy('rolesField')
+      cy.getByCy('roles-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
@@ -364,11 +366,11 @@ describe('UserFormComponent', () => {
       cy.getByCy('accountCreationTimeLabel')
         .should('be.visible')
         .and('contain.text', 'Account Creation Time');
-      cy.getByCy('closeButton')
+      cy.getByCy('close-button')
         .should('be.visible')
         .and('be.enabled')
         .and('contain.text', 'Cancel');
-      cy.getByCy('saveButton')
+      cy.getByCy('save-button')
         .should('be.visible')
         .and('be.enabled')
         .and('contain.text', deleteType);
@@ -434,7 +436,7 @@ describe('UserFormComponent', () => {
       cy.getByCy('displayNameLabel')
         .should('be.visible')
         .and('contain.text', 'Display Name');
-      cy.getByCy('rolesField').should('be.visible').and('contain.text', '');
+      cy.getByCy('roles-field').should('be.visible').and('contain.text', '');
       cy.getByCy('rolesLabel')
         .should('be.visible')
         .and('contain.text', 'Roles');
@@ -458,11 +460,11 @@ describe('UserFormComponent', () => {
       cy.getByCy('confirmPasswordVisibilityButton')
         .should('be.visible')
         .and('be.enabled');
-      cy.getByCy('closeButton')
+      cy.getByCy('close-button')
         .should('be.visible')
         .and('be.enabled')
         .and('contain.text', 'Cancel');
-      cy.getByCy('saveButton')
+      cy.getByCy('save-button')
         .should('be.visible')
         .and('be.disabled')
         .and('contain.text', createType);
@@ -492,9 +494,9 @@ describe('UserFormComponent', () => {
         'contain.text',
         'Display name is required'
       );
-      cy.getByCy('rolesField').click();
+      cy.getByCy('roles-field').click();
       cy.get('.cdk-overlay-backdrop').click({ force: true });
-      cy.getByCy('rolesField').should('contain.text', 'Roles is required');
+      cy.getByCy('roles-field').should('contain.text', 'Roles is required');
       cy.getByCy('password-field').type('test').find('input').blur();
       cy.getByCy('password-field').should(
         'contain.text',

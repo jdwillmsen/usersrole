@@ -65,8 +65,7 @@ Cypress.Commands.add(
   (email: string, displayName: string, password: string, roles) => {
     cy.fixture('accounts').then((accounts) => {
       cy.getToken(accounts.admin.email, accounts.admin.password).then((res) => {
-        console.log(res);
-        cy.request({
+        return cy.request({
           method: 'POST',
           url: `${environment.functionsBaseUrl}/api/users/admin`,
           headers: {
@@ -84,10 +83,28 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add('createNewUser', () => {
+  cy.fixture('new-user').then((user) => {
+    cy.deleteNewUser().then(() => {
+      return cy.createUser(
+        user.email,
+        user.displayName,
+        user.password,
+        user.roles
+      );
+    });
+  });
+});
+
 Cypress.Commands.add('createThemeUser', () => {
   cy.fixture('theme-user').then((user) => {
     cy.deleteThemeUser().then(() => {
-      cy.createUser(user.email, user.displayName, user.password, user.roles);
+      return cy.createUser(
+        user.email,
+        user.displayName,
+        user.password,
+        user.roles
+      );
     });
   });
 });

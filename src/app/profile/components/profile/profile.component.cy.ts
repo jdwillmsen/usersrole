@@ -46,6 +46,6 @@ describe('ProfileComponent', () => {
     cy.getByCy('display-name-field')
       .should('be.visible')
       .and('contain.text', 'Display Name');
-    cy.getByCy('rolesField').should('be.visible').and('contain.text', 'Roles');
+    cy.getByCy('roles-field').should('be.visible').and('contain.text', 'Roles');
   });
 });

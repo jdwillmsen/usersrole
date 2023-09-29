@@ -5,7 +5,7 @@
       <mat-form-field
         *ngIf='filteredOptions$ | async as filteredOptions'
         appearance='outline'
-        data-cy='selectUserField'
+        data-cy='select-user-field'
       >
         <mat-label>Select User</mat-label>
         <input
@@ -24,7 +24,8 @@
           autoActiveFirstOption
           opened='true'
         >
-          <mat-option *ngFor='let option of filteredOptions' [value]='option'>
+          <mat-option *ngFor='let option of filteredOptions' [attr.data-cy]='option.displayName+"-user-option"'
+                      [value]='option'>
             {{ option.displayName }} ({{ option.uid }})
           </mat-option>
         </mat-autocomplete>
@@ -38,13 +39,14 @@
     <mat-form-field
       appearance='outline'
       class='roles'
-      data-cy='selectRolesField'
+      data-cy='select-roles-field'
       subscriptSizing='dynamic'
     >
       <mat-label>Roles</mat-label>
       <mat-select formControlName='roles' multiple required>
         <mat-option
           *ngFor='let roleOption of rolesOptions'
+          [attr.data-cy]='roleOption.value+"-role-option"'
           [value]='roleOption.value'
         >
           {{ roleOption.display }}
@@ -66,7 +68,7 @@
         (click)='onAssign()'
         [disabled]='!this.rolesForm.valid'
         color='primary'
-        data-cy='assignRolesButton'
+        data-cy='assign-roles-button'
         mat-raised-button
       >
         Assign Roles

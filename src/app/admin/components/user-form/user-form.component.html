@@ -38,14 +38,14 @@
           !(this.form.get('roles')?.dirty || this.form.get('roles')?.touched)
       }"
       appearance='outline'
-      data-cy='rolesField'
+      data-cy='roles-field'
       subscriptSizing='dynamic'
     >
       <mat-label data-cy='rolesLabel'>Roles</mat-label>
       <mat-select formControlName='roles' multiple required>
         <mat-option
           *ngFor='let roleOption of rolesOptions'
-          [attr.data-cy]='"roleOption" + roleOption.display'
+          [attr.data-cy]='roleOption.display.toLowerCase()+"-role-option"'
           [value]='roleOption.value'
         >{{ roleOption.display }}</mat-option
         >
@@ -62,7 +62,7 @@
           !(this.form.get('roles')?.dirty || this.form.get('roles')?.touched)
       }"
       appearance='outline'
-      data-cy='rolesField'
+      data-cy='roles-field'
       subscriptSizing='dynamic'
     >
       <mat-label data-cy='rolesLabel'>Roles</mat-label>
@@ -206,7 +206,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align='end'>
-  <button (click)='close()' data-cy='closeButton' mat-raised-button type='button'>
+  <button (click)='close()' data-cy='close-button' mat-raised-button type='button'>
     {{ (type$ | async) === 'View' ? 'Close' : 'Cancel' }}
   </button>
   <button
@@ -214,7 +214,7 @@
     *ngIf="(type$ | async) !== 'View'"
     [disabled]="!form.valid && (type$ | async) !== 'Delete'"
     color='primary'
-    data-cy='saveButton'
+    data-cy='save-button'
     mat-raised-button
     type='submit'
   >

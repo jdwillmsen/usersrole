@@ -38,7 +38,7 @@ describe('UsersComponent', () => {
       ]
     });
     cy.getByCy('title').should('be.visible').and('contain.text', 'Users');
-    cy.getByCy('createUserButton')
+    cy.getByCy('create-user-button')
       .should('be.visible')
       .and('contain.text', 'Create User');
     cy.get('.ag-header-row > [col-id="uid"]')
@@ -86,17 +86,17 @@ describe('UsersComponent', () => {
         BrowserAnimationsModule
       ]
     });
-    cy.getByCy('createUserButton').click();
+    cy.getByCy('create-user-button').click();
     cy.getByCy('email-address-field').type(
       'admin-create-user-test@usersrole.com'
     );
     cy.getByCy('display-name-field').type('Admin Create User Test');
-    cy.getByCy('rolesField').click();
-    cy.getByCy('roleOptionUser').click();
+    cy.getByCy('roles-field').click();
+    cy.getByCy('user-role-option').click();
     cy.get('.cdk-overlay-transparent-backdrop').click({ force: true });
     cy.getByCy('password-field').type('testPassword');
     cy.getByCy('confirm-password-field').type('testPassword');
-    cy.getByCy('saveButton').click();
+    cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'User Created Successfully');
@@ -131,13 +131,13 @@ describe('UsersComponent', () => {
     cy.getByCy('display-name-field')
       .find('input')
       .should('contain.value', 'Basic Test User #1');
-    cy.getByCy('rolesField').find('input').should('contain.value', 'User');
+    cy.getByCy('roles-field').find('input').should('contain.value', 'User');
     cy.getByCy('uidField').find('input').should('contain.value', 'test-uid-1');
     cy.getByCy('lastSignInTimeField').find('input').should('contain.value', '');
     cy.getByCy('accountCreationTimeField')
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
-    cy.getByCy('closeButton').click();
+    cy.getByCy('close-button').click();
     cy.getByCy('title').should('be.visible');
   });
 
@@ -172,8 +172,8 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'Basic Test User #1')
       .type('Edited ');
-    cy.getByCy('rolesField').should('contain.text', 'User').click();
-    cy.getByCy('roleOptionRead').click();
+    cy.getByCy('roles-field').should('contain.text', 'User').click();
+    cy.getByCy('read-role-option').click();
     cy.get('.cdk-overlay-transparent-backdrop').click({ force: true });
     cy.getByCy('password-field')
       .find('input')
@@ -183,7 +183,7 @@ describe('UsersComponent', () => {
       .find('input')
       .should('have.value', '')
       .type('testPassword', { force: true });
-    cy.getByCy('saveButton').click();
+    cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'User Edited Successfully');
@@ -217,13 +217,13 @@ describe('UsersComponent', () => {
     cy.getByCy('display-name-field')
       .find('input')
       .should('contain.value', 'Basic Test User #1');
-    cy.getByCy('rolesField').find('input').should('contain.value', 'User');
+    cy.getByCy('roles-field').find('input').should('contain.value', 'User');
     cy.getByCy('uidField').find('input').should('contain.value', 'test-uid-1');
     cy.getByCy('lastSignInTimeField').find('input').should('contain.value', '');
     cy.getByCy('accountCreationTimeField')
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
-    cy.getByCy('saveButton').click();
+    cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
       .and('contain.text', 'User Deleted Successfully');

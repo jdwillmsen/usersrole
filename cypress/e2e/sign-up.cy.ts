@@ -4,6 +4,10 @@ describe('Sign Up', () => {
     indexedDB.deleteDatabase('firebaseLocalStorageDb');
   });
 
+  after(() => {
+    cy.deleteNewUser();
+  });
+
   it('should be able to sign up a new user', () => {
     cy.fixture('new-user').then((user) => {
       cy.visit('/sign-up');

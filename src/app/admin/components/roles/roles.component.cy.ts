@@ -27,13 +27,13 @@ describe('RolesComponent', () => {
       imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
     });
     cy.getByCy('title').should('be.visible').and('have.text', 'Roles');
-    cy.getByCy('selectUserField')
+    cy.getByCy('select-user-field')
       .should('be.visible')
       .and('have.text', 'Select User');
-    cy.getByCy('selectRolesField')
+    cy.getByCy('select-roles-field')
       .should('be.visible')
       .and('have.text', 'Roles');
-    cy.getByCy('assignRolesButton')
+    cy.getByCy('assign-roles-button')
       .should('be.visible')
       .and('contain.text', 'Assign Roles')
       .and('be.disabled');
@@ -47,15 +47,15 @@ describe('RolesComponent', () => {
     cy.mount(RolesComponent, {
       imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
     });
-    cy.getByCy('selectUserField').click();
+    cy.getByCy('select-user-field').click();
     cy.getByCy('title').click();
-    cy.getByCy('selectRolesField').click();
+    cy.getByCy('select-roles-field').click();
     cy.get('.cdk-overlay-backdrop').click({ force: true });
-    cy.getByCy('assignRolesButton').should('be.disabled');
-    cy.getByCy('selectUserField').contains(
+    cy.getByCy('assign-roles-button').should('be.disabled');
+    cy.getByCy('select-user-field').contains(
       'Please select a user from the list'
     );
-    cy.getByCy('selectRolesField').contains(
+    cy.getByCy('select-roles-field').contains(
       'At least one role must be selected'
     );
   });
@@ -64,15 +64,15 @@ describe('RolesComponent', () => {
     cy.mount(RolesComponent, {
       imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
     });
-    cy.getByCy('selectUserField')
+    cy.getByCy('select-user-field')
       .type('Basic Test User #1{enter}')
       .get('input')
       .should('contain.value', 'Basic Test User #1 (test-uid-1)');
-    cy.getByCy('selectRolesField').should('contain.text', 'User');
+    cy.getByCy('select-roles-field').should('contain.text', 'User');
     cy.getByCy('matchingRolesError')
       .should('be.visible')
       .and('contain.text', 'The user already has these roles');
-    cy.getByCy('assignRolesButton').should('be.disabled');
+    cy.getByCy('assign-roles-button').should('be.disabled');
   });
 
   it.only('should assign roles correctly', () => {
@@ -86,28 +86,28 @@ describe('RolesComponent', () => {
     cy.mount(RolesComponent, {
       imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule]
     });
-    cy.getByCy('selectUserField').type('Basic Test User #1{enter}');
-    cy.getByCy('selectRolesField').click();
+    cy.getByCy('select-user-field').type('Basic Test User #1{enter}');
+    cy.getByCy('select-roles-field').click();
     cy.get('#mat-option-3').click();
     cy.get('.cdk-overlay-backdrop').click({ force: true });
-    cy.getByCy('selectRolesField').should('contain.text', 'User, Read');
-    cy.getByCy('assignRolesButton').should('be.enabled').click();
+    cy.getByCy('select-roles-field').should('contain.text', 'User, Read');
+    cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Roles Assigned Successfully');
     cy.getByCy('resetButton').click();
-    cy.getByCy('assignRolesButton').should('be.disabled');
-    cy.getByCy('selectUserField').get('input').should('have.value', '');
-    cy.getByCy('selectRolesField').get('input').should('have.value', '');
-    cy.getByCy('selectUserField').type('All Test User #1{enter}');
-    cy.getByCy('selectRolesField')
+    cy.getByCy('assign-roles-button').should('be.disabled');
+    cy.getByCy('select-user-field').get('input').should('have.value', '');
+    cy.getByCy('select-roles-field').get('input').should('have.value', '');
+    cy.getByCy('select-user-field').type('All Test User #1{enter}');
+    cy.getByCy('select-roles-field')
       .should('contain.text', 'Admin, Manager, User, Read')
       .click();
     cy.get('#mat-option-0').click();
     cy.get('#mat-option-1').click();
     cy.get('#mat-option-3').click();
     cy.get('.cdk-overlay-backdrop').click({ force: true });
-    cy.getByCy('assignRolesButton').should('be.enabled').click();
+    cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')
       .should('be.visible')
       .and('contain.text', 'Roles Assigned Successfully');
