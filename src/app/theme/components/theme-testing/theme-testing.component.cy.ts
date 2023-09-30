@@ -5,7 +5,9 @@ describe('ThemeTestingComponent', () => {
     cy.mount(ThemeTestingComponent);
   });
 
-  it('should mount', () => {});
+  it('should mount', () => {
+    console.log('Component mounted successfully');
+  });
 
   it('should be setup properly', () => {
     cy.getByCy('primary-title')

@@ -12,7 +12,9 @@ describe('ButtonsTestingComponent', () => {
       ]
     });
   });
-  it('should mount', () => {});
+  it('should mount', () => {
+    console.log('Component mounted successfully');
+  });
 
   it('should be setup properly', () => {
     checkButtonGroup('basic', 'Basic Buttons');

@@ -17,7 +17,9 @@ describe('AppComponent', () => {
     });
   });
 
-  it('should mount', () => {});
+  it('should mount', () => {
+    console.log('Component mounted successfully');
+  });
 
   it('should be setup properly', () => {
     cy.getByCy('header').should('be.visible');

@@ -5,7 +5,9 @@ describe('PaletteComponent', () => {
     cy.mount(PaletteComponent);
   });
 
-  it('should mount', () => {});
+  it('should mount', () => {
+    console.log('Component mounted successfully');
+  });
 
   it('should be setup properly', () => {
     cy.getByCy('extra-light')

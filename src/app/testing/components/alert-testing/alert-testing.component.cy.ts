@@ -8,7 +8,9 @@ describe('AlertTestingComponent', () => {
     });
   });
 
-  it('should mount', () => {});
+  it('should mount', () => {
+    console.log('Component mounted successfully');
+  });
 
   testBreakpoint('XSmall Screen', 300, 600);
   testBreakpoint('Small Screen', 800, 800);

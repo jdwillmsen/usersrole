@@ -53,7 +53,9 @@ describe('ThemeSelectorComponent', () => {
         {
           provide: FirestoreService,
           useValue: {
-            setThemeName: (uid: string, themeName: string) => null
+            setThemeName: (uid: string, themeName: string) => {
+              console.log(uid, themeName);
+            }
           }
         },
         {
