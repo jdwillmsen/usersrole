@@ -164,6 +164,7 @@ describe('UsersComponent', () => {
       .type('test-user-1@usersrole.com');
     cy.getByCy('title').click();
     cy.getByCy('edit-button').first().click();
+    cy.wait(500); // CI issues with click correct field
     cy.getByCy('email-address-field')
       .find('input')
       .should('contain.value', 'test-user-1@usersrole.com')

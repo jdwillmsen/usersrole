@@ -118,6 +118,8 @@ Cypress.Commands.add('login', (userType) => {
 });
 
 Cypress.Commands.add('loginWithUser', (email: string, password: string) => {
+  // @ts-ignore
+  self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebugToken;
   const app = firebase.initializeApp(environment.firebase);
   const appCheck = firebase.appCheck();
   appCheck.activate(new ReCaptchaV3Provider(environment.recaptcha.siteKey));

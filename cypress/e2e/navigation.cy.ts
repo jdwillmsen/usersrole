@@ -26,13 +26,13 @@ describe('Navigation', () => {
     });
 
     it('should have the nav route link to correct route', () => {
-      cy.wait(30000); // To Avoid Limiter On Endpoints
+      cy.wait(15000); // To Avoid Limiter On Endpoints
       cy.visit('/home');
       checkUserRouteLinks();
     });
 
     it('should route the user to the appropriate link on home page tiles', () => {
-      cy.wait(30000); // To Avoid Limiter On Endpoints
+      cy.wait(15000); // To Avoid Limiter On Endpoints
       cy.visit('/home');
       checkUserHomeTiles();
       cy.getByCy('users-tile').click();
@@ -45,8 +45,8 @@ describe('Navigation', () => {
     });
 
     it('should bring use to the correct page on link visit', () => {
+      cy.wait(15000); // To Avoid Limiter On Endpoints
       checkUserLinks();
-      cy.wait(30000); // To Avoid Limiter On Endpoints
       cy.visit('/admin/users');
       cy.url().should('include', '/forbidden');
       cy.visit('/admin/roles');
@@ -230,7 +230,6 @@ function checkUserHomeTiles() {
 }
 
 function checkUserLinks() {
-  cy.wait(30000); // To Avoid Limiter On Endpoints
   cy.visit('/');
   cy.url().should('include', '/home');
   cy.visit('/sign-in');
@@ -299,7 +298,6 @@ function checkAdminHomeTiles() {
 }
 
 function checkAdminLinks() {
-  cy.wait(30000); // To Avoid Limiter On Endpoints
   cy.visit('/admin/users');
   cy.url().should('include', '/admin/users');
   cy.visit('/admin/roles');
@@ -349,20 +347,21 @@ function adminTests() {
   });
 
   it('should have the nav route link to correct route', () => {
-    cy.wait(30000); // To Avoid Limiter On Endpoints
+    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.visit('/home');
     checkUserRouteLinks();
     checkAdminRouteLinks();
   });
 
   it('should route the user to the appropriate link on home page tiles', () => {
-    cy.wait(30000); // To Avoid Limiter On Endpoints
+    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.visit('/home');
     checkUserHomeTiles();
     checkAdminHomeTiles();
   });
 
   it('should bring use to the correct page on link visit', () => {
+    cy.wait(15000); // To Avoid Limiter On Endpoints
     checkUserLinks();
     checkAdminLinks();
   });

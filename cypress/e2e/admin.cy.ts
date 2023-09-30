@@ -11,7 +11,7 @@ describe('Admin', () => {
   });
 
   it('should be able to create, view, edit, and delete a user', () => {
-    cy.wait(30000); // To Avoid Limiter On Endpoints
+    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.fixture('new-user').then((user) => {
       cy.visit('/admin/users');
       cy.getByCy('create-user-button').click();
@@ -51,7 +51,8 @@ describe('Admin', () => {
       cy.getByCy('roles-field').find('input').should('contain.value', 'User');
       cy.getByCy('close-button').click();
       cy.getByCy('edit-button').click();
-      cy.getByCy('display-name-field').type(' Edited');
+      cy.wait(500); // Needed in CI due to bug
+      cy.getByCy('display-name-field').should('be.visible').type(' Edited');
       cy.getByCy('roles-field').click();
       cy.getByCy('read-role-option').click();
       cy.get('.cdk-overlay-transparent-backdrop').click({ force: true });
@@ -67,7 +68,6 @@ describe('Admin', () => {
           );
           cy.getByCy('close-button').click();
         });
-      cy.wait(30000); // To Avoid Limiter On Endpoints
       cy.getByCy('app-name').click();
       cy.getByCy('users-nav-item').click();
       cy.get(
@@ -111,7 +111,7 @@ describe('Admin', () => {
   });
 
   it('should be able to assign a user a role', () => {
-    cy.wait(30000); // To Avoid Limiter On Endpoints
+    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.createNewUser().then((res) => {
       cy.fixture('new-user').then((user) => {
         cy.visit('/admin/roles');

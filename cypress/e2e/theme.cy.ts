@@ -137,6 +137,7 @@ describe('Theme', () => {
     cy.visit('/theme/view');
     cy.getByCy('theme-selector').click();
     cy.getByCy('custom-light-button').click();
+    cy.wait(500); // Wait for color to be applied
     cy.getByCy('primary-palette').within(() => {
       cy.getByCy('default').should(
         'have.css',
@@ -181,6 +182,7 @@ describe('Theme', () => {
     });
     cy.getByCy('theme-selector').click();
     cy.getByCy('custom-dark-button').click();
+    cy.wait(500); // Wait for color to be applied
     cy.getByCy('primary-palette').within(() => {
       cy.getByCy('default').should(
         'have.css',
