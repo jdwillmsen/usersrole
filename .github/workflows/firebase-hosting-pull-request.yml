@@ -9,11 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # Setup nodejs and create environment.ts file
-      - uses: actions/setup-node@v3
-      - run: node server.js
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment File
+        run: node server.js
         env:
-          FIREBASE: '${{ secrets.ENVIRONMENT_FILE }}'
+          ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
       # Continue with build
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
