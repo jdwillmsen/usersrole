@@ -1,6 +1,9 @@
-<div class='theme-container'>
-  <div *ngFor='let palette of palettes'>
-    <h1 [attr.data-cy]='palette.toLowerCase()+"-title"'>{{ palette }}</h1>
-    <app-palette [attr.data-cy]='palette.toLowerCase()+"-palette"' [class]='palette.toLowerCase()'></app-palette>
+<div class="theme-container">
+  <div *ngFor="let palette of palettes">
+    <h1 [attr.data-cy]="palette.toLowerCase() + '-title'">{{ palette }}</h1>
+    <app-palette
+      [attr.data-cy]="palette.toLowerCase() + '-palette'"
+      [class]="palette.toLowerCase()"
+    ></app-palette>
   </div>
 </div>

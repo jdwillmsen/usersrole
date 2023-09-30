@@ -1,51 +1,56 @@
 <button
-  [matMenuTriggerFor]='themeMenu'
-  class='large-icon-button'
-  data-cy='theme-select-button'
+  [matMenuTriggerFor]="themeMenu"
+  class="large-icon-button"
+  data-cy="theme-select-button"
   mat-icon-button
 >
   <mat-icon>palette</mat-icon>
 </button>
-<mat-menu #themeMenu='matMenu' xPosition='before'>
+<mat-menu #themeMenu="matMenu" xPosition="before">
   <button
-    (click)='selectTheme(theme.name)'
-    *ngFor='let theme of themes'
-    [attr.data-cy]='theme.name+"-button"'
+    (click)="selectTheme(theme.name)"
+    *ngFor="let theme of themes"
+    [attr.data-cy]="theme.name + '-button'"
     mat-menu-item
   >
-    <mat-icon [attr.data-cy]='theme.name+"-radio-button"' [color]="currentTheme === theme ? 'accent' : undefined">
+    <mat-icon
+      [attr.data-cy]="theme.name + '-radio-button'"
+      [color]="currentTheme === theme ? 'accent' : undefined"
+    >
       {{
-      currentTheme === theme
-        ? 'radio_button_checked'
-        : 'radio_button_unchecked'
+        currentTheme === theme
+          ? 'radio_button_checked'
+          : 'radio_button_unchecked'
       }}
     </mat-icon>
-    <span [attr.data-cy]='theme.name+"-display-name"'>{{ theme.displayName }}</span>
-    <mat-icon [attr.data-cy]='theme.name+"-icon"' role='img'>
+    <span [attr.data-cy]="theme.name + '-display-name'">{{
+      theme.displayName
+    }}</span>
+    <mat-icon [attr.data-cy]="theme.name + '-icon'" role="img">
       <svg
-        fit=''
-        focusable='false'
-        height='100%'
-        preserveAspectRatio='xMidYMid meet'
-        viewBox='0 0 80 80'
-        width='100%'
-        xmlns='http://www.w3.org/2000/svg'
-        xmlns:xlink='http://www.w3.org/1999/xlink'
+        fit=""
+        focusable="false"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 80 80"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
       >
         <defs>
           <path
-            d='M77.87 0C79.05 0 80 .95 80 2.13v75.74c0 1.17-.95 2.13-2.13 2.13H2.13C.96 80 0 79.04 0 77.87V2.13C0 .95.96 0 2.13 0h75.74z'
-            id='a'
+            d="M77.87 0C79.05 0 80 .95 80 2.13v75.74c0 1.17-.95 2.13-2.13 2.13H2.13C.96 80 0 79.04 0 77.87V2.13C0 .95.96 0 2.13 0h75.74z"
+            id="a"
           ></path>
           <path
-            d='M54 40c3.32 0 6 2.69 6 6 0 1.2 0-1.2 0 0 0 3.31-2.68 6-6 6H26c-3.31 0-6-2.69-6-6 0-1.2 0 1.2 0 0 0-3.31 2.69-6 6-6h28z'
-            id='b'
+            d="M54 40c3.32 0 6 2.69 6 6 0 1.2 0-1.2 0 0 0 3.31-2.68 6-6 6H26c-3.31 0-6-2.69-6-6 0-1.2 0 1.2 0 0 0-3.31 2.69-6 6-6h28z"
+            id="b"
           ></path>
-          <path d='M0 0h80v17.24H0V0z' id='c'></path>
+          <path d="M0 0h80v17.24H0V0z" id="c"></path>
         </defs>
-        <use [attr.fill]='theme.background' xlink:href='#a'></use>
-        <use [attr.fill]='theme.button' xlink:href='#b'></use>
-        <use [attr.fill]='theme.toolbar' xlink:href='#c'></use>
+        <use [attr.fill]="theme.background" xlink:href="#a"></use>
+        <use [attr.fill]="theme.button" xlink:href="#b"></use>
+        <use [attr.fill]="theme.toolbar" xlink:href="#c"></use>
       </svg>
     </mat-icon>
   </button>

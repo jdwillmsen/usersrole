@@ -1,30 +1,30 @@
-<ng-container *ngIf='user$ | async'></ng-container>
-<h2 data-cy='title' mat-dialog-title>{{ title$ | async }}</h2>
+<ng-container *ngIf="user$ | async"></ng-container>
+<h2 data-cy="title" mat-dialog-title>{{ title$ | async }}</h2>
 <mat-dialog-content>
-  <form (ngSubmit)='save()' [formGroup]='form' class='user-form'>
-    <mat-form-field appearance='outline' data-cy='email-address-field'>
-      <mat-label data-cy='emailAddressLabel'>Email Address</mat-label>
+  <form (ngSubmit)="save()" [formGroup]="form" class="user-form">
+    <mat-form-field appearance="outline" data-cy="email-address-field">
+      <mat-label data-cy="emailAddressLabel">Email Address</mat-label>
       <input
         [readonly]="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-        formControlName='email'
+        formControlName="email"
         matInput
-        placeholder='Enter your email'
+        placeholder="Enter your email"
         required
-        type='email'
+        type="email"
       />
       <mat-error *ngIf="this.form.get('email')?.invalid">
         {{ getErrorMessage('email') }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance='outline' data-cy='display-name-field'>
-      <mat-label data-cy='displayNameLabel'>Display Name</mat-label>
+    <mat-form-field appearance="outline" data-cy="display-name-field">
+      <mat-label data-cy="displayNameLabel">Display Name</mat-label>
       <input
         [readonly]="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-        formControlName='displayName'
+        formControlName="displayName"
         matInput
-        placeholder='Enter your display name'
+        placeholder="Enter your display name"
         required
-        type='text'
+        type="text"
       />
       <mat-error *ngIf="this.form.get('displayName')?.invalid">
         {{ getErrorMessage('displayName') }}
@@ -37,17 +37,17 @@
           !this.form.get('roles')?.invalid ||
           !(this.form.get('roles')?.dirty || this.form.get('roles')?.touched)
       }"
-      appearance='outline'
-      data-cy='roles-field'
-      subscriptSizing='dynamic'
+      appearance="outline"
+      data-cy="roles-field"
+      subscriptSizing="dynamic"
     >
-      <mat-label data-cy='rolesLabel'>Roles</mat-label>
-      <mat-select formControlName='roles' multiple required>
+      <mat-label data-cy="rolesLabel">Roles</mat-label>
+      <mat-select formControlName="roles" multiple required>
         <mat-option
-          *ngFor='let roleOption of rolesOptions'
-          [attr.data-cy]='roleOption.display.toLowerCase()+"-role-option"'
-          [value]='roleOption.value'
-        >{{ roleOption.display }}</mat-option
+          *ngFor="let roleOption of rolesOptions"
+          [attr.data-cy]="roleOption.display.toLowerCase() + '-role-option'"
+          [value]="roleOption.value"
+          >{{ roleOption.display }}</mat-option
         >
       </mat-select>
       <mat-error *ngIf="this.form.get('roles')?.invalid">
@@ -61,19 +61,19 @@
           !this.form.get('roles')?.invalid ||
           !(this.form.get('roles')?.dirty || this.form.get('roles')?.touched)
       }"
-      appearance='outline'
-      data-cy='roles-field'
-      subscriptSizing='dynamic'
+      appearance="outline"
+      data-cy="roles-field"
+      subscriptSizing="dynamic"
     >
-      <mat-label data-cy='rolesLabel'>Roles</mat-label>
+      <mat-label data-cy="rolesLabel">Roles</mat-label>
       <input
-        [(ngModel)]='displayRoles'
-        [ngModelOptions]='{ standalone: true }'
+        [(ngModel)]="displayRoles"
+        [ngModelOptions]="{ standalone: true }"
         matInput
-        placeholder='Enter roles'
+        placeholder="Enter roles"
         readonly
         required
-        type='text'
+        type="text"
       />
       <mat-error *ngIf="this.form.get('roles')?.invalid">
         {{ getErrorMessage('roles') }}
@@ -81,67 +81,69 @@
     </mat-form-field>
     <mat-form-field
       *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-      appearance='outline'
-      data-cy='uidField'
+      appearance="outline"
+      data-cy="uidField"
     >
-      <mat-label data-cy='uidLabel'>Uid</mat-label>
+      <mat-label data-cy="uidLabel">Uid</mat-label>
       <input
-        formControlName='uid'
+        formControlName="uid"
         matInput
-        placeholder='Your uid'
+        placeholder="Your uid"
         readonly
-        type='text'
+        type="text"
       />
     </mat-form-field>
     <mat-form-field
       *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-      appearance='outline'
-      data-cy='lastSignInTimeField'
+      appearance="outline"
+      data-cy="lastSignInTimeField"
     >
-      <mat-label data-cy='lastSignInTimeLabel'>Last Sign In Time</mat-label>
+      <mat-label data-cy="lastSignInTimeLabel">Last Sign In Time</mat-label>
       <input
-        formControlName='lastSignInTime'
+        formControlName="lastSignInTime"
         matInput
-        placeholder='Your last sign in time'
+        placeholder="Your last sign in time"
         readonly
-        type='text'
+        type="text"
       />
     </mat-form-field>
     <mat-form-field
       *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
-      appearance='outline'
-      data-cy='accountCreationTimeField'
+      appearance="outline"
+      data-cy="accountCreationTimeField"
     >
-      <mat-label data-cy='accountCreationTimeLabel'>Account Creation Time</mat-label>
+      <mat-label data-cy="accountCreationTimeLabel"
+        >Account Creation Time</mat-label
+      >
       <input
-        formControlName='creationTime'
+        formControlName="creationTime"
         matInput
-        placeholder='Your account creation time'
+        placeholder="Your account creation time"
         readonly
-        type='text'
+        type="text"
       />
     </mat-form-field>
     <ng-container
       *ngIf="(type$ | async) === 'Edit' || (type$ | async) === 'Create'"
-      formGroupName='matchingPassword'
+      formGroupName="matchingPassword"
     >
-      <mat-form-field appearance='outline' data-cy='password-field'>
-        <mat-label data-cy='passwordLabel'>Password</mat-label>
+      <mat-form-field appearance="outline" data-cy="password-field">
+        <mat-label data-cy="passwordLabel">Password</mat-label>
         <input
           [type]="hide ? 'password' : 'text'"
-          formControlName='password'
+          formControlName="password"
           matInput
-          placeholder='Enter your password'
+          placeholder="Enter your password"
           required
         />
         <button
-          (click)='hide = !hide'
+          (click)="hide = !hide"
           [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]='hide'
-          data-cy='passwordVisibilityButton'
+          [attr.aria-pressed]="hide"
+          data-cy="passwordVisibilityButton"
           mat-icon-button
           matSuffix
-          type='button'
+          type="button"
         >
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -159,25 +161,25 @@
             ? 'dynamic'
             : 'fixed'
         "
-        appearance='outline'
-        data-cy='confirm-password-field'
+        appearance="outline"
+        data-cy="confirm-password-field"
       >
-        <mat-label data-cy='confirmPasswordLabel'>Confirm Password</mat-label>
+        <mat-label data-cy="confirmPasswordLabel">Confirm Password</mat-label>
         <input
           [type]="hide ? 'password' : 'text'"
-          formControlName='confirmPassword'
+          formControlName="confirmPassword"
           matInput
-          placeholder='Enter your confirm password'
+          placeholder="Enter your confirm password"
           required
         />
         <button
-          (click)='hide = !hide'
+          (click)="hide = !hide"
           [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]='hide'
-          data-cy='confirmPasswordVisibilityButton'
+          [attr.aria-pressed]="hide"
+          data-cy="confirmPasswordVisibilityButton"
           mat-icon-button
           matSuffix
-          type='button'
+          type="button"
         >
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -197,26 +199,31 @@
               ?.touched) &&
           getErrorMessage('matchingPassword') !== ''
         "
-        class='match-password'
-        data-cy='matchingPasswordError'
+        class="match-password"
+        data-cy="matchingPasswordError"
       >
         {{ getErrorMessage('matchingPassword') }}
       </mat-error>
     </ng-container>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions align='end'>
-  <button (click)='close()' data-cy='close-button' mat-raised-button type='button'>
+<mat-dialog-actions align="end">
+  <button
+    (click)="close()"
+    data-cy="close-button"
+    mat-raised-button
+    type="button"
+  >
     {{ (type$ | async) === 'View' ? 'Close' : 'Cancel' }}
   </button>
   <button
-    (click)='save()'
+    (click)="save()"
     *ngIf="(type$ | async) !== 'View'"
     [disabled]="!form.valid && (type$ | async) !== 'Delete'"
-    color='primary'
-    data-cy='save-button'
+    color="primary"
+    data-cy="save-button"
     mat-raised-button
-    type='submit'
+    type="submit"
   >
     {{ type$ | async }}
   </button>
