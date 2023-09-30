@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
-      - name: Create Environment File
-        run: node server.js
+      - name: Create Environment Files
+        run: node server.js && node server-dev.js
         env:
           FIREBASE: '${{ secrets.ENVIRONMENT_FILE }}'
       - name: Cypress run
