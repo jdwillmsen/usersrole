@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
       - run: node server.js
         env:
-          FIREBASE: '${{ secrets.ENVIRONMENT }}'
+          FIREBASE: '${{ secrets.ENVIRONMENT_FILE }}'
       # Continue with build
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
