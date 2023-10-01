@@ -45,7 +45,7 @@
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"
-              data-cy="passwordVisibilityButton"
+              data-cy="password-visibility-button"
               mat-icon-button
               matSuffix
               type="button"
@@ -86,7 +86,7 @@
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"
-              data-cy="confirmPasswordVisibilityButton"
+              data-cy="confirm-password-visibility-button"
               mat-icon-button
               matSuffix
               type="button"
@@ -112,7 +112,7 @@
               getErrorMessage('matchingPassword') !== ''
             "
             class="match-password"
-            data-cy="matchingPasswordError"
+            data-cy="matching-password-error"
           >
             {{ getErrorMessage('matchingPassword') }}
           </mat-error>
@@ -128,9 +128,9 @@
         </button>
       </form>
     </mat-card-content>
-    <mat-card-actions data-cy="signIn">
+    <mat-card-actions data-cy="sign-in">
       Already have an account?
-      <a data-cy="signInLink" routerLink="/sign-in">Sign in</a>
+      <a data-cy="sign-in-link" routerLink="/sign-in">Sign in</a>
     </mat-card-actions>
   </mat-card>
 </div>

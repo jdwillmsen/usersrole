@@ -18,56 +18,56 @@ describe('Theme', () => {
     cy.visit('/theme/view');
     cy.getByCy('theme-selector').click();
     cy.getByCy('black-white-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(0, 0, 0)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('deeppurple-amber-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(103, 58, 183)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('indigo-pink-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(63, 81, 181)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('custom-light-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(125, 207, 42)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('pink-bluegrey-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(233, 30, 99)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('purple-green-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(156, 39, 176)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('red-teal-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(255, 0, 0)'
     );
     cy.getByCy('theme-selector').click();
     cy.getByCy('custom-dark-button').click();
-    cy.get('[data-cy="navbar-header"]').should(
+    cy.getByCy('navbar-header').should(
       'have.css',
       'background-color',
       'rgb(125, 207, 42)'
