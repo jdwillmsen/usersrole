@@ -1,34 +1,42 @@
 <button
-  [matMenuTriggerFor]='beforeMenu'
+  [matMenuTriggerFor]="beforeMenu"
   [ngClass]="{ 'avatar-button': !checkForPhoto(user?.photoURL) }"
-  color='primary'
+  color="primary"
+  data-cy="profile-card-button"
   mat-mini-fab
 >
-  <mat-icon *ngIf='checkForPhoto(user?.photoURL)'>person</mat-icon>
+  <mat-icon *ngIf="checkForPhoto(user?.photoURL)" data-cy="user-button-icon"
+    >person</mat-icon
+  >
   <img
-    *ngIf='!checkForPhoto(user?.photoURL)'
-    [alt]='user?.displayName'
-    [src]='user?.photoURL'
-    class='avatar'
-    referrerPolicy='no-referrer'
+    *ngIf="!checkForPhoto(user?.photoURL)"
+    [alt]="user?.displayName"
+    [src]="user?.photoURL"
+    class="avatar"
+    data-cy="user-button-icon"
+    referrerPolicy="no-referrer"
   />
 </button>
-<mat-menu #beforeMenu='matMenu' xPosition='before'>
-  <div class='profile-card'>
-    <mat-icon *ngIf='checkForPhoto(user?.photoURL)' class='empty-avatar'
-    >person
-    </mat-icon
+<mat-menu #beforeMenu="matMenu" data-cy="profile-card" xPosition="before">
+  <div class="profile-card">
+    <mat-icon
+      *ngIf="checkForPhoto(user?.photoURL)"
+      class="empty-avatar"
+      data-cy="user-icon"
     >
+      person
+    </mat-icon>
     <img
-      *ngIf='!checkForPhoto(user?.photoURL)'
-      [alt]='user?.displayName'
-      [src]='user?.photoURL'
-      class='big-avatar'
-      referrerPolicy='no-referrer'
+      *ngIf="!checkForPhoto(user?.photoURL)"
+      [alt]="user?.displayName"
+      [src]="user?.photoURL"
+      class="big-avatar"
+      data-cy="user-icon"
+      referrerPolicy="no-referrer"
     />
-    <h4>{{ user?.displayName }}</h4>
-    <p>{{ user?.email }}</p>
+    <h4 data-cy="display-name">{{ user?.displayName }}</h4>
+    <p data-cy="email">{{ user?.email }}</p>
     <mat-divider></mat-divider>
-    <app-sign-out></app-sign-out>
+    <app-sign-out data-cy="sign-out"></app-sign-out>
   </div>
 </mat-menu>

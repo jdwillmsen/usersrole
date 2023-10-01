@@ -58,6 +58,15 @@ export class UsersService {
     );
   }
 
+  createAdmin(user: CreateUserRequest) {
+    return this.http.post(`${this.baseUrl}/admin`, user).pipe(
+      catchError((error) => {
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
+        return EMPTY;
+      })
+    );
+  }
+
   edit(user: UpdateUserRequest) {
     return this.http.patch(`${this.baseUrl}/${user.uid}`, user).pipe(
       catchError((error) => {

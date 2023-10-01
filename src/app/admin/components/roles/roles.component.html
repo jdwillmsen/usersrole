@@ -1,12 +1,13 @@
 <div class="roles-container">
-  <h1>Roles</h1>
+  <h1 data-cy="title">Roles</h1>
   <form [formGroup]="rolesForm" class="roles-form">
     <ng-container *ngIf="options$ | async as options">
       <mat-form-field
         *ngIf="filteredOptions$ | async as filteredOptions"
         appearance="outline"
+        data-cy="select-user-field"
       >
-        <mat-label> Select User</mat-label>
+        <mat-label>Select User</mat-label>
         <input
           #input
           (keyup)="onAutocompleteKeyUp(input.value, options)"
@@ -23,38 +24,45 @@
           autoActiveFirstOption
           opened="true"
         >
-          <mat-option *ngFor="let option of filteredOptions" [value]="option">
+          <mat-option
+            *ngFor="let option of filteredOptions"
+            [attr.data-cy]="option.displayName + '-user-option'"
+            [value]="option"
+          >
             {{ option.displayName }} ({{ option.uid }})
           </mat-option>
         </mat-autocomplete>
         <mat-error
           *ngIf="rolesForm.controls.usersName.errors?.['matchRequired']"
         >
-          Please select a user from the list.
+          Please select a user from the list
         </mat-error>
       </mat-form-field>
     </ng-container>
     <mat-form-field
       appearance="outline"
       class="roles"
+      data-cy="select-roles-field"
       subscriptSizing="dynamic"
     >
       <mat-label>Roles</mat-label>
       <mat-select formControlName="roles" multiple required>
         <mat-option
           *ngFor="let roleOption of rolesOptions"
+          [attr.data-cy]="roleOption.value + '-role-option'"
           [value]="roleOption.value"
         >
           {{ roleOption.display }}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="rolesForm.get('roles')?.invalid">
-        At least one role must be selected.
+        At least one role must be selected
       </mat-error>
     </mat-form-field>
     <mat-error
       *ngIf="rolesForm.hasError('noMatchRequired')"
       class="matching-roles"
+      data-cy="matchingRolesError"
     >
       The user already has these roles
     </mat-error>
@@ -63,11 +71,14 @@
         (click)="onAssign()"
         [disabled]="!this.rolesForm.valid"
         color="primary"
+        data-cy="assign-roles-button"
         mat-raised-button
       >
         Assign Roles
       </button>
-      <button (click)="resetForm()" mat-raised-button>Reset</button>
+      <button (click)="resetForm()" data-cy="resetButton" mat-raised-button>
+        Reset
+      </button>
     </div>
   </form>
 </div>

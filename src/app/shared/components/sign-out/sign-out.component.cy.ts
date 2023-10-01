@@ -12,4 +12,17 @@ describe('SignOutComponent', () => {
       ]
     });
   });
+
+  it('should be setup properly', () => {
+    cy.mount(SignOutComponent, {
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        MatSnackBarModule
+      ]
+    });
+    cy.getByCy('sign-out-button')
+      .should('be.visible')
+      .and('be.enabled')
+      .and('contain.text', 'Sign Out');
+  });
 });

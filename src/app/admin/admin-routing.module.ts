@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './components/users/users.component';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
-import { RoleGuard } from '../core/services/permissions/permissions.service';
 import { redirectUnauthorizedToLogin } from '../app-routing.module';
 import { RolesComponent } from './components/roles/roles.component';
+import { RoleGuard } from '../core/guards/role.guard';
 
 const routes: Routes = [
   {

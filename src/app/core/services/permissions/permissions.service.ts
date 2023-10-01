@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { UsersService } from '../users/users.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map, of, switchMap } from 'rxjs';
@@ -56,16 +56,8 @@ export class PermissionsService {
         }
       },
       error: (error) => {
-        this.snackbarService.error(
-          error.error.message,
-          { variant: 'filled' },
-          true
-        );
+        this.snackbarService.error(error.message, { variant: 'filled' }, true);
       }
     });
   }
 }
-
-export const RoleGuard: CanActivateFn = (next: ActivatedRouteSnapshot) => {
-  return inject(PermissionsService).canActivateRole(next);
-};

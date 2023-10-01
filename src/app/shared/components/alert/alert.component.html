@@ -1,18 +1,21 @@
 <div
   *ngFor="let alert of alerts"
-  class="{{ cssClass(alert) }}"
   [@fade]="{ value: fade, params: { fadeTime: fadeTime } }"
+  class="{{ cssClass(alert) }}"
 >
-  <mat-icon *ngIf="alert.icon" class="icon">{{ alert.icon }}</mat-icon>
-  <div *ngIf="!alert.icon"></div>
-  <div class="message" [innerHTML]="alert.message"></div>
+  <mat-icon *ngIf="alert.icon" class="icon" data-cy="icon">
+    {{ alert.icon }}
+  </mat-icon>
+  <div *ngIf="!alert.icon" data-cy="icon"></div>
+  <div [innerHTML]="alert.message" class="message" data-cy="message"></div>
   <button
+    (click)="removeAlert(alert)"
     *ngIf="alert.closeButton"
+    data-cy="close-button"
     mat-icon-button
     type="button"
-    (click)="removeAlert(alert)"
   >
     <mat-icon>close</mat-icon>
   </button>
-  <div *ngIf="!alert.closeButton"></div>
+  <div *ngIf="!alert.closeButton" data-cy="close-button"></div>
 </div>

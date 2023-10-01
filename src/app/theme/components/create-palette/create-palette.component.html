@@ -1,10 +1,11 @@
-<div class="palette-container">
+<div class="palette-container" data-cy="palette-container">
   <div [formGroup]="paletteForm">
     <div [ngClass]="paletteType" class="palette-header">
-      <h3>{{ paletteType | titlecase }}</h3>
+      <h3 data-cy="title">{{ paletteType | titlecase }}</h3>
       <button
         (click)="reset()"
         [matTooltip]="'Restore Defaults'"
+        data-cy="restore-button"
         mat-icon-button
       >
         <mat-icon>restore</mat-icon>
@@ -15,26 +16,33 @@
         [matTooltip]="'Select Color'"
         [ngModelOptions]="{ standalone: true }"
         class="color-selector"
+        data-cy="main-color-input"
         type="color"
       />
     </div>
     <ng-container *ngFor="let color of colors">
       <div
+        [attr.data-cy]="color + '-palette-row'"
         [ngStyle]="{
           'background-color': paletteForm.get('color' + color)?.value
         }"
         class="palette-row"
       >
         <span
+          [attr.data-cy]="color + '-color'"
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
-          >{{ color }}</span
         >
+          {{ color }}
+        </span>
         <span
+          [attr.data-cy]="color + '-color-value'"
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
           class="palette-color-text"
-          >{{ paletteForm.get('color' + color)?.value }}
+        >
+          {{ paletteForm.get('color' + color)?.value }}
         </span>
         <a
+          [attr.data-cy]="color + '-color-link'"
           [href]="getColorsUrl(paletteForm.get('color' + color)?.value)"
           [matTooltip]="'Open Color Details'"
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
@@ -46,6 +54,7 @@
         <span class="palette-spacer"></span>
         <button
           (click)="toggleTextColor(paletteForm.get('colorContrast' + color))"
+          [attr.data-cy]="color + '-color-contrast-button'"
           [matTooltip]="'Toggle Contrast'"
           [ngStyle]="{ color: paletteForm.get('colorContrast' + color)?.value }"
           mat-icon-button
@@ -55,6 +64,7 @@
           </mat-icon>
         </button>
         <input
+          [attr.data-cy]="color + '-color-input'"
           [formControlName]="'color' + color"
           [matTooltip]="'Select Color'"
           class="color-selector"

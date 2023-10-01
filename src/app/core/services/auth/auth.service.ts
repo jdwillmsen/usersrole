@@ -10,6 +10,7 @@ import firebase from 'firebase/compat/app';
   providedIn: 'root'
 })
 export class AuthService {
+  private defaultSuccessMessage = 'Login Successful';
   private user: BehaviorSubject<Observable<firebase.User | null>> =
     new BehaviorSubject<Observable<firebase.User | null>>(of(null));
 
@@ -29,7 +30,7 @@ export class AuthService {
         .signInWithEmailAndPassword(email, password)
         .then(() => {
           this.snackbarService.success(
-            'Login Successful',
+            this.defaultSuccessMessage,
             {
               variant: 'filled',
               autoClose: true
@@ -60,7 +61,7 @@ export class AuthService {
         .signInWithPopup(provider)
         .then(() => {
           this.snackbarService.success(
-            'Login Successful',
+            this.defaultSuccessMessage,
             {
               variant: 'filled',
               autoClose: true
@@ -83,17 +84,28 @@ export class AuthService {
 
   authLogout(): Observable<void> {
     return from(
-      this.angularFireAuth.signOut().then(() => {
-        this.snackbarService.success(
-          'Logout Successful',
-          {
-            variant: 'filled',
-            autoClose: true
-          },
-          true
-        );
-        this.router.navigate(['sign-in']);
-      })
+      this.angularFireAuth
+        .signOut()
+        .then(() => {
+          this.snackbarService.success(
+            'Logout Successful',
+            {
+              variant: 'filled',
+              autoClose: true
+            },
+            true
+          );
+          this.router.navigate(['sign-in']);
+        })
+        .catch((error) => {
+          this.snackbarService.error(
+            error.message,
+            {
+              variant: 'filled'
+            },
+            true
+          );
+        })
     );
   }
 }

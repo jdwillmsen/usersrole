@@ -1,36 +1,28 @@
-import { defineConfig } from 'cypress'
-import fs from 'fs'
+import { defineConfig } from 'cypress';
+import registerCodeCoverageTasks from '@cypress/code-coverage/task';
+import coverageWebpack from './cypress/coverage.webpack';
 
 export default defineConfig({
-  projectId: 'pxwdhj',
-  
+  projectId: 's9cxbh',
+
   e2e: {
-    'baseUrl': 'http://localhost:4200',
+    baseUrl: 'http://localhost:4200',
     setupNodeEvents(on, config) {
-      on(
-        'after:spec',
-        (spec: Cypress.Spec, results: CypressCommandLine.RunResult) => {
-          if (results && results.video) {
-            // Do we have failures for any retry attempts?
-            const failures = results.tests.some((test) =>
-              test.attempts.some((attempt) => attempt.state === 'failed')
-            )
-            if (!failures) {
-              // delete the video if the spec passed and no tests retried
-              fs.unlinkSync(results.video)
-            }
-          }
-        }
-      )
-    },
+      registerCodeCoverageTasks(on, config);
+      return config;
+    }
   },
-  
-  
+
   component: {
     devServer: {
       framework: 'angular',
       bundler: 'webpack',
+      webpackConfig: coverageWebpack
     },
-    specPattern: '**/*.cy.ts'
-  },
-})
+    specPattern: '**/*.cy.ts',
+    setupNodeEvents(on, config) {
+      registerCodeCoverageTasks(on, config);
+      return config;
+    }
+  }
+});
