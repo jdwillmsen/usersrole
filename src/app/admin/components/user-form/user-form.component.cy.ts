@@ -88,7 +88,7 @@ describe('UserFormComponent', () => {
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.email);
-      cy.getByCy('emailAddressLabel')
+      cy.getByCy('email-address-label')
         .should('be.visible')
         .and('contain.text', 'Email Address');
       cy.getByCy('display-name-field')
@@ -96,7 +96,7 @@ describe('UserFormComponent', () => {
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.displayName);
-      cy.getByCy('displayNameLabel')
+      cy.getByCy('display-name-label')
         .should('be.visible')
         .and('contain.text', 'Display Name');
       cy.getByCy('roles-field')
@@ -104,29 +104,29 @@ describe('UserFormComponent', () => {
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', 'User');
-      cy.getByCy('rolesLabel')
+      cy.getByCy('roles-label')
         .should('be.visible')
         .and('contain.text', 'Roles');
-      cy.getByCy('uidField')
+      cy.getByCy('uid-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.uid);
-      cy.getByCy('uidLabel').should('be.visible').and('contain.text', 'Uid');
-      cy.getByCy('lastSignInTimeField')
+      cy.getByCy('uid-label').should('be.visible').and('contain.text', 'Uid');
+      cy.getByCy('last-sign-in-time-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.lastSignInTime);
-      cy.getByCy('lastSignInTimeLabel')
+      cy.getByCy('last-sign-in-time-label')
         .should('be.visible')
         .and('contain.text', 'Last Sign In Time');
-      cy.getByCy('accountCreationTimeField')
+      cy.getByCy('account-creation-time-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.creationTime);
-      cy.getByCy('accountCreationTimeLabel')
+      cy.getByCy('account-creation-time-label')
         .should('be.visible')
         .and('contain.text', 'Account Creation Time');
       cy.getByCy('close-button')
@@ -185,40 +185,40 @@ describe('UserFormComponent', () => {
         .should('be.visible')
         .find('input')
         .and('contain.value', user.email);
-      cy.getByCy('emailAddressLabel')
+      cy.getByCy('email-address-label')
         .should('be.visible')
         .and('contain.text', 'Email Address');
       cy.getByCy('display-name-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', user.displayName);
-      cy.getByCy('displayNameLabel')
+      cy.getByCy('display-name-label')
         .should('be.visible')
         .and('contain.text', 'Display Name');
       cy.getByCy('roles-field')
         .should('be.visible')
         .and('contain.text', 'User');
-      cy.getByCy('rolesLabel')
+      cy.getByCy('roles-label')
         .should('be.visible')
         .and('contain.text', 'Roles');
       cy.getByCy('password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
-      cy.getByCy('passwordLabel')
+      cy.getByCy('password-label')
         .should('be.visible')
         .and('contain.text', 'Password');
-      cy.getByCy('passwordVisibilityButton')
+      cy.getByCy('password-visibility-button')
         .should('be.visible')
         .and('be.enabled');
       cy.getByCy('confirm-password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
-      cy.getByCy('confirmPasswordLabel')
+      cy.getByCy('confirm-password-label')
         .should('be.visible')
         .and('contain.text', 'Confirm Password');
-      cy.getByCy('confirmPasswordVisibilityButton')
+      cy.getByCy('confirm-password-visibility-button')
         .should('be.visible')
         .and('be.enabled');
       cy.getByCy('close-button')
@@ -269,7 +269,7 @@ describe('UserFormComponent', () => {
         'contain.text',
         'Password must be at least 6 characters long'
       );
-      cy.getByCy('matchingPasswordError')
+      cy.getByCy('matching-password-error')
         .should('contain.text', 'Password mismatch')
         .and('be.visible');
     });
@@ -333,7 +333,7 @@ describe('UserFormComponent', () => {
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.displayName);
-      cy.getByCy('displayNameLabel')
+      cy.getByCy('display-name-label')
         .should('be.visible')
         .and('contain.text', 'Display Name');
       cy.getByCy('roles-field')
@@ -341,29 +341,29 @@ describe('UserFormComponent', () => {
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', 'User');
-      cy.getByCy('rolesLabel')
+      cy.getByCy('roles-label')
         .should('be.visible')
         .and('contain.text', 'Roles');
-      cy.getByCy('uidField')
+      cy.getByCy('uid-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.uid);
-      cy.getByCy('uidLabel').should('be.visible').and('contain.text', 'Uid');
-      cy.getByCy('lastSignInTimeField')
+      cy.getByCy('uid-label').should('be.visible').and('contain.text', 'Uid');
+      cy.getByCy('last-sign-in-time-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.lastSignInTime);
-      cy.getByCy('lastSignInTimeLabel')
+      cy.getByCy('last-sign-in-time-label')
         .should('be.visible')
         .and('contain.text', 'Last Sign In Time');
-      cy.getByCy('accountCreationTimeField')
+      cy.getByCy('account-creation-time-field')
         .should('be.visible')
         .find('input')
         .and('have.attr', 'readonly', 'readonly')
         .and('contain.value', user.creationTime);
-      cy.getByCy('accountCreationTimeLabel')
+      cy.getByCy('account-creation-time-label')
         .should('be.visible')
         .and('contain.text', 'Account Creation Time');
       cy.getByCy('close-button')
@@ -426,38 +426,38 @@ describe('UserFormComponent', () => {
         .should('be.visible')
         .find('input')
         .and('contain.value', defaultUser.email);
-      cy.getByCy('emailAddressLabel')
+      cy.getByCy('email-address-label')
         .should('be.visible')
         .and('contain.text', 'Email Address');
       cy.getByCy('display-name-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', defaultUser.displayName);
-      cy.getByCy('displayNameLabel')
+      cy.getByCy('display-name-label')
         .should('be.visible')
         .and('contain.text', 'Display Name');
       cy.getByCy('roles-field').should('be.visible').and('contain.text', '');
-      cy.getByCy('rolesLabel')
+      cy.getByCy('roles-label')
         .should('be.visible')
         .and('contain.text', 'Roles');
       cy.getByCy('password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
-      cy.getByCy('passwordLabel')
+      cy.getByCy('password-label')
         .should('be.visible')
         .and('contain.text', 'Password');
-      cy.getByCy('passwordVisibilityButton')
+      cy.getByCy('password-visibility-button')
         .should('be.visible')
         .and('be.enabled');
       cy.getByCy('confirm-password-field')
         .should('be.visible')
         .find('input')
         .and('contain.value', '');
-      cy.getByCy('confirmPasswordLabel')
+      cy.getByCy('confirm-password-label')
         .should('be.visible')
         .and('contain.text', 'Confirm Password');
-      cy.getByCy('confirmPasswordVisibilityButton')
+      cy.getByCy('confirm-password-visibility-button')
         .should('be.visible')
         .and('be.enabled');
       cy.getByCy('close-button')
@@ -507,7 +507,7 @@ describe('UserFormComponent', () => {
         'contain.text',
         'Password must be at least 6 characters long'
       );
-      cy.getByCy('matchingPasswordError')
+      cy.getByCy('matching-password-error')
         .should('contain.text', 'Password mismatch')
         .and('be.visible');
     });
