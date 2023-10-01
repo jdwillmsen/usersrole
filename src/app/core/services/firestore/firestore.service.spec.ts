@@ -1,35 +1,22 @@
-import { TestBed } from '@angular/core/testing';
 import { FirestoreService } from './firestore.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../../../../environments/environment';
 import { expect } from '@jest/globals';
 
 describe('FirestoreService', () => {
-  let service: FirestoreService;
-  let angularFirestoreMock: Partial<AngularFirestore>;
+  let firestoreService: FirestoreService;
+  const firestoreMock: jest.Mocked<any> = {
+    doc: jest.fn(),
+    getDoc: jest.fn(),
+    setDoc: jest.fn()
+  };
 
   beforeEach(() => {
-    angularFirestoreMock = {
-      doc: jest.fn(),
-      collection: jest.fn()
-    };
-
-    TestBed.configureTestingModule({
-      imports: [
-        provideFirestore(() => getFirestore()),
-        provideFirebaseApp(() => initializeApp(environment.firebase))
-      ],
-      providers: [
-        FirestoreService,
-        { provide: AngularFirestore, useValue: angularFirestoreMock }
-      ]
-    });
-    service = TestBed.inject(FirestoreService);
+    firestoreService = new FirestoreService(firestoreMock);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should create an instance of FirestoreService', () => {
+    expect(firestoreService).toBeInstanceOf(FirestoreService);
   });
+
+  /* All other testing needs to be covered by e2e / component as there is no
+  unit test / mocking tools available */
 });

@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, EMPTY, map } from 'rxjs';
-import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
+import { BehaviorSubject, map } from 'rxjs';
 import { User } from '../../../core/models/users.model';
 
 export type ActionType = 'Create' | 'View' | 'Delete' | 'Edit' | 'Unknown';
+export type UserFormType = {
+  title: string;
+  user: User;
+  type: ActionType;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -15,46 +19,28 @@ export class UserFormService {
     roles: [],
     email: ''
   };
-  private _behaviorSubject = new BehaviorSubject<{
-    title: string;
-    user: User;
-    type: ActionType;
-  }>({
+  private _behaviorSubject = new BehaviorSubject<UserFormType>({
     title: '',
     user: this.defaultUser,
     type: 'Unknown'
   });
 
-  constructor(private snackbarService: SnackbarService) {}
-
   get title$() {
-    return this._behaviorSubject.asObservable().pipe(
-      map((userForm) => userForm.title),
-      catchError((error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
-        return EMPTY;
-      })
-    );
+    return this._behaviorSubject
+      .asObservable()
+      .pipe(map((userForm) => userForm.title));
   }
 
   get user$() {
-    return this._behaviorSubject.asObservable().pipe(
-      map((userForm) => userForm.user),
-      catchError((error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
-        return EMPTY;
-      })
-    );
+    return this._behaviorSubject
+      .asObservable()
+      .pipe(map((userForm) => userForm.user));
   }
 
   get type$() {
-    return this._behaviorSubject.asObservable().pipe(
-      map((userForm) => userForm.type),
-      catchError((error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
-        return EMPTY;
-      })
-    );
+    return this._behaviorSubject
+      .asObservable()
+      .pipe(map((userForm) => userForm.type));
   }
 
   edit(user: User) {

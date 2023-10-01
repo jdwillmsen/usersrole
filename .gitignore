@@ -28,7 +28,6 @@ yarn-error.log
 /.angular/cache
 .sass-cache/
 /connect.lock
-/coverage
 /libpeerconnection.log
 testem.log
 /typings
@@ -42,6 +41,7 @@ Thumbs.db
 /cypress/downloads
 /cypress/videos
 /cypress/screenshots
+/cypress/fixtures/accounts.json
 
 # Firebase
 .firebase
@@ -54,3 +54,6 @@ Thumbs.db
 /src/environments/environment.development.ts
 /src/environments/environment.production.ts
 /src/environments/environment.local.ts
+
+# Code coverage
+/coverage

@@ -1,0 +1,8 @@
+{
+  "email": "cicd-new-user-account@usersrole.com",
+  "displayName": "CICD New User",
+  "password": "testPassword",
+  "roles": [
+    "user"
+  ]
+}

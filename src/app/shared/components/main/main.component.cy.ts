@@ -14,4 +14,15 @@ describe('MainComponent', () => {
       ]
     });
   });
+
+  it('should be setup properly', () => {
+    cy.mount(MainComponent, {
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        MatSnackBarModule,
+        HttpClientModule
+      ]
+    });
+    cy.getByCy('sidenav-content').should('be.visible');
+  });
 });

@@ -1,6 +1,6 @@
 <div class="container">
   <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" data-cy="email-address-field">
       <mat-label>Enter your email</mat-label>
       <input
         formControlName="email"
@@ -12,7 +12,7 @@
         {{ getErrorMessage('email') }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" data-cy="password-field">
       <mat-label>Enter your password</mat-label>
       <input
         [type]="hide ? 'password' : 'text'"
@@ -24,6 +24,7 @@
         (click)="hide = !hide"
         [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide"
+        data-cy="passwordVisibilityButton"
         mat-icon-button
         matSuffix
         type="button"
@@ -34,7 +35,13 @@
         {{ getErrorMessage('password') }}
       </mat-error>
     </mat-form-field>
-    <button (click)="signIn()" color="primary" mat-raised-button type="submit">
+    <button
+      (click)="signIn()"
+      color="primary"
+      data-cy="sign-in-button"
+      mat-raised-button
+      type="submit"
+    >
       Sign In
     </button>
   </form>

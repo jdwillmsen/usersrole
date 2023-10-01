@@ -1,22 +1,30 @@
 import { Application } from 'express';
-import { all, create, get, patch, remove, roles } from './controller';
+import {
+  adminCreate,
+  all,
+  create,
+  get,
+  patch,
+  remove,
+  roles
+} from './controller';
 import { isAuthenticated } from '../auth/authenticated';
 import { isAuthorized } from '../auth/authorized';
 import * as expressRateLimit from 'express-rate-limit';
 
 export function routesConfig(app: Application) {
   const limiter = expressRateLimit.rateLimit({
-    windowMs: 1 * 30 * 1000, // 30 seconds
-    max: 10,
+    windowMs: 15 * 1000, // 15 seconds
+    max: 25,
     message: 'You cannot make any more request at the moment. Try again later'
   });
   const createLimiter = expressRateLimit.rateLimit({
-    windowMs: 1 * 60 * 60 * 1000, // 1 hour
+    windowMs: 60 * 60 * 1000, // 1 hour
     max: 7,
     message:
       'You have exceeded the account creation limit requests at this time. Try again later'
   });
-  // creates user
+  // creates standard user
   app.post('/users', createLimiter, create);
   // lists all users
   app.get('/users', limiter, [
@@ -45,7 +53,13 @@ export function routesConfig(app: Application) {
   // updates roles :id user
   app.patch('/users/roles/:id', limiter, [
     isAuthenticated,
-    isAuthorized({ hasRole: ['admin'] }),
+    isAuthorized({ hasRole: ['admin', 'manager'] }),
     roles
+  ]);
+  // creates user with full options
+  app.post('/users/admin', limiter, [
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin', 'manager'] }),
+    adminCreate
   ]);
 }

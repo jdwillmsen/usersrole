@@ -21,4 +21,29 @@ describe('SignInComponent', () => {
       ]
     });
   });
+
+  it('should be setup properly', () => {
+    cy.mount(SignInComponent, {
+      imports: [MatSnackBarModule, HttpClientModule, BrowserAnimationsModule],
+      providers: [
+        {
+          provide: AngularFireAuth,
+          useValue: {}
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {}
+        }
+      ]
+    });
+    cy.getByCy('title').should('be.visible').and('contain.text', 'Sign In');
+    cy.getByCy('emailSignIn').should('be.visible');
+    cy.getByCy('google-sign-in-button')
+      .should('be.visible')
+      .and('contain.text', 'Sign in with Google');
+    cy.getByCy('newUser').should('be.visible').and('contain.text', 'New User?');
+    cy.getByCy('signUpLink')
+      .should('be.visible')
+      .and('contain.text', 'Sign up');
+  });
 });

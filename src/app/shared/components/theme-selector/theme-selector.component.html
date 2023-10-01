@@ -1,34 +1,41 @@
 <button
-  class="large-icon-button"
-  mat-icon-button
   [matMenuTriggerFor]="themeMenu"
+  class="large-icon-button"
+  data-cy="theme-select-button"
+  mat-icon-button
 >
   <mat-icon>palette</mat-icon>
 </button>
 <mat-menu #themeMenu="matMenu" xPosition="before">
   <button
-    mat-menu-item
-    *ngFor="let theme of themes"
     (click)="selectTheme(theme.name)"
+    *ngFor="let theme of themes"
+    [attr.data-cy]="theme.name + '-button'"
+    mat-menu-item
   >
-    <mat-icon [color]="currentTheme === theme ? 'accent' : undefined">
+    <mat-icon
+      [attr.data-cy]="theme.name + '-radio-button'"
+      [color]="currentTheme === theme ? 'accent' : undefined"
+    >
       {{
         currentTheme === theme
           ? 'radio_button_checked'
           : 'radio_button_unchecked'
       }}
     </mat-icon>
-    <span>{{ theme.displayName }}</span>
-    <mat-icon role="img">
+    <span [attr.data-cy]="theme.name + '-display-name'">{{
+      theme.displayName
+    }}</span>
+    <mat-icon [attr.data-cy]="theme.name + '-icon'" role="img">
       <svg
+        fit=""
+        focusable="false"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 80 80"
+        width="100%"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="100%"
-        height="100%"
-        viewBox="0 0 80 80"
-        fit=""
-        preserveAspectRatio="xMidYMid meet"
-        focusable="false"
       >
         <defs>
           <path
@@ -41,9 +48,9 @@
           ></path>
           <path d="M0 0h80v17.24H0V0z" id="c"></path>
         </defs>
-        <use xlink:href="#a" [attr.fill]="theme.background"></use>
-        <use xlink:href="#b" [attr.fill]="theme.button"></use>
-        <use xlink:href="#c" [attr.fill]="theme.toolbar"></use>
+        <use [attr.fill]="theme.background" xlink:href="#a"></use>
+        <use [attr.fill]="theme.button" xlink:href="#b"></use>
+        <use [attr.fill]="theme.toolbar" xlink:href="#c"></use>
       </svg>
     </mat-icon>
   </button>
