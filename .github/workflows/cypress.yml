@@ -11,7 +11,7 @@ jobs:
       matrix:
         containers: [ 1, 2 ] # Uses 2 parallel instances
     steps:
-      - name: Checkout
+      - name: Code Checkout
         uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
