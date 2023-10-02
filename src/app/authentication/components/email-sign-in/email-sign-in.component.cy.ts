@@ -35,7 +35,7 @@ describe('EmailSignInComponent', () => {
     cy.getByCy('password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your password');
-    cy.getByCy('passwordVisibilityButton')
+    cy.getByCy('password-visibility-button')
       .should('be.visible')
       .and('be.enabled')
       .click();

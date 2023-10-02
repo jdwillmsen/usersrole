@@ -10,9 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { EmailSignInComponent } from '../email-sign-in/email-sign-in.component';
 import { MatCardModule } from '@angular/material/card';
 
-const googleLogoURL =
-  'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg';
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -35,8 +32,10 @@ export class SignInComponent {
     private readonly styleManagerService: StyleManagerService
   ) {
     this.matIconRegistry.addSvgIcon(
-      'logo',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL)
+      'google-logo',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/google-icon.svg'
+      )
     );
     this.styleManagerService.removeStyle('theme');
   }

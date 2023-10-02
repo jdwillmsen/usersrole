@@ -155,6 +155,13 @@ Run `npm run all:coverage` to get the combined report (jest and cypress).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
+### Code Standards
+
+Conventions followed for this project:
+
+- Data tags `data-*` should be kebab-case
+- For Cypress component & e2e testing use `data-cy` data tags
+
 ### Developers
 
 - Jake Willmsen

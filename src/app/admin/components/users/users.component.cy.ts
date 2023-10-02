@@ -132,9 +132,11 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'Basic Test User #1');
     cy.getByCy('roles-field').find('input').should('contain.value', 'User');
-    cy.getByCy('uidField').find('input').should('contain.value', 'test-uid-1');
-    cy.getByCy('lastSignInTimeField').find('input').should('contain.value', '');
-    cy.getByCy('accountCreationTimeField')
+    cy.getByCy('uid-field').find('input').should('contain.value', 'test-uid-1');
+    cy.getByCy('last-sign-in-time-field')
+      .find('input')
+      .should('contain.value', '');
+    cy.getByCy('account-creation-time-field')
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
     cy.getByCy('close-button').click();
@@ -219,9 +221,11 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'Basic Test User #1');
     cy.getByCy('roles-field').find('input').should('contain.value', 'User');
-    cy.getByCy('uidField').find('input').should('contain.value', 'test-uid-1');
-    cy.getByCy('lastSignInTimeField').find('input').should('contain.value', '');
-    cy.getByCy('accountCreationTimeField')
+    cy.getByCy('uid-field').find('input').should('contain.value', 'test-uid-1');
+    cy.getByCy('last-sign-in-time-field')
+      .find('input')
+      .should('contain.value', '');
+    cy.getByCy('account-creation-time-field')
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
     cy.getByCy('save-button').click();

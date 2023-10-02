@@ -11,7 +11,6 @@ describe('Admin', () => {
   });
 
   it('should be able to create, view, edit, and delete a user', () => {
-    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.fixture('new-user').then((user) => {
       cy.visit('/admin/users');
       cy.getByCy('create-user-button').click();
@@ -111,7 +110,6 @@ describe('Admin', () => {
   });
 
   it('should be able to assign a user a role', () => {
-    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.createNewUser().then((res) => {
       cy.fixture('new-user').then((user) => {
         cy.visit('/admin/roles');

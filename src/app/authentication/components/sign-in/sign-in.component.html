@@ -4,20 +4,20 @@
       <h1 data-cy="title">Sign In</h1>
     </mat-card-title>
     <mat-card-content>
-      <app-email-sign-in data-cy="emailSignIn"></app-email-sign-in>
+      <app-email-sign-in data-cy="email-sign-in"></app-email-sign-in>
       <button
         (click)="login()"
         data-cy="google-sign-in-button"
         mat-raised-button
         type="button"
       >
-        <mat-icon svgIcon="logo"></mat-icon>
+        <mat-icon svgIcon="google-logo"></mat-icon>
         Sign in with Google
       </button>
     </mat-card-content>
-    <mat-card-actions data-cy="newUser">
+    <mat-card-actions data-cy="new-user">
       New User?
-      <a data-cy="signUpLink" routerLink="/sign-up">Sign up</a>
+      <a data-cy="sign-up-link" routerLink="/sign-up">Sign up</a>
     </mat-card-actions>
   </mat-card>
 </div>
