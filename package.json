@@ -9,7 +9,7 @@
     "format": "npx prettier src/**/*.{js,jsx,ts,tsx,html,css,scss} --write",
     "jest": "jest",
     "ct": "ng run usersrole:ct",
-    "e2e": "ng e2e",
+    "e2e": "ng run usersrole:e2e",
     "ct:ci": "ng run usersrole:ct-ci",
     "e2e:ci": "ng run usersrole:e2e-ci",
     "jest:coverage": "jest --coverage",

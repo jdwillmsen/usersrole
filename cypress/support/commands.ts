@@ -8,15 +8,20 @@ Cypress.Commands.add('getByCy', (selector: any, ...args: any[]) => {
   return cy.get(`[data-cy=${selector}]`, ...args);
 });
 Cypress.Commands.add('getToken', (email: string, password: string) => {
-  return cy.request({
-    method: 'POST',
-    url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
-    body: {
-      returnSecureToken: true,
-      clientType: 'CLIENT_TYPE_WEB',
-      email,
-      password
-    }
+  cy.setupAppCheck().then((res) => {
+    return cy.request({
+      method: 'POST',
+      url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
+      body: {
+        returnSecureToken: true,
+        clientType: 'CLIENT_TYPE_WEB',
+        email,
+        password
+      },
+      headers: {
+        'X-Firebase-Appcheck': res.appCheck.token
+      }
+    });
   });
 });
 
@@ -118,13 +123,9 @@ Cypress.Commands.add('login', (userType) => {
 });
 
 Cypress.Commands.add('loginWithUser', (email: string, password: string) => {
-  // @ts-ignore
-  self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebugToken;
-  const app = firebase.initializeApp(environment.firebase);
-  const appCheck = firebase.appCheck();
-  appCheck.activate(new ReCaptchaV3Provider(environment.recaptcha.siteKey));
-  appCheck.setTokenAutoRefreshEnabled(true);
-  app.auth().signInWithEmailAndPassword(email, password);
+  cy.setupAppCheck().then((res) => {
+    res.app.auth().signInWithEmailAndPassword(email, password);
+  });
 });
 
 Cypress.Commands.add(
@@ -137,3 +138,15 @@ Cypress.Commands.add(
       .blur();
   }
 );
+
+Cypress.Commands.add('setupAppCheck', () => {
+  // @ts-ignore
+  self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebugToken;
+  const app = firebase.initializeApp(environment.firebase);
+  const appCheck = firebase.appCheck();
+  appCheck.activate(new ReCaptchaV3Provider(environment.recaptcha.siteKey));
+  appCheck.setTokenAutoRefreshEnabled(true);
+  return cy.wrap(
+    appCheck.getToken().then((res) => ({ app: app, appCheck: res }))
+  );
+});
