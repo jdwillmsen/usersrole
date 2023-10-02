@@ -30,5 +30,7 @@ declare namespace Cypress {
       colorSelector: string,
       colorValue: string
     ): Cypress.Chainable<any>;
+
+    setupAppCheck(): Cypress.Chainable<any>;
   }
 }
