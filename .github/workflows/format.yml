@@ -6,6 +6,8 @@ on:
 jobs:
   format:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Code Checkout
         uses: actions/checkout@v3
