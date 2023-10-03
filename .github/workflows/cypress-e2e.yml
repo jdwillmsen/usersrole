@@ -6,13 +6,6 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v3
-      - name: Create Environment Files
-        run: node server.js && node server-cypress.js
-        env:
-          ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
-          ACCOUNTS_FILE: '${{ secrets.ACCOUNTS_FILE }}'
       - name: Cypress Install
         uses: cypress-io/github-action@v6
         with:
@@ -34,6 +27,14 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
+          ACCOUNTS_FILE: '${{ secrets.ACCOUNTS_FILE }}'
 
       - name: Download the build folder
         uses: actions/download-artifact@v3
