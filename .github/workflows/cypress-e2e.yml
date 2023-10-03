@@ -24,7 +24,6 @@ jobs:
           wait-on: 'http://localhost:4200'
           record: true
           parallel: true
-          group: 'Group'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
