@@ -1,0 +1,21 @@
+name: Jest
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment File
+        run: node server.js
+        env:
+          ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Jests Tests
+        run: npm run jest

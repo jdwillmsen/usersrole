@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
       - name: Install Dependencies
-        uses: npm ci
+        run: npm ci
       - name: Format Code
         run: npm run format
       - name: Commit Changes
