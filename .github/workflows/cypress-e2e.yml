@@ -1,15 +1,11 @@
 name: Cypress E2E Tests
 on: [ push ]
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [ 1, 2 ]
+  cypress-install:
+    runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v3
       - name: Create Environment Files
@@ -17,7 +13,33 @@ jobs:
         env:
           ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
           ACCOUNTS_FILE: '${{ secrets.ACCOUNTS_FILE }}'
-      - name: Cypress run
+      - name: Cypress Install
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+          build: npm run build
+      - name: Save Build Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: dist
+  cypress-run:
+    runs-on: ubuntu-latest
+    needs: cypress-install
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3, 4, 5 ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Cypress Run
         uses: cypress-io/github-action@v6
         with:
           start: npm start
