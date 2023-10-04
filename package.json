@@ -16,7 +16,7 @@
     "cypress:coverage": "npx nyc report --reporter=html --reporter=lcov ---reporter=text --reporter=text-summary",
     "clean:coverage": "rm -rf coverage",
     "merge:coverage": "npx istanbul-merge --out coverage/merged-report/coverage-final.json coverage/jest/coverage-final.json coverage/cypress/coverage-final.json",
-    "all:coverage": "npx nyc report --report-dir=coverage/merged-report --temp-dir=coverage/merged-report --reporter=html --reporter=lcov --reporter=text --reporter=text-summary --include=src/**/*.ts --exclude=src/main.ts --exclude=src/environments/**",
+    "all:coverage": "npx nyc report --report-dir=coverage/merged-report --temp-dir=coverage/merged-report --reporter=html --reporter=lcov --reporter=text --reporter=text-summary --reporter=json-summary --include=src/**/*.ts --exclude=src/main.ts --exclude=src/environments/**",
     "tests:all": "npm run jest:coverage && npm run ct:ci && npm run e2e:ci && npm run merge:coverage && npm run all:coverage"
   },
   "private": true,
@@ -67,6 +67,7 @@
     "@types/node": "^20.6.2",
     "@typescript-eslint/eslint-plugin": "5.59.9",
     "@typescript-eslint/parser": "5.59.9",
+    "check-code-coverage": "^1.10.5",
     "cypress": "13.3.0",
     "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
