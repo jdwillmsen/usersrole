@@ -16,8 +16,16 @@ jobs:
           ACCOUNTS_FILE: '${{ secrets.ACCOUNTS_FILE }}'
       - name: Install Dependencies
         run: npm ci
-      - name: Run All Tests With Coverage
-        run: npm run tests:all
+      - name: Jests Tests With Coverage
+        run: npm run jest:coverage
+      - name: Cypress Component Test With Coverage
+        run: npm run ct:ci
+      - name: Cypress E2E Tests With Coverage
+        run: npm run e2e:ci
+      - name: Merge Coverage Reports
+        run: npm run merge:coverage
+      - name: Generate Merged Coverage Report
+        run: npm run all:coverage
       - name: Update Code Coverage Badge
         run: npx update-badge --from coverage/merged-report/coverage-summary.json
       - name: Set Code Coverage Commit Status
