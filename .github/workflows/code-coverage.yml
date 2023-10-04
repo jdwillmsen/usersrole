@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -18,10 +18,25 @@ jobs:
         run: npm ci
       - name: Jests Tests With Coverage
         run: npm run jest:coverage
-      - name: Cypress Component Test With Coverage
-        run: npm run ct:ci
-      - name: Cypress E2E Tests With Coverage
-        run: npm run e2e:ci
+      - name: Cypress Component Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          component: true
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cypress E2E Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Merge Coverage Reports
         run: npm run merge:coverage
       - name: Generate Merged Coverage Report
