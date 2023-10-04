@@ -33,11 +33,8 @@ describe('Admin', () => {
         });
       cy.getByCy('app-name').click();
       cy.getByCy('users-nav-item').click();
-      cy.get(
-        '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-menu-button > .ag-icon'
-      )
-        .click()
-        .type(user.email);
+      cy.get('[col-id="email"] .ag-icon').first().click();
+      cy.get('.ag-filter-filter').first().type(user.email);
       cy.getByCy('title').click();
       cy.wait(500); // wait for grid to sort
       cy.getByCy('view-button').click();
@@ -69,11 +66,8 @@ describe('Admin', () => {
         });
       cy.getByCy('app-name').click();
       cy.getByCy('users-nav-item').click();
-      cy.get(
-        '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-menu-button > .ag-icon'
-      )
-        .click()
-        .type(user.email);
+      cy.get('[col-id="email"] .ag-icon').first().click();
+      cy.get('.ag-filter-filter').first().type(user.email);
       cy.getByCy('title').click();
       cy.wait(500); // wait for grid to sort
       cy.getByCy('delete-button').click();
@@ -98,11 +92,8 @@ describe('Admin', () => {
         });
       cy.getByCy('app-name').click();
       cy.getByCy('users-nav-item').click();
-      cy.get(
-        '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-menu-button > .ag-icon'
-      )
-        .click()
-        .type(user.email);
+      cy.get('[col-id="email"] .ag-icon').first().click();
+      cy.get('.ag-filter-filter').first().type(user.email);
       cy.getByCy('title').click();
       cy.wait(500); // wait for grid to sort
       cy.getByCy('view-button').should('not.exist');
