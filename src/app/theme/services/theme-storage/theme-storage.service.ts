@@ -9,27 +9,15 @@ export class ThemeStorageService {
   onThemeUpdate: EventEmitter<SiteTheme> = new EventEmitter<SiteTheme>();
 
   storeTheme(theme: SiteTheme) {
-    try {
-      window.localStorage.setItem(ThemeStorageService.storageKey, theme.name);
-    } catch (error) {
-      console.error(error);
-    }
+    window.localStorage.setItem(ThemeStorageService.storageKey, theme.name);
     this.onThemeUpdate.emit(theme);
   }
 
   getStoredThemeName(): string | null {
-    try {
-      return window.localStorage.getItem(ThemeStorageService.storageKey);
-    } catch {
-      return null;
-    }
+    return window.localStorage.getItem(ThemeStorageService.storageKey);
   }
 
   clearStorage() {
-    try {
-      window.localStorage.removeItem(ThemeStorageService.storageKey);
-    } catch (error) {
-      console.error(error);
-    }
+    window.localStorage.removeItem(ThemeStorageService.storageKey);
   }
 }

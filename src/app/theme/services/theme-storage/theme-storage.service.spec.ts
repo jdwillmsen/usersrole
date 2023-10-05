@@ -43,26 +43,6 @@ describe('ThemeStorageService', () => {
     expect(emitSpy).toHaveBeenCalledWith(defaultTheme);
   });
 
-  it('should handle errors when storing a theme', () => {
-    const localStorageSetItemSpy = jest.spyOn(
-      Object.getPrototypeOf(window.localStorage),
-      'setItem'
-    );
-    Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
-    localStorageSetItemSpy.mockImplementation(() => {
-      throw new Error('localStorage unavailable');
-    });
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
-
-    themeStorageService.storeTheme(defaultTheme);
-
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      storageKey,
-      defaultTheme.name
-    );
-    expect(consoleErrorSpy).toHaveBeenCalled();
-  });
-
   it('should get stored theme name', () => {
     const storedThemeName = 'dark';
     const localStorageGetItemSpy = jest.spyOn(
@@ -78,22 +58,6 @@ describe('ThemeStorageService', () => {
     expect(result).toBe(storedThemeName);
   });
 
-  it('should return null for getStoredThemeName when localStorage is unavailable', () => {
-    const localStorageGetItemSpy = jest.spyOn(
-      Object.getPrototypeOf(window.localStorage),
-      'getItem'
-    );
-    Object.setPrototypeOf(window.localStorage.getItem, jest.fn());
-    localStorageGetItemSpy.mockImplementation(() => {
-      throw new Error('localStorage unavailable');
-    });
-
-    const result = themeStorageService.getStoredThemeName();
-
-    expect(localStorageGetItemSpy).toHaveBeenCalledWith(storageKey);
-    expect(result).toBeNull();
-  });
-
   it('should clear storage', () => {
     const localStorageRemoveItemSpy = jest.spyOn(
       Object.getPrototypeOf(window.localStorage),
@@ -104,22 +68,5 @@ describe('ThemeStorageService', () => {
     themeStorageService.clearStorage();
 
     expect(localStorageRemoveItemSpy).toHaveBeenCalledWith(storageKey);
-  });
-
-  it('should handle errors when clearing storage', () => {
-    const localStorageRemoveItemSpy = jest.spyOn(
-      Object.getPrototypeOf(window.localStorage),
-      'removeItem'
-    );
-    Object.setPrototypeOf(window.localStorage.removeItem, jest.fn());
-    localStorageRemoveItemSpy.mockImplementation(() => {
-      throw new Error('localStorage unavailable');
-    });
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockReturnValue();
-
-    themeStorageService.clearStorage();
-
-    expect(localStorageRemoveItemSpy).toHaveBeenCalledWith(storageKey);
-    expect(consoleErrorSpy).toHaveBeenCalled();
   });
 });
