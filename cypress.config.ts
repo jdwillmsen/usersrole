@@ -5,6 +5,11 @@ import coverageWebpack from './cypress/coverage.webpack';
 export default defineConfig({
   projectId: 's9cxbh',
 
+  retries: {
+    runMode: 2,
+    openMode: 0
+  },
+
   e2e: {
     baseUrl: 'http://localhost:4200',
     setupNodeEvents(on, config) {
