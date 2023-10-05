@@ -41,8 +41,11 @@ jobs:
         run: npm run merge:coverage
       - name: Generate Merged Coverage Report
         run: npm run all:coverage
+      - name: Test Path
+        run: pwd
+      - run: ls -la
       - name: Update Code Coverage Badge
-        run: npx update-badge --from coverage/merged-report/coverage-summary.json
+        run: npx update-badge --from /home/runner/coverage/merged-report/coverage-summary.json
       - name: Set Code Coverage Commit Status
         run: npx -p check-code-coverage set-gh-status
         env:
