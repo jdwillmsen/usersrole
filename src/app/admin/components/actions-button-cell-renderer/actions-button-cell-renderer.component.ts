@@ -67,9 +67,6 @@ export class ActionsButtonCellRendererComponent
             );
           });
         }
-      },
-      error: (error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
       }
     });
   }
@@ -96,9 +93,6 @@ export class ActionsButtonCellRendererComponent
             );
           });
         }
-      },
-      error: (error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
       }
     });
   }

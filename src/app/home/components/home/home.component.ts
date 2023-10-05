@@ -81,8 +81,4 @@ export class HomeComponent {
       access: ['Read', 'Admin', 'Manager']
     }
   ];
-
-  throwError() {
-    throw new Error('An error has occurred!');
-  }
 }

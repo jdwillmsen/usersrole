@@ -4,25 +4,17 @@ import {
   GlobalHttpErrorHandlerInterceptorProvider
 } from './global-http-error-handler.interceptor';
 import { expect } from '@jest/globals';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpRequest
-} from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('GlobalHttpErrorHandlerInterceptor', () => {
   let interceptor: GlobalHttpErrorHandlerInterceptor;
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, MatSnackBarModule],
       providers: [
         GlobalHttpErrorHandlerInterceptor,
         GlobalHttpErrorHandlerInterceptorProvider
@@ -30,8 +22,6 @@ describe('GlobalHttpErrorHandlerInterceptor', () => {
     });
 
     interceptor = TestBed.inject(GlobalHttpErrorHandlerInterceptor);
-    httpClient = TestBed.inject(HttpClient);
-    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should create an instance of GlobalHttpErrorHandlerInterceptor', () => {
