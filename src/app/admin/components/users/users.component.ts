@@ -114,9 +114,6 @@ export class UsersComponent implements OnInit {
             );
           });
         }
-      },
-      error: (error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
       }
     });
   }

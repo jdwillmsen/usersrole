@@ -141,13 +141,6 @@ export class RolesComponent implements OnInit {
               },
               true
             );
-          },
-          error: (error) => {
-            this.snackbarService.error(
-              error.error,
-              { variant: 'filled' },
-              true
-            );
           }
         });
     }
