@@ -8,13 +8,18 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('GlobalHttpErrorHandlerInterceptor', () => {
   let interceptor: GlobalHttpErrorHandlerInterceptor;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSnackBarModule],
+      imports: [
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        NoopAnimationsModule
+      ],
       providers: [
         GlobalHttpErrorHandlerInterceptor,
         GlobalHttpErrorHandlerInterceptorProvider
@@ -37,6 +42,21 @@ describe('GlobalHttpErrorHandlerInterceptor', () => {
     interceptor.intercept(request, httpHandlerMock).subscribe({
       error: (error) => {
         expect(error.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  it('should catch the error if 403 and handle', (done) => {
+    const request = new HttpRequest('GET', 'http://mock');
+    const httpHandlerMock: jest.Mocked<any> = {
+      handle: () => throwError(() => new HttpErrorResponse({ status: 403 }))
+    };
+    jest.spyOn(httpHandlerMock, 'handle');
+
+    interceptor.intercept(request, httpHandlerMock).subscribe({
+      complete: () => {
+        expect(httpHandlerMock.handle).toHaveBeenCalled();
         done();
       }
     });
