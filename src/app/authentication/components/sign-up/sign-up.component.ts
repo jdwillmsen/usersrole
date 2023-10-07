@@ -128,15 +128,6 @@ export class SignUpComponent {
               true
             );
             this.router.navigate(['sign-in']);
-          },
-          error: (error) => {
-            this.snackbarService.error(
-              error.error.message,
-              {
-                variant: 'filled'
-              },
-              true
-            );
           }
         });
       }

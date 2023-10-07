@@ -1,23 +1,32 @@
-<div class="sign-in">
+<div class='sign-in'>
   <mat-card>
     <mat-card-title>
-      <h1 data-cy="title">Sign In</h1>
+      <h1 data-cy='title'>Sign In</h1>
     </mat-card-title>
     <mat-card-content>
-      <app-email-sign-in data-cy="email-sign-in"></app-email-sign-in>
+      <app-email-sign-in data-cy='email-sign-in'></app-email-sign-in>
       <button
-        (click)="login()"
-        data-cy="google-sign-in-button"
+        (click)='googleLogin()'
+        data-cy='google-sign-in-button'
         mat-raised-button
-        type="button"
+        type='button'
       >
-        <mat-icon svgIcon="google-logo"></mat-icon>
+        <mat-icon svgIcon='google-logo'></mat-icon>
         Sign in with Google
       </button>
+      <button
+        (click)='githubLogin()'
+        data-cy='github-sign-in-button'
+        mat-raised-button
+        type='button'
+      >
+        <mat-icon svgIcon='github-logo'></mat-icon>
+        Sign in with GitHub
+      </button>
     </mat-card-content>
-    <mat-card-actions data-cy="new-user">
+    <mat-card-actions data-cy='new-user'>
       New User?
-      <a data-cy="sign-up-link" routerLink="/sign-up">Sign up</a>
+      <a data-cy='sign-up-link' routerLink='/sign-up'>Sign up</a>
     </mat-card-actions>
   </mat-card>
 </div>

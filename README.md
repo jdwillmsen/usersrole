@@ -1,16 +1,26 @@
 # Users Role
 
-This is a frontend application that is supposed to provide a template for users authentication and authorization since
-these are common features to be used in most applications. It also includes features such as theme selection, snackbar
-service, alerts service, and a general site layout with header, collapsable sidebar/navigation, and main content area.
+This is a frontend application that is supposed to provide a template for
+users authentication and authorization since these are common features to be
+used in most applications. It also includes features such as theme
+selection, snackbar service, alerts service, and a general site layout with
+header, collapsable sidebar/navigation, and main content area. This
+application is all a Progressive Web App (PWA) and can be downloaded as an app
+on mobile and desktop devices.
 
-The authentication is provided by Firebase with Google Identity Platform and the authorization is built off of a node
-server that makes use of Firebase functions. The production server and all deployments are hosted with Firebase hosting.
+The authentication is provided by Firebase with Google Identity Platform and
+the authorization is built off of a node server that makes use of Firebase
+functions. The production server and all deployments are hosted with
+Firebase hosting.
 
-The CI/CD tools used here are GitHub actions. There are two different actions/workflows, one for deploying production
-and the other for raising previews during pull requests. As well as few other checks within GitHub (CodeQL). Also there
-is a server.js script in the repo that is used within CI/CD to retrieve and setup the environment file since they
-contain secrets. Which are managed with GitHub secrets.
+The CI/CD tools used here are GitHub actions. There are two different
+actions/workflows for CD, one for deploying production and the other for raising
+previews during pull requests. As well as few other checks within GitHub
+(CodeQL). Also, there is a server.js script in the repo that is used within
+CI/CD to retrieve and set up the environment file since they contain secrets.
+Which are managed with GitHub secrets. For CI there are also various different
+actions for lint, format, jest (unit) tests, cypress (component, E2E) tests,
+and code coverage.
 
 ## Development server
 

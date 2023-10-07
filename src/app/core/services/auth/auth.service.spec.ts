@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { expect } from '@jest/globals';
 import { of } from 'rxjs';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -21,9 +21,9 @@ describe('AuthService', () => {
   const authProviderMock = new GoogleAuthProvider();
   const defaultEmail = 'testUser@usersrole.com';
   const defaultPassword = 'testPassword';
-  const defaultErrorMessage = 'Authentication Error';
-  const defaultLoginSuccessMessage = 'Login Successful';
-  const defaultLogoutSuccessMessage = 'Logout Successful';
+  const defaultErrorMessage = 'An error has occurred!';
+  const defaultLoginSuccessMessage = 'Sign in successful';
+  const defaultLogoutSuccessMessage = 'Sign out successful';
 
   beforeEach(() => {
     authService = new AuthService(
@@ -104,6 +104,41 @@ describe('AuthService', () => {
     authService.googleAuth().subscribe(() => {
       expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
         expect.any(GoogleAuthProvider)
+      );
+      expect(snackbarServiceMock.error).toHaveBeenCalledWith(
+        defaultErrorMessage,
+        { variant: 'filled' },
+        true
+      );
+      done();
+    });
+  });
+
+  it('should call githubAuth and navigate to home on success', (done) => {
+    angularFireAuthMock.signInWithPopup.mockResolvedValueOnce({});
+
+    authService.githubAuth().subscribe(() => {
+      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+        expect.any(GithubAuthProvider)
+      );
+      expect(snackbarServiceMock.success).toHaveBeenCalledWith(
+        defaultLoginSuccessMessage,
+        { variant: 'filled', autoClose: true },
+        true
+      );
+      expect(routerMock.navigate).toHaveBeenCalledWith(['home']);
+      done();
+    });
+  });
+
+  it('should call githubAuth and show error snackbar on failure', (done) => {
+    angularFireAuthMock.signInWithPopup.mockRejectedValueOnce({
+      message: defaultErrorMessage
+    });
+
+    authService.githubAuth().subscribe(() => {
+      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+        expect.any(GithubAuthProvider)
       );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         defaultErrorMessage,

@@ -6,7 +6,7 @@
     used in most applications. It also includes features such as theme
     selection, snackbar service, alerts service, and a general site layout with
     header, collapsable sidebar/navigation, and main content area. This
-    application is all a Progressive Web App (PWA) and can be download as an app
+    application is all a Progressive Web App (PWA) and can be downloaded as an app
     on mobile and desktop devices.
   </p>
   <p data-cy='p2'>
@@ -17,11 +17,13 @@
   </p>
   <p data-cy='p3'>
     The CI/CD tools used here are GitHub actions. There are two different
-    actions/workflows, one for deploying production and the other for raising
+    actions/workflows for CD, one for deploying production and the other for raising
     previews during pull requests. As well as few other checks within GitHub
-    (CodeQL). Also there is a server.js script in the repo that is used within
-    CI/CD to retrieve and setup the environment file since they contain secrets.
-    Which are managed with GitHub secrets.
+    (CodeQL). Also, there is a server.js script in the repo that is used within
+    CI/CD to retrieve and set up the environment file since they contain secrets.
+    Which are managed with GitHub secrets. For CI there are also various different
+    actions for lint, format, jest (unit) tests, cypress (component, E2E) tests,
+    and code coverage.
   </p>
   <p data-cy='p4'>
     The following are the primary routes once authenticated:
