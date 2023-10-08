@@ -32,7 +32,8 @@ export class AuthService {
   user$ = this.user.asObservable().pipe(switchMap((user) => user));
   private supportedPopupSignInMethods: string[] = [
     GoogleAuthProvider.PROVIDER_ID,
-    GithubAuthProvider.PROVIDER_ID
+    GithubAuthProvider.PROVIDER_ID,
+    TwitterAuthProvider.PROVIDER_ID
   ];
 
   constructor(
@@ -143,7 +144,7 @@ export class AuthService {
     }
   }
 
-  private handleAuthLoginFailure(error: any) {
+  handleAuthLoginFailure(error: any) {
     if (
       error.email &&
       error.credential &&
@@ -168,7 +169,8 @@ export class AuthService {
             .catch((error) => handleError(error, this.snackbarService));
         })
         .catch((error) => handleError(error, this.snackbarService));
+    } else {
+      handleError(error, this.snackbarService);
     }
-    handleError(error, this.snackbarService);
   }
 }
