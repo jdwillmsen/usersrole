@@ -137,6 +137,22 @@ describe('UsersService', () => {
     expect(httpClientMock.post).toHaveBeenCalled();
   });
 
+  it('should handle create user HTTP failure', () => {
+    httpClientMock.post.mockReturnValue(throwError(() => defaultErrorResponse));
+
+    usersService.create(defaultCreateUser).subscribe({
+      error: (error) => {
+        expect(error).toEqual(defaultErrorResponse);
+      }
+    });
+    expect(httpClientMock.post).toHaveBeenCalled();
+    expect(snackbarServiceMock.error).toHaveBeenCalledWith(
+      defaultErrorMessage,
+      { variant: 'filled' },
+      true
+    );
+  });
+
   it('should create a user via admin call', () => {
     const response = { uid: testUser1.uid };
     httpClientMock.post.mockReturnValue(of(response));
@@ -149,10 +165,10 @@ describe('UsersService', () => {
     expect(httpClientMock.post).toHaveBeenCalled();
   });
 
-  it('should handle create user HTTP failure', () => {
+  it('should handle create user via admin call HTTP failure', () => {
     httpClientMock.post.mockReturnValue(throwError(() => defaultErrorResponse));
 
-    usersService.create(defaultCreateUser).subscribe({
+    usersService.createAdmin(defaultCreateUser).subscribe({
       error: (error) => {
         expect(error).toEqual(defaultErrorResponse);
       }
