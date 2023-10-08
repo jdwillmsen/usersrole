@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  TwitterAuthProvider
+} from 'firebase/auth';
 import { BehaviorSubject, from, Observable, of, switchMap } from 'rxjs';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import firebase from 'firebase/compat/app';
@@ -78,8 +82,12 @@ export class AuthService {
     return from(this.authLogin(new GithubAuthProvider()));
   }
 
+  twitterAuth(): Observable<void> {
+    return from(this.authLogin(new TwitterAuthProvider()));
+  }
+
   authLogin(
-    provider: GoogleAuthProvider | GithubAuthProvider
+    provider: GoogleAuthProvider | GithubAuthProvider | TwitterAuthProvider
   ): Observable<void> {
     return from(
       this.angularFireAuth
@@ -128,6 +136,8 @@ export class AuthService {
         return new GoogleAuthProvider();
       case GithubAuthProvider.PROVIDER_ID:
         return new GithubAuthProvider();
+      case TwitterAuthProvider.PROVIDER_ID:
+        return new TwitterAuthProvider();
       default:
         throw new Error(`No provider implemented for ${providerId}`);
     }

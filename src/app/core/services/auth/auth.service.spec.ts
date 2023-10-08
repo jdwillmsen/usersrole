@@ -1,7 +1,11 @@
 import { AuthService } from './auth.service';
 import { expect } from '@jest/globals';
 import { of } from 'rxjs';
-import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  TwitterAuthProvider
+} from 'firebase/auth';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -139,6 +143,41 @@ describe('AuthService', () => {
     authService.githubAuth().subscribe(() => {
       expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
         expect.any(GithubAuthProvider)
+      );
+      expect(snackbarServiceMock.error).toHaveBeenCalledWith(
+        defaultErrorMessage,
+        { variant: 'filled' },
+        true
+      );
+      done();
+    });
+  });
+
+  it('should call twitterAuth and navigate to home on success', (done) => {
+    angularFireAuthMock.signInWithPopup.mockResolvedValueOnce({});
+
+    authService.twitterAuth().subscribe(() => {
+      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+        expect.any(TwitterAuthProvider)
+      );
+      expect(snackbarServiceMock.success).toHaveBeenCalledWith(
+        defaultLoginSuccessMessage,
+        { variant: 'filled', autoClose: true },
+        true
+      );
+      expect(routerMock.navigate).toHaveBeenCalledWith(['home']);
+      done();
+    });
+  });
+
+  it('should call twitterAuth and show error snackbar on failure', (done) => {
+    angularFireAuthMock.signInWithPopup.mockRejectedValueOnce({
+      message: defaultErrorMessage
+    });
+
+    authService.twitterAuth().subscribe(() => {
+      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+        expect.any(TwitterAuthProvider)
       );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         defaultErrorMessage,

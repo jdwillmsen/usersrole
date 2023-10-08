@@ -22,6 +22,8 @@ Which are managed with GitHub secrets. For CI there are also various different
 actions for lint, format, jest (unit) tests, cypress (component, E2E) tests,
 and code coverage.
 
+https://usersrole.web.app/
+
 ## Development server
 
 Run `ng serve` for a dev server.\
@@ -91,7 +93,7 @@ The e2e tests are making use of a testing framework called [Cypress](https://doc
 
 #### Setup test accounts
 
-In order to run the tests you will have to setup the accounts.json fixture:
+In order to run the tests you will have to set up the accounts.json fixture:
 
 ```json
 {

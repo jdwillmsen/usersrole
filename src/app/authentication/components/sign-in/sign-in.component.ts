@@ -43,6 +43,12 @@ export class SignInComponent {
         'assets/icons/github-icon.svg'
       )
     );
+    this.matIconRegistry.addSvgIcon(
+      'twitter-logo',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/twitter-icon.svg'
+      )
+    );
     this.styleManagerService.removeStyle('theme');
   }
 
@@ -51,14 +57,7 @@ export class SignInComponent {
       .googleAuth()
       .pipe(
         take(1),
-        catchError((error) => {
-          this.snackbarService.error(
-            error.message,
-            { variant: 'filled' },
-            true
-          );
-          return EMPTY;
-        })
+        catchError((error) => this.handleError(error))
       )
       .subscribe((response) => response);
   }
@@ -68,15 +67,23 @@ export class SignInComponent {
       .githubAuth()
       .pipe(
         take(1),
-        catchError((error) => {
-          this.snackbarService.error(
-            error.message,
-            { variant: 'filled' },
-            true
-          );
-          return EMPTY;
-        })
+        catchError((error) => this.handleError(error))
       )
       .subscribe((response) => response);
+  }
+
+  twitterLogin() {
+    this.authService
+      .twitterAuth()
+      .pipe(
+        take(1),
+        catchError((error) => this.handleError(error))
+      )
+      .subscribe((response) => response);
+  }
+
+  private handleError(error: any) {
+    this.snackbarService.error(error.message, { variant: 'filled' }, true);
+    return EMPTY;
   }
 }
