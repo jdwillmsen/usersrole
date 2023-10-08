@@ -37,5 +37,6 @@ describe('HeaderComponent', () => {
     cy.getByCy('app-name')
       .should('be.visible')
       .and('contain.text', 'Users Role');
+    cy.getByCy('github-button-icon').should('be.visible');
   });
 });

@@ -3,6 +3,7 @@
 @use '../app/shared/components/profile-card/profile-card-theme' as profile-card;
 @use '../app/shared/components/snackbar/snackbar-theme' as snackbar;
 @use '../app/shared/components/alert/alert-theme' as alert;
+@use '../app/shared/components/github-button/github-button-theme' as github-button;
 @use '../app/admin/components/users/users-theme' as users;
 @use '../app/theme/components/palette/palette-theme' as palette;
 @use '../app/theme/components/create-palette/create-palette-theme' as
@@ -14,6 +15,7 @@
   @include profile-card.theme($theme);
   @include snackbar.theme($theme);
   @include alert.theme($theme);
+  @include github-button.theme($theme);
   @include button-variants.theme($theme);
   @include users.theme($theme);
   @include palette.theme($theme);
