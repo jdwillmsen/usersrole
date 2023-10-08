@@ -6,13 +6,13 @@
   $primary-palette: map.get($color-config, 'primary');
   $primary-color: mat.get-color-from-palette($primary-palette, default);
   $primary-color-contrast: mat.get-color-from-palette(
-      $primary-palette,
-      default-contrast
+    $primary-palette,
+    default-contrast
   );
 
   .github {
     .svg-icon {
-      fill: $primary-color-contrast
+      fill: $primary-color-contrast;
     }
   }
 }
