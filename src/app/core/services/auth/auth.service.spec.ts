@@ -21,7 +21,7 @@ describe('AuthService', () => {
   const authProviderMock = new GoogleAuthProvider();
   const defaultEmail = 'testUser@usersrole.com';
   const defaultPassword = 'testPassword';
-  const defaultErrorMessage = 'An error has occurred!';
+  const defaultErrorMessage = 'An error has occurred';
   const defaultLoginSuccessMessage = 'Sign in successful';
   const defaultLogoutSuccessMessage = 'Sign out successful';
 

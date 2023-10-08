@@ -94,7 +94,7 @@ describe('RolesComponent', () => {
     cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Roles Assigned Successfully');
+      .and('contain.text', 'Roles assigned successfully');
     cy.getByCy('reset-button').click();
     cy.getByCy('assign-roles-button').should('be.disabled');
     cy.getByCy('select-user-field').get('input').should('have.value', '');
@@ -110,6 +110,6 @@ describe('RolesComponent', () => {
     cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Roles Assigned Successfully');
+      .and('contain.text', 'Roles assigned successfully');
   });
 });

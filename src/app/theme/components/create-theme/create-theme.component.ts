@@ -10,6 +10,10 @@ import { CreatePaletteComponent } from '../create-palette/create-palette.compone
 import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  DARK_THEME_SAVED_SUCCESS_MESSAGE,
+  LIGHT_THEME_SAVED_SUCCESS_MESSAGE
+} from '../../../core/constants/message.constants';
 
 @Component({
   selector: 'app-create-theme',
@@ -66,7 +70,7 @@ export class CreateThemeComponent {
       .setCustomLightTheme(this.uid, this.themeForm.value as Theme)
       .then(() => {
         this.snackbarService.success(
-          'Successfully Saved Light Theme',
+          LIGHT_THEME_SAVED_SUCCESS_MESSAGE,
           { variant: 'filled' },
           true
         );
@@ -81,7 +85,7 @@ export class CreateThemeComponent {
       .setCustomDarkTheme(this.uid, this.themeForm.value as Theme)
       .then(() => {
         this.snackbarService.success(
-          'Successfully Saved Dark Theme',
+          DARK_THEME_SAVED_SUCCESS_MESSAGE,
           { variant: 'filled' },
           true
         );

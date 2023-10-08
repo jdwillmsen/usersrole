@@ -123,11 +123,11 @@ describe('CreateThemeComponent', () => {
     cy.getByCy('save-light-theme-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Successfully Saved Light Theme');
+      .and('contain.text', 'Saved light theme successfully');
     cy.getByCy('save-dark-theme-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Successfully Saved Dark Theme');
+      .and('contain.text', 'Saved dark theme successfully');
   });
 });
 

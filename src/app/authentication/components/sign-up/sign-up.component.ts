@@ -20,6 +20,17 @@ import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import {
+  CONFIRM_PASSWORD_REQUIRED_VALIDATION_MESSAGE,
+  DISPLAY_NAME_REQUIRED_VALIDATION_MESSAGE,
+  EMAIL_PATTERN_VALIDATION_MESSAGE,
+  EMAIL_REQUIRED_VALIDATION_MESSAGE,
+  EMAIL_VALIDATOR_PATTERN,
+  PASSWORD_MATCH_VALIDATION_MESSAGE,
+  PASSWORD_MIN_LENGTH_VALIDATION_MESSAGE,
+  PASSWORD_REQUIRED_VALIDATION_MESSAGE,
+  SIGN_UP_SUCCESS_MESSAGE
+} from '../../../core/constants/message.constants';
 
 @Component({
   selector: 'app-sign-up',
@@ -45,7 +56,7 @@ export class SignUpComponent {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
+        Validators.pattern(EMAIL_VALIDATOR_PATTERN)
       ]
     }),
     displayName: new FormControl('', {
@@ -68,26 +79,31 @@ export class SignUpComponent {
   });
   validationMessages = {
     email: [
-      { type: 'required', message: 'Email is required' },
-      { type: 'pattern', message: 'Enter a valid email' }
+      { type: 'required', message: EMAIL_REQUIRED_VALIDATION_MESSAGE },
+      { type: 'pattern', message: EMAIL_PATTERN_VALIDATION_MESSAGE }
     ],
-    displayName: [{ type: 'required', message: 'Display name is required' }],
+    displayName: [
+      { type: 'required', message: DISPLAY_NAME_REQUIRED_VALIDATION_MESSAGE }
+    ],
     password: [
-      { type: 'required', message: 'Password is required' },
+      { type: 'required', message: PASSWORD_REQUIRED_VALIDATION_MESSAGE },
       {
         type: 'minlength',
-        message: 'Password must be at least 6 characters long'
+        message: PASSWORD_MIN_LENGTH_VALIDATION_MESSAGE
       }
     ],
     confirmPassword: [
-      { type: 'required', message: 'Confirm password is required' },
+      {
+        type: 'required',
+        message: CONFIRM_PASSWORD_REQUIRED_VALIDATION_MESSAGE
+      },
       {
         type: 'minlength',
-        message: 'Password must be at least 6 characters long'
+        message: PASSWORD_MIN_LENGTH_VALIDATION_MESSAGE
       }
     ],
     matchingPassword: [
-      { type: 'passwordMatch', message: 'Passwords must match' }
+      { type: 'passwordMatch', message: PASSWORD_MATCH_VALIDATION_MESSAGE }
     ]
   };
 
@@ -120,7 +136,7 @@ export class SignUpComponent {
           next: () => {
             this.signUpForm.reset();
             this.snackbarService.success(
-              'Sign Up Successful',
+              SIGN_UP_SUCCESS_MESSAGE,
               {
                 variant: 'filled',
                 autoClose: true

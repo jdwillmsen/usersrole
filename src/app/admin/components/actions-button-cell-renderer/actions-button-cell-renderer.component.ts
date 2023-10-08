@@ -10,6 +10,10 @@ import { UsersService } from 'src/app/core/services/users/users.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  USER_DELETED_SUCCESS_MESSAGE,
+  USER_EDITED_SUCCESS_MESSAGE
+} from '../../../core/constants/message.constants';
 
 @Component({
   selector: 'app-actions-button-cell-renderer',
@@ -58,7 +62,7 @@ export class ActionsButtonCellRendererComponent
         if (user) {
           this.userService.edit(user).subscribe(() => {
             this.snackbarService.success(
-              'User Edited Successfully',
+              USER_EDITED_SUCCESS_MESSAGE,
               {
                 variant: 'filled',
                 autoClose: true
@@ -84,7 +88,7 @@ export class ActionsButtonCellRendererComponent
         if (user) {
           this.userService.delete(user).subscribe(() => {
             this.snackbarService.success(
-              'User Deleted Successfully',
+              USER_DELETED_SUCCESS_MESSAGE,
               {
                 variant: 'filled',
                 autoClose: true

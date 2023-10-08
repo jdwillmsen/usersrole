@@ -96,6 +96,6 @@ describe('EmailSignInComponent', () => {
     cy.getByCy('sign-in-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Login Successful');
+      .and('contain.text', 'Sign in successful');
   });
 });

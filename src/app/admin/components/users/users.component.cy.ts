@@ -99,7 +99,7 @@ describe('UsersComponent', () => {
     cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'User Created Successfully');
+      .and('contain.text', 'User created successfully');
   });
 
   it('should view a user properly', () => {
@@ -189,7 +189,7 @@ describe('UsersComponent', () => {
     cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'User Edited Successfully');
+      .and('contain.text', 'User edited successfully');
   });
   it('should delete a user properly', () => {
     cy.intercept(
@@ -231,6 +231,6 @@ describe('UsersComponent', () => {
     cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'User Deleted Successfully');
+      .and('contain.text', 'User deleted successfully');
   });
 });
