@@ -27,7 +27,7 @@ describe('Admin', () => {
         .within(() => {
           cy.getByCy('message').should(
             'contain.text',
-            'User Created Successfully'
+            'User created successfully'
           );
           cy.getByCy('close-button').click();
         });
@@ -60,7 +60,7 @@ describe('Admin', () => {
         .within(() => {
           cy.getByCy('message').should(
             'contain.text',
-            'User Edited Successfully'
+            'User edited successfully'
           );
           cy.getByCy('close-button').click();
         });
@@ -86,7 +86,7 @@ describe('Admin', () => {
         .within(() => {
           cy.getByCy('message').should(
             'contain.text',
-            'User Deleted Successfully'
+            'User deleted successfully'
           );
           cy.getByCy('close-button').click();
         });
@@ -115,7 +115,7 @@ describe('Admin', () => {
           .within(() => {
             cy.getByCy('message').should(
               'contain.text',
-              'Roles Assigned Successfully'
+              'Roles assigned successfully'
             );
           });
       });

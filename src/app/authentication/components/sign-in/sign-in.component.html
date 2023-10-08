@@ -6,13 +6,31 @@
     <mat-card-content>
       <app-email-sign-in data-cy="email-sign-in"></app-email-sign-in>
       <button
-        (click)="login()"
+        (click)="googleLogin()"
         data-cy="google-sign-in-button"
         mat-raised-button
         type="button"
       >
         <mat-icon svgIcon="google-logo"></mat-icon>
         Sign in with Google
+      </button>
+      <button
+        (click)="githubLogin()"
+        data-cy="github-sign-in-button"
+        mat-raised-button
+        type="button"
+      >
+        <mat-icon svgIcon="github-logo"></mat-icon>
+        Sign in with GitHub
+      </button>
+      <button
+        (click)="twitterLogin()"
+        data-cy="twitter-sign-in-button"
+        mat-raised-button
+        type="button"
+      >
+        <mat-icon svgIcon="twitter-logo"></mat-icon>
+        Sign in with Twitter
       </button>
     </mat-card-content>
     <mat-card-actions data-cy="new-user">

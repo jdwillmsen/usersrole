@@ -39,7 +39,7 @@ function testSignIn(email: string, password: string) {
   cy.getByCy('snackbar-container')
     .should('be.visible')
     .within(() => {
-      cy.getByCy('message').should('contain.text', 'Login Successful');
+      cy.getByCy('message').should('contain.text', 'Sign in successful');
     });
   cy.url().should('include', '/home');
 }

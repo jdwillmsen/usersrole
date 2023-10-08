@@ -108,7 +108,7 @@ describe('Theme', () => {
         .within(() => {
           cy.getByCy('message').should(
             'contain.text',
-            'Successfully Saved Light Theme'
+            'Saved light theme successfully'
           );
           cy.getByCy('close-button').click();
         });
@@ -137,7 +137,7 @@ describe('Theme', () => {
         .within(() => {
           cy.getByCy('message').should(
             'contain.text',
-            'Successfully Saved Dark Theme'
+            'Saved dark theme successfully'
           );
           cy.getByCy('close-button').click();
         });

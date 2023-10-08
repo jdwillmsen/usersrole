@@ -309,7 +309,7 @@ function checkSignOut() {
   cy.getByCy('snackbar-container')
     .should('be.visible')
     .within(() => {
-      cy.getByCy('message').should('contain.text', 'Logout Successful');
+      cy.getByCy('message').should('contain.text', 'Sign out successful');
     });
 }
 

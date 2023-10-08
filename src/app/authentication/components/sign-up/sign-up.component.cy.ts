@@ -126,6 +126,6 @@ describe('SignUpComponent', () => {
     cy.getByCy('sign-up-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Sign Up Successful');
+      .and('contain.text', 'Sign up successful');
   });
 });

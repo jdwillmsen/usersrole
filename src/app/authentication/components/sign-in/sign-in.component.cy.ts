@@ -41,6 +41,12 @@ describe('SignInComponent', () => {
     cy.getByCy('google-sign-in-button')
       .should('be.visible')
       .and('contain.text', 'Sign in with Google');
+    cy.getByCy('github-sign-in-button')
+      .should('be.visible')
+      .and('contain.text', 'Sign in with GitHub');
+    cy.getByCy('twitter-sign-in-button')
+      .should('be.visible')
+      .and('contain.text', 'Sign in with Twitter');
     cy.getByCy('new-user')
       .should('be.visible')
       .and('contain.text', 'New User?');

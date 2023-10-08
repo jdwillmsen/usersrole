@@ -270,7 +270,7 @@ describe('UserFormComponent', () => {
         'Password must be at least 6 characters long'
       );
       cy.getByCy('matching-password-error')
-        .should('contain.text', 'Password mismatch')
+        .should('contain.text', 'Passwords must match')
         .and('be.visible');
     });
   });
@@ -508,7 +508,7 @@ describe('UserFormComponent', () => {
         'Password must be at least 6 characters long'
       );
       cy.getByCy('matching-password-error')
-        .should('contain.text', 'Password mismatch')
+        .should('contain.text', 'Passwords must match')
         .and('be.visible');
     });
   });
