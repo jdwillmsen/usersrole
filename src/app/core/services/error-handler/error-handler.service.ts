@@ -16,7 +16,7 @@ function errorIsAngularFireError(err: any): err is AngularFireError {
 // Not providedIn 'root': needs special handling in app.config to override default error handler.
 @Injectable()
 export class ErrorHandlerService implements ErrorHandler {
-  constructor(private snackbarService: SnackbarService, private zone: NgZone) {}
+  constructor(private snackbarService: SnackbarService, public zone: NgZone) {}
 
   handleError(error: unknown): void {
     if (!errorIsAngularFireError(error)) {

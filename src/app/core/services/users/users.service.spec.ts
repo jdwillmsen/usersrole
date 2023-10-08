@@ -238,4 +238,26 @@ describe('UsersService', () => {
       true
     );
   });
+
+  it('should handle user HTTP failure with message', () => {
+    const message = 'Failure to get user';
+    const messageErrorResponse = new HttpErrorResponse({
+      error: {
+        message: message
+      }
+    });
+    httpClientMock.get.mockReturnValue(throwError(() => messageErrorResponse));
+
+    usersService.user$(testUser1.uid).subscribe({
+      error: (error) => {
+        expect(error).toEqual(messageErrorResponse);
+      }
+    });
+    expect(httpClientMock.get).toHaveBeenCalled();
+    expect(snackbarServiceMock.error).toHaveBeenCalledWith(
+      message,
+      { variant: 'filled' },
+      true
+    );
+  });
 });
