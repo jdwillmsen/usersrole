@@ -1,7 +1,7 @@
 describe('Sign Up', () => {
   beforeEach(() => {
     cy.deleteNewUser();
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   after(() => {
