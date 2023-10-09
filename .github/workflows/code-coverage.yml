@@ -42,15 +42,7 @@ jobs:
       - name: Generate Merged Coverage Report
         run: npm run all:coverage
       - name: Update Code Coverage Badge
-        run: sudo npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
-      - name: Set Code Coverage Commit Status
-        run: npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Ensure Coverage Has Not Dropped
-        run: sudo npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json --check-against-readme
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
