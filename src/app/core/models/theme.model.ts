@@ -20,8 +20,8 @@ export interface Palette extends Record<string, string> {
   color900: string;
   colorA100: string;
   colorA200: string;
-  colorA300: string;
   colorA400: string;
+  colorA700: string;
   colorContrast50: string;
   colorContrast100: string;
   colorContrast200: string;
@@ -34,6 +34,6 @@ export interface Palette extends Record<string, string> {
   colorContrast900: string;
   colorContrastA100: string;
   colorContrastA200: string;
-  colorContrastA300: string;
   colorContrastA400: string;
+  colorContrastA700: string;
 }

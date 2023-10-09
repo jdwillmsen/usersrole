@@ -13,7 +13,7 @@ export class FirestoreService {
   }
 
   async getUsersDoc(uid: string) {
-    const docRef = doc(this.firestore, 'users', uid);
+    const docRef = this.getUserDoc(uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       return docSnap.data();
@@ -23,17 +23,21 @@ export class FirestoreService {
   }
 
   setThemeName(uid: string, themeName: string) {
-    const docRef = doc(this.firestore, 'users', uid);
+    const docRef = this.getUserDoc(uid);
     return setDoc(docRef, { theme: themeName }, { merge: true });
   }
 
   setCustomLightTheme(uid: string, theme: Theme) {
-    const docRef = doc(this.firestore, 'users', uid);
+    const docRef = this.getUserDoc(uid);
     return setDoc(docRef, { lightTheme: theme }, { merge: true });
   }
 
   setCustomDarkTheme(uid: string, theme: Theme) {
-    const docRef = doc(this.firestore, 'users', uid);
+    const docRef = this.getUserDoc(uid);
     return setDoc(docRef, { darkTheme: theme }, { merge: true });
+  }
+
+  getUserDoc(uid: string) {
+    return doc(this.firestore, 'users', uid);
   }
 }
