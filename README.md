@@ -1,4 +1,4 @@
-# [Users Role](https://usersrole.web.app/) ![check-code-coverage](https://img.shields.io/badge/code--coverage-84.29%25-green)
+# [Users Role](https://usersrole.web.app/) 
 
 [![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
 [![Lint](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml)
@@ -7,6 +7,7 @@
 [![Cypress Component Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml)
 [![Cypress E2E Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml)
 [![Code Coverage](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-84.29%25-green)
 
 This is a frontend application that is supposed to provide a template for
 users authentication and authorization since these are common features to be
@@ -162,6 +163,8 @@ Code coverage will appear in the `coverage` folder in a structure like:
 `cypress` is the directory where the coverage information/reports are for component and e2e tests.\
 `jest` is the directory where the coverage information/reports are for the jest/unit tests.\
 `merged-report` is the directory where the combine information/reports of jest, component, and e2e tests
+
+** Currently the merge code coverage report does not correctly combine all the reports. Hence the overall coverage is actually higher than the number listed.
 
 ### Coverage commands
 
