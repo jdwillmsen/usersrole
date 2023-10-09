@@ -1,15 +1,12 @@
 describe('Admin', () => {
   beforeEach(() => {
     cy.deleteNewUser();
-    cy.wrap(() => {
-      indexedDB.deleteDatabase('firebaseLocalStorageDb');
-    });
     cy.login('admin').then(() => cy.visit('/'));
   });
 
   after(() => {
     cy.deleteNewUser();
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   describe('Users', () => {

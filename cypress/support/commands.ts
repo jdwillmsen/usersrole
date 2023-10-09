@@ -7,6 +7,7 @@ import ReCaptchaV3Provider = firebase.appCheck.ReCaptchaV3Provider;
 Cypress.Commands.add('getByCy', (selector: any, ...args: any[]) => {
   return cy.get(`[data-cy=${selector}]`, ...args);
 });
+
 Cypress.Commands.add('getToken', (email: string, password: string) => {
   cy.setupAppCheck().then((res) => {
     return cy.request({
@@ -149,4 +150,14 @@ Cypress.Commands.add('setupAppCheck', () => {
   return cy.wrap(
     appCheck.getToken().then((res) => ({ app: app, appCheck: res }))
   );
+});
+
+Cypress.Commands.add('clearFirebaseLocal', () => {
+  cy.log('Clearing firebase local database');
+  new Cypress.Promise(async (resolve) => {
+    const req = indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    req.onsuccess = function () {
+      resolve();
+    };
+  });
 });

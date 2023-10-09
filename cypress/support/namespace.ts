@@ -32,5 +32,7 @@ declare namespace Cypress {
     ): Cypress.Chainable<any>;
 
     setupAppCheck(): Cypress.Chainable<any>;
+
+    clearFirebaseLocal(): Cypress.Chainable<any>;
   }
 }

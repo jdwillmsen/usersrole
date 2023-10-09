@@ -1,10 +1,10 @@
 describe('Navigation', () => {
   before(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   after(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   describe('Basic Account', () => {

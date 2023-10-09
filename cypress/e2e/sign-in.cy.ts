@@ -1,13 +1,20 @@
 describe('Sign In', () => {
   beforeEach(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
+  });
+
+  afterEach(() => {
+    cy.clearFirebaseLocal();
   });
 
   after(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   it('should be able to sign in with basic account', () => {
+    cy.clearFirebaseLocal().then(() => {
+      cy.visit('/sign-in');
+    });
     cy.fixture('accounts').then((accounts) => {
       testSignIn(accounts.basic.email, accounts.basic.password);
     });
