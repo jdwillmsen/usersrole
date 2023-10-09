@@ -1,4 +1,4 @@
-# [Users Role](https://usersrole.web.app/)
+# [Users Role](https://usersrole.web.app/) ![check-code-coverage](https://img.shields.io/badge/code--coverage-84.29%25-green)
 
 [![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
 [![Lint](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml)
