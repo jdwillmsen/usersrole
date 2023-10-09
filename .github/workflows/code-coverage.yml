@@ -45,13 +45,13 @@ jobs:
         run: pwd
       - run: ls -la
       - name: Update Code Coverage Badge
-        run: npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
+        run: sudo npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
       - name: Set Code Coverage Commit Status
-        run: npx -p check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status
+        run: npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Ensure Coverage Has Not Dropped
-        run: npx -p check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --check-against-readme
+        run: sudo npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --check-against-readme
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit Changes
