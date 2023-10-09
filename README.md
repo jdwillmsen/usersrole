@@ -1,4 +1,12 @@
-# Users Role
+# [Users Role](https://usersrole.web.app/)
+
+[![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
+[![Lint](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml)
+[![Format](https://github.com/jdwillmsen/usersrole/actions/workflows/format.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/format.yml)
+[![CodeQL](https://github.com/jdwillmsen/usersrole/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/github-code-scanning/codeql)
+[![Cypress Component Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml)
+[![Cypress E2E Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml)
+[![Code Coverage](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml)
 
 This is a frontend application that is supposed to provide a template for
 users authentication and authorization since these are common features to be
@@ -21,8 +29,6 @@ CI/CD to retrieve and set up the environment file since they contain secrets.
 Which are managed with GitHub secrets. For CI there are also various different
 actions for lint, format, jest (unit) tests, cypress (component, E2E) tests,
 and code coverage.
-
-https://usersrole.web.app/
 
 ## Development server
 
@@ -166,6 +172,8 @@ Run `npm run all:coverage` to get the combined report (jest and cypress).
 ## Project Info
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+
+Production URL: https://usersrole.web.app/
 
 ### Code Standards
 
