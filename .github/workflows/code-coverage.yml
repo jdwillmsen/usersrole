@@ -41,17 +41,14 @@ jobs:
         run: npm run merge:coverage
       - name: Generate Merged Coverage Report
         run: npm run all:coverage
-      - name: Test Path
-        run: pwd
-      - run: ls -la
       - name: Update Code Coverage Badge
         run: sudo npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
       - name: Set Code Coverage Commit Status
-        run: npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status
+        run: npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Ensure Coverage Has Not Dropped
-        run: sudo npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --check-against-readme
+        run: sudo npx check-code-coverage --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json set-gh-status --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json --check-against-readme
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit Changes
