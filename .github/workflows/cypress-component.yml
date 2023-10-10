@@ -28,6 +28,12 @@ jobs:
           name: build
           if-no-files-found: error
           path: dist
+      - name: Save environments folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: environment
+          if-no-files-found: error
+          path: src/app/environments
   cypress-run:
     runs-on: ubuntu-22.04
     needs: install
