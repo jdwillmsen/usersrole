@@ -10,7 +10,7 @@ describe('Admin', () => {
   });
 
   describe('Users', () => {
-    it('should be able to create, view, edit, and delete a user', () => {
+    it('should be able to create a user', () => {
       cy.fixture('new-user').then((user) => {
         cy.visit('/admin/users');
         cy.getByCy('create-user-button').click();
@@ -31,12 +31,14 @@ describe('Admin', () => {
             );
             cy.getByCy('close-button').click();
           });
-        cy.getByCy('app-name').click();
-        cy.getByCy('users-nav-item').click();
-        cy.get('[col-id="email"] .ag-icon').first().click();
-        cy.get('.ag-filter-filter').first().type(user.email);
-        cy.getByCy('title').click();
-        cy.wait(500); // wait for grid to sort
+      });
+    });
+
+    it('should be able to view a user', () => {
+      cy.createNewUser();
+      cy.visit('/admin/users');
+      cy.fixture('new-user').then((user) => {
+        filterEmail(user.email);
         cy.getByCy('view-button').click();
         cy.getByCy('email-address-field')
           .find('input')
@@ -46,8 +48,16 @@ describe('Admin', () => {
           .should('contain.value', user.displayName);
         cy.getByCy('roles-field').find('input').should('contain.value', 'User');
         cy.getByCy('close-button').click();
+        cy.getByCy('title').should('be.visible');
+      });
+    });
+
+    it('should be able to edit a user', () => {
+      cy.createNewUser();
+      cy.visit('/admin/users');
+      cy.fixture('new-user').then((user) => {
+        filterEmail(user.email);
         cy.getByCy('edit-button').click();
-        cy.wait(500); // Needed in CI due to bug
         cy.getByCy('display-name-field').should('be.visible').type(' Edited');
         cy.getByCy('roles-field').click();
         cy.getByCy('read-role-option').click();
@@ -66,20 +76,24 @@ describe('Admin', () => {
           });
         cy.getByCy('app-name').click();
         cy.getByCy('users-nav-item').click();
-        cy.get('[col-id="email"] .ag-icon').first().click();
-        cy.get('.ag-filter-filter').first().type(user.email);
-        cy.getByCy('title').click();
-        cy.wait(500); // wait for grid to sort
+        filterEmail(user.email);
+        cy.contains('CICD New User Edited');
+      });
+    });
+
+    it('should be able to delete a user', () => {
+      cy.createNewUser();
+      cy.visit('/admin/users');
+      cy.fixture('new-user').then((user) => {
+        filterEmail(user.email);
         cy.getByCy('delete-button').click();
         cy.getByCy('email-address-field')
           .find('input')
           .should('contain.value', user.email);
         cy.getByCy('display-name-field')
           .find('input')
-          .should('contain.value', user.displayName + ' Edited');
-        cy.getByCy('roles-field')
-          .find('input')
-          .should('contain.value', 'User, Read');
+          .should('contain.value', user.displayName);
+        cy.getByCy('roles-field').find('input').should('contain.value', 'User');
         cy.getByCy('save-button').click();
         cy.getByCy('snackbar-container')
           .should('be.visible')
@@ -92,10 +106,7 @@ describe('Admin', () => {
           });
         cy.getByCy('app-name').click();
         cy.getByCy('users-nav-item').click();
-        cy.get('[col-id="email"] .ag-icon').first().click();
-        cy.get('.ag-filter-filter').first().type(user.email);
-        cy.getByCy('title').click();
-        cy.wait(500); // wait for grid to sort
+        filterEmail(user.email);
         cy.getByCy('view-button').should('not.exist');
       });
     });
@@ -125,3 +136,10 @@ describe('Admin', () => {
     });
   });
 });
+
+const filterEmail = (email: string) => {
+  cy.get('[col-id="email"] .ag-icon').first().click();
+  cy.get('.ag-filter-filter').first().type(email);
+  cy.getByCy('title').click();
+  cy.wait(500); // wait for grid to sort
+};
