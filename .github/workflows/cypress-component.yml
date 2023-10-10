@@ -33,7 +33,7 @@ jobs:
         with:
           name: environment
           if-no-files-found: error
-          path: src/app/environments
+          path: src/environments
   cypress-run:
     runs-on: ubuntu-22.04
     needs: install
