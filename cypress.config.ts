@@ -3,7 +3,7 @@ import registerCodeCoverageTasks from '@cypress/code-coverage/task';
 import coverageWebpack from './cypress/coverage.webpack';
 
 export default defineConfig({
-  projectId: 's7meyc',
+  projectId: 's2sb4k',
 
   retries: {
     runMode: 2,
