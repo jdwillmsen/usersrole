@@ -1,0 +1,88 @@
+name: Cypress Component & E2E Tests
+on:
+  push:
+    branches-ignore:
+      - main
+      - develop
+jobs:
+  install:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Install
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+          build: npm run build
+      - name: Save Build Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: dist
+  cypress-run-ct:
+    runs-on: ubuntu-22.04
+    needs: install
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Download Build Folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          parallel: true
+          group: CT
+          start: npm start
+          wait-on: http://localhost:4200
+          component: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  cypress-run-e2e:
+    runs-on: ubuntu-22.04
+    needs: install
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3, 4, 5 ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Download Build Folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          parallel: true
+          group: E2E
+          start: npm start
+          wait-on: http://localhost:4200
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
