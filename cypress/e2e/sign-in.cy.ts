@@ -1,4 +1,8 @@
 describe('Sign In', () => {
+  before(() => {
+    cy.setupAppCheck();
+  });
+
   beforeEach(() => {
     cy.clearFirebaseLocal();
   });
