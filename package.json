@@ -17,7 +17,11 @@
     "clean:coverage": "rm -rf coverage",
     "merge:coverage": "npx istanbul-merge --out coverage/merged-report/coverage-final.json coverage/jest/coverage-final.json coverage/cypress/coverage-final.json",
     "all:coverage": "npx nyc report --report-dir=coverage/merged-report --temp-dir=coverage/merged-report --reporter=html --reporter=lcov --reporter=text --reporter=text-summary --reporter=json-summary --include=src/**/*.ts --exclude=src/main.ts --exclude=src/environments/**",
-    "tests:all": "npm run jest:coverage && npm run ct:ci && npm run e2e:ci && npm run merge:coverage && npm run all:coverage"
+    "tests:all": "npm run jest:coverage && npm run ct:ci && npm run e2e:ci && npm run merge:coverage && npm run all:coverage",
+    "cy:run:e2e": "npx cypress run",
+    "cy:run:ct": "npx cypress run --component",
+    "cy:parallel:ct": "npx cypress-parallel -s cy:run:ct -t 4 -d src/app",
+    "cy:parallel:e2e": "npx cypress-parallel -s cy:run:e2e -t 4 -d cypress/e2e"
   },
   "private": true,
   "dependencies": {
@@ -69,6 +73,7 @@
     "@typescript-eslint/parser": "5.59.9",
     "check-code-coverage": "^1.10.5",
     "cypress": "13.3.0",
+    "cypress-parallel": "^0.13.0",
     "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "^2.27.5",
