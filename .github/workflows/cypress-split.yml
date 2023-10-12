@@ -6,6 +6,8 @@ jobs:
     outputs:
       ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
       ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+    steps:
+      - run: echo "Setup Environment Variables"
   test:
     # https://github.com/bahmutov/cypress-workflows
     needs: env-setup
