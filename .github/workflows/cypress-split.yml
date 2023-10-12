@@ -3,7 +3,6 @@ on: [ push ]
 jobs:
   test:
     # https://github.com/bahmutov/cypress-workflows
-    needs: env-setup
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
       nE2E: 5
