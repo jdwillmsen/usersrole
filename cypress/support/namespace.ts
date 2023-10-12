@@ -7,7 +7,7 @@ declare namespace Cypress {
 
     deleteUser(email: string): Cypress.Chainable<any>;
 
-    deleteNewUser(): Cypress.Chainable<any>;
+    deleteNewUser(id?: string): Cypress.Chainable<any>;
 
     deleteThemeUser(): Cypress.Chainable<any>;
 
@@ -18,7 +18,7 @@ declare namespace Cypress {
       roles: Role[]
     ): Cypress.Chainable<any>;
 
-    createNewUser(): Cypress.Chainable<any>;
+    createNewUser(id?: string): Cypress.Chainable<any>;
 
     createThemeUser(): Cypress.Chainable<any>;
 
