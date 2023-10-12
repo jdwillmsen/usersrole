@@ -1,8 +1,14 @@
 name: ci
 on: [ push ]
 jobs:
+  env-setup:
+    runs-on: ubuntu-22.04
+    outputs:
+      ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+      ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
   test:
     # https://github.com/bahmutov/cypress-workflows
+    needs: env-setup
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
       nE2E: 5
