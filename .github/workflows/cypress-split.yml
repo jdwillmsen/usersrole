@@ -8,6 +8,8 @@ jobs:
       nE2E: 5
       nComponent: 23
       start: npm start
-      wait-on: 'http://127.0.0.1:4200'
+      wait-on: http://localhost:4200
       coverage: true
       before-run: node server.js && node server-cypress.js
+      ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+      ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
