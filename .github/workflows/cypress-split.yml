@@ -71,15 +71,10 @@ jobs:
       - name: Cypress Run
         uses: cypress-io/github-action@v6
         with:
-          record: false
-          parallel: false
           component: true
-          start: npm start
-          wait-on: npx wait-on --timeout 600000 http://localhost:4200
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Test Artifacts
         uses: actions/upload-artifact@v3
