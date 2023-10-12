@@ -68,6 +68,10 @@ jobs:
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Install Dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
       - name: Cypress Run
         uses: cypress-io/github-action@v6
         with:
