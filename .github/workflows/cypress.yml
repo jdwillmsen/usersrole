@@ -56,7 +56,7 @@ jobs:
           parallel: true
           group: CT
           start: npm start
-          wait-on: npx wait-on --timeout 120000 http://localhost:4200
+          wait-on: npx wait-on --timeout 180000 http://localhost:4200
           component: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -89,7 +89,7 @@ jobs:
           parallel: true
           group: E2E
           start: npm start
-          wait-on: npx wait-on --timeout 120000 http://localhost:4200
+          wait-on: npx wait-on --timeout 180000 http://localhost:4200
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
