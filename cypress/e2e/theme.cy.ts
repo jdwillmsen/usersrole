@@ -46,6 +46,7 @@ describe('Theme', () => {
       );
       cy.getByCy('theme-selector').click();
       cy.getByCy('custom-light-button').click();
+      cy.wait(500); // Waiting for dynamic theme to be applied
       cy.getByCy('navbar-header').should(
         'have.css',
         'background-color',
@@ -74,6 +75,7 @@ describe('Theme', () => {
       );
       cy.getByCy('theme-selector').click();
       cy.getByCy('custom-dark-button').click();
+      cy.wait(500); // Waiting for dynamic theme to be applied
       cy.getByCy('navbar-header').should(
         'have.css',
         'background-color',
