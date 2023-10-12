@@ -54,9 +54,9 @@ Cypress.Commands.add('deleteUser', (email: string) => {
   });
 });
 
-Cypress.Commands.add('deleteNewUser', () => {
+Cypress.Commands.add('deleteNewUser', (id = '') => {
   cy.fixture('new-user').then((user) => {
-    cy.deleteUser(user.email);
+    cy.deleteUser(id + user.email);
   });
 });
 
@@ -89,11 +89,11 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add('createNewUser', () => {
+Cypress.Commands.add('createNewUser', (id = '') => {
   cy.fixture('new-user').then((user) => {
-    cy.deleteNewUser().then(() => {
+    cy.deleteNewUser(id).then(() => {
       return cy.createUser(
-        user.email,
+        id + user.email,
         user.displayName,
         user.password,
         user.roles

@@ -113,8 +113,11 @@ describe('Admin', () => {
   });
 
   describe('Roles', () => {
+    after(() => {
+      cy.deleteNewUser('roles-');
+    });
     it('should be able to assign a user a role', () => {
-      cy.createNewUser().then((res) => {
+      cy.createNewUser('roles-').then((res) => {
         cy.fixture('new-user').then((user) => {
           cy.visit('/admin/roles');
           cy.getByCy('select-user-field').type(user.displayName);
