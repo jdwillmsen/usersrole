@@ -10,3 +10,4 @@ jobs:
       start: npm start
       wait-on: 'http://127.0.0.1:4200'
       coverage: true
+      before-run: node server.js && node server-cypress.js
