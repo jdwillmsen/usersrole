@@ -1,15 +1,9 @@
-name: Cypress Component & E2E Tests Split
-on:
-  push:
-    branches-ignore:
-      - main
-      - develop
+name: ci
+on: [ push ]
 jobs:
-  install:
+  test:
     runs-on: ubuntu-22.04
     steps:
-      - name: Code Checkout
-        uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v3
       - name: Create Environment Files
@@ -17,44 +11,8 @@ jobs:
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
-      - name: Cypress Install
-        uses: cypress-io/github-action@v6
+      - uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
         with:
-          runTests: false
-          build: npm run build
-      - name: Save Build Folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: dist
-  cypress-run-ct:
-    runs-on: ubuntu-22.04
-    needs: install
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
-    steps:
-      - name: Code Checkout
-        uses: actions/checkout@v4
-      - name: Download Build Folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-      - name: Setup Node
-        uses: actions/setup-node@v3
-      - name: Create Environment Files
-        run: node server.js && node server-cypress.js
-        env:
-          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
-          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
-      - name: Cypress Run
-        uses: cypress-io/github-action@v6
-        with:
-          component: true
-        env:
-          SPLIT: ${{ strategy.job-total }}
-          SPLIT_INDEX: ${{ strategy.job-index }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          nE2E: 3
+          start: npm start
+          wait-on: 'http://127.0.0.1:4200'
