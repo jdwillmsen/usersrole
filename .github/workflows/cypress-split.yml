@@ -36,7 +36,6 @@ jobs:
           record: false
           parallel: false
           component: false
-          group: E2E
           start: npm start
           wait-on: npx wait-on --timeout 600000 http://localhost:4200
         env:
@@ -75,7 +74,6 @@ jobs:
           record: false
           parallel: false
           component: true
-          group: CT
           start: npm start
           wait-on: npx wait-on --timeout 600000 http://localhost:4200
         env:
