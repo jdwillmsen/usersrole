@@ -101,7 +101,7 @@ function testBreakpoint(name: string, width: number, height: number) {
       cy.getByCy('right-horizontal-option')
         .should('be.visible')
         .and('contain.text', 'right');
-      cy.get('.cdk-overlay-backdrop').click({ force: true });
+      cy.get('.cdk-overlay-backdrop').first().click({ force: true });
       cy.getByCy('vertical-position-field')
         .should('be.visible')
         .and('contain.text', 'Vertical Position');
@@ -115,7 +115,7 @@ function testBreakpoint(name: string, width: number, height: number) {
       cy.getByCy('bottom-vertical-option')
         .should('be.visible')
         .and('contain.text', 'bottom');
-      cy.get('.cdk-overlay-backdrop').click({ force: true });
+      cy.get('.cdk-overlay-backdrop').first().click({ force: true });
       cy.getByCy('variant-field')
         .should('be.visible')
         .and('contain.text', 'Variant');
@@ -132,7 +132,7 @@ function testBreakpoint(name: string, width: number, height: number) {
       cy.getByCy('outlined-variant-option')
         .should('be.visible')
         .and('contain.text', 'Outlined');
-      cy.get('.cdk-overlay-backdrop').click({ force: true });
+      cy.get('.cdk-overlay-backdrop').first().click({ force: true });
       cy.getByCy('icon-field')
         .should('be.visible')
         .and('contain.text', 'Icon')
@@ -152,7 +152,7 @@ function testBreakpoint(name: string, width: number, height: number) {
       cy.getByCy('new_releases-icon-option')
         .should('be.visible')
         .and('contain.text', 'new_releases');
-      cy.get('.cdk-overlay-backdrop').click({ force: true });
+      cy.get('.cdk-overlay-backdrop').first().click({ force: true });
       cy.getByCy('button-text-field')
         .should('be.visible')
         .and('contain.text', 'Button Text');
