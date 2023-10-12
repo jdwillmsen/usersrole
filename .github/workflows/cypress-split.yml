@@ -12,6 +12,6 @@ jobs:
       wait-on: npx wait-on --timeout 600000 http://localhost:4200
       coverage: true
       before-run: node server.js && node server-cypress.js
-      secrets:
-        ENVIRONMENT_FILE: ${{ needs.vars.outputs.ENVIRONMENT_FILE }}
-        ACCOUNTS_FILE: ${{ needs.vars.outputs.ACCOUNTS_FILE }}
+    secrets:
+      ENVIRONMENT_FILE: ${{ needs.vars.outputs.ENVIRONMENT_FILE }}
+      ACCOUNTS_FILE: ${{ needs.vars.outputs.ACCOUNTS_FILE }}
