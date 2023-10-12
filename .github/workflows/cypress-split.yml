@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.prepare.output.matrixE2E) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrixE2E) }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.prepare.output.matrixComponent) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrixComponent) }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
