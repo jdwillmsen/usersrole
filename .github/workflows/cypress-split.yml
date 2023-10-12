@@ -1,16 +1,175 @@
 name: ci
 on: [ push ]
 jobs:
-  test:
-    # https://github.com/bahmutov/cypress-workflows
-    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
-    with:
-      nE2E: 5
-      nComponent: 23
-      start: npm start
-      wait-on: npx wait-on --timeout 600000 http://localhost:4200
-      coverage: true
-      before-run: node server.js && node server-cypress.js
-    secrets:
-      ENVIRONMENT_FILE: ${{ needs.vars.outputs.ENVIRONMENT_FILE }}
-      ACCOUNTS_FILE: ${{ needs.vars.outputs.ACCOUNTS_FILE }}
+  prepare:
+    runs-on: ubuntu-22.04
+    outputs:
+      matrixE2E: ${{ steps.prepareE2E.outputs.matrix }}
+      matrixComponent: ${{ steps.prepareComponent.outputs.matrix }}
+    steps:
+      - name: Create E2E Container Matrix
+        id: prepare-E2E
+        uses: bahmutov/gh-build-matrix@main
+        with:
+          n: 5
+      - name: Create Component Container Matrix
+        id: prepare-component
+        uses: bahmutov/gh-build-matrix@main
+        with:
+          n: 23
+      - name: Print Result
+        run: echo '${{ steps.prepareE2E.outputs.matrix }}'
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Install Dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+  e2e-tests:
+    needs: prepare
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.output.matrixE2E) }}
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          record: false
+          parallel: false
+          component: false
+          group: E2E
+          start: npm start
+          wait-on: npx wait-on --timeout 600000 http://localhost:4200
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Test Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-split-results-e2e-${{ strategy.job-index }}
+          path: |
+            cypress/screenshots
+            cypress/videos
+            cypress/results
+            coverage
+          if-no-files-found: ignore
+  ct-tests:
+    needs: prepare
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.output.matrixComponent) }}
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          record: false
+          parallel: false
+          component: true
+          group: CT
+          start: npm start
+          wait-on: npx wait-on --timeout 600000 http://localhost:4200
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Test Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-split-results-ct-${{ strategy.job-index }}
+          path: |
+            cypress/screenshots
+            cypress/videos
+            cypress/results
+            coverage
+          if-no-files-found: ignore
+  merge-reports:
+    needs:
+      - e2e-tests
+      - ct-tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+      - uses: actions/download-artifact@v3
+        with:
+          path: split-results
+      - name: Display Structure Of Download Files
+        run: ls -R split-results
+      - name: Prepare Folder
+        run: |
+          mkdir mochawesome
+          mkdir -p mochawesome/screenshots
+          mkdir -p mochawesome/videos
+          mkdir -p mochawesome/results
+      - name: Copy All Assets & JSON Reports
+        run: |
+          cp -r split-results/cypress-split-results-*/screenshots/* mochawesome/screenshots || true
+          cp -r split-results/cypress-split-results-*/videos/* mochawesome/videos || true
+          cp -r split-results/cypress-split-results-*/results/* mochawesome/results || true
+      - name: Show Copied Files
+        run: ls -lR mochawesome
+      - name: Merge Mochawesome JSON reports
+        run: npx mochawesome-merge mochawesome/results/*.json -o mochawesome/results/merged.json
+      - name: Generate Mochawesome HTML report
+        run: |
+          npx marge mochawesome/results/merged.json \
+            --charts true --showHooks always \
+            --reportDir mochawesome/results \
+            --reportFilename index.html
+      - name: Upload Report Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: merged-mochawesome-report
+          path: mochawesome
+  merge-coverage:
+    needs:
+      - e2e-tests
+      - ct-tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+      - uses: actions/download-artifact@v3
+        with:
+          path: split-results
+      - name: Display Structure Of Download Files
+        run: ls -R split-results
+      - name: Merge Coverage Reports
+        run: npx cc-merge split-results
+      - name: Upload Coverage Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: merged-coverage
+          path: coverage
