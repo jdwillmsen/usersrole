@@ -3,22 +3,7 @@ on: [ push ]
 jobs:
   prepare:
     runs-on: ubuntu-22.04
-    outputs:
-      matrixE2E: ${{ steps.prepareE2E.outputs.matrix }}
-      matrixComponent: ${{ steps.prepareComponent.outputs.matrix }}
     steps:
-      - name: Create E2E Container Matrix
-        id: prepareE2E
-        uses: bahmutov/gh-build-matrix@main
-        with:
-          n: 5
-      - name: Create Component Container Matrix
-        id: prepareComponent
-        uses: bahmutov/gh-build-matrix@main
-        with:
-          n: 23
-      - name: Print Result
-        run: echo '${{ steps.prepareE2E.outputs.matrix }}' && echo '${{ steps.prepareComponent.outputs.matrix }}'
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Create Environment Files
@@ -35,7 +20,8 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.prepare.outputs.matrixE2E) }}
+      matrix:
+        containers: [ 1, 2, 3, 4, 5 ]
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -73,7 +59,8 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.prepare.outputs.matrixComponent) }}
+      matrix:
+        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
