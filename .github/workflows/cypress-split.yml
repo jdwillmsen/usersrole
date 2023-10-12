@@ -8,17 +8,17 @@ jobs:
       matrixComponent: ${{ steps.prepareComponent.outputs.matrix }}
     steps:
       - name: Create E2E Container Matrix
-        id: prepare-E2E
+        id: prepareE2E
         uses: bahmutov/gh-build-matrix@main
         with:
           n: 5
       - name: Create Component Container Matrix
-        id: prepare-component
+        id: prepareComponent
         uses: bahmutov/gh-build-matrix@main
         with:
           n: 23
       - name: Print Result
-        run: echo '${{ steps.prepareE2E.outputs.matrix }}'
+        run: echo '${{ steps.prepareE2E.outputs.matrix }}' && echo '${{ steps.prepareComponent.outputs.matrix }}'
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Create Environment Files
