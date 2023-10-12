@@ -5,4 +5,8 @@ jobs:
     # https://github.com/bahmutov/cypress-workflows
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
-      nE2E: 3
+      nE2E: 5
+      nComponent: 23
+      start: npm start
+      wait-on: 'http://127.0.0.1:4200'
+      coverage: true
