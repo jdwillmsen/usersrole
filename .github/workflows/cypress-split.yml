@@ -2,17 +2,7 @@ name: ci
 on: [ push ]
 jobs:
   test:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Setup Node
-        uses: actions/setup-node@v3
-      - name: Create Environment Files
-        run: node server.js && node server-cypress.js
-        env:
-          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
-          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
-      - uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
-        with:
-          nE2E: 3
-          start: npm start
-          wait-on: 'http://127.0.0.1:4200'
+    # https://github.com/bahmutov/cypress-workflows
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+    with:
+      nE2E: 3
