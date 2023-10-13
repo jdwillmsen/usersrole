@@ -15,6 +15,43 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
+  ct-tests:
+    needs: prepare
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Install Dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Test Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-split-results-ct-${{ strategy.job-index }}
+          path: |
+            cypress/screenshots
+            cypress/videos
+            cypress/results
+            coverage
+          if-no-files-found: ignore
   e2e-tests:
     needs: prepare
     runs-on: ubuntu-22.04
@@ -47,43 +84,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: cypress-split-results-e2e-${{ strategy.job-index }}
-          path: |
-            cypress/screenshots
-            cypress/videos
-            cypress/results
-            coverage
-          if-no-files-found: ignore
-  ct-tests:
-    needs: prepare
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
-    steps:
-      - name: Code Checkout
-        uses: actions/checkout@v4
-      - name: Create Environment Files
-        run: node server.js && node server-cypress.js
-        env:
-          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
-          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
-      - name: Install Dependencies
-        uses: cypress-io/github-action@v6
-        with:
-          runTests: false
-      - name: Cypress Run
-        uses: cypress-io/github-action@v6
-        with:
-          component: true
-        env:
-          SPLIT: ${{ strategy.job-total }}
-          SPLIT_INDEX: ${{ strategy.job-index }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload Test Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-split-results-ct-${{ strategy.job-index }}
           path: |
             cypress/screenshots
             cypress/videos
