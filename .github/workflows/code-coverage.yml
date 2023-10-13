@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - develop
-      - feature/parallel-tests
 jobs:
   cypress-install:
     runs-on: ubuntu-22.04
