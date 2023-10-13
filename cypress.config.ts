@@ -11,16 +11,16 @@ export default defineConfig({
     openMode: 0
   },
 
-  // reporter: 'mochawesome',
-  // reporterOptions: {
-  //   useInlineDiffs: true,
-  //   embeddedScreenshots: true,
-  //   reportDir: 'cypress/results',
-  //   reportFilename: '[name].html',
-  //   overwrite: true,
-  //   html: true,
-  //   json: true
-  // },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    useInlineDiffs: true,
+    embeddedScreenshots: true,
+    reportDir: 'cypress/results',
+    reportFilename: '[name].html',
+    overwrite: true,
+    html: true,
+    json: true
+  },
 
   e2e: {
     baseUrl: 'http://localhost:4200',

@@ -39,7 +39,7 @@ jobs:
         with:
           component: true
         env:
-          SPEC: src/app/**.cy.ts
+          SPEC: /home/runner/work/usersrole/usersrole/src/**/**.cy.ts
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
