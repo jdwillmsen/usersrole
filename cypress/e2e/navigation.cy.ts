@@ -12,6 +12,7 @@ describe('Navigation', () => {
       cy.login('basic').then(() => {
         cy.visit('/');
       });
+      cy.viewport(1000, 660);
     });
 
     after('should be able to sign out', () => {
@@ -60,6 +61,7 @@ describe('Navigation', () => {
       cy.login('read').then(() => {
         cy.visit('/');
       });
+      cy.viewport(1000, 660);
     });
 
     adminTests();
@@ -70,6 +72,7 @@ describe('Navigation', () => {
       cy.login('manager').then(() => {
         cy.visit('/');
       });
+      cy.viewport(1000, 660);
     });
 
     adminTests();
@@ -80,6 +83,7 @@ describe('Navigation', () => {
       cy.login('admin').then(() => {
         cy.visit('/');
       });
+      cy.viewport(1000, 660);
     });
 
     adminTests();

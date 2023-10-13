@@ -39,7 +39,7 @@ describe('Admin', () => {
       cy.visit('/admin/users');
       cy.fixture('new-user').then((user) => {
         filterEmail(user.email);
-        cy.getByCy('view-button').click();
+        cy.getByCy('view-button').first().click();
         cy.getByCy('email-address-field')
           .find('input')
           .should('contain.value', user.email);
@@ -57,7 +57,7 @@ describe('Admin', () => {
       cy.visit('/admin/users');
       cy.fixture('new-user').then((user) => {
         filterEmail(user.email);
-        cy.getByCy('edit-button').click();
+        cy.getByCy('edit-button').first().click();
         cy.getByCy('display-name-field').should('be.visible').type(' Edited');
         cy.getByCy('roles-field').click();
         cy.getByCy('read-role-option').click();
@@ -86,7 +86,7 @@ describe('Admin', () => {
       cy.visit('/admin/users');
       cy.fixture('new-user').then((user) => {
         filterEmail(user.email);
-        cy.getByCy('delete-button').click();
+        cy.getByCy('delete-button').first().click();
         cy.getByCy('email-address-field')
           .find('input')
           .should('contain.value', user.email);

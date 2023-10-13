@@ -173,7 +173,7 @@ Run `npm run all:coverage` to get the combined report (jest and cypress).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
-Production URL: https://usersrole.web.app/
+Production URL: https://usersrole.web.app
 
 ### Code Standards
 
