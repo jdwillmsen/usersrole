@@ -74,7 +74,7 @@ jobs:
           parallel: false
           component: false
           start: npm start
-          wait-on: npx wait-on --timeout 600000 http://localhost:4200
+          wait-on: npx wait-on --timeout 600000 http://0.0.0.0:4200
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
