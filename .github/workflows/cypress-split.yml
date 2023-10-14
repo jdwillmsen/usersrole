@@ -43,6 +43,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
+          start: npm start
           spec: src/**/**.cy.ts
           config: specPattern='src/**/**.cy.ts'
         env:
@@ -88,6 +89,7 @@ jobs:
           SPLIT_INDEX: ${{ strategy.job-index }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: cypress-split
       - name: Upload Test Artifacts
         uses: actions/upload-artifact@v3
         with:
