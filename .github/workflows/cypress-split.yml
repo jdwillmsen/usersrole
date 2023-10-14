@@ -44,8 +44,8 @@ jobs:
         with:
           component: true
           start: npm start
+          wait-on: npx wait-on --timeout 600000 http://localhost:4200
           spec: src/**/**.cy.ts
-          config: specPattern='src/**/**.cy.ts'
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
