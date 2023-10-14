@@ -4,7 +4,7 @@ import coverageWebpack from './cypress/coverage.webpack';
 import cypressSplit from 'cypress-split';
 
 export default defineConfig({
-  projectId: 'vfwo91',
+  projectId: '3t1voo',
 
   retries: {
     runMode: 2,
