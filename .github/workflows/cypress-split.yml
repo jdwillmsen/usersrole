@@ -48,6 +48,7 @@ jobs:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: cypress-split
       - name: Upload Test Artifacts
         uses: actions/upload-artifact@v3
         with:

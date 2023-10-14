@@ -37,7 +37,7 @@ export default defineConfig({
       bundler: 'webpack',
       webpackConfig: coverageWebpack
     },
-    specPattern: '**/*.cy.ts',
+    specPattern: 'src/**/**.cy.ts',
     setupNodeEvents(on, config) {
       registerCodeCoverageTasks(on, config);
       cypressSplit(on, config);
