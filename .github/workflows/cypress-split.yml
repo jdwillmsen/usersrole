@@ -6,6 +6,11 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -38,8 +43,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
+          spec: src/**/**.cy.ts
         env:
-          SPEC: /home/runner/work/usersrole/usersrole/src/**/**.cy.ts
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
