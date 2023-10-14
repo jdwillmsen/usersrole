@@ -44,7 +44,7 @@ jobs:
         with:
           component: true
           spec: src/**/**.cy.ts
-          config-file: cypress/tsconfig.json
+          config: specPattern='src/**/**.cy.ts'
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
