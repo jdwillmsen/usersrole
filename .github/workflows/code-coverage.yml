@@ -84,8 +84,6 @@ jobs:
           record: true
           parallel: true
           group: CT
-          start: npm start
-          wait-on: npx wait-on --timeout 600000 http://localhost:4200
           component: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
