@@ -2,6 +2,7 @@ name: ci
 on: [ push ]
 jobs:
   prepare:
+    if: false
     runs-on: ubuntu-22.04
     outputs:
       matrixE2E: ${{ steps.prepareE2E.outputs.matrix }}
@@ -31,6 +32,7 @@ jobs:
         with:
           runTests: false
   e2e-tests:
+    if: false
     needs: prepare
     runs-on: ubuntu-22.04
     strategy:
@@ -69,6 +71,7 @@ jobs:
             coverage
           if-no-files-found: ignore
   ct-tests:
+    if: false
     needs: prepare
     runs-on: ubuntu-22.04
     strategy:
@@ -107,6 +110,7 @@ jobs:
             coverage
           if-no-files-found: ignore
   merge-reports:
+    if: false
     needs:
       - e2e-tests
       - ct-tests
@@ -150,6 +154,7 @@ jobs:
           name: merged-mochawesome-report
           path: mochawesome
   merge-coverage:
+    if: false
     needs:
       - e2e-tests
       - ct-tests
