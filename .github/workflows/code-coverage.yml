@@ -88,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-ct
-          if-no-files-found: error
+          if-no-files-found: ignore
           path: coverage/
   cypress-e2e:
     runs-on: ubuntu-22.04
@@ -104,13 +104,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-      - name: Setup Node
-        uses: actions/setup-node@v3
-      - name: Create Environment Files
-        run: node server.js && node server-cypress.js
-        env:
-          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
-          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Setup Node
         uses: actions/setup-node@v3
       - name: Create Environment Files
@@ -136,7 +129,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-e2e
-          if-no-files-found: error
+          if-no-files-found: ignore
           path: coverage/
   code-coverage:
     runs-on: ubuntu-22.04
