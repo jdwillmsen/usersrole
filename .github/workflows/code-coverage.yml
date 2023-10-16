@@ -79,9 +79,6 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Test Path
-        run: ls -la
-      - run: pwd
       - name: Save Coverage Folder
         uses: actions/upload-artifact@v3
         with:
@@ -120,9 +117,6 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Test Path
-        run: ls -la
-      - run: pwd
       - name: Save Coverage Folder
         uses: actions/upload-artifact@v3
         with:
