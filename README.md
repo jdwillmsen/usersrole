@@ -1,16 +1,35 @@
-# Users Role
+# [Users Role](https://usersrole.web.app/) 
 
-This is a frontend application that is supposed to provide a template for users authentication and authorization since
-these are common features to be used in most applications. It also includes features such as theme selection, snackbar
-service, alerts service, and a general site layout with header, collapsable sidebar/navigation, and main content area.
+[![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
+[![Lint](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml)
+[![Format](https://github.com/jdwillmsen/usersrole/actions/workflows/format.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/format.yml)
+[![CodeQL](https://github.com/jdwillmsen/usersrole/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/github-code-scanning/codeql)
+[![Cypress Component Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml)
+[![Cypress E2E Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml)
+[![Code Coverage](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-95.07%25-brightgreen)
 
-The authentication is provided by Firebase with Google Identity Platform and the authorization is built off of a node
-server that makes use of Firebase functions. The production server and all deployments are hosted with Firebase hosting.
+This is a frontend application that is supposed to provide a template for
+users authentication and authorization since these are common features to be
+used in most applications. It also includes features such as theme
+selection, snackbar service, alerts service, and a general site layout with
+header, collapsable sidebar/navigation, and main content area. This
+application is all a Progressive Web App (PWA) and can be downloaded as an app
+on mobile and desktop devices.
 
-The CI/CD tools used here are GitHub actions. There are two different actions/workflows, one for deploying production
-and the other for raising previews during pull requests. As well as few other checks within GitHub (CodeQL). Also there
-is a server.js script in the repo that is used within CI/CD to retrieve and setup the environment file since they
-contain secrets. Which are managed with GitHub secrets.
+The authentication is provided by Firebase with Google Identity Platform and
+the authorization is built off of a node server that makes use of Firebase
+functions. The production server and all deployments are hosted with
+Firebase hosting.
+
+The CI/CD tools used here are GitHub actions. There are two different
+actions/workflows for CD, one for deploying production and the other for raising
+previews during pull requests. As well as few other checks within GitHub
+(CodeQL). Also, there is a server.js script in the repo that is used within
+CI/CD to retrieve and set up the environment file since they contain secrets.
+Which are managed with GitHub secrets. For CI there are also various different
+actions for lint, format, jest (unit) tests, cypress (component, E2E) tests,
+and code coverage.
 
 ## Development server
 
@@ -81,7 +100,7 @@ The e2e tests are making use of a testing framework called [Cypress](https://doc
 
 #### Setup test accounts
 
-In order to run the tests you will have to setup the accounts.json fixture:
+In order to run the tests you will have to set up the accounts.json fixture:
 
 ```json
 {
@@ -145,6 +164,8 @@ Code coverage will appear in the `coverage` folder in a structure like:
 `jest` is the directory where the coverage information/reports are for the jest/unit tests.\
 `merged-report` is the directory where the combine information/reports of jest, component, and e2e tests
 
+** Currently the merge code coverage report does not correctly combine all the reports. Hence the overall coverage is actually higher than the number listed.
+
 ### Coverage commands
 
 Run `npm run jest:coverage` to get the unit tests coverage report.\
@@ -154,6 +175,15 @@ Run `npm run all:coverage` to get the combined report (jest and cypress).
 ## Project Info
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+
+Production URL: https://usersrole.web.app/
+
+### Code Standards
+
+Conventions followed for this project:
+
+- Data tags `data-*` should be kebab-case
+- For Cypress component & e2e testing use `data-cy` data tags
 
 ### Developers
 

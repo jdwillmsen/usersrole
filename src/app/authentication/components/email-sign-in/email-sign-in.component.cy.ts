@@ -35,7 +35,7 @@ describe('EmailSignInComponent', () => {
     cy.getByCy('password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your password');
-    cy.getByCy('passwordVisibilityButton')
+    cy.getByCy('password-visibility-button')
       .should('be.visible')
       .and('be.enabled')
       .click();
@@ -96,6 +96,6 @@ describe('EmailSignInComponent', () => {
     cy.getByCy('sign-in-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Login Successful');
+      .and('contain.text', 'Sign in successful');
   });
 });

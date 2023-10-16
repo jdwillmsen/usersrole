@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { GithubButtonComponent } from '../github-button/github-button.component';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
     NgIf,
     ThemeSelectorComponent,
     ProfileCardComponent,
-    MatIconModule
+    MatIconModule,
+    GithubButtonComponent
   ]
 })
 export class HeaderComponent {

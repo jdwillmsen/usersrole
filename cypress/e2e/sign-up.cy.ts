@@ -1,7 +1,7 @@
 describe('Sign Up', () => {
   beforeEach(() => {
     cy.deleteNewUser();
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   after(() => {
@@ -20,7 +20,7 @@ describe('Sign Up', () => {
       cy.getByCy('snackbar-container')
         .should('be.visible')
         .within(() => {
-          cy.getByCy('message').should('contain.text', 'Sign Up Successful');
+          cy.getByCy('message').should('contain.text', 'Sign up successful');
         });
       cy.url().should('include', '/sign-in');
     });

@@ -37,7 +37,7 @@ describe('RolesComponent', () => {
       .should('be.visible')
       .and('contain.text', 'Assign Roles')
       .and('be.disabled');
-    cy.getByCy('resetButton')
+    cy.getByCy('reset-button')
       .should('be.visible')
       .and('contain.text', 'Reset')
       .and('be.enabled');
@@ -69,7 +69,7 @@ describe('RolesComponent', () => {
       .get('input')
       .should('contain.value', 'Basic Test User #1 (test-uid-1)');
     cy.getByCy('select-roles-field').should('contain.text', 'User');
-    cy.getByCy('matchingRolesError')
+    cy.getByCy('matching-roles-error')
       .should('be.visible')
       .and('contain.text', 'The user already has these roles');
     cy.getByCy('assign-roles-button').should('be.disabled');
@@ -94,8 +94,8 @@ describe('RolesComponent', () => {
     cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Roles Assigned Successfully');
-    cy.getByCy('resetButton').click();
+      .and('contain.text', 'Roles assigned successfully');
+    cy.getByCy('reset-button').click();
     cy.getByCy('assign-roles-button').should('be.disabled');
     cy.getByCy('select-user-field').get('input').should('have.value', '');
     cy.getByCy('select-roles-field').get('input').should('have.value', '');
@@ -110,6 +110,6 @@ describe('RolesComponent', () => {
     cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Roles Assigned Successfully');
+      .and('contain.text', 'Roles assigned successfully');
   });
 });

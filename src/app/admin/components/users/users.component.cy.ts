@@ -99,7 +99,7 @@ describe('UsersComponent', () => {
     cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'User Created Successfully');
+      .and('contain.text', 'User created successfully');
   });
 
   it('should view a user properly', () => {
@@ -132,9 +132,11 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'Basic Test User #1');
     cy.getByCy('roles-field').find('input').should('contain.value', 'User');
-    cy.getByCy('uidField').find('input').should('contain.value', 'test-uid-1');
-    cy.getByCy('lastSignInTimeField').find('input').should('contain.value', '');
-    cy.getByCy('accountCreationTimeField')
+    cy.getByCy('uid-field').find('input').should('contain.value', 'test-uid-1');
+    cy.getByCy('last-sign-in-time-field')
+      .find('input')
+      .should('contain.value', '');
+    cy.getByCy('account-creation-time-field')
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
     cy.getByCy('close-button').click();
@@ -187,7 +189,7 @@ describe('UsersComponent', () => {
     cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'User Edited Successfully');
+      .and('contain.text', 'User edited successfully');
   });
   it('should delete a user properly', () => {
     cy.intercept(
@@ -219,14 +221,16 @@ describe('UsersComponent', () => {
       .find('input')
       .should('contain.value', 'Basic Test User #1');
     cy.getByCy('roles-field').find('input').should('contain.value', 'User');
-    cy.getByCy('uidField').find('input').should('contain.value', 'test-uid-1');
-    cy.getByCy('lastSignInTimeField').find('input').should('contain.value', '');
-    cy.getByCy('accountCreationTimeField')
+    cy.getByCy('uid-field').find('input').should('contain.value', 'test-uid-1');
+    cy.getByCy('last-sign-in-time-field')
+      .find('input')
+      .should('contain.value', '');
+    cy.getByCy('account-creation-time-field')
       .find('input')
       .should('contain.value', 'Sun, 23 Jul 2023 20:36:56 GMT');
     cy.getByCy('save-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'User Deleted Successfully');
+      .and('contain.text', 'User deleted successfully');
   });
 });

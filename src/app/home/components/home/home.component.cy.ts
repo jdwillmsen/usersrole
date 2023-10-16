@@ -27,7 +27,7 @@ describe('HomeComponent', () => {
     cy.getByCy('p2').should('be.visible').and('not.be.empty');
     cy.getByCy('p3').should('be.visible').and('not.be.empty');
     cy.getByCy('p4').should('be.visible').and('not.be.empty');
-    cy.getByCy('readMessage').should('be.visible').and('not.be.empty');
+    cy.getByCy('read-message').should('be.visible').and('not.be.empty');
     cy.getByCy('home-tile').should('be.visible');
     cy.getByCy('profile-tile').should('be.visible');
     cy.getByCy('alerts-tile').should('be.visible');

@@ -62,7 +62,7 @@
     <mat-error
       *ngIf="rolesForm.hasError('noMatchRequired')"
       class="matching-roles"
-      data-cy="matchingRolesError"
+      data-cy="matching-roles-error"
     >
       The user already has these roles
     </mat-error>
@@ -76,7 +76,7 @@
       >
         Assign Roles
       </button>
-      <button (click)="resetForm()" data-cy="resetButton" mat-raised-button>
+      <button (click)="resetForm()" data-cy="reset-button" mat-raised-button>
         Reset
       </button>
     </div>

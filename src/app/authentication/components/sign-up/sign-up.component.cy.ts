@@ -39,22 +39,22 @@ describe('SignUpComponent', () => {
     cy.getByCy('password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your password');
-    cy.getByCy('passwordVisibilityButton')
+    cy.getByCy('password-visibility-button')
       .should('be.visible')
       .and('be.enabled');
     cy.getByCy('confirm-password-field')
       .should('be.visible')
       .and('contain.text', 'Enter your confirm password');
-    cy.getByCy('confirmPasswordVisibilityButton')
+    cy.getByCy('confirm-password-visibility-button')
       .should('be.visible')
       .and('be.enabled');
     cy.getByCy('sign-up-button')
       .should('be.visible')
       .and('contain.text', 'Sign Up');
-    cy.getByCy('signIn')
+    cy.getByCy('sign-in')
       .should('be.visible')
       .and('contain.text', 'Already have an account?');
-    cy.getByCy('signInLink')
+    cy.getByCy('sign-in-link')
       .should('be.visible')
       .and('contain.text', 'Sign in');
   });
@@ -86,7 +86,7 @@ describe('SignUpComponent', () => {
       .should('contain.text', 'Confirm password is required')
       .type('tes')
       .should('contain.text', 'Password must be at least 6 characters long');
-    cy.getByCy('matchingPasswordError')
+    cy.getByCy('matching-password-error')
       .should('be.visible')
       .and('contain.text', 'Passwords must match');
   });
@@ -126,6 +126,6 @@ describe('SignUpComponent', () => {
     cy.getByCy('sign-up-button').click();
     cy.getByCy('snackbar-container')
       .should('be.visible')
-      .and('contain.text', 'Sign Up Successful');
+      .and('contain.text', 'Sign up successful');
   });
 });

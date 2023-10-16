@@ -3,7 +3,7 @@
 <mat-dialog-content>
   <form (ngSubmit)="save()" [formGroup]="form" class="user-form">
     <mat-form-field appearance="outline" data-cy="email-address-field">
-      <mat-label data-cy="emailAddressLabel">Email Address</mat-label>
+      <mat-label data-cy="email-address-label">Email Address</mat-label>
       <input
         [readonly]="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
         formControlName="email"
@@ -17,7 +17,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" data-cy="display-name-field">
-      <mat-label data-cy="displayNameLabel">Display Name</mat-label>
+      <mat-label data-cy="display-name-label">Display Name</mat-label>
       <input
         [readonly]="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
         formControlName="displayName"
@@ -41,7 +41,7 @@
       data-cy="roles-field"
       subscriptSizing="dynamic"
     >
-      <mat-label data-cy="rolesLabel">Roles</mat-label>
+      <mat-label data-cy="roles-label">Roles</mat-label>
       <mat-select formControlName="roles" multiple required>
         <mat-option
           *ngFor="let roleOption of rolesOptions"
@@ -65,7 +65,7 @@
       data-cy="roles-field"
       subscriptSizing="dynamic"
     >
-      <mat-label data-cy="rolesLabel">Roles</mat-label>
+      <mat-label data-cy="roles-label">Roles</mat-label>
       <input
         [(ngModel)]="displayRoles"
         [ngModelOptions]="{ standalone: true }"
@@ -82,9 +82,9 @@
     <mat-form-field
       *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
       appearance="outline"
-      data-cy="uidField"
+      data-cy="uid-field"
     >
-      <mat-label data-cy="uidLabel">Uid</mat-label>
+      <mat-label data-cy="uid-label">Uid</mat-label>
       <input
         formControlName="uid"
         matInput
@@ -96,9 +96,9 @@
     <mat-form-field
       *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
       appearance="outline"
-      data-cy="lastSignInTimeField"
+      data-cy="last-sign-in-time-field"
     >
-      <mat-label data-cy="lastSignInTimeLabel">Last Sign In Time</mat-label>
+      <mat-label data-cy="last-sign-in-time-label">Last Sign In Time</mat-label>
       <input
         formControlName="lastSignInTime"
         matInput
@@ -110,11 +110,11 @@
     <mat-form-field
       *ngIf="(type$ | async) === 'View' || (type$ | async) === 'Delete'"
       appearance="outline"
-      data-cy="accountCreationTimeField"
+      data-cy="account-creation-time-field"
     >
-      <mat-label data-cy="accountCreationTimeLabel"
-        >Account Creation Time</mat-label
-      >
+      <mat-label data-cy="account-creation-time-label"
+        >Account Creation Time
+      </mat-label>
       <input
         formControlName="creationTime"
         matInput
@@ -128,7 +128,7 @@
       formGroupName="matchingPassword"
     >
       <mat-form-field appearance="outline" data-cy="password-field">
-        <mat-label data-cy="passwordLabel">Password</mat-label>
+        <mat-label data-cy="password-label">Password</mat-label>
         <input
           [type]="hide ? 'password' : 'text'"
           formControlName="password"
@@ -140,7 +140,7 @@
           (click)="hide = !hide"
           [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide"
-          data-cy="passwordVisibilityButton"
+          data-cy="password-visibility-button"
           mat-icon-button
           matSuffix
           type="button"
@@ -164,7 +164,7 @@
         appearance="outline"
         data-cy="confirm-password-field"
       >
-        <mat-label data-cy="confirmPasswordLabel">Confirm Password</mat-label>
+        <mat-label data-cy="confirm-password-label">Confirm Password</mat-label>
         <input
           [type]="hide ? 'password' : 'text'"
           formControlName="confirmPassword"
@@ -176,7 +176,7 @@
           (click)="hide = !hide"
           [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide"
-          data-cy="confirmPasswordVisibilityButton"
+          data-cy="confirm-password-visibility-button"
           mat-icon-button
           matSuffix
           type="button"
@@ -200,7 +200,7 @@
           getErrorMessage('matchingPassword') !== ''
         "
         class="match-password"
-        data-cy="matchingPasswordError"
+        data-cy="matching-password-error"
       >
         {{ getErrorMessage('matchingPassword') }}
       </mat-error>

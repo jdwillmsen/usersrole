@@ -7,11 +7,13 @@
   mat-card {
     margin: 8px;
     min-width: 400px;
+    max-width: 425px;
     align-self: center;
 
     mat-card-actions {
       font-size: 14px;
       align-self: center;
+
       a {
         margin-left: 4px;
       }

@@ -10,9 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { EmailSignInComponent } from '../email-sign-in/email-sign-in.component';
 import { MatCardModule } from '@angular/material/card';
 
-const googleLogoURL =
-  'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg';
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -35,26 +32,58 @@ export class SignInComponent {
     private readonly styleManagerService: StyleManagerService
   ) {
     this.matIconRegistry.addSvgIcon(
-      'logo',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL)
+      'google-logo',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/google-icon.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'github-logo',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/github-icon.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'twitter-logo',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/twitter-icon.svg'
+      )
     );
     this.styleManagerService.removeStyle('theme');
   }
 
-  login() {
+  googleLogin() {
     this.authService
       .googleAuth()
       .pipe(
         take(1),
-        catchError((error) => {
-          this.snackbarService.error(
-            error.message,
-            { variant: 'filled' },
-            true
-          );
-          return EMPTY;
-        })
+        catchError((error) => this.handleError(error))
       )
       .subscribe((response) => response);
+  }
+
+  githubLogin() {
+    this.authService
+      .githubAuth()
+      .pipe(
+        take(1),
+        catchError((error) => this.handleError(error))
+      )
+      .subscribe((response) => response);
+  }
+
+  twitterLogin() {
+    this.authService
+      .twitterAuth()
+      .pipe(
+        take(1),
+        catchError((error) => this.handleError(error))
+      )
+      .subscribe((response) => response);
+  }
+
+  private handleError(error: any) {
+    this.snackbarService.error(error.message, { variant: 'filled' }, true);
+    return EMPTY;
   }
 }

@@ -7,8 +7,9 @@ import { PermissionsService } from './services/permissions/permissions.service';
 import { AlertService } from './services/alert/alert.service';
 import { UsersService } from './services/users/users.service';
 import { StyleManagerService } from './services/style-manager/style-manager.service';
-import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
+import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token/auth-token.interceptor';
 import { FirestoreService } from './services/firestore/firestore.service';
+import { GlobalHttpErrorHandlerInterceptorProvider } from './interceptors/global-http-error-handler/global-http-error-handler.interceptor';
 
 @NgModule({
   imports: [AppFirebaseModule, HttpClientModule],
@@ -20,7 +21,8 @@ import { FirestoreService } from './services/firestore/firestore.service';
     UsersService,
     StyleManagerService,
     FirestoreService,
-    AuthTokenHttpInterceptorProvider
+    AuthTokenHttpInterceptorProvider,
+    GlobalHttpErrorHandlerInterceptorProvider
   ],
   exports: [AppFirebaseModule, HttpClientModule]
 })

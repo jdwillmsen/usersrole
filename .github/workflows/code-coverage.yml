@@ -1,0 +1,149 @@
+name: Code Coverage
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  cypress-install:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Install
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+          build: npm run build
+      - name: Save Build Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: dist
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment File
+        run: node server.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+      - name: Install Dependencies
+        run: npm ci
+      - name: Jests Tests
+        run: npm run jest:coverage
+      - name: Save Coverage Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-jest
+          if-no-files-found: error
+          path: coverage/
+  cypress-ct:
+    runs-on: ubuntu-22.04
+    needs: cypress-install
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Download Build Folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          parallel: true
+          group: CT
+          component: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Save Coverage Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-ct
+          if-no-files-found: ignore
+          path: coverage/
+  cypress-e2e:
+    runs-on: ubuntu-22.04
+    needs: cypress-install
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3, 4, 5 ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Download Build Folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Create Environment Files
+        run: node server.js && node server-cypress.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+          ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          parallel: true
+          group: E2E
+          start: npm start
+          wait-on: npx wait-on --timeout 300000 http://localhost:4200
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Save Coverage Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-e2e
+          if-no-files-found: ignore
+          path: coverage/
+  code-coverage:
+    runs-on: ubuntu-22.04
+    needs:
+      - jest
+      - cypress-ct
+      - cypress-e2e
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Download Coverage Folder
+        uses: actions/download-artifact@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Merge Coverage Reports
+        run: npm run merge:coverage
+      - name: Generate Merged Coverage Report
+        run: npm run all:coverage
+      - name: Update Code Coverage Badge
+        run: npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply code coverage badge update
+          branch: ${{ github.head_ref }}

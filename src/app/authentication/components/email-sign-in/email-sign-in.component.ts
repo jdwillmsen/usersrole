@@ -12,6 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  EMAIL_PATTERN_VALIDATION_MESSAGE,
+  EMAIL_REQUIRED_VALIDATION_MESSAGE,
+  EMAIL_VALIDATOR_PATTERN,
+  PASSWORD_MIN_LENGTH_VALIDATION_MESSAGE,
+  PASSWORD_REQUIRED_VALIDATION_MESSAGE
+} from '../../../core/constants/message.constants';
 
 @Component({
   selector: 'app-email-sign-in',
@@ -32,7 +39,7 @@ export class EmailSignInComponent {
   form: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
+      Validators.pattern(EMAIL_VALIDATOR_PATTERN)
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -42,14 +49,14 @@ export class EmailSignInComponent {
   hide = true;
   validationMessages = {
     email: [
-      { type: 'required', message: 'Email is required' },
-      { type: 'pattern', message: 'Enter a valid email' }
+      { type: 'required', message: EMAIL_REQUIRED_VALIDATION_MESSAGE },
+      { type: 'pattern', message: EMAIL_PATTERN_VALIDATION_MESSAGE }
     ],
     password: [
-      { type: 'required', message: 'Password is required' },
+      { type: 'required', message: PASSWORD_REQUIRED_VALIDATION_MESSAGE },
       {
         type: 'minlength',
-        message: 'Password must be at least 6 characters long'
+        message: PASSWORD_MIN_LENGTH_VALIDATION_MESSAGE
       }
     ]
   };

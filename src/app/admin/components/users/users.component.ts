@@ -13,6 +13,7 @@ import { AsyncPipe } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { USER_CREATED_SUCCESS_MESSAGE } from '../../../core/constants/message.constants';
 
 @Component({
   selector: 'app-users',
@@ -105,7 +106,7 @@ export class UsersComponent implements OnInit {
         if (user) {
           this.userService.createAdmin(user).subscribe(() => {
             this.snackbarService.success(
-              'User Created Successfully',
+              USER_CREATED_SUCCESS_MESSAGE,
               {
                 variant: 'filled',
                 autoClose: true
@@ -114,9 +115,6 @@ export class UsersComponent implements OnInit {
             );
           });
         }
-      },
-      error: (error) => {
-        this.snackbarService.error(error.error, { variant: 'filled' }, true);
       }
     });
   }

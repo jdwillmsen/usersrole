@@ -1,10 +1,10 @@
 describe('Navigation', () => {
   before(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   after(() => {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    cy.clearFirebaseLocal();
   });
 
   describe('Basic Account', () => {
@@ -26,13 +26,11 @@ describe('Navigation', () => {
     });
 
     it('should have the nav route link to correct route', () => {
-      cy.wait(15000); // To Avoid Limiter On Endpoints
       cy.visit('/home');
       checkUserRouteLinks();
     });
 
     it('should route the user to the appropriate link on home page tiles', () => {
-      cy.wait(15000); // To Avoid Limiter On Endpoints
       cy.visit('/home');
       checkUserHomeTiles();
       cy.getByCy('users-tile').click();
@@ -45,7 +43,6 @@ describe('Navigation', () => {
     });
 
     it('should bring use to the correct page on link visit', () => {
-      cy.wait(15000); // To Avoid Limiter On Endpoints
       checkUserLinks();
       cy.visit('/admin/users');
       cy.url().should('include', '/forbidden');
@@ -312,7 +309,7 @@ function checkSignOut() {
   cy.getByCy('snackbar-container')
     .should('be.visible')
     .within(() => {
-      cy.getByCy('message').should('contain.text', 'Logout Successful');
+      cy.getByCy('message').should('contain.text', 'Sign out successful');
     });
 }
 
@@ -347,21 +344,18 @@ function adminTests() {
   });
 
   it('should have the nav route link to correct route', () => {
-    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.visit('/home');
     checkUserRouteLinks();
     checkAdminRouteLinks();
   });
 
   it('should route the user to the appropriate link on home page tiles', () => {
-    cy.wait(15000); // To Avoid Limiter On Endpoints
     cy.visit('/home');
     checkUserHomeTiles();
     checkAdminHomeTiles();
   });
 
   it('should bring use to the correct page on link visit', () => {
-    cy.wait(15000); // To Avoid Limiter On Endpoints
     checkUserLinks();
     checkAdminLinks();
   });

@@ -7,6 +7,11 @@ mat-toolbar {
 
   .no-underline {
     text-decoration: none;
+
+    span {
+      font-weight: 700;
+      font-size: large;
+    }
   }
 }
 

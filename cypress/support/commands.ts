@@ -7,16 +7,22 @@ import ReCaptchaV3Provider = firebase.appCheck.ReCaptchaV3Provider;
 Cypress.Commands.add('getByCy', (selector: any, ...args: any[]) => {
   return cy.get(`[data-cy=${selector}]`, ...args);
 });
+
 Cypress.Commands.add('getToken', (email: string, password: string) => {
-  return cy.request({
-    method: 'POST',
-    url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
-    body: {
-      returnSecureToken: true,
-      clientType: 'CLIENT_TYPE_WEB',
-      email,
-      password
-    }
+  cy.setupAppCheck().then((res) => {
+    return cy.request({
+      method: 'POST',
+      url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
+      body: {
+        returnSecureToken: true,
+        clientType: 'CLIENT_TYPE_WEB',
+        email,
+        password
+      },
+      headers: {
+        'X-Firebase-Appcheck': res.appCheck.token
+      }
+    });
   });
 });
 
@@ -48,9 +54,9 @@ Cypress.Commands.add('deleteUser', (email: string) => {
   });
 });
 
-Cypress.Commands.add('deleteNewUser', () => {
+Cypress.Commands.add('deleteNewUser', (id = '') => {
   cy.fixture('new-user').then((user) => {
-    cy.deleteUser(user.email);
+    cy.deleteUser(id + user.email);
   });
 });
 
@@ -83,11 +89,11 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add('createNewUser', () => {
+Cypress.Commands.add('createNewUser', (id = '') => {
   cy.fixture('new-user').then((user) => {
-    cy.deleteNewUser().then(() => {
+    cy.deleteNewUser(id).then(() => {
       return cy.createUser(
-        user.email,
+        id + user.email,
         user.displayName,
         user.password,
         user.roles
@@ -118,13 +124,9 @@ Cypress.Commands.add('login', (userType) => {
 });
 
 Cypress.Commands.add('loginWithUser', (email: string, password: string) => {
-  // @ts-ignore
-  self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebugToken;
-  const app = firebase.initializeApp(environment.firebase);
-  const appCheck = firebase.appCheck();
-  appCheck.activate(new ReCaptchaV3Provider(environment.recaptcha.siteKey));
-  appCheck.setTokenAutoRefreshEnabled(true);
-  app.auth().signInWithEmailAndPassword(email, password);
+  cy.setupAppCheck().then((res) => {
+    res.app.auth().signInWithEmailAndPassword(email, password);
+  });
 });
 
 Cypress.Commands.add(
@@ -137,3 +139,25 @@ Cypress.Commands.add(
       .blur();
   }
 );
+
+Cypress.Commands.add('setupAppCheck', () => {
+  // @ts-ignore
+  self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebugToken;
+  const app = firebase.initializeApp(environment.firebase);
+  const appCheck = firebase.appCheck();
+  appCheck.activate(new ReCaptchaV3Provider(environment.recaptcha.siteKey));
+  appCheck.setTokenAutoRefreshEnabled(true);
+  return cy.wrap(
+    appCheck.getToken().then((res) => ({ app: app, appCheck: res }))
+  );
+});
+
+Cypress.Commands.add('clearFirebaseLocal', () => {
+  cy.log('Clearing firebase local database');
+  new Cypress.Promise(async (resolve) => {
+    const req = indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    req.onsuccess = function () {
+      resolve();
+    };
+  });
+});

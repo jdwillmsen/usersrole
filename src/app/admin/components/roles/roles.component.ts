@@ -20,6 +20,7 @@ import { Role, User } from 'src/app/core/models/users.model';
 import { RolesService } from 'src/app/admin/services/roles/roles.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
+import { ROLES_ASSIGNED_SUCCESS_MESSAGE } from '../../../core/constants/message.constants';
 
 export type RoleOption = {
   value: Role;
@@ -134,18 +135,11 @@ export class RolesComponent implements OnInit {
         .subscribe({
           next: () => {
             this.snackbarService.success(
-              'Roles Assigned Successfully',
+              ROLES_ASSIGNED_SUCCESS_MESSAGE,
               {
                 variant: 'filled',
                 autoClose: true
               },
-              true
-            );
-          },
-          error: (error) => {
-            this.snackbarService.error(
-              error.error,
-              { variant: 'filled' },
               true
             );
           }

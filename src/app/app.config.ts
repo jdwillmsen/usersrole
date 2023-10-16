@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  ErrorHandler,
   importProvidersFrom,
   isDevMode
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { ThemeModule } from './theme/theme.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
+import { ErrorHandlerService } from './core/services/error-handler/error-handler.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +36,10 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService
+    }
   ]
 };
