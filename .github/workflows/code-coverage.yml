@@ -140,9 +140,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Download Coverage Folder
         uses: actions/download-artifact@v3
-      - name: Test path
-        run: ls -la
-      - run: pwd
       - name: Setup Node
         uses: actions/setup-node@v3
       - name: Merge Coverage Reports
