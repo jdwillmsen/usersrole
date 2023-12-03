@@ -1,12 +1,12 @@
 # [Users Role](https://usersrole.web.app/) 
 
-[![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
+[![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg?branch=develop)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
 [![Lint](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/lint.yml)
 [![Format](https://github.com/jdwillmsen/usersrole/actions/workflows/format.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/format.yml)
 [![CodeQL](https://github.com/jdwillmsen/usersrole/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/github-code-scanning/codeql)
 [![Cypress Component Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml)
 [![Cypress E2E Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml)
-[![Code Coverage](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml)
+[![Code Coverage](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml/badge.svg?branch=develop)](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml)
 ![check-code-coverage](https://img.shields.io/badge/code--coverage-95.07%25-brightgreen)
 
 This is a frontend application that is supposed to provide a template for
