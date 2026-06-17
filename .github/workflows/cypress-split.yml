@@ -61,7 +61,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Test Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: cypress-split-results-e2e-${{ strategy.job-index }}
           path: |
@@ -100,7 +100,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Test Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: cypress-split-results-ct-${{ strategy.job-index }}
           path: |
@@ -122,7 +122,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v8.0.1
         with:
           path: split-results
       - name: Display Structure Of Download Files
@@ -149,7 +149,7 @@ jobs:
             --reportDir mochawesome/results \
             --reportFilename index.html
       - name: Upload Report Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: merged-mochawesome-report
           path: mochawesome
@@ -166,7 +166,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v8.0.1
         with:
           path: split-results
       - name: Display Structure Of Download Files
@@ -174,7 +174,7 @@ jobs:
       - name: Merge Coverage Reports
         run: npx cc-merge split-results
       - name: Upload Coverage Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: merged-coverage
           path: coverage
