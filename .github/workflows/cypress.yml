@@ -23,12 +23,14 @@ jobs:
           runTests: false
           build: npm run build
       - name: Save Build Folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: build
           if-no-files-found: error
           path: dist
   cypress-run-ct:
+    # Dependabot PRs can't access CYPRESS_RECORD_KEY; skip recorded runs.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     needs: install
     strategy:
@@ -39,7 +41,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Download Build Folder
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
@@ -62,6 +64,8 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   cypress-run-e2e:
+    # Dependabot PRs can't access CYPRESS_RECORD_KEY; skip recorded runs.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     needs: install
     strategy:
@@ -72,7 +76,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Download Build Folder
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node

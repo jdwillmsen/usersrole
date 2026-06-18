@@ -1,11 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
+// Dependabot (and other restricted) runs don't receive ENVIRONMENT_FILE.
+// Fall back to the committed template so the build still compiles.
+const environment = process.env.ENVIRONMENT_FILE
+  ? `${process.env.ENVIRONMENT_FILE}`
+  : fs.readFileSync(
+      path.join('src/environments', 'environment.template.ts'),
+      'utf8'
+    );
+
 const filesList = [
   {
     dir: 'src/environments',
     name: 'environment.development.ts',
-    content: `${process.env.ENVIRONMENT_FILE}`
+    content: environment
   },
   {
     dir: 'cypress/fixtures',
