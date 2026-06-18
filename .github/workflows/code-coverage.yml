@@ -22,7 +22,7 @@ jobs:
           runTests: false
           build: npm run build
       - name: Save Build Folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: build
           if-no-files-found: error
@@ -43,7 +43,7 @@ jobs:
       - name: Jests Tests
         run: npm run jest:coverage
       - name: Save Coverage Folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: coverage-jest
           if-no-files-found: error
@@ -59,7 +59,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Download Build Folder
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
@@ -80,9 +80,9 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Save Coverage Folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
-          name: coverage-ct
+          name: coverage-ct-${{ matrix.containers }}
           if-no-files-found: ignore
           path: coverage/
   cypress-e2e:
@@ -96,7 +96,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Download Build Folder
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
@@ -118,9 +118,9 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Save Coverage Folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7.0.1
         with:
-          name: coverage-e2e
+          name: coverage-e2e-${{ matrix.containers }}
           if-no-files-found: ignore
           path: coverage/
   code-coverage:
@@ -133,7 +133,14 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Download Coverage Folder
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8.0.1
+        # v4 forbids duplicate artifact names, so the matrix jobs now upload
+        # per-container artifacts (coverage-ct-*, coverage-e2e-*). Merge them
+        # back into a single coverage/ tree for the merge step below.
+        with:
+          pattern: coverage-*
+          merge-multiple: true
+          path: coverage
       - name: Setup Node
         uses: actions/setup-node@v3
       - name: Merge Coverage Reports
