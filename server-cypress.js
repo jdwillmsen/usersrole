@@ -1,14 +1,24 @@
 const fs = require('fs');
 const path = require('path');
 
-// Dependabot (and other restricted) runs don't receive ENVIRONMENT_FILE.
-// Fall back to the committed template so the build still compiles.
-const environment = process.env.ENVIRONMENT_FILE
-  ? `${process.env.ENVIRONMENT_FILE}`
-  : fs.readFileSync(
-      path.join('src/environments', 'environment.template.ts'),
-      'utf8'
-    );
+// Restricted runs (e.g. Dependabot) don't receive ENVIRONMENT_FILE. Those
+// jobs opt into the placeholder template via ALLOW_ENV_TEMPLATE_FALLBACK so
+// they still compile. Deploy jobs must NOT set it: a missing secret then
+// fails the build loudly instead of silently shipping a blank config.
+let environment;
+if (process.env.ENVIRONMENT_FILE) {
+  environment = `${process.env.ENVIRONMENT_FILE}`;
+} else if (process.env.ALLOW_ENV_TEMPLATE_FALLBACK === 'true') {
+  environment = fs.readFileSync(
+    path.join('src/environments', 'environment.template.ts'),
+    'utf8'
+  );
+} else {
+  console.error(
+    'ENVIRONMENT_FILE is not set and ALLOW_ENV_TEMPLATE_FALLBACK is not enabled'
+  );
+  process.exit(1);
+}
 
 const filesList = [
   {

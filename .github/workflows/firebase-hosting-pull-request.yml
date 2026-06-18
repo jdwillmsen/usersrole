@@ -13,6 +13,9 @@ jobs:
         run: node server.js
         env:
           ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
+          # Dependabot PRs lack the secret; allow the placeholder template so
+          # the build still validates. The deploy step is skipped for them.
+          ALLOW_ENV_TEMPLATE_FALLBACK: 'true'
       - name: Install Dependencies & Build
         run: npm ci && npm run build
       - name: Firebase Deploy
