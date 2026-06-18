@@ -15,6 +15,7 @@ jobs:
         run: node server.js
         env:
           ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
+          ALLOW_ENV_TEMPLATE_FALLBACK: 'true'
       - name: Install Dependencies
         run: npm ci
       - name: Jests Tests
