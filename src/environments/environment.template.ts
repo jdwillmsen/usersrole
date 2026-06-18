@@ -12,6 +12,5 @@ export const environment = {
   },
   recaptcha: {
     siteKey: ''
-  },
-  appCheckDebugToken: ''
+  }
 };
