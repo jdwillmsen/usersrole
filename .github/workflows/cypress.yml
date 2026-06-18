@@ -29,6 +29,8 @@ jobs:
           if-no-files-found: error
           path: dist
   cypress-run-ct:
+    # Dependabot PRs can't access CYPRESS_RECORD_KEY; skip recorded runs.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     needs: install
     strategy:
@@ -62,6 +64,8 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   cypress-run-e2e:
+    # Dependabot PRs can't access CYPRESS_RECORD_KEY; skip recorded runs.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     needs: install
     strategy:

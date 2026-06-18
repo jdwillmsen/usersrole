@@ -16,6 +16,9 @@ jobs:
       - name: Install Dependencies & Build
         run: npm ci && npm run build
       - name: Firebase Deploy
+        # Dependabot PRs can't access the Firebase service-account secret, so
+        # only build/validate for them and skip the preview deploy.
+        if: github.actor != 'dependabot[bot]'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
