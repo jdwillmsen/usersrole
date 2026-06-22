@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -19,7 +19,7 @@ jobs:
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
           ALLOW_ENV_TEMPLATE_FALLBACK: 'true'
       - name: Cypress Install
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           runTests: false
           build: npm run build
@@ -40,13 +40,13 @@ jobs:
         containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download Build Folder
         uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -54,7 +54,7 @@ jobs:
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
           ALLOW_ENV_TEMPLATE_FALLBACK: 'true'
       - name: Cypress Run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           record: true
           parallel: true
@@ -76,13 +76,13 @@ jobs:
         containers: [ 1, 2, 3, 4, 5 ]
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download Build Folder
         uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -90,7 +90,7 @@ jobs:
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
           ALLOW_ENV_TEMPLATE_FALLBACK: 'true'
       - name: Cypress Run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           record: true
           parallel: true
