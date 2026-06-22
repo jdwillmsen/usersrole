@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HTTP_INTERCEPTORS,
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { catchError, EMPTY, Observable, retry, throwError, timer } from 'rxjs';
 import { SnackbarService } from '../../services/snackbar/snackbar.service';
 import { HTTP_403_MESSAGE } from '../../constants/http.constants';

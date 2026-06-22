@@ -1,5 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppFirebaseModule } from './app-firebase.module';
 import { AuthService } from './services/auth/auth.service';
 import { SnackbarService } from './services/snackbar/snackbar.service';
@@ -11,21 +11,18 @@ import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token/auth
 import { FirestoreService } from './services/firestore/firestore.service';
 import { GlobalHttpErrorHandlerInterceptorProvider } from './interceptors/global-http-error-handler/global-http-error-handler.interceptor';
 
-@NgModule({
-  imports: [AppFirebaseModule, HttpClientModule],
-  providers: [
-    AuthService,
-    SnackbarService,
-    PermissionsService,
-    AlertService,
-    UsersService,
-    StyleManagerService,
-    FirestoreService,
-    AuthTokenHttpInterceptorProvider,
-    GlobalHttpErrorHandlerInterceptorProvider
-  ],
-  exports: [AppFirebaseModule, HttpClientModule]
-})
+@NgModule({ exports: [AppFirebaseModule], imports: [AppFirebaseModule], providers: [
+        AuthService,
+        SnackbarService,
+        PermissionsService,
+        AlertService,
+        UsersService,
+        StyleManagerService,
+        FirestoreService,
+        AuthTokenHttpInterceptorProvider,
+        GlobalHttpErrorHandlerInterceptorProvider,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() core: CoreModule) {
     if (core) {
