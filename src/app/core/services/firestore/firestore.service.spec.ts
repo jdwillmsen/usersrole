@@ -212,9 +212,9 @@ describe('FirestoreService', () => {
     const userDocData = { theme: themeName };
     const docSpy = firestoreModule.doc as jest.Mock;
     const getDocSpy = firestoreModule.getDoc as jest.Mock;
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    docSpy.mockImplementation(() => ({} as any));
     getDocSpy.mockImplementation(
-      (docRef) =>
+      () =>
         ({
           exists: () => true,
           data: () => userDocData
@@ -231,9 +231,9 @@ describe('FirestoreService', () => {
   it('should return null when users data does not exist', async () => {
     const docSpy = firestoreModule.doc as jest.Mock;
     const getDocSpy = firestoreModule.getDoc as jest.Mock;
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    docSpy.mockImplementation(() => ({} as any));
     getDocSpy.mockImplementation(
-      (docRef) =>
+      () =>
         ({
           exists: () => false,
           data: () => null
@@ -250,9 +250,9 @@ describe('FirestoreService', () => {
   it('should set theme name', () => {
     const docSpy = firestoreModule.doc as jest.Mock;
     const setDocSpy = firestoreModule.setDoc as jest.Mock;
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    docSpy.mockImplementation(() => ({} as any));
     setDocSpy.mockImplementation(
-      (docRef, data, options) => new Promise(() => true)
+      () => new Promise(() => true)
     );
 
     firestoreService.setThemeName(uid, themeName);
@@ -264,9 +264,9 @@ describe('FirestoreService', () => {
   it('should set custom light theme', () => {
     const docSpy = firestoreModule.doc as jest.Mock;
     const setDocSpy = firestoreModule.setDoc as jest.Mock;
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    docSpy.mockImplementation(() => ({} as any));
     setDocSpy.mockImplementation(
-      (docRef, data, options) => new Promise(() => true)
+      () => new Promise(() => true)
     );
 
     firestoreService.setCustomLightTheme(uid, theme);
@@ -278,9 +278,9 @@ describe('FirestoreService', () => {
   it('should set custom dark theme', () => {
     const docSpy = firestoreModule.doc as jest.Mock;
     const setDocSpy = firestoreModule.setDoc as jest.Mock;
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    docSpy.mockImplementation(() => ({} as any));
     setDocSpy.mockImplementation(
-      (docRef, data, options) => new Promise(() => true)
+      () => new Promise(() => true)
     );
 
     firestoreService.setCustomDarkTheme(uid, theme);
@@ -291,7 +291,7 @@ describe('FirestoreService', () => {
 
   it('should retrieve user doc', () => {
     const docSpy = firestoreModule.doc as jest.Mock;
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    docSpy.mockImplementation(() => ({} as any));
 
     firestoreService.getUserDoc(uid);
 
