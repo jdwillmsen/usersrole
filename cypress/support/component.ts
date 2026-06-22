@@ -21,6 +21,10 @@ import '@cypress/code-coverage/support';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 import { mount } from 'cypress/angular';
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+
+// ag-grid v33+ requires modules to be registered before any grid is created.
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
