@@ -10,6 +10,16 @@ import {
 import * as rxfireAuth from 'rxfire/auth';
 import * as errorHandlerModule from '../error-handler/error-handler.service';
 
+jest.mock('firebase/auth', () => ({
+  __esModule: true,
+  ...jest.requireActual('firebase/auth'),
+  signInWithEmailAndPassword: jest.fn(),
+  signInWithPopup: jest.fn(),
+  signOut: jest.fn(),
+  fetchSignInMethodsForEmail: jest.fn(),
+  linkWithCredential: jest.fn()
+}));
+
 describe('AuthService', () => {
   let authService: AuthService;
   const authMock = {} as firebaseAuth.Auth;
@@ -28,27 +38,18 @@ describe('AuthService', () => {
   const defaultLogoutSuccessMessage = 'Sign out successful';
   const invalidSignInMessage = 'Invalid email or password';
 
-  let signInWithEmailAndPasswordSpy: jest.SpyInstance;
-  let signInWithPopupSpy: jest.SpyInstance;
-  let signOutSpy: jest.SpyInstance;
-  let fetchSignInMethodsForEmailSpy: jest.SpyInstance;
-  let linkWithCredentialSpy: jest.SpyInstance;
+  const signInWithEmailAndPasswordSpy =
+    firebaseAuth.signInWithEmailAndPassword as jest.Mock;
+  const signInWithPopupSpy = firebaseAuth.signInWithPopup as jest.Mock;
+  const signOutSpy = firebaseAuth.signOut as jest.Mock;
+  const fetchSignInMethodsForEmailSpy =
+    firebaseAuth.fetchSignInMethodsForEmail as jest.Mock;
+  const linkWithCredentialSpy = firebaseAuth.linkWithCredential as jest.Mock;
 
   beforeEach(() => {
+    jest.clearAllMocks();
     jest.spyOn(rxfireAuth, 'authState').mockReturnValue(of(null) as any);
-    signInWithEmailAndPasswordSpy = jest.spyOn(
-      firebaseAuth,
-      'signInWithEmailAndPassword'
-    );
-    signInWithPopupSpy = jest.spyOn(firebaseAuth, 'signInWithPopup');
-    signOutSpy = jest.spyOn(firebaseAuth, 'signOut');
-    fetchSignInMethodsForEmailSpy = jest.spyOn(
-      firebaseAuth,
-      'fetchSignInMethodsForEmail'
-    );
-    linkWithCredentialSpy = jest
-      .spyOn(firebaseAuth, 'linkWithCredential')
-      .mockResolvedValue({} as any);
+    linkWithCredentialSpy.mockResolvedValue({} as any);
 
     authService = new AuthService(authMock, routerMock, snackbarServiceMock);
   });
