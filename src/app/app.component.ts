@@ -6,10 +6,10 @@ import { MatDrawerMode } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [HeaderComponent, MainComponent, RouterOutlet]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  imports: [HeaderComponent, MainComponent, RouterOutlet]
 })
 export class AppComponent {
   sideNavMode: MatDrawerMode = 'side';

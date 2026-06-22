@@ -5,7 +5,12 @@ import {
 } from './global-http-error-handler.interceptor';
 import { expect } from '@jest/globals';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { HttpErrorResponse, HttpRequest, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpRequest,
+  provideHttpClient,
+  withInterceptorsFromDi
+} from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,15 +20,14 @@ describe('GlobalHttpErrorHandlerInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [MatSnackBarModule,
-        NoopAnimationsModule],
-    providers: [
+      imports: [MatSnackBarModule, NoopAnimationsModule],
+      providers: [
         GlobalHttpErrorHandlerInterceptor,
         GlobalHttpErrorHandlerInterceptorProvider,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-});
+      ]
+    });
 
     interceptor = TestBed.inject(GlobalHttpErrorHandlerInterceptor);
   });

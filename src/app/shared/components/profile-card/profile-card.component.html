@@ -6,29 +6,31 @@
   mat-mini-fab
 >
   @if (checkForPhoto(user?.photoURL)) {
-  <mat-icon data-cy="user-button-icon">person</mat-icon>
-  } @if (!checkForPhoto(user?.photoURL)) {
-  <img
-    [alt]="user?.displayName"
-    [src]="user?.photoURL"
-    class="avatar"
-    data-cy="user-button-icon"
-    referrerPolicy="no-referrer"
-  />
+    <mat-icon data-cy="user-button-icon">person</mat-icon>
+  }
+  @if (!checkForPhoto(user?.photoURL)) {
+    <img
+      [alt]="user?.displayName"
+      [src]="user?.photoURL"
+      class="avatar"
+      data-cy="user-button-icon"
+      referrerPolicy="no-referrer"
+    />
   }
 </button>
 <mat-menu #beforeMenu="matMenu" data-cy="profile-card" xPosition="before">
   <div class="profile-card">
     @if (checkForPhoto(user?.photoURL)) {
-    <mat-icon class="empty-avatar" data-cy="user-icon"> person </mat-icon>
-    } @if (!checkForPhoto(user?.photoURL)) {
-    <img
-      [alt]="user?.displayName"
-      [src]="user?.photoURL"
-      class="big-avatar"
-      data-cy="user-icon"
-      referrerPolicy="no-referrer"
-    />
+      <mat-icon class="empty-avatar" data-cy="user-icon"> person </mat-icon>
+    }
+    @if (!checkForPhoto(user?.photoURL)) {
+      <img
+        [alt]="user?.displayName"
+        [src]="user?.photoURL"
+        class="big-avatar"
+        data-cy="user-icon"
+        referrerPolicy="no-referrer"
+      />
     }
     <h4 data-cy="display-name">{{ user?.displayName }}</h4>
     <p data-cy="email">{{ user?.email }}</p>

@@ -9,9 +9,9 @@
         type="email"
       />
       @if (this.form.get('email')?.invalid) {
-      <mat-error>
-        {{ getErrorMessage('email') }}
-      </mat-error>
+        <mat-error>
+          {{ getErrorMessage('email') }}
+        </mat-error>
       }
     </mat-form-field>
     <mat-form-field appearance="outline" data-cy="password-field">
@@ -34,9 +34,9 @@
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
       @if (this.form.get('password')?.invalid) {
-      <mat-error>
-        {{ getErrorMessage('password') }}
-      </mat-error>
+        <mat-error>
+          {{ getErrorMessage('password') }}
+        </mat-error>
       }
     </mat-form-field>
     <button

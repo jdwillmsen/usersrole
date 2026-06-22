@@ -31,7 +31,10 @@ export class AlertComponent implements OnInit, OnDestroy {
   routeSubscription!: Subscription;
   private autoCloseTimeout = 3000;
 
-  constructor(private router: Router, private alertService: AlertService) {}
+  constructor(
+    private router: Router,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {
     this.alertSubscription = this.alertService

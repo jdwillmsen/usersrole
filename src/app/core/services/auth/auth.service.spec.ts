@@ -237,7 +237,10 @@ describe('AuthService', () => {
     signInWithPopupSpy.mockResolvedValueOnce({} as any);
 
     authService.authLogin(authProviderMock).subscribe(() => {
-      expect(signInWithPopupSpy).toHaveBeenCalledWith(authMock, authProviderMock);
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
+        authProviderMock
+      );
       expect(snackbarServiceMock.success).toHaveBeenCalledWith(
         defaultLoginSuccessMessage,
         { variant: 'filled', autoClose: true },
@@ -252,7 +255,10 @@ describe('AuthService', () => {
     signInWithPopupSpy.mockRejectedValueOnce({ message: defaultErrorMessage });
 
     authService.authLogin(authProviderMock).subscribe(() => {
-      expect(signInWithPopupSpy).toHaveBeenCalledWith(authMock, authProviderMock);
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
+        authProviderMock
+      );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         defaultErrorMessage,
         { variant: 'filled' },
@@ -380,7 +386,9 @@ describe('AuthService', () => {
       GoogleAuthProvider.PROVIDER_ID,
       TwitterAuthProvider.PROVIDER_ID
     ]);
-    signInWithPopupSpy.mockRejectedValue(new Error('Sign in with popup failed'));
+    signInWithPopupSpy.mockRejectedValue(
+      new Error('Sign in with popup failed')
+    );
 
     await authService.handleAuthLoginFailure(error);
 
@@ -398,7 +406,9 @@ describe('AuthService', () => {
       code: 'auth/account-exists-with-different-credential'
     };
     const handleErrorSpy = jest.spyOn(errorHandlerModule, 'handleError');
-    fetchSignInMethodsForEmailSpy.mockRejectedValue(new Error('Fetched failed'));
+    fetchSignInMethodsForEmailSpy.mockRejectedValue(
+      new Error('Fetched failed')
+    );
 
     await authService.handleAuthLoginFailure(error);
 

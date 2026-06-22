@@ -28,11 +28,11 @@
     data-cy="palettes-container"
   >
     @for (palette of palettes; track palette) {
-    <app-create-palette
-      [attr.data-cy]="palette.type + '-palette'"
-      [formGroupName]="palette.name"
-      [paletteType]="palette.type"
-    ></app-create-palette>
+      <app-create-palette
+        [attr.data-cy]="palette.type + '-palette'"
+        [formGroupName]="palette.name"
+        [paletteType]="palette.type"
+      ></app-create-palette>
     }
   </form>
 </div>

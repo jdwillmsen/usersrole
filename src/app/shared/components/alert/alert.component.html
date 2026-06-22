@@ -1,27 +1,29 @@
 @for (alert of alerts; track alert) {
-<div
-  [@fade]="{ value: fade, params: { fadeTime: fadeTime } }"
-  class="{{ cssClass(alert) }}"
->
-  @if (alert.icon) {
-  <mat-icon class="icon" data-cy="icon">
-    {{ alert.icon }}
-  </mat-icon>
-  } @if (!alert.icon) {
-  <div data-cy="icon"></div>
-  }
-  <div [innerHTML]="alert.message" class="message" data-cy="message"></div>
-  @if (alert.closeButton) {
-  <button
-    (click)="removeAlert(alert)"
-    data-cy="close-button"
-    mat-icon-button
-    type="button"
+  <div
+    [@fade]="{ value: fade, params: { fadeTime: fadeTime } }"
+    class="{{ cssClass(alert) }}"
   >
-    <mat-icon>close</mat-icon>
-  </button>
-  } @if (!alert.closeButton) {
-  <div data-cy="close-button"></div>
-  }
-</div>
+    @if (alert.icon) {
+      <mat-icon class="icon" data-cy="icon">
+        {{ alert.icon }}
+      </mat-icon>
+    }
+    @if (!alert.icon) {
+      <div data-cy="icon"></div>
+    }
+    <div [innerHTML]="alert.message" class="message" data-cy="message"></div>
+    @if (alert.closeButton) {
+      <button
+        (click)="removeAlert(alert)"
+        data-cy="close-button"
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+    @if (!alert.closeButton) {
+      <div data-cy="close-button"></div>
+    }
+  </div>
 }

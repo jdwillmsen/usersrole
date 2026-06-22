@@ -1,5 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
 import { Observable, switchMap, take } from 'rxjs';
 import { Auth } from 'firebase/auth';
 import { idToken } from 'rxfire/auth';

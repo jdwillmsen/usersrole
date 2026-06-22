@@ -13,7 +13,10 @@ import { expect } from '@jest/globals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../services/snackbar/snackbar.service';
 import { PermissionsService } from '../services/permissions/permissions.service';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi
+} from '@angular/common/http';
 
 @Component({
   selector: 'app-test-admin',
@@ -61,33 +64,35 @@ describe('RoleGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes(routes),
+      imports: [
+        RouterTestingModule.withRoutes(routes),
         TestAdminComponent,
         TestUserComponent,
-        TestSignInComponent],
-    providers: [
+        TestSignInComponent
+      ],
+      providers: [
         provideRouter(routes),
         {
-            provide: UsersService,
-            useValue: usersServiceMock
+          provide: UsersService,
+          useValue: usersServiceMock
         },
         {
-            provide: MatSnackBar,
-            useValue: null
+          provide: MatSnackBar,
+          useValue: null
         },
         {
-            provide: SnackbarService,
-            useValue: snackBarServiceMock
+          provide: SnackbarService,
+          useValue: snackBarServiceMock
         },
         {
-            provide: PermissionsService,
-            useValue: permissionsServiceMock
+          provide: PermissionsService,
+          useValue: permissionsServiceMock
         },
         RouterTestingModule,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-});
+      ]
+    });
   });
 
   it('should route if the route has no role requirement', async () => {

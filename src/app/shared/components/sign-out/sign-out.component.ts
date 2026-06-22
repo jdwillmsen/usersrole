@@ -4,10 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { ThemeStorageService } from '../../../theme/services/theme-storage/theme-storage.service';
 
 @Component({
-    selector: 'app-sign-out',
-    templateUrl: './sign-out.component.html',
-    styleUrls: ['./sign-out.component.scss'],
-    imports: [MatButtonModule]
+  selector: 'app-sign-out',
+  templateUrl: './sign-out.component.html',
+  styleUrls: ['./sign-out.component.scss'],
+  imports: [MatButtonModule]
 })
 export class SignOutComponent {
   constructor(

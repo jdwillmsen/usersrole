@@ -1,40 +1,47 @@
 <mat-sidenav-container autosize data-cy="sidenav-container">
   @if (user) {
-  <mat-sidenav
-    #sidenav
-    (openedChange)="openedChanged($event)"
-    [mode]="sideNavMode"
-    [opened]="isSideNavOpened"
-    data-cy="sidenav-links"
-    role="navigation"
-  >
-    <div class="sideNavContainer">
-      <mat-nav-list data-cy="sidenav-links-list">
-        @for (item of navItems; track item) { @if (checkRoles(item.roles)) {
-        <app-nav-item
-          [attr.data-cy]="item.title.toLowerCase() + '-nav-item'"
-          [isExpanded]="sideNavMode === 'side' ? isExpanded : true"
-          [navItem]="item"
-        ></app-nav-item>
-        } }
-      </mat-nav-list>
-      @if (sideNavMode === 'side') {
-      <button
-        (click)="toggleSideNav()"
-        [matTooltip]="isExpanded ? 'Toggle Collapse' : 'Toggle Expand'"
-        class="expand"
-        data-cy="expand-toggle-button"
-        mat-icon-button
-      >
-        @if (!isExpanded) {
-        <mat-icon data-cy="expand-icon">keyboard_double_arrow_right</mat-icon>
-        } @if (isExpanded) {
-        <mat-icon data-cy="collapse-icon">keyboard_double_arrow_left</mat-icon>
+    <mat-sidenav
+      #sidenav
+      (openedChange)="openedChanged($event)"
+      [mode]="sideNavMode"
+      [opened]="isSideNavOpened"
+      data-cy="sidenav-links"
+      role="navigation"
+    >
+      <div class="sideNavContainer">
+        <mat-nav-list data-cy="sidenav-links-list">
+          @for (item of navItems; track item) {
+            @if (checkRoles(item.roles)) {
+              <app-nav-item
+                [attr.data-cy]="item.title.toLowerCase() + '-nav-item'"
+                [isExpanded]="sideNavMode === 'side' ? isExpanded : true"
+                [navItem]="item"
+              ></app-nav-item>
+            }
+          }
+        </mat-nav-list>
+        @if (sideNavMode === 'side') {
+          <button
+            (click)="toggleSideNav()"
+            [matTooltip]="isExpanded ? 'Toggle Collapse' : 'Toggle Expand'"
+            class="expand"
+            data-cy="expand-toggle-button"
+            mat-icon-button
+          >
+            @if (!isExpanded) {
+              <mat-icon data-cy="expand-icon"
+                >keyboard_double_arrow_right</mat-icon
+              >
+            }
+            @if (isExpanded) {
+              <mat-icon data-cy="collapse-icon"
+                >keyboard_double_arrow_left</mat-icon
+              >
+            }
+          </button>
         }
-      </button>
-      }
-    </div>
-  </mat-sidenav>
+      </div>
+    </mat-sidenav>
   }
   <mat-sidenav-content data-cy="sidenav-content">
     <ng-content></ng-content>

@@ -84,12 +84,12 @@
         data-cy="horizontal-position-select"
       >
         @for (position of horizontalPositionList; track position) {
-        <mat-option
-          [attr.data-cy]="position + '-horizontal-option'"
-          [value]="position"
-        >
-          {{ position }}
-        </mat-option>
+          <mat-option
+            [attr.data-cy]="position + '-horizontal-option'"
+            [value]="position"
+          >
+            {{ position }}
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -104,12 +104,12 @@
         data-cy="vertical-position-select"
       >
         @for (position of verticalPositionList; track position) {
-        <mat-option
-          [attr.data-cy]="position + '-vertical-option'"
-          [value]="position"
-        >
-          {{ position }}
-        </mat-option>
+          <mat-option
+            [attr.data-cy]="position + '-vertical-option'"
+            [value]="position"
+          >
+            {{ position }}
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -124,12 +124,12 @@
           {{ variant.value?.display }}
         </mat-select-trigger>
         @for (variant of variantList; track variant) {
-        <mat-option
-          [attr.data-cy]="variant.value + '-variant-option'"
-          [value]="variant"
-        >
-          {{ variant.display }}
-        </mat-option>
+          <mat-option
+            [attr.data-cy]="variant.value + '-variant-option'"
+            [value]="variant"
+          >
+            {{ variant.display }}
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -148,12 +148,12 @@
         </mat-select-trigger>
         <mat-option data-cy="none-icon-option">None</mat-option>
         @for (icon of iconList; track icon) {
-        <mat-option
-          [attr.data-cy]="icon.value + '-icon-option'"
-          [value]="icon.value"
-        >
-          <mat-icon>{{ icon.value }}</mat-icon>
-        </mat-option>
+          <mat-option
+            [attr.data-cy]="icon.value + '-icon-option'"
+            [value]="icon.value"
+          >
+            <mat-icon>{{ icon.value }}</mat-icon>
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>

@@ -1,27 +1,29 @@
 <div class="snackbar-container" data-cy="snackbar-container">
   @if (data.icon) {
-  <mat-icon class="icon" data-cy="icon">{{ data.icon }}</mat-icon>
-  } @if (!data.icon) {
-  <span data-cy="icon"></span>
+    <mat-icon class="icon" data-cy="icon">{{ data.icon }}</mat-icon>
+  }
+  @if (!data.icon) {
+    <span data-cy="icon"></span>
   }
   <div [innerHTML]="data.message" class="message" data-cy="message"></div>
   @if (!data.buttonText) {
-  <button
-    (click)="snackbarRef.dismiss()"
-    class="icon-button"
-    data-cy="close-button"
-    mat-icon-button
-    type="button"
-  >
-    <mat-icon>close</mat-icon>
-  </button>
-  } @if (data.buttonText) {
-  <button
-    (click)="snackbarRef.dismiss()"
-    data-cy="close-button"
-    mat-flat-button
-  >
-    {{ data.buttonText }}
-  </button>
+    <button
+      (click)="snackbarRef.dismiss()"
+      class="icon-button"
+      data-cy="close-button"
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+  @if (data.buttonText) {
+    <button
+      (click)="snackbarRef.dismiss()"
+      data-cy="close-button"
+      mat-flat-button
+    >
+      {{ data.buttonText }}
+    </button>
   }
 </div>

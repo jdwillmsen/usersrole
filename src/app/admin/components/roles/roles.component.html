@@ -1,40 +1,41 @@
 <div class="roles-container">
   <h1 data-cy="title">Roles</h1>
   <form [formGroup]="rolesForm" class="roles-form">
-    @if (options$ | async; as options) { @if (filteredOptions$ | async; as
-    filteredOptions) {
-    <mat-form-field appearance="outline" data-cy="select-user-field">
-      <mat-label>Select User</mat-label>
-      <input
-        #input
-        (keyup)="onAutocompleteKeyUp(input.value, options)"
-        [matAutocomplete]="auto"
-        formControlName="usersName"
-        matInput
-        placeholder="Select user by display name"
-        required
-        type="text"
-      />
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        [displayWith]="displayFn"
-        autoActiveFirstOption
-        opened="true"
-      >
-        @for (option of filteredOptions; track option) {
-        <mat-option
-          [attr.data-cy]="option.displayName + '-user-option'"
-          [value]="option"
-        >
-          {{ option.displayName }} ({{ option.uid }})
-        </mat-option>
-        }
-      </mat-autocomplete>
-      @if (rolesForm.controls.usersName.errors?.['matchRequired']) {
-      <mat-error> Please select a user from the list </mat-error>
+    @if (options$ | async; as options) {
+      @if (filteredOptions$ | async; as filteredOptions) {
+        <mat-form-field appearance="outline" data-cy="select-user-field">
+          <mat-label>Select User</mat-label>
+          <input
+            #input
+            (keyup)="onAutocompleteKeyUp(input.value, options)"
+            [matAutocomplete]="auto"
+            formControlName="usersName"
+            matInput
+            placeholder="Select user by display name"
+            required
+            type="text"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="displayFn"
+            autoActiveFirstOption
+            opened="true"
+          >
+            @for (option of filteredOptions; track option) {
+              <mat-option
+                [attr.data-cy]="option.displayName + '-user-option'"
+                [value]="option"
+              >
+                {{ option.displayName }} ({{ option.uid }})
+              </mat-option>
+            }
+          </mat-autocomplete>
+          @if (rolesForm.controls.usersName.errors?.['matchRequired']) {
+            <mat-error> Please select a user from the list </mat-error>
+          }
+        </mat-form-field>
       }
-    </mat-form-field>
-    } }
+    }
     <mat-form-field
       appearance="outline"
       class="roles"
@@ -44,22 +45,22 @@
       <mat-label>Roles</mat-label>
       <mat-select formControlName="roles" multiple required>
         @for (roleOption of rolesOptions; track roleOption) {
-        <mat-option
-          [attr.data-cy]="roleOption.value + '-role-option'"
-          [value]="roleOption.value"
-        >
-          {{ roleOption.display }}
-        </mat-option>
+          <mat-option
+            [attr.data-cy]="roleOption.value + '-role-option'"
+            [value]="roleOption.value"
+          >
+            {{ roleOption.display }}
+          </mat-option>
         }
       </mat-select>
       @if (rolesForm.get('roles')?.invalid) {
-      <mat-error> At least one role must be selected </mat-error>
+        <mat-error> At least one role must be selected </mat-error>
       }
     </mat-form-field>
     @if (rolesForm.hasError('noMatchRequired')) {
-    <mat-error class="matching-roles" data-cy="matching-roles-error">
-      The user already has these roles
-    </mat-error>
+      <mat-error class="matching-roles" data-cy="matching-roles-error">
+        The user already has these roles
+      </mat-error>
     }
     <div class="buttons-container">
       <button
