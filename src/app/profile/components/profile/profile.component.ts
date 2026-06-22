@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,13 +6,14 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 import { filter, Observable, switchMap, tap } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, User as FirebaseUser } from 'firebase/auth';
+import { user } from 'rxfire/auth';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Role, User } from 'src/app/core/models/users.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe, NgIf } from '@angular/common';
-import firebase from 'firebase/compat/app';
+import { AUTH } from 'src/app/core/firebase.tokens';
 
 @Component({
   selector: 'app-profile',
@@ -38,13 +39,13 @@ export class ProfileComponent implements OnInit {
   displayRoles = '';
 
   constructor(
-    private afAuth: AngularFireAuth,
+    @Inject(AUTH) private auth: Auth,
     private usersService: UsersService
   ) {}
 
   ngOnInit() {
-    this.user$ = this.afAuth.user.pipe(
-      filter((user): user is firebase.User => !!user),
+    this.user$ = user(this.auth).pipe(
+      filter((user): user is FirebaseUser => !!user),
       switchMap((user) =>
         this.usersService.user$(user.uid).pipe(
           tap((user) => {

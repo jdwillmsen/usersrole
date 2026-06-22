@@ -7,7 +7,6 @@ import {
   RouterTestingHarness,
   RouterTestingModule
 } from '@angular/router/testing';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { of } from 'rxjs';
 import { UsersService } from '../services/users/users.service';
 import { expect } from '@jest/globals';
@@ -51,9 +50,6 @@ describe('RoleGuard', () => {
       component: TestSignInComponent
     }
   ];
-  const angularFireAuthMock: jest.Mocked<any> = {
-    user: of(null)
-  };
   const usersServiceMock: jest.Mocked<any> = {
     users$: jest.fn()
   };
@@ -73,10 +69,6 @@ describe('RoleGuard', () => {
       ],
       providers: [
         provideRouter(routes),
-        {
-          provide: AngularFireAuth,
-          useValue: angularFireAuthMock
-        },
         {
           provide: UsersService,
           useValue: usersServiceMock

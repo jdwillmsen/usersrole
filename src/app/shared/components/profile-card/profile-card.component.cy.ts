@@ -1,20 +1,19 @@
 import { ProfileCardComponent } from './profile-card.component';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '../../../../environments/environment';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Route } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { SignInComponent } from '../../../authentication/components/sign-in/sign-in.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AUTH } from '../../../core/firebase.tokens';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
+import { SUCCESS_SIGN_OUT_MESSAGE } from '../../../core/constants/message.constants';
 
 describe('ProfileCardComponent', () => {
   it('should mount', () => {
     cy.mount(ProfileCardComponent, {
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
+      imports: [MatSnackBarModule, BrowserAnimationsModule],
+      providers: [{ provide: AUTH, useValue: {} }],
       componentProperties: {
         user: undefined
       }
@@ -23,11 +22,8 @@ describe('ProfileCardComponent', () => {
 
   it('should be setup properly', () => {
     cy.mount(ProfileCardComponent, {
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
+      imports: [MatSnackBarModule, BrowserAnimationsModule],
+      providers: [{ provide: AUTH, useValue: {} }],
       componentProperties: {
         user: undefined
       }
@@ -50,10 +46,25 @@ describe('ProfileCardComponent', () => {
     ];
     cy.mount(ProfileCardComponent, {
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
         MatSnackBarModule,
         BrowserAnimationsModule,
         RouterTestingModule.withRoutes(routes)
+      ],
+      providers: [
+        {
+          provide: AuthService,
+          useFactory: (snackbar: SnackbarService, router: Router) => ({
+            authLogout: () => {
+              snackbar.success(
+                SUCCESS_SIGN_OUT_MESSAGE,
+                { variant: 'filled', autoClose: true },
+                true
+              );
+              router.navigate(['sign-in']);
+            }
+          }),
+          deps: [SnackbarService, Router]
+        }
       ],
       componentProperties: {
         user: undefined

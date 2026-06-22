@@ -1,14 +1,22 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  Auth,
+  AuthProvider,
+  fetchSignInMethodsForEmail,
   GithubAuthProvider,
   GoogleAuthProvider,
-  TwitterAuthProvider
+  linkWithCredential,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  TwitterAuthProvider,
+  User
 } from 'firebase/auth';
+import { authState } from 'rxfire/auth';
 import { BehaviorSubject, from, Observable, of, switchMap } from 'rxjs';
 import { SnackbarService } from '../snackbar/snackbar.service';
-import firebase from 'firebase/compat/app';
+import { AUTH } from '../../firebase.tokens';
 import {
   ACCOUNT_PROVIDER_ERROR_MESSAGE,
   DEFAULT_ERROR_MESSAGE,
@@ -27,8 +35,9 @@ import { handleError } from '../error-handler/error-handler.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private user: BehaviorSubject<Observable<firebase.User | null>> =
-    new BehaviorSubject<Observable<firebase.User | null>>(of(null));
+  private user: BehaviorSubject<Observable<User | null>> = new BehaviorSubject<
+    Observable<User | null>
+  >(of(null));
   user$ = this.user.asObservable().pipe(switchMap((user) => user));
   private supportedPopupSignInMethods: string[] = [
     GoogleAuthProvider.PROVIDER_ID,
@@ -37,17 +46,16 @@ export class AuthService {
   ];
 
   constructor(
-    private angularFireAuth: AngularFireAuth,
+    @Inject(AUTH) private auth: Auth,
     private router: Router,
     private snackbarService: SnackbarService
   ) {
-    this.user.next(this.angularFireAuth.authState);
+    this.user.next(authState(this.auth));
   }
 
   emailAuth(email: string, password: string): Observable<void> {
     return from(
-      this.angularFireAuth
-        .signInWithEmailAndPassword(email, password)
+      signInWithEmailAndPassword(this.auth, email, password)
         .then(() => {
           this.snackbarService.success(
             SUCCESS_SIGN_IN_MESSAGE,
@@ -87,12 +95,9 @@ export class AuthService {
     return from(this.authLogin(new TwitterAuthProvider()));
   }
 
-  authLogin(
-    provider: GoogleAuthProvider | GithubAuthProvider | TwitterAuthProvider
-  ): Observable<void> {
+  authLogin(provider: AuthProvider): Observable<void> {
     return from(
-      this.angularFireAuth
-        .signInWithPopup(provider)
+      signInWithPopup(this.auth, provider)
         .then(() => {
           this.snackbarService.success(
             SUCCESS_SIGN_IN_MESSAGE,
@@ -112,8 +117,7 @@ export class AuthService {
 
   authLogout(): Observable<void> {
     return from(
-      this.angularFireAuth
-        .signOut()
+      signOut(this.auth)
         .then(() => {
           this.snackbarService.success(
             SUCCESS_SIGN_OUT_MESSAGE,
@@ -150,8 +154,7 @@ export class AuthService {
       error.credential &&
       error.code === ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL
     ) {
-      this.angularFireAuth
-        .fetchSignInMethodsForEmail(error.email)
+      fetchSignInMethodsForEmail(this.auth, error.email)
         .then((providers) => {
           const firstPopupProviderMethod = providers.find((p) =>
             this.supportedPopupSignInMethods.includes(p)
@@ -161,10 +164,10 @@ export class AuthService {
           }
           const linkedProvider = this.getProvider(firstPopupProviderMethod);
           linkedProvider.setCustomParameters({ login_hint: error.email });
-          this.angularFireAuth
-            .signInWithPopup(linkedProvider)
+          signInWithPopup(this.auth, linkedProvider)
             .then((result) => {
-              if (result.user) result.user.linkWithCredential(error.credential);
+              if (result.user)
+                linkWithCredential(result.user, error.credential);
             })
             .catch((error) => handleError(error, this.snackbarService));
         })

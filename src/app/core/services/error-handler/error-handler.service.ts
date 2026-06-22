@@ -2,8 +2,7 @@ import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { DEFAULT_ERROR_MESSAGE } from '../../constants/message.constants';
 import { EMPTY } from 'rxjs';
-import firebase from 'firebase/compat';
-import FirebaseError = firebase.FirebaseError;
+import { FirebaseError } from 'firebase/app';
 
 interface AngularFireError extends Error {
   rejection: FirebaseError;

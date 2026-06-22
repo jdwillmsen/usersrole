@@ -13,5 +13,8 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: '<rootDir>/'
   }),
+  transformIgnorePatterns: [
+    'node_modules/(?!(.*\\.mjs$|@angular|rxjs|firebase|@firebase|@grpc|rxfire|tslib))'
+  ],
   verbose: true
 };

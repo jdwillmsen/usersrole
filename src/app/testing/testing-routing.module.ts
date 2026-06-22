@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertTestingComponent } from './components/alert-testing/alert-testing.component';
-import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 import { SnackbarTestingComponent } from './components/snackbar-testing/snackbar-testing.component';
 import { ButtonsTestingComponent } from './components/buttons-testing/buttons-testing.component';
-import { redirectUnauthorizedToLogin } from '../app-routing.module';
+import { authGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,26 +14,17 @@ const routes: Routes = [
   {
     path: 'alerts',
     component: AlertTestingComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: {
-      authGuardPipe: redirectUnauthorizedToLogin
-    }
+    canActivate: [authGuard]
   },
   {
     path: 'snackbars',
     component: SnackbarTestingComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: {
-      authGuardPipe: redirectUnauthorizedToLogin
-    }
+    canActivate: [authGuard]
   },
   {
     path: 'buttons',
     component: ButtonsTestingComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: {
-      authGuardPipe: redirectUnauthorizedToLogin
-    }
+    canActivate: [authGuard]
   }
 ];
 

@@ -4,7 +4,7 @@ import { Role } from 'src/app/core/models/users.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PermissionsService } from 'src/app/core/services/permissions/permissions.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
-import firebase from 'firebase/compat/app';
+import { User } from 'firebase/auth';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -84,7 +84,7 @@ export class MainComponent {
       roles: ['read', 'admin', 'manager']
     }
   ];
-  user: firebase.User | null = null;
+  user: User | null = null;
 
   constructor(
     private authService: AuthService,

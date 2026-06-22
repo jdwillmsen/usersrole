@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { UsersService } from '../users/users.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth } from 'firebase/auth';
+import { user } from 'rxfire/auth';
 import { map, of, switchMap } from 'rxjs';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { Role } from '../../models/users.model';
+import { AUTH } from '../../firebase.tokens';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +17,14 @@ export class PermissionsService {
   constructor(
     private router: Router,
     private usersService: UsersService,
-    private afAuth: AngularFireAuth,
+    @Inject(AUTH) private auth: Auth,
     private snackbarService: SnackbarService
   ) {
     this.getRole();
   }
 
   canActivateRole(next: ActivatedRouteSnapshot) {
-    return this.afAuth.user.pipe(
+    return user(this.auth).pipe(
       switchMap((user) => {
         if (!user) {
           return of(false);
@@ -47,7 +49,7 @@ export class PermissionsService {
   }
 
   getRole() {
-    this.afAuth.user.subscribe({
+    user(this.auth).subscribe({
       next: (user) => {
         if (user !== null) {
           this.usersService.user$(user.uid).subscribe((user) => {

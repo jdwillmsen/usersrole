@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import firebase from 'firebase/compat/app';
+import { User } from 'firebase/auth';
 import { SignOutComponent } from '../sign-out/sign-out.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
   ]
 })
 export class ProfileCardComponent {
-  @Input() user: firebase.User | undefined;
+  @Input() user: User | undefined;
 
   checkForPhoto(url: string | null | undefined): boolean {
     return url == null;

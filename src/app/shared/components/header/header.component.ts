@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
-import firebase from 'firebase/compat/app';
+import { User } from 'firebase/auth';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 import { NgIf } from '@angular/common';
@@ -32,7 +32,7 @@ import { GithubButtonComponent } from '../github-button/github-button.component'
 export class HeaderComponent {
   @Input() isXSmallScreen = false;
   @Output() toggleSideNav = new EventEmitter<boolean>();
-  user: firebase.User | null = null;
+  user: User | null = null;
 
   constructor(
     private authService: AuthService,
