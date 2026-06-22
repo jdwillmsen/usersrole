@@ -9,11 +9,10 @@ import { NgIf } from '@angular/common';
 import { SnackbarData } from '../../../core/models/snackbar.model';
 
 @Component({
-  selector: 'app-snackbar',
-  templateUrl: './snackbar.component.html',
-  styleUrls: ['./snackbar.component.scss'],
-  standalone: true,
-  imports: [NgIf, MatIconModule, MatButtonModule]
+    selector: 'app-snackbar',
+    templateUrl: './snackbar.component.html',
+    styleUrls: ['./snackbar.component.scss'],
+    imports: [NgIf, MatIconModule, MatButtonModule]
 })
 export class SnackbarComponent {
   constructor(

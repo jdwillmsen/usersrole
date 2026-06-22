@@ -8,19 +8,18 @@ import { NgClass, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-profile-card',
-  templateUrl: './profile-card.component.html',
-  styleUrls: ['./profile-card.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    NgClass,
-    MatMenuModule,
-    NgIf,
-    MatIconModule,
-    MatDividerModule,
-    SignOutComponent
-  ]
+    selector: 'app-profile-card',
+    templateUrl: './profile-card.component.html',
+    styleUrls: ['./profile-card.component.scss'],
+    imports: [
+        MatButtonModule,
+        NgClass,
+        MatMenuModule,
+        NgIf,
+        MatIconModule,
+        MatDividerModule,
+        SignOutComponent
+    ]
 })
 export class ProfileCardComponent {
   @Input() user: User | undefined;

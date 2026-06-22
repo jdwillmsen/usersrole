@@ -11,17 +11,16 @@ import { EmailSignInComponent } from '../email-sign-in/email-sign-in.component';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
-  standalone: true,
-  imports: [
-    MatCardModule,
-    EmailSignInComponent,
-    MatButtonModule,
-    MatIconModule,
-    RouterLink
-  ]
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.scss'],
+    imports: [
+        MatCardModule,
+        EmailSignInComponent,
+        MatButtonModule,
+        MatIconModule,
+        RouterLink
+    ]
 })
 export class SignInComponent {
   constructor(

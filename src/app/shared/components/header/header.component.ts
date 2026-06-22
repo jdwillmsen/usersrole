@@ -13,21 +13,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { GithubButtonComponent } from '../github-button/github-button.component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatTooltipModule,
-    RouterLink,
-    NgIf,
-    ThemeSelectorComponent,
-    ProfileCardComponent,
-    MatIconModule,
-    GithubButtonComponent
-  ]
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [
+        MatToolbarModule,
+        MatButtonModule,
+        MatTooltipModule,
+        RouterLink,
+        NgIf,
+        ThemeSelectorComponent,
+        ProfileCardComponent,
+        MatIconModule,
+        GithubButtonComponent
+    ]
 })
 export class HeaderComponent {
   @Input() isXSmallScreen = false;

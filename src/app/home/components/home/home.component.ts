@@ -12,11 +12,10 @@ type RouteTile = {
 };
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, RouterLink, RouteTileComponent, NgForOf]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    imports: [MatButtonModule, RouterLink, RouteTileComponent, NgForOf]
 })
 export class HomeComponent {
   routes: RouteTile[] = [

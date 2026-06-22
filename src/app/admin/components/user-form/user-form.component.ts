@@ -35,25 +35,24 @@ import {
 } from '../../../core/constants/message.constants';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatDialogModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    NgClass,
-    MatSelectModule,
-    MatOptionModule,
-    MatButtonModule,
-    MatIconModule,
-    AsyncPipe,
-    NgForOf
-  ]
+    selector: 'app-user-form',
+    templateUrl: './user-form.component.html',
+    styleUrls: ['./user-form.component.scss'],
+    imports: [
+        NgIf,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgClass,
+        MatSelectModule,
+        MatOptionModule,
+        MatButtonModule,
+        MatIconModule,
+        AsyncPipe,
+        NgForOf
+    ]
 })
 export class UserFormComponent implements OnInit {
   hide = true;

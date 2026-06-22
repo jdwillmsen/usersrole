@@ -16,18 +16,17 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { AUTH } from 'src/app/core/firebase.tokens';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    AsyncPipe
-  ]
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    imports: [
+        NgIf,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        AsyncPipe
+    ]
 })
 export class ProfileComponent implements OnInit {
   profileForm = new FormGroup({

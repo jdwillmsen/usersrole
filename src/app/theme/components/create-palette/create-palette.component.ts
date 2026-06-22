@@ -16,21 +16,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgClass, NgFor, NgStyle, TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-create-palette',
-  templateUrl: './create-palette.component.html',
-  styleUrls: ['./create-palette.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgClass,
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    NgFor,
-    NgStyle,
-    TitleCasePipe
-  ]
+    selector: 'app-create-palette',
+    templateUrl: './create-palette.component.html',
+    styleUrls: ['./create-palette.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgClass,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        NgFor,
+        NgStyle,
+        TitleCasePipe
+    ]
 })
 export class CreatePaletteComponent implements OnInit {
   @Input() paletteType: PaletteColors = 'primary';

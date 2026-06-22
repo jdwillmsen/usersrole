@@ -12,11 +12,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-theme-selector',
-  templateUrl: './theme-selector.component.html',
-  styleUrls: ['./theme-selector.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, NgFor]
+    selector: 'app-theme-selector',
+    templateUrl: './theme-selector.component.html',
+    styleUrls: ['./theme-selector.component.scss'],
+    imports: [MatButtonModule, MatMenuModule, MatIconModule, NgFor]
 })
 export class ThemeSelectorComponent {
   currentTheme: SiteTheme | undefined;

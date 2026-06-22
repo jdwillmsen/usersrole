@@ -21,19 +21,18 @@ import {
 } from '../../../core/constants/message.constants';
 
 @Component({
-  selector: 'app-email-sign-in',
-  templateUrl: './email-sign-in.component.html',
-  styleUrls: ['./email-sign-in.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    NgIf,
-    MatButtonModule,
-    MatIconModule
-  ]
+    selector: 'app-email-sign-in',
+    templateUrl: './email-sign-in.component.html',
+    styleUrls: ['./email-sign-in.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgIf,
+        MatButtonModule,
+        MatIconModule
+    ]
 })
 export class EmailSignInComponent {
   form: FormGroup = new FormGroup({

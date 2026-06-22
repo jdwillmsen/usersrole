@@ -16,11 +16,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { USER_CREATED_SUCCESS_MESSAGE } from '../../../core/constants/message.constants';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, MatIconModule, AgGridModule, AsyncPipe]
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss'],
+    imports: [MatButtonModule, MatIconModule, AgGridModule, AsyncPipe]
 })
 export class UsersComponent implements OnInit {
   static columnDefs: ColDef[] = [

@@ -28,23 +28,22 @@ export type RoleOption = {
 };
 
 @Component({
-  selector: 'app-roles',
-  templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    MatFormFieldModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    NgFor,
-    MatOptionModule,
-    MatSelectModule,
-    MatButtonModule,
-    AsyncPipe
-  ]
+    selector: 'app-roles',
+    templateUrl: './roles.component.html',
+    styleUrls: ['./roles.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        NgFor,
+        MatOptionModule,
+        MatSelectModule,
+        MatButtonModule,
+        AsyncPipe
+    ]
 })
 export class RolesComponent implements OnInit {
   rolesForm = new FormGroup(

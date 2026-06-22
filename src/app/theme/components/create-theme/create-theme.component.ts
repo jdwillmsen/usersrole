@@ -16,18 +16,17 @@ import {
 } from '../../../core/constants/message.constants';
 
 @Component({
-  selector: 'app-create-theme',
-  templateUrl: './create-theme.component.html',
-  styleUrls: ['./create-theme.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgFor,
-    CreatePaletteComponent
-  ]
+    selector: 'app-create-theme',
+    templateUrl: './create-theme.component.html',
+    styleUrls: ['./create-theme.component.scss'],
+    imports: [
+        MatButtonModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgFor,
+        CreatePaletteComponent
+    ]
 })
 export class CreateThemeComponent {
   themeForm = new FormGroup({

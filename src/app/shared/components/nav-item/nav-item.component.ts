@@ -6,11 +6,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 
 @Component({
-  selector: 'app-nav-item',
-  templateUrl: './nav-item.component.html',
-  styleUrls: ['./nav-item.component.scss'],
-  standalone: true,
-  imports: [MatListModule, RouterLink, RouterLinkActive, MatIconModule, NgIf]
+    selector: 'app-nav-item',
+    templateUrl: './nav-item.component.html',
+    styleUrls: ['./nav-item.component.scss'],
+    imports: [MatListModule, RouterLink, RouterLinkActive, MatIconModule, NgIf]
 })
 export class NavItemComponent {
   @Input() navItem!: NavItem;

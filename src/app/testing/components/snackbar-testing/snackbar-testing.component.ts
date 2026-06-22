@@ -18,23 +18,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-snackbar-testing',
-  templateUrl: './snackbar-testing.component.html',
-  styleUrls: ['./snackbar-testing.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatSelectModule,
-    NgFor,
-    MatOptionModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    TextFieldModule,
-    MatCheckboxModule
-  ]
+    selector: 'app-snackbar-testing',
+    templateUrl: './snackbar-testing.component.html',
+    styleUrls: ['./snackbar-testing.component.scss'],
+    imports: [
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatSelectModule,
+        NgFor,
+        MatOptionModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        TextFieldModule,
+        MatCheckboxModule
+    ]
 })
 export class SnackbarTestingComponent {
   options: SnackbarOptions = {

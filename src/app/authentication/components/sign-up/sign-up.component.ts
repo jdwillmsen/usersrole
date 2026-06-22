@@ -33,21 +33,20 @@ import {
 } from '../../../core/constants/message.constants';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss'],
-  standalone: true,
-  imports: [
-    MatCardModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    NgIf,
-    MatButtonModule,
-    MatIconModule,
-    RouterLink
-  ]
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss'],
+    imports: [
+        MatCardModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgIf,
+        MatButtonModule,
+        MatIconModule,
+        RouterLink
+    ]
 })
 export class SignUpComponent {
   hide = true;

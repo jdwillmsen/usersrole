@@ -13,24 +13,23 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-alert-testing',
-  templateUrl: './alert-testing.component.html',
-  styleUrls: ['./alert-testing.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatCheckboxModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatIconModule,
-    MatOptionModule,
-    NgFor,
-    NgIf,
-    ReactiveFormsModule,
-    AlertComponent
-  ]
+    selector: 'app-alert-testing',
+    templateUrl: './alert-testing.component.html',
+    styleUrls: ['./alert-testing.component.scss'],
+    imports: [
+        MatButtonModule,
+        MatCheckboxModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatIconModule,
+        MatOptionModule,
+        NgFor,
+        NgIf,
+        ReactiveFormsModule,
+        AlertComponent
+    ]
 })
 export class AlertTestingComponent {
   options: AlertOptions = {
