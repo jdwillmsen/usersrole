@@ -74,6 +74,7 @@ export class UsersComponent implements OnInit {
     }
   };
   public gridOptions: GridOptions = {
+    theme: 'legacy',
     columnDefs: UsersComponent.columnDefs,
     defaultColDef: this.defaultColDef,
     pagination: true,

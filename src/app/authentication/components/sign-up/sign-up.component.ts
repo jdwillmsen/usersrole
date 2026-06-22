@@ -16,7 +16,7 @@ import {
 } from 'src/app/core/services/users/users.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
@@ -33,20 +33,19 @@ import {
 } from '../../../core/constants/message.constants';
 
 @Component({
-    selector: 'app-sign-up',
-    templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.scss'],
-    imports: [
-        MatCardModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgIf,
-        MatButtonModule,
-        MatIconModule,
-        RouterLink
-    ]
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss'],
+  imports: [
+    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink
+  ]
 })
 export class SignUpComponent {
   hide = true;

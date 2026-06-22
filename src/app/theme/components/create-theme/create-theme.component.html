@@ -27,12 +27,12 @@
     class="palettes-container"
     data-cy="palettes-container"
   >
-    <ng-container *ngFor="let palette of palettes">
-      <app-create-palette
-        [attr.data-cy]="palette.type + '-palette'"
-        [formGroupName]="palette.name"
-        [paletteType]="palette.type"
-      ></app-create-palette>
-    </ng-container>
+    @for (palette of palettes; track palette) {
+    <app-create-palette
+      [attr.data-cy]="palette.type + '-palette'"
+      [formGroupName]="palette.name"
+      [paletteType]="palette.type"
+    ></app-create-palette>
+    }
   </form>
 </div>

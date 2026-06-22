@@ -13,23 +13,22 @@ import { debounceTime, Subject } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
-import { NgClass, NgFor, NgStyle, TitleCasePipe } from '@angular/common';
+import { NgClass, NgStyle, TitleCasePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-create-palette',
-    templateUrl: './create-palette.component.html',
-    styleUrls: ['./create-palette.component.scss'],
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgClass,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        NgFor,
-        NgStyle,
-        TitleCasePipe
-    ]
+  selector: 'app-create-palette',
+  templateUrl: './create-palette.component.html',
+  styleUrls: ['./create-palette.component.scss'],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    NgStyle,
+    TitleCasePipe
+  ]
 })
 export class CreatePaletteComponent implements OnInit {
   @Input() paletteType: PaletteColors = 'primary';

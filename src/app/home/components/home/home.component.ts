@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { RouteTileComponent } from '../route-tile/route-tile.component';
-import { NgForOf } from '@angular/common';
 
 type RouteTile = {
   title: string;
@@ -12,10 +11,10 @@ type RouteTile = {
 };
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    imports: [MatButtonModule, RouterLink, RouteTileComponent, NgForOf]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  imports: [MatButtonModule, RouterLink, RouteTileComponent]
 })
 export class HomeComponent {
   routes: RouteTile[] = [

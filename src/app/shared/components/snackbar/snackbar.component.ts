@@ -5,14 +5,14 @@ import {
 } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 import { SnackbarData } from '../../../core/models/snackbar.model';
 
 @Component({
-    selector: 'app-snackbar',
-    templateUrl: './snackbar.component.html',
-    styleUrls: ['./snackbar.component.scss'],
-    imports: [NgIf, MatIconModule, MatButtonModule]
+  selector: 'app-snackbar',
+  templateUrl: './snackbar.component.html',
+  styleUrls: ['./snackbar.component.scss'],
+  imports: [MatIconModule, MatButtonModule]
 })
 export class SnackbarComponent {
   constructor(

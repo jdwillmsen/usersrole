@@ -20,7 +20,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { RoleOption } from '../roles/roles.component';
 import {
   CONFIRM_PASSWORD_REQUIRED_VALIDATION_MESSAGE,
@@ -35,24 +35,22 @@ import {
 } from '../../../core/constants/message.constants';
 
 @Component({
-    selector: 'app-user-form',
-    templateUrl: './user-form.component.html',
-    styleUrls: ['./user-form.component.scss'],
-    imports: [
-        NgIf,
-        MatDialogModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgClass,
-        MatSelectModule,
-        MatOptionModule,
-        MatButtonModule,
-        MatIconModule,
-        AsyncPipe,
-        NgForOf
-    ]
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss'],
+  imports: [
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgClass,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatIconModule,
+    AsyncPipe
+  ]
 })
 export class UserFormComponent implements OnInit {
   hide = true;

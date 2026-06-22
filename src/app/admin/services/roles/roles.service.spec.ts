@@ -31,7 +31,7 @@ describe('RolesService', () => {
 
     rolesService.update(user).subscribe((result) => {
       expect(result).toBe(EMPTY);
-      expect(httpClientMock.patch).toBeCalledTimes(1);
+      expect(httpClientMock.patch).toHaveBeenCalledTimes(1);
       expect(httpClientMock.patch).toHaveBeenCalledWith(url, user);
       expect(snackbarServiceMock.error).not.toHaveBeenCalled();
     });
@@ -50,9 +50,9 @@ describe('RolesService', () => {
 
     rolesService.update(user).subscribe((result) => {
       expect(result).toBe(EMPTY);
-      expect(httpClientMock.patch).toBeCalledTimes(1);
+      expect(httpClientMock.patch).toHaveBeenCalledTimes(1);
       expect(httpClientMock.patch).toHaveBeenCalledWith(url, user);
-      expect(snackbarServiceMock.error).toBeCalledTimes(1);
+      expect(snackbarServiceMock.error).toHaveBeenCalledTimes(1);
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         errorResponse.error,
         { variant: 'filled' },

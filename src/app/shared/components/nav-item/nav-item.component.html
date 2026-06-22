@@ -10,8 +10,10 @@
     <mat-icon matListItemIcon class="icon" data-cy="nav-icon">
       {{ navItem.icon }}
     </mat-icon>
-    <span matListItemTitle *ngIf="isExpanded" data-cy="nav-title">
+    @if (isExpanded) {
+    <span matListItemTitle data-cy="nav-title">
       {{ navItem.title }}
     </span>
+    }
   </a>
 </ng-container>

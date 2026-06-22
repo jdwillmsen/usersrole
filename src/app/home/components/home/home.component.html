@@ -33,16 +33,16 @@
     </span>
   </p>
   <div class="routes">
-    <ng-container *ngFor="let route of routes">
-      <app-route-tile
-        [attr.data-cy]="route.title.toLowerCase() + '-tile'"
-        [description]="route.description"
-        [footer]="route.access.join(', ')"
-        [link]="route.link"
-        [title]="route.title"
-        class="route"
-      >
-      </app-route-tile>
-    </ng-container>
+    @for (route of routes; track route) {
+    <app-route-tile
+      [attr.data-cy]="route.title.toLowerCase() + '-tile'"
+      [description]="route.description"
+      [footer]="route.access.join(', ')"
+      [link]="route.link"
+      [title]="route.title"
+      class="route"
+    >
+    </app-route-tile>
+    }
   </div>
 </div>

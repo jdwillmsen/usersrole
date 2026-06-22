@@ -4,13 +4,12 @@ import { ICellRendererParams } from 'ag-grid-community';
 import { Role } from 'src/app/core/models/users.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
-import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-roles-cell-renderer',
-    templateUrl: './roles-cell-renderer.component.html',
-    styleUrls: ['./roles-cell-renderer.component.scss'],
-    imports: [NgFor, MatChipsModule, MatTooltipModule]
+  selector: 'app-roles-cell-renderer',
+  templateUrl: './roles-cell-renderer.component.html',
+  styleUrls: ['./roles-cell-renderer.component.scss'],
+  imports: [MatChipsModule, MatTooltipModule]
 })
 export class RolesCellRendererComponent implements ICellRendererAngularComp {
   @Input() roles!: Role[];

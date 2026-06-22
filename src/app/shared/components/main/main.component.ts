@@ -10,23 +10,21 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { NavItemComponent } from '../nav-item/nav-item.component';
 import { MatListModule } from '@angular/material/list';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
-    selector: 'app-main',
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss'],
-    imports: [
-        MatSidenavModule,
-        NgIf,
-        MatListModule,
-        NgFor,
-        NavItemComponent,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule
-    ]
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
+  imports: [
+    MatSidenavModule,
+    MatListModule,
+    NavItemComponent,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule
+  ]
 })
 export class MainComponent {
   @Input() sideNavMode: MatDrawerMode = 'side';

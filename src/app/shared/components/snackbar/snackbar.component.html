@@ -1,12 +1,13 @@
 <div class="snackbar-container" data-cy="snackbar-container">
-  <mat-icon *ngIf="data.icon" class="icon" data-cy="icon">{{
-    data.icon
-  }}</mat-icon>
-  <span *ngIf="!data.icon" data-cy="icon"></span>
+  @if (data.icon) {
+  <mat-icon class="icon" data-cy="icon">{{ data.icon }}</mat-icon>
+  } @if (!data.icon) {
+  <span data-cy="icon"></span>
+  }
   <div [innerHTML]="data.message" class="message" data-cy="message"></div>
+  @if (!data.buttonText) {
   <button
     (click)="snackbarRef.dismiss()"
-    *ngIf="!data.buttonText"
     class="icon-button"
     data-cy="close-button"
     mat-icon-button
@@ -14,12 +15,13 @@
   >
     <mat-icon>close</mat-icon>
   </button>
+  } @if (data.buttonText) {
   <button
     (click)="snackbarRef.dismiss()"
-    *ngIf="data.buttonText"
     data-cy="close-button"
     mat-flat-button
   >
     {{ data.buttonText }}
   </button>
+  }
 </div>

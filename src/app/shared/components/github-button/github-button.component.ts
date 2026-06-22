@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-github-button',
-    imports: [CommonModule, MatIconModule],
-    templateUrl: './github-button.component.html',
-    styleUrls: ['./github-button.component.scss']
+  selector: 'app-github-button',
+  imports: [MatIconModule],
+  templateUrl: './github-button.component.html',
+  styleUrls: ['./github-button.component.scss']
 })
 export class GithubButtonComponent {
   constructor(

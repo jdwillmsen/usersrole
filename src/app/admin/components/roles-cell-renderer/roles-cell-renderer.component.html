@@ -1,5 +1,5 @@
+@for (role of roles; track role) {
 <mat-chip
-  *ngFor="let role of roles"
   color="primary"
   data-cy="role-chip"
   highlighted
@@ -8,3 +8,4 @@
 >
   {{ role.toUpperCase() }}
 </mat-chip>
+}

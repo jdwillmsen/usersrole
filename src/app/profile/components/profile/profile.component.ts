@@ -12,21 +12,20 @@ import { UsersService } from 'src/app/core/services/users/users.service';
 import { Role, User } from 'src/app/core/models/users.model';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AUTH } from 'src/app/core/firebase.tokens';
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss'],
-    imports: [
-        NgIf,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        AsyncPipe
-    ]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    AsyncPipe
+  ]
 })
 export class ProfileComponent implements OnInit {
   profileForm = new FormGroup({

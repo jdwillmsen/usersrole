@@ -7,9 +7,9 @@
   <mat-icon>palette</mat-icon>
 </button>
 <mat-menu #themeMenu="matMenu" xPosition="before">
+  @for (theme of themes; track theme) {
   <button
     (click)="selectTheme(theme.name)"
-    *ngFor="let theme of themes"
     [attr.data-cy]="theme.name + '-button'"
     mat-menu-item
   >
@@ -54,4 +54,5 @@
       </svg>
     </mat-icon>
   </button>
+  }
 </mat-menu>
