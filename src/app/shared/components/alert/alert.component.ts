@@ -1,5 +1,11 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Alert, AlertVariants } from 'src/app/core/models/alert.model';
@@ -33,7 +39,8 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -45,6 +52,7 @@ export class AlertComponent implements OnInit, OnDestroy {
             (alert) => alert.keepAfterRouteChange
           );
           this.alerts.forEach((alert) => delete alert.keepAfterRouteChange);
+          this.cdr.markForCheck();
           return;
         }
         if (alert.maxSize && alert.maxSize > 0) {
@@ -61,6 +69,7 @@ export class AlertComponent implements OnInit, OnDestroy {
           }
           setTimeout(() => this.removeAlert(alert), this.autoCloseTimeout);
         }
+        this.cdr.markForCheck();
       });
 
     this.routeSubscription = this.router.events.subscribe((event) => {
@@ -83,6 +92,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.alerts = this.alerts.filter((alt) => alt !== alert);
+      this.cdr.markForCheck();
     }, timeout);
   }
 
