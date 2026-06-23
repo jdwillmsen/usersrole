@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import {
-  browserPopupRedirectResolver,
-  indexedDBLocalPersistence,
-  initializeAuth
-} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 import { getStorage } from 'firebase/storage';
@@ -30,14 +26,7 @@ initializeAppCheck(firebaseApp, {
 @NgModule({
   providers: [
     { provide: FIREBASE_APP, useValue: firebaseApp },
-    {
-      provide: AUTH,
-      useFactory: () =>
-        initializeAuth(firebaseApp, {
-          persistence: indexedDBLocalPersistence,
-          popupRedirectResolver: browserPopupRedirectResolver
-        })
-    },
+    { provide: AUTH, useFactory: () => getAuth(firebaseApp) },
     { provide: FIRESTORE, useFactory: () => getFirestore(firebaseApp) },
     { provide: FUNCTIONS, useFactory: () => getFunctions(firebaseApp) },
     { provide: STORAGE, useFactory: () => getStorage(firebaseApp) },
