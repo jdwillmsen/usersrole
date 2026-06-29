@@ -36,11 +36,13 @@ Cypress.Commands.add('deleteUser', (email: string) => {
           authorization: `Bearer ${res.body.idToken}`
         }
       }).then((res) => {
-        const uid = res.body.users.find((user: any) => {
-          return user.email === email;
-        })?.uid;
+        // Delete every match, not just the first: failed cleanups otherwise
+        // leave duplicate accounts that make email-filtered selectors ambiguous.
+        const uids = res.body.users
+          .filter((user: any) => user.email === email)
+          .map((user: any) => user.uid);
 
-        if (uid) {
+        uids.forEach((uid: string) => {
           cy.request({
             method: 'DELETE',
             url: `${environment.functionsBaseUrl}/api/users/${uid}`,
@@ -48,7 +50,7 @@ Cypress.Commands.add('deleteUser', (email: string) => {
               authorization: res.requestHeaders['authorization']
             }
           });
-        }
+        });
       });
     });
   });
