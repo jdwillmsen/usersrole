@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { UsersService } from '../users/users.service';
 import { Auth } from 'firebase/auth';
@@ -12,7 +12,7 @@ import { AUTH } from '../../firebase.tokens';
   providedIn: 'root'
 })
 export class PermissionsService {
-  roles: Role[] = [];
+  roles = signal<Role[]>([]);
 
   constructor(
     private router: Router,
@@ -45,7 +45,7 @@ export class PermissionsService {
   }
 
   hasRole(roles: Role[]): boolean {
-    return roles.some((role: Role) => this.roles.includes(role));
+    return roles.some((role: Role) => this.roles().includes(role));
   }
 
   getRole() {
@@ -53,7 +53,7 @@ export class PermissionsService {
       next: (user) => {
         if (user !== null) {
           this.usersService.user$(user.uid).subscribe((user) => {
-            this.roles = user.roles;
+            this.roles.set(user.roles);
           });
         }
       },

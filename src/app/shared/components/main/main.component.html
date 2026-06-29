@@ -1,5 +1,5 @@
 <mat-sidenav-container autosize data-cy="sidenav-container">
-  @if (user) {
+  @if (user()) {
     <mat-sidenav
       #sidenav
       (openedChange)="openedChanged($event)"

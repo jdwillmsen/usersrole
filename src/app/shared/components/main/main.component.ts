@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, EMPTY } from 'rxjs';
 import { NavItem } from 'src/app/shared/models/nav-item.model';
 import { Role } from 'src/app/core/models/users.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PermissionsService } from 'src/app/core/services/permissions/permissions.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
-import { User } from 'firebase/auth';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -81,19 +82,19 @@ export class MainComponent {
       roles: ['read', 'admin', 'manager']
     }
   ];
-  user: User | null = null;
+  private authService = inject(AuthService);
+  private permissionsService = inject(PermissionsService);
+  private snackbarService = inject(SnackbarService);
 
-  constructor(
-    private authService: AuthService,
-    private permissionsService: PermissionsService,
-    private snackbarService: SnackbarService
-  ) {
-    this.authService.user$.subscribe({
-      next: (user) => (this.user = user),
-      error: (error) =>
-        this.snackbarService.error(error.error, { variant: 'filled' }, true)
-    });
-  }
+  user = toSignal(
+    this.authService.user$.pipe(
+      catchError((error) => {
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
+        return EMPTY;
+      })
+    ),
+    { initialValue: null }
+  );
 
   checkRoles(roles: Role[] | undefined): boolean {
     if (roles == undefined || roles.length == 0) {

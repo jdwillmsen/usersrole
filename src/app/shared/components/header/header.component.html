@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" data-cy="navbar-header">
-  @if (isXSmallScreen && user) {
+  @if (isXSmallScreen && user()) {
     <button
       (click)="toggle()"
       class="menu"
@@ -20,13 +20,13 @@
   </a>
   <span class="spacer"></span>
   <app-github-button matTooltip="GitHub"></app-github-button>
-  @if (user) {
+  @if (user()) {
     <app-theme-selector data-cy="theme-selector" matTooltip="Theme Selection">
     </app-theme-selector>
   }
-  @if (user) {
+  @if (user(); as currentUser) {
     <app-profile-card
-      [user]="user"
+      [user]="currentUser"
       data-cy="profile-icon-button"
       matTooltip="Sign Out"
       matTooltipShowDelay="3000"
