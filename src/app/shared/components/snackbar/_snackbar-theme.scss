@@ -89,19 +89,19 @@
 @mixin _variant($type, $color, $color-contrast) {
   .#{$type}.mat-mdc-snack-bar-container {
     .mdc-snackbar__surface {
-      --mat-snackbar-container-color: #{color-mix(
+      --mat-snack-bar-container-color: #{color-mix(
           in srgb,
           $color 25%,
           transparent
         )};
-      --mat-snackbar-supporting-text-color: #{$color};
+      --mat-snack-bar-supporting-text-color: #{$color};
     }
   }
 
   .#{$type}.filled.mat-mdc-snack-bar-container {
     .mdc-snackbar__surface {
-      --mat-snackbar-container-color: #{$color};
-      --mat-snackbar-supporting-text-color: #{$color-contrast};
+      --mat-snack-bar-container-color: #{$color};
+      --mat-snack-bar-supporting-text-color: #{$color-contrast};
     }
   }
 
@@ -110,8 +110,8 @@
     border-radius: 4px;
 
     .mdc-snackbar__surface {
-      --mat-snackbar-container-color: #{transparent};
-      --mat-snackbar-supporting-text-color: #{$color};
+      --mat-snack-bar-container-color: #{transparent};
+      --mat-snack-bar-supporting-text-color: #{$color};
     }
   }
 }

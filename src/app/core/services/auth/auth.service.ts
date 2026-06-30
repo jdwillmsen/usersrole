@@ -26,6 +26,7 @@ import {
 } from '../../constants/message.constants';
 import {
   ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL,
+  INVALID_CREDENTIAL,
   USER_NOT_FOUND,
   WRONG_PASSWORD
 } from '../../constants/google.constants';
@@ -69,7 +70,11 @@ export class AuthService {
         })
         .catch((error) => {
           let errorMessage = DEFAULT_ERROR_MESSAGE;
-          if (error.code === USER_NOT_FOUND || error.code === WRONG_PASSWORD) {
+          if (
+            error.code === USER_NOT_FOUND ||
+            error.code === WRONG_PASSWORD ||
+            error.code === INVALID_CREDENTIAL
+          ) {
             errorMessage = INVALID_SIGN_IN_MESSAGE;
           }
           return this.snackbarService.error(
