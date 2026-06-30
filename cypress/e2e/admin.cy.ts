@@ -39,7 +39,7 @@ describe('Admin', () => {
       cy.visit('/admin/users');
       cy.fixture('new-user').then((user) => {
         filterEmail(user.email);
-        cy.getByCy('view-button').click();
+        userRow(user.email).find('[data-cy="view-button"]').click();
         cy.getByCy('email-address-field')
           .find('input')
           .should('contain.value', user.email);
@@ -57,7 +57,7 @@ describe('Admin', () => {
       cy.visit('/admin/users');
       cy.fixture('new-user').then((user) => {
         filterEmail(user.email);
-        cy.getByCy('edit-button').click();
+        userRow(user.email).find('[data-cy="edit-button"]').click();
         cy.getByCy('display-name-field').should('be.visible').type(' Edited');
         cy.getByCy('roles-field').click();
         cy.getByCy('read-role-option').click();
@@ -86,7 +86,7 @@ describe('Admin', () => {
       cy.visit('/admin/users');
       cy.fixture('new-user').then((user) => {
         filterEmail(user.email);
-        cy.getByCy('delete-button').click();
+        userRow(user.email).find('[data-cy="delete-button"]').click();
         cy.getByCy('email-address-field')
           .find('input')
           .should('contain.value', user.email);
@@ -107,7 +107,7 @@ describe('Admin', () => {
         cy.getByCy('app-name').click();
         cy.getByCy('users-nav-item').click();
         filterEmail(user.email);
-        cy.getByCy('view-button').should('not.exist');
+        userEmailCell(user.email).should('not.exist');
       });
     });
   });
@@ -146,3 +146,15 @@ const filterEmail = (email: string) => {
   cy.getByCy('title').click();
   cy.wait(500); // wait for grid to sort
 };
+
+// The email column filter is a substring match, so an orphaned account whose
+// address contains the fixture email (e.g. left by an earlier run) shows up as
+// a second row and makes action-button selectors ambiguous. Match the email
+// cell exactly and scope to its row.
+const exactEmail = (email: string) =>
+  new RegExp(`^${email.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`);
+
+const userEmailCell = (email: string) =>
+  cy.contains('.ag-center-cols-container [col-id="email"]', exactEmail(email));
+
+const userRow = (email: string) => userEmailCell(email).parents('.ag-row');

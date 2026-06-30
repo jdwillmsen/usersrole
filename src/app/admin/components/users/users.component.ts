@@ -79,10 +79,7 @@ export class UsersComponent implements OnInit {
     defaultColDef: this.defaultColDef,
     pagination: true,
     rowSelection: 'multiple',
-    // Row exit animations leave the outgoing row's action buttons in the DOM
-    // briefly; selectors then match the stale row alongside the live one.
-    animateRows: false,
-    getRowId: (params) => params.data.uid,
+    animateRows: true,
     enableCellTextSelection: true
   };
 
