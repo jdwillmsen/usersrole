@@ -100,3 +100,14 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # TEMP: surface failure screenshots/videos as a downloadable artifact
+      # to diagnose the admin grid flake. Remove once resolved.
+      - name: Upload Failure Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: e2e-failure-${{ matrix.containers }}
+          path: |
+            cypress/screenshots
+            cypress/videos
+          if-no-files-found: ignore
