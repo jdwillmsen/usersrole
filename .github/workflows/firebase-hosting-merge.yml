@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment File
         run: node server.js
         env:
@@ -24,3 +24,7 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}'
           channelId: live
           projectId: usersrole
+          # Pinned: firebase-tools 15.22.x has connection instability (dropped
+          # keep-alive / premature close) that triggers spurious retries and
+          # fails the deploy. Keep in sync with the PR-preview workflow.
+          firebaseToolsVersion: '15.21.0'

@@ -8,21 +8,37 @@ Cypress.Commands.add('getByCy', (selector: any, ...args: any[]) => {
   return cy.get(`[data-cy=${selector}]`, ...args);
 });
 
+// ID tokens are valid ~1h and a single spec runs in minutes, so we memoize
+// the sign-in response per credential. Without this, admin gets re-verified
+// on every create/delete/getToken (multiple times per test), and parallel CI
+// shards trip Firebase's "Exceeded quota for verifying passwords" limit.
+const tokenCache = new Map<string, Cypress.Response<any>>();
+
 Cypress.Commands.add('getToken', (email: string, password: string) => {
-  cy.setupAppCheck().then((res) => {
-    return cy.request({
-      method: 'POST',
-      url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
-      body: {
-        returnSecureToken: true,
-        clientType: 'CLIENT_TYPE_WEB',
-        email,
-        password
-      },
-      headers: {
-        'X-Firebase-Appcheck': res.appCheck.token
-      }
-    });
+  const cacheKey = `${email}:${password}`;
+  const cached = tokenCache.get(cacheKey);
+  if (cached) {
+    return cy.wrap(cached, { log: false });
+  }
+  return cy.setupAppCheck().then((res) => {
+    return cy
+      .request({
+        method: 'POST',
+        url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
+        body: {
+          returnSecureToken: true,
+          clientType: 'CLIENT_TYPE_WEB',
+          email,
+          password
+        },
+        headers: {
+          'X-Firebase-Appcheck': res.appCheck.token
+        }
+      })
+      .then((response) => {
+        tokenCache.set(cacheKey, response);
+        return response;
+      });
   });
 });
 
@@ -36,11 +52,13 @@ Cypress.Commands.add('deleteUser', (email: string) => {
           authorization: `Bearer ${res.body.idToken}`
         }
       }).then((res) => {
-        const uid = res.body.users.find((user: any) => {
-          return user.email === email;
-        })?.uid;
+        // Delete every match, not just the first: failed cleanups otherwise
+        // leave duplicate accounts that make email-filtered selectors ambiguous.
+        const uids = res.body.users
+          .filter((user: any) => user.email === email)
+          .map((user: any) => user.uid);
 
-        if (uid) {
+        uids.forEach((uid: string) => {
           cy.request({
             method: 'DELETE',
             url: `${environment.functionsBaseUrl}/api/users/${uid}`,
@@ -48,7 +66,7 @@ Cypress.Commands.add('deleteUser', (email: string) => {
               authorization: res.requestHeaders['authorization']
             }
           });
-        }
+        });
       });
     });
   });

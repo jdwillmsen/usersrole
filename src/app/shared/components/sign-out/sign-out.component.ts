@@ -7,7 +7,6 @@ import { ThemeStorageService } from '../../../theme/services/theme-storage/theme
   selector: 'app-sign-out',
   templateUrl: './sign-out.component.html',
   styleUrls: ['./sign-out.component.scss'],
-  standalone: true,
   imports: [MatButtonModule]
 })
 export class SignOutComponent {

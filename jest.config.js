@@ -3,6 +3,7 @@ const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
   preset: 'jest-preset-angular',
+  testEnvironment: 'jest-fixed-jsdom',
   roots: ['<rootDir>/src/'],
   testMatch: ['**/+(*.)+(spec).+(ts)'],
   coveragePathIgnorePatterns: ['<rootDir>/src/environments/'],
@@ -13,5 +14,8 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: '<rootDir>/'
   }),
+  transformIgnorePatterns: [
+    'node_modules/(?!(.*\\.mjs$|@angular|rxjs|firebase|@firebase|@grpc|rxfire|tslib))'
+  ],
   verbose: true
 };

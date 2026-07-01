@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './components/users/users.component';
-import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
-import { redirectUnauthorizedToLogin } from '../app-routing.module';
+import { authGuard } from '../core/guards/auth.guard';
 import { RolesComponent } from './components/roles/roles.component';
 import { RoleGuard } from '../core/guards/role.guard';
 
@@ -15,18 +14,16 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-    canActivate: [AngularFireAuthGuard, RoleGuard],
+    canActivate: [authGuard, RoleGuard],
     data: {
-      authGuardPipe: redirectUnauthorizedToLogin,
       roles: ['read', 'manager', 'admin']
     }
   },
   {
     path: 'roles',
     component: RolesComponent,
-    canActivate: [AngularFireAuthGuard, RoleGuard],
+    canActivate: [authGuard, RoleGuard],
     data: {
-      authGuardPipe: redirectUnauthorizedToLogin,
       roles: ['read', 'manager', 'admin']
     }
   }

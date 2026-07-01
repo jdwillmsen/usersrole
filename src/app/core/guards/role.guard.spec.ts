@@ -1,19 +1,22 @@
 import { RoleGuard } from './role.guard';
 import { Component } from '@angular/core';
 import { provideRouter, Route, Router } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import {
   RouterTestingHarness,
   RouterTestingModule
 } from '@angular/router/testing';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { of } from 'rxjs';
 import { UsersService } from '../services/users/users.service';
 import { expect } from '@jest/globals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../services/snackbar/snackbar.service';
 import { PermissionsService } from '../services/permissions/permissions.service';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi
+} from '@angular/common/http';
 
 @Component({
   selector: 'app-test-admin',
@@ -51,9 +54,6 @@ describe('RoleGuard', () => {
       component: TestSignInComponent
     }
   ];
-  const angularFireAuthMock: jest.Mocked<any> = {
-    user: of(null)
-  };
   const usersServiceMock: jest.Mocked<any> = {
     users$: jest.fn()
   };
@@ -65,7 +65,6 @@ describe('RoleGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
         TestAdminComponent,
         TestUserComponent,
@@ -73,10 +72,6 @@ describe('RoleGuard', () => {
       ],
       providers: [
         provideRouter(routes),
-        {
-          provide: AngularFireAuth,
-          useValue: angularFireAuthMock
-        },
         {
           provide: UsersService,
           useValue: usersServiceMock
@@ -93,7 +88,9 @@ describe('RoleGuard', () => {
           provide: PermissionsService,
           useValue: permissionsServiceMock
         },
-        RouterTestingModule
+        RouterTestingModule,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     });
   });

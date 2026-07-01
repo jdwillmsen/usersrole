@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export type Roles = 'admin' | 'manager' | 'user' | 'read';
 
@@ -7,7 +6,7 @@ export function isAuthorized(opts: {
   hasRole: Array<Roles>;
   allowSameUser?: boolean;
 }) {
-  return (req: Request, res: Response, next: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const { roles, uid } = res.locals;
     const { id } = req.params;
 

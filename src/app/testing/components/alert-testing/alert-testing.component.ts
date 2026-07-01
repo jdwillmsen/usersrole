@@ -3,7 +3,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertOptions, Icon, Variant } from 'src/app/core/models/alert.model';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
 import { AlertComponent } from '../../../shared/components/alert/alert.component';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -16,7 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-alert-testing',
   templateUrl: './alert-testing.component.html',
   styleUrls: ['./alert-testing.component.scss'],
-  standalone: true,
   imports: [
     MatButtonModule,
     MatCheckboxModule,
@@ -26,8 +25,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatIconModule,
     MatOptionModule,
-    NgFor,
-    NgIf,
     ReactiveFormsModule,
     AlertComponent
   ]

@@ -3,10 +3,13 @@ import { expect } from '@jest/globals';
 import { of, throwError } from 'rxjs';
 import { Role } from '../../models/users.model';
 import { ActivatedRouteSnapshot } from '@angular/router';
+import { Auth } from 'firebase/auth';
+import * as rxfireAuth from 'rxfire/auth';
 
 describe('PermissionsService', () => {
   let permissionsService: PermissionsService;
-  let angularFireAuthMock: jest.Mocked<any>;
+  let userSpy: jest.SpyInstance;
+  const authMock = {} as Auth;
   const routerMock: jest.Mocked<any> = {
     navigate: jest.fn()
   };
@@ -18,13 +21,12 @@ describe('PermissionsService', () => {
   };
 
   beforeEach(() => {
-    angularFireAuthMock = {
-      user: of(null)
-    };
+    jest.restoreAllMocks();
+    userSpy = jest.spyOn(rxfireAuth, 'user').mockReturnValue(of(null) as any);
     permissionsService = new PermissionsService(
       routerMock,
       usersServiceMock,
-      angularFireAuthMock,
+      authMock,
       snackbarServiceMock
     );
   });
@@ -54,7 +56,7 @@ describe('PermissionsService', () => {
       data: { roles }
     } as any;
     const userDetails = { roles: ['admin', 'user'] };
-    angularFireAuthMock.user = of({ uid: 'testUser' });
+    userSpy.mockReturnValue(of({ uid: 'testUser' }) as any);
     usersServiceMock.user$.mockReturnValue(of(userDetails));
 
     permissionsService.canActivateRole(next).subscribe((result) => {
@@ -70,7 +72,7 @@ describe('PermissionsService', () => {
       data: { roles }
     } as any;
     const userDetails = { roles: ['users'] };
-    angularFireAuthMock.user = of({ uid: 'testUser' });
+    userSpy.mockReturnValue(of({ uid: 'testUser' }) as any);
     usersServiceMock.user$.mockReturnValue(of(userDetails));
 
     permissionsService.canActivateRole(next).subscribe((result) => {
@@ -81,7 +83,7 @@ describe('PermissionsService', () => {
   });
 
   it('should return true when user has the required role', () => {
-    permissionsService.roles = ['admin', 'user'];
+    permissionsService.roles.set(['admin', 'user']);
 
     const hasRole = permissionsService.hasRole(['admin']);
 
@@ -89,7 +91,7 @@ describe('PermissionsService', () => {
   });
 
   it('should return false when user does not have the required role', () => {
-    permissionsService.roles = ['user'];
+    permissionsService.roles.set(['user']);
 
     const hasRole = permissionsService.hasRole(['admin']);
 
@@ -97,7 +99,7 @@ describe('PermissionsService', () => {
   });
 
   it('should return true when user has multiple required roles', () => {
-    permissionsService.roles = ['admin', 'user', 'manager'];
+    permissionsService.roles.set(['admin', 'user', 'manager']);
 
     const hasRole = permissionsService.hasRole(['admin', 'manager']);
 
@@ -105,7 +107,7 @@ describe('PermissionsService', () => {
   });
 
   it('should return true when user has all required roles', () => {
-    permissionsService.roles = ['admin', 'user', 'manager', 'read'];
+    permissionsService.roles.set(['admin', 'user', 'manager', 'read']);
 
     const hasRole = permissionsService.hasRole([
       'admin',
@@ -120,23 +122,25 @@ describe('PermissionsService', () => {
   it('should update roles when user is not null', (done) => {
     const user = { uid: 'testUser' };
     const userRoles: Role[] = ['admin', 'user'];
-    angularFireAuthMock.user = of(user);
+    userSpy.mockReturnValue(of(user) as any);
     usersServiceMock.user$.mockReturnValue(of({ roles: userRoles }));
 
     permissionsService.getRole();
 
     setTimeout(() => {
       expect(usersServiceMock.user$).toHaveBeenCalledWith(user.uid);
-      expect(permissionsService.roles).toEqual(userRoles);
+      expect(permissionsService.roles()).toEqual(userRoles);
       done();
     }, 0);
   });
 
   it('should handle error when user retrieval fails', (done) => {
     const errorMessage = 'User retrieval error';
-    angularFireAuthMock.user = throwError(() => {
-      return { message: errorMessage };
-    });
+    userSpy.mockReturnValue(
+      throwError(() => {
+        return { message: errorMessage };
+      }) as any
+    );
 
     permissionsService.getRole();
 

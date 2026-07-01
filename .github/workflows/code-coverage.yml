@@ -8,16 +8,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Cypress Install
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           runTests: false
           build: npm run build
@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment File
         run: node server.js
         env:
@@ -57,20 +57,20 @@ jobs:
         containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download Build Folder
         uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Cypress Run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           record: true
           parallel: true
@@ -94,20 +94,20 @@ jobs:
         containers: [ 1, 2, 3, 4, 5 ]
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download Build Folder
         uses: actions/download-artifact@v8.0.1
         with:
           name: build
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Cypress Run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           record: true
           parallel: true
@@ -131,7 +131,7 @@ jobs:
       - cypress-e2e
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download Coverage Folder
         uses: actions/download-artifact@v8.0.1
         # v4 forbids duplicate artifact names, so the matrix jobs now upload
@@ -142,7 +142,7 @@ jobs:
           merge-multiple: true
           path: coverage
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Merge Coverage Reports
         run: npm run merge:coverage
       - name: Generate Merged Coverage Report
@@ -150,7 +150,7 @@ jobs:
       - name: Update Code Coverage Badge
         run: npx update-badge --from /home/runner/work/usersrole/usersrole/coverage/merged-report/coverage-summary.json
       - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Apply code coverage badge update
           branch: ${{ github.head_ref }}

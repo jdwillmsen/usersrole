@@ -20,7 +20,7 @@
         type="color"
       />
     </div>
-    <ng-container *ngFor="let color of colors">
+    @for (color of colors; track color) {
       <div
         [attr.data-cy]="color + '-palette-row'"
         [ngStyle]="{
@@ -71,6 +71,6 @@
           type="color"
         />
       </div>
-    </ng-container>
+    }
   </div>
 </div>

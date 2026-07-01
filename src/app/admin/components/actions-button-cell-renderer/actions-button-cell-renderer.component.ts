@@ -19,12 +19,9 @@ import {
   selector: 'app-actions-button-cell-renderer',
   templateUrl: './actions-button-cell-renderer.component.html',
   styleUrls: ['./actions-button-cell-renderer.component.scss'],
-  standalone: true,
   imports: [MatButtonModule, MatTooltipModule, MatIconModule]
 })
-export class ActionsButtonCellRendererComponent
-  implements ICellRendererAngularComp
-{
+export class ActionsButtonCellRendererComponent implements ICellRendererAngularComp {
   private params!: ICellRendererParams;
 
   constructor(

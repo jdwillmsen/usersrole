@@ -1,8 +1,15 @@
 import { FirestoreService } from './firestore.service';
 import { expect } from '@jest/globals';
-import * as firestoreModule from '@angular/fire/firestore';
-import { doc } from '@angular/fire/firestore';
+import * as firestoreModule from 'firebase/firestore';
 import { Theme } from '../../models/theme.model';
+
+jest.mock('firebase/firestore', () => ({
+  __esModule: true,
+  ...jest.requireActual('firebase/firestore'),
+  doc: jest.fn(),
+  getDoc: jest.fn(),
+  setDoc: jest.fn()
+}));
 
 describe('FirestoreService', () => {
   let firestoreService: FirestoreService;
@@ -193,6 +200,7 @@ describe('FirestoreService', () => {
   };
 
   beforeEach(() => {
+    jest.clearAllMocks();
     firestoreService = new FirestoreService(firestoreMock);
   });
 
@@ -202,15 +210,15 @@ describe('FirestoreService', () => {
 
   it('should fetch user document with data', async () => {
     const userDocData = { theme: themeName };
-    const docSpy = jest.spyOn(firestoreModule, 'doc');
-    const getDocSpy = jest.spyOn(firestoreModule, 'getDoc');
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    const docSpy = firestoreModule.doc as jest.Mock;
+    const getDocSpy = firestoreModule.getDoc as jest.Mock;
+    docSpy.mockImplementation(() => ({}) as any);
     getDocSpy.mockImplementation(
-      (docRef) =>
+      () =>
         ({
           exists: () => true,
           data: () => userDocData
-        } as any)
+        }) as any
     );
 
     const result = await firestoreService.getUsersDoc(uid);
@@ -221,15 +229,15 @@ describe('FirestoreService', () => {
   });
 
   it('should return null when users data does not exist', async () => {
-    const docSpy = jest.spyOn(firestoreModule, 'doc');
-    const getDocSpy = jest.spyOn(firestoreModule, 'getDoc');
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    const docSpy = firestoreModule.doc as jest.Mock;
+    const getDocSpy = firestoreModule.getDoc as jest.Mock;
+    docSpy.mockImplementation(() => ({}) as any);
     getDocSpy.mockImplementation(
-      (docRef) =>
+      () =>
         ({
           exists: () => false,
           data: () => null
-        } as any)
+        }) as any
     );
 
     const result = await firestoreService.getUsersDoc(uid);
@@ -240,12 +248,10 @@ describe('FirestoreService', () => {
   });
 
   it('should set theme name', () => {
-    const docSpy = jest.spyOn(firestoreModule, 'doc');
-    const setDocSpy = jest.spyOn(firestoreModule, 'setDoc');
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
-    setDocSpy.mockImplementation(
-      (docRef, data, options) => new Promise(() => true)
-    );
+    const docSpy = firestoreModule.doc as jest.Mock;
+    const setDocSpy = firestoreModule.setDoc as jest.Mock;
+    docSpy.mockImplementation(() => ({}) as any);
+    setDocSpy.mockImplementation(() => new Promise(() => true));
 
     firestoreService.setThemeName(uid, themeName);
 
@@ -254,12 +260,10 @@ describe('FirestoreService', () => {
   });
 
   it('should set custom light theme', () => {
-    const docSpy = jest.spyOn(firestoreModule, 'doc');
-    const setDocSpy = jest.spyOn(firestoreModule, 'setDoc');
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
-    setDocSpy.mockImplementation(
-      (docRef, data, options) => new Promise(() => true)
-    );
+    const docSpy = firestoreModule.doc as jest.Mock;
+    const setDocSpy = firestoreModule.setDoc as jest.Mock;
+    docSpy.mockImplementation(() => ({}) as any);
+    setDocSpy.mockImplementation(() => new Promise(() => true));
 
     firestoreService.setCustomLightTheme(uid, theme);
 
@@ -268,12 +272,10 @@ describe('FirestoreService', () => {
   });
 
   it('should set custom dark theme', () => {
-    const docSpy = jest.spyOn(firestoreModule, 'doc');
-    const setDocSpy = jest.spyOn(firestoreModule, 'setDoc');
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
-    setDocSpy.mockImplementation(
-      (docRef, data, options) => new Promise(() => true)
-    );
+    const docSpy = firestoreModule.doc as jest.Mock;
+    const setDocSpy = firestoreModule.setDoc as jest.Mock;
+    docSpy.mockImplementation(() => ({}) as any);
+    setDocSpy.mockImplementation(() => new Promise(() => true));
 
     firestoreService.setCustomDarkTheme(uid, theme);
 
@@ -282,8 +284,8 @@ describe('FirestoreService', () => {
   });
 
   it('should retrieve user doc', () => {
-    const docSpy = jest.spyOn(firestoreModule, 'doc');
-    docSpy.mockImplementation((firestore, path, uid) => ({} as any));
+    const docSpy = firestoreModule.doc as jest.Mock;
+    docSpy.mockImplementation(() => ({}) as any);
 
     firestoreService.getUserDoc(uid);
 

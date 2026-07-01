@@ -14,7 +14,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Role, User } from 'src/app/core/models/users.model';
 import { RolesService } from 'src/app/admin/services/roles/roles.service';
@@ -31,15 +31,12 @@ export type RoleOption = {
   selector: 'app-roles',
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss'],
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    NgFor,
     MatOptionModule,
     MatSelectModule,
     MatButtonModule,

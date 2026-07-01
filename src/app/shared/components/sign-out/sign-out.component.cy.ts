@@ -1,24 +1,21 @@
 import { SignOutComponent } from './sign-out.component';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '../../../../environments/environment';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AUTH } from '../../../core/firebase.tokens';
 
 describe('SignOutComponent', () => {
+  const providers = [{ provide: AUTH, useValue: {} }];
+
   it('should mount', () => {
     cy.mount(SignOutComponent, {
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        MatSnackBarModule
-      ]
+      imports: [MatSnackBarModule],
+      providers
     });
   });
 
   it('should be setup properly', () => {
     cy.mount(SignOutComponent, {
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        MatSnackBarModule
-      ]
+      imports: [MatSnackBarModule],
+      providers
     });
     cy.getByCy('sign-out-button')
       .should('be.visible')

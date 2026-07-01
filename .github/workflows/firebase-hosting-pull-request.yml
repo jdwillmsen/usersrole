@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment File
         run: node server.js
         env:
@@ -27,3 +27,7 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}'
           projectId: usersrole
+          # Pinned: firebase-tools 15.22.x has connection instability (dropped
+          # keep-alive / premature close) that triggers spurious retries, which
+          # then fail the channel deploy with "already exists"/"already active".
+          firebaseToolsVersion: '15.21.0'

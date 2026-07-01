@@ -10,25 +10,25 @@ jobs:
     steps:
       - name: Create E2E Container Matrix
         id: prepare-E2E
-        uses: bahmutov/gh-build-matrix@main
+        uses: bahmutov/gh-build-matrix@v1.0.1
         with:
           n: 5
       - name: Create Component Container Matrix
         id: prepare-component
-        uses: bahmutov/gh-build-matrix@main
+        uses: bahmutov/gh-build-matrix@v1.0.1
         with:
           n: 23
       - name: Print Result
         run: echo '${{ steps.prepareE2E.outputs.matrix }}'
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Install Dependencies
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           runTests: false
   e2e-tests:
@@ -40,14 +40,14 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrixE2E) }}
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Cypress Run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           record: false
           parallel: false
@@ -79,14 +79,14 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrixComponent) }}
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
           ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
           ACCOUNTS_FILE: ${{ secrets.ACCOUNTS_FILE }}
       - name: Cypress Run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           record: false
           parallel: false
@@ -117,9 +117,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install Dependencies
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           runTests: false
       - uses: actions/download-artifact@v8.0.1
@@ -161,9 +161,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install Dependencies
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           runTests: false
       - uses: actions/download-artifact@v8.0.1

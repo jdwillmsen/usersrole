@@ -1,12 +1,17 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Alert, AlertVariants } from 'src/app/core/models/alert.model';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-alert',
@@ -20,8 +25,7 @@ import { NgFor, NgIf } from '@angular/common';
       ])
     ])
   ],
-  standalone: true,
-  imports: [NgFor, NgIf, MatIconModule, MatButtonModule]
+  imports: [MatIconModule, MatButtonModule]
 })
 export class AlertComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';
@@ -33,7 +37,11 @@ export class AlertComponent implements OnInit, OnDestroy {
   routeSubscription!: Subscription;
   private autoCloseTimeout = 3000;
 
-  constructor(private router: Router, private alertService: AlertService) {}
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.alertSubscription = this.alertService
@@ -44,6 +52,7 @@ export class AlertComponent implements OnInit, OnDestroy {
             (alert) => alert.keepAfterRouteChange
           );
           this.alerts.forEach((alert) => delete alert.keepAfterRouteChange);
+          this.cdr.markForCheck();
           return;
         }
         if (alert.maxSize && alert.maxSize > 0) {
@@ -60,6 +69,7 @@ export class AlertComponent implements OnInit, OnDestroy {
           }
           setTimeout(() => this.removeAlert(alert), this.autoCloseTimeout);
         }
+        this.cdr.markForCheck();
       });
 
     this.routeSubscription = this.router.events.subscribe((event) => {
@@ -82,6 +92,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.alerts = this.alerts.filter((alt) => alt !== alert);
+      this.cdr.markForCheck();
     }, timeout);
   }
 

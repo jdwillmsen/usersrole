@@ -1,5 +1,5 @@
 import { SignInComponent } from './sign-in.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AUTH } from '../../../core/firebase.tokens';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ describe('SignInComponent', () => {
       imports: [MatSnackBarModule, HttpClientModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
+          provide: AUTH,
           useValue: {}
         },
         {
@@ -27,7 +27,7 @@ describe('SignInComponent', () => {
       imports: [MatSnackBarModule, HttpClientModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
+          provide: AUTH,
           useValue: {}
         },
         {
