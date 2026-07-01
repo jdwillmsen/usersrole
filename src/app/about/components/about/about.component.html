@@ -1,3 +1,65 @@
 <div class="about" data-cy="about-page">
   <h1>About</h1>
+
+  <mat-card data-cy="build-card">
+    <mat-card-header><mat-card-title>Build</mat-card-title></mat-card-header>
+    <mat-card-content>
+      <p>Version: {{ info.app }}</p>
+      <p>
+        Commit:
+        @if (commitUrl) {
+          <a
+            [href]="commitUrl"
+            target="_blank"
+            rel="noopener"
+            data-cy="commit-link"
+            >{{ info.commit }}</a
+          >
+        } @else {
+          {{ info.commit }}
+        }
+      </p>
+      <p>Built: {{ info.builtAt }}</p>
+      <p>Environment: {{ info.env }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card data-cy="libraries-card">
+    <mat-card-header
+      ><mat-card-title
+        >Framework &amp; libraries</mat-card-title
+      ></mat-card-header
+    >
+    <mat-card-content>
+      <p>Angular (runtime): {{ angularVersion }}</p>
+      @for (dep of info.deps | keyvalue; track dep.key) {
+        <p>{{ dep.key }}: {{ dep.value }}</p>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card data-cy="runtime-card">
+    <mat-card-header><mat-card-title>Runtime</mat-card-title></mat-card-header>
+    <mat-card-content>
+      <p>Zoneless change detection: {{ zoneless ? 'enabled' : 'disabled' }}</p>
+      <p>App Check: {{ appCheck }}</p>
+      <p>Browser: {{ browser }}</p>
+      <p>Platform: {{ platform }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card data-cy="project-card">
+    <mat-card-header><mat-card-title>Project</mat-card-title></mat-card-header>
+    <mat-card-content>
+      <p>{{ project.description }}</p>
+      <p>Author: {{ project.author }}</p>
+      <p>License: {{ project.license }}</p>
+      <p>
+        Repository:
+        <a [href]="repoUrl" target="_blank" rel="noopener"
+          >jdwillmsen/usersrole</a
+        >
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>
