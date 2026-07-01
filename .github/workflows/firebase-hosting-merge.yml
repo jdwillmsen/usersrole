@@ -24,8 +24,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}'
           channelId: live
           projectId: usersrole
-          # Pinned to the last release that authenticates via service-account
-          # ADC for a full `firebase deploy`: 15.21.0 fails this path with
-          # "Failed to authenticate", and 15.22.2 introduced a separate ADC
-          # regression, so 15.22.1 is the working window for the live deploy.
-          firebaseToolsVersion: '15.22.1'
