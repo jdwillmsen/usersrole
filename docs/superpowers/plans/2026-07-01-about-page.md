@@ -387,7 +387,10 @@ describe('AboutComponent', () => {
 
   it('renders all four info cards', () => {
     cy.getByCy('build-card').should('be.visible');
-    cy.getByCy('libraries-card').should('be.visible').and('contain.text', '@angular/core');
+    // Assert the live Angular runtime line, not a generated dep: during CT the
+    // component reads the committed placeholder version-info.ts (deps {}), since
+    // `prebuild` only runs for `npm run build`, not for cypress.
+    cy.getByCy('libraries-card').should('be.visible').and('contain.text', 'Angular (runtime)');
     cy.getByCy('runtime-card').should('be.visible');
     cy.getByCy('project-card').should('be.visible').and('contain.text', 'jdwillmsen/usersrole');
   });
