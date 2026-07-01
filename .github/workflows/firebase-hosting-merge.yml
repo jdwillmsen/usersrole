@@ -24,9 +24,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}'
           channelId: live
           projectId: usersrole
-          # Pinned: earlier releases fail the service-account token fetch with
-          # "Premature close" on oauth2/v4/token (surfaced as "Failed to
-          # authenticate"). 15.22.3 disabled keep-alive in the auth library to
-          # fix exactly that; 15.22.4 is the first release carrying the fix
-          # that also authenticates cleanly here.
-          firebaseToolsVersion: '15.22.4'
