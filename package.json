@@ -4,6 +4,9 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
+    "prebuild": "node scripts/generate-version-info.mjs",
+    "generate:version": "node scripts/generate-version-info.mjs",
+    "test:scripts": "node --test scripts/version-info.lib.test.mjs",
     "watch": "ng build --watch --configuration development",
     "lint": "eslint . --fix",
     "format": "npx prettier src/**/*.{js,jsx,ts,tsx,html,css,scss} --write",
