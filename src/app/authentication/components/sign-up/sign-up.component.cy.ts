@@ -91,7 +91,7 @@ describe('SignUpComponent', () => {
       .and('contain.text', 'Passwords must match');
   });
 
-  it.only('should submit form correctly', () => {
+  it('should submit form correctly', () => {
     cy.intercept(
       {
         method: 'POST',

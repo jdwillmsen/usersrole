@@ -1,7 +1,6 @@
 import { FirestoreService } from './firestore.service';
 import { expect } from '@jest/globals';
 import * as firestoreModule from '@angular/fire/firestore';
-import { doc } from '@angular/fire/firestore';
 import { Theme } from '../../models/theme.model';
 
 describe('FirestoreService', () => {

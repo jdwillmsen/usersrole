@@ -75,7 +75,7 @@ describe('RolesComponent', () => {
     cy.getByCy('assign-roles-button').should('be.disabled');
   });
 
-  it.only('should assign roles correctly', () => {
+  it('should assign roles correctly', () => {
     cy.intercept(
       {
         method: 'PATCH',
