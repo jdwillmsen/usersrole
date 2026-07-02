@@ -19,6 +19,9 @@
     <span data-cy="app-name">Users Role</span>
   </a>
   <span class="spacer"></span>
+  <a mat-icon-button routerLink="/about" matTooltip="About" data-cy="about-button">
+    <mat-icon>info</mat-icon>
+  </a>
   <app-github-button matTooltip="GitHub"></app-github-button>
   @if (user()) {
     <app-theme-selector data-cy="theme-selector" matTooltip="Theme Selection">
