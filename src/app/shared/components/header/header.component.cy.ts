@@ -1,6 +1,6 @@
 import { HeaderComponent } from './header.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { AUTH } from '../../../core/firebase.tokens';
 
 const authMock = {
@@ -38,5 +38,16 @@ describe('HeaderComponent', () => {
       .should('be.visible')
       .and('contain.text', 'Users Role');
     cy.getByCy('github-button-icon').should('be.visible');
+  });
+
+  it('shows an about button linking to /about', () => {
+    cy.mount(HeaderComponent, {
+      imports: [MatSnackBarModule],
+      providers: [{ provide: AUTH, useValue: authMock }, provideRouter([])]
+    });
+    cy.getByCy('about-button')
+      .should('be.visible')
+      .and('have.attr', 'href', '/about');
+    cy.getByCy('about-button').find('mat-icon').should('contain.text', 'info');
   });
 });
