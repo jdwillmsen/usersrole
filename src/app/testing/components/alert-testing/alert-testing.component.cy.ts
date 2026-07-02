@@ -256,12 +256,15 @@ function testBreakpoint(name: string, width: number, height: number) {
       cy.getByCy('auto-close-time-field').type('{backspace}');
       cy.getByCy('fade-time-field').type('{backspace}');
       cy.getByCy('icon-field').click();
-      cy.getByCy('none-icon-option').click();
+      cy.getByCy('none-icon-option').should('be.visible').click();
+      cy.get('.cdk-overlay-backdrop').should('not.exist');
       cy.getByCy('icon-field').should('not.have.value').click();
-      cy.getByCy('settings-icon-option').click();
+      cy.getByCy('settings-icon-option').should('be.visible').click();
+      cy.get('.cdk-overlay-backdrop').should('not.exist');
       cy.getByCy('max-alerts-field').type('1');
       cy.getByCy('variant-field').click();
-      cy.getByCy('filled-variant-option').click();
+      cy.getByCy('filled-variant-option').should('be.visible').click();
+      cy.get('.cdk-overlay-backdrop').should('not.exist');
       cy.getByCy('default-accent-button').click();
       cy.getByCy('icon').should('be.visible');
       cy.getByCy('message').should('be.visible');

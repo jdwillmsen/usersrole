@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { RouteTileComponent } from '../route-tile/route-tile.component';
-import { NgForOf } from '@angular/common';
 
 type RouteTile = {
   title: string;
@@ -15,8 +14,7 @@ type RouteTile = {
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, RouterLink, RouteTileComponent, NgForOf]
+  imports: [MatButtonModule, RouterLink, RouteTileComponent]
 })
 export class HomeComponent {
   routes: RouteTile[] = [

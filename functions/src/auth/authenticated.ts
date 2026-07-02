@@ -1,11 +1,10 @@
-import { Request, Response } from 'express';
-import * as admin from 'firebase-admin';
+import { NextFunction, Request, Response } from 'express';
+import { DecodedIdToken, getAuth } from 'firebase-admin/auth';
 
 export async function isAuthenticated(
   req: Request,
   res: Response,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  next: Function
+  next: NextFunction
 ) {
   const { authorization } = req.headers;
 
@@ -25,9 +24,7 @@ export async function isAuthenticated(
   const token = split[1];
 
   try {
-    const decodedToken: admin.auth.DecodedIdToken = await admin
-      .auth()
-      .verifyIdToken(token);
+    const decodedToken: DecodedIdToken = await getAuth().verifyIdToken(token);
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,

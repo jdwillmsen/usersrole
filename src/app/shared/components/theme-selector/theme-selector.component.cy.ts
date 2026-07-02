@@ -1,8 +1,4 @@
 import { ThemeSelectorComponent } from './theme-selector.component';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../../../../environments/environment';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirestoreService } from '../../../core/services/firestore/firestore.service';
@@ -12,17 +8,8 @@ import { of } from 'rxjs';
 describe('ThemeSelectorComponent', () => {
   it('should mount', () => {
     cy.mount(ThemeSelectorComponent, {
-      imports: [
-        provideFirestore(() => getFirestore()),
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
+      imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
-        {
-          provide: AngularFireAuth,
-          useValue: {}
-        },
         {
           provide: FirestoreService,
           useValue: {}
@@ -39,17 +26,8 @@ describe('ThemeSelectorComponent', () => {
 
   it('should be setup properly', () => {
     cy.mount(ThemeSelectorComponent, {
-      imports: [
-        provideFirestore(() => getFirestore()),
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
+      imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
-        {
-          provide: AngularFireAuth,
-          useValue: {}
-        },
         {
           provide: FirestoreService,
           useValue: {

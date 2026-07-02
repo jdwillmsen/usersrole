@@ -6,16 +6,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
       - name: Create Environment File
         run: node server.js
         env:
           ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
+          # Dependabot PRs lack the secret; allow the placeholder template so
+          # the build still validates. The deploy step is skipped for them.
+          ALLOW_ENV_TEMPLATE_FALLBACK: 'true'
       - name: Install Dependencies & Build
         run: npm ci && npm run build
       - name: Firebase Deploy
+        # Dependabot PRs can't access the Firebase service-account secret, so
+        # only build/validate for them and skip the preview deploy.
+        if: github.actor != 'dependabot[bot]'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

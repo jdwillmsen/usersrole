@@ -14,9 +14,11 @@
             required
             type="email"
           />
-          <mat-error *ngIf="this.signUpForm.get('email')?.invalid">
-            {{ getErrorMessage('email') }}
-          </mat-error>
+          @if (this.signUpForm.get('email')?.invalid) {
+            <mat-error>
+              {{ getErrorMessage('email') }}
+            </mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" data-cy="display-name-field">
           <mat-label>Enter your display name</mat-label>
@@ -27,9 +29,11 @@
             required
             type="text"
           />
-          <mat-error *ngIf="this.signUpForm.get('displayName')?.invalid">
-            {{ getErrorMessage('displayName') }}
-          </mat-error>
+          @if (this.signUpForm.get('displayName')?.invalid) {
+            <mat-error>
+              {{ getErrorMessage('displayName') }}
+            </mat-error>
+          }
         </mat-form-field>
         <ng-container formGroupName="matchingPassword">
           <mat-form-field appearance="outline" data-cy="password-field">
@@ -52,14 +56,13 @@
             >
               <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
-            <mat-error
-              *ngIf="
-                this.signUpForm.get('matchingPassword')?.get('password')
-                  ?.invalid
-              "
-            >
-              {{ getPasswordErrorMessage('password') }}
-            </mat-error>
+            @if (
+              this.signUpForm.get('matchingPassword')?.get('password')?.invalid
+            ) {
+              <mat-error>
+                {{ getPasswordErrorMessage('password') }}
+              </mat-error>
+            }
           </mat-form-field>
           <mat-form-field
             [subscriptSizing]="
@@ -93,29 +96,27 @@
             >
               <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
-            <mat-error
-              *ngIf="
-                this.signUpForm.get('matchingPassword')?.get('confirmPassword')
-                  ?.invalid
-              "
-            >
-              {{ getPasswordErrorMessage('confirmPassword') }}
-            </mat-error>
+            @if (
+              this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                ?.invalid
+            ) {
+              <mat-error>
+                {{ getPasswordErrorMessage('confirmPassword') }}
+              </mat-error>
+            }
           </mat-form-field>
-          <mat-error
-            *ngIf="
-              this.signUpForm.get('matchingPassword')?.invalid &&
-              (this.signUpForm.get('matchingPassword')?.get('confirmPassword')
-                ?.dirty ||
-                this.signUpForm.get('matchingPassword')?.get('confirmPassword')
-                  ?.touched) &&
-              getErrorMessage('matchingPassword') !== ''
-            "
-            class="match-password"
-            data-cy="matching-password-error"
-          >
-            {{ getErrorMessage('matchingPassword') }}
-          </mat-error>
+          @if (
+            this.signUpForm.get('matchingPassword')?.invalid &&
+            (this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+              ?.dirty ||
+              this.signUpForm.get('matchingPassword')?.get('confirmPassword')
+                ?.touched) &&
+            getErrorMessage('matchingPassword') !== ''
+          ) {
+            <mat-error class="match-password" data-cy="matching-password-error">
+              {{ getErrorMessage('matchingPassword') }}
+            </mat-error>
+          }
         </ng-container>
         <button
           (click)="signUp()"

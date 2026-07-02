@@ -19,7 +19,6 @@ import { USER_CREATED_SUCCESS_MESSAGE } from '../../../core/constants/message.co
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, AgGridModule, AsyncPipe]
 })
 export class UsersComponent implements OnInit {
@@ -75,6 +74,7 @@ export class UsersComponent implements OnInit {
     }
   };
   public gridOptions: GridOptions = {
+    theme: 'legacy',
     columnDefs: UsersComponent.columnDefs,
     defaultColDef: this.defaultColDef,
     pagination: true,

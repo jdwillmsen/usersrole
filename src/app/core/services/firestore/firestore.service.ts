@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { Inject, Injectable } from '@angular/core';
+import { doc, Firestore, getDoc, setDoc } from 'firebase/firestore';
 import { Theme } from '../../models/theme.model';
+import { FIRESTORE } from '../../firebase.tokens';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Theme } from '../../models/theme.model';
 export class FirestoreService {
   firestore: Firestore;
 
-  constructor(firestore: Firestore) {
+  constructor(@Inject(FIRESTORE) firestore: Firestore) {
     this.firestore = firestore;
   }
 

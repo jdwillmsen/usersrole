@@ -88,7 +88,7 @@ describe('RolesComponent', () => {
     });
     cy.getByCy('select-user-field').type('Basic Test User #1{enter}');
     cy.getByCy('select-roles-field').click();
-    cy.get('#mat-option-3').click();
+    cy.contains('mat-option', 'Read').click();
     cy.get('.cdk-overlay-backdrop').click({ force: true });
     cy.getByCy('select-roles-field').should('contain.text', 'User, Read');
     cy.getByCy('assign-roles-button').should('be.enabled').click();
@@ -103,9 +103,9 @@ describe('RolesComponent', () => {
     cy.getByCy('select-roles-field')
       .should('contain.text', 'Admin, Manager, User, Read')
       .click();
-    cy.get('#mat-option-0').click();
-    cy.get('#mat-option-1').click();
-    cy.get('#mat-option-3').click();
+    cy.contains('mat-option', 'Admin').click();
+    cy.contains('mat-option', 'Manager').click();
+    cy.contains('mat-option', 'Read').click();
     cy.get('.cdk-overlay-backdrop').click({ force: true });
     cy.getByCy('assign-roles-button').should('be.enabled').click();
     cy.get('.snackbar-container')

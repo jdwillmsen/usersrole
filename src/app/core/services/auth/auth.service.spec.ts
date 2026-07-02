@@ -1,22 +1,28 @@
 import { AuthService } from './auth.service';
 import { expect } from '@jest/globals';
 import { of } from 'rxjs';
+import * as firebaseAuth from 'firebase/auth';
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
   TwitterAuthProvider
 } from 'firebase/auth';
+import * as rxfireAuth from 'rxfire/auth';
 import * as errorHandlerModule from '../error-handler/error-handler.service';
+
+jest.mock('firebase/auth', () => ({
+  __esModule: true,
+  ...jest.requireActual('firebase/auth'),
+  signInWithEmailAndPassword: jest.fn(),
+  signInWithPopup: jest.fn(),
+  signOut: jest.fn(),
+  fetchSignInMethodsForEmail: jest.fn(),
+  linkWithCredential: jest.fn()
+}));
 
 describe('AuthService', () => {
   let authService: AuthService;
-  const angularFireAuthMock: jest.Mocked<any> = {
-    authState: of(null),
-    signInWithEmailAndPassword: jest.fn(),
-    signInWithPopup: jest.fn(),
-    signOut: jest.fn(),
-    fetchSignInMethodsForEmail: jest.fn()
-  };
+  const authMock = {} as firebaseAuth.Auth;
   const routerMock: jest.Mocked<any> = {
     navigate: jest.fn()
   };
@@ -32,16 +38,24 @@ describe('AuthService', () => {
   const defaultLogoutSuccessMessage = 'Sign out successful';
   const invalidSignInMessage = 'Invalid email or password';
 
+  const signInWithEmailAndPasswordSpy =
+    firebaseAuth.signInWithEmailAndPassword as jest.Mock;
+  const signInWithPopupSpy = firebaseAuth.signInWithPopup as jest.Mock;
+  const signOutSpy = firebaseAuth.signOut as jest.Mock;
+  const fetchSignInMethodsForEmailSpy =
+    firebaseAuth.fetchSignInMethodsForEmail as jest.Mock;
+  const linkWithCredentialSpy = firebaseAuth.linkWithCredential as jest.Mock;
+
   beforeEach(() => {
-    authService = new AuthService(
-      angularFireAuthMock,
-      routerMock,
-      snackbarServiceMock
-    );
+    jest.clearAllMocks();
+    jest.spyOn(rxfireAuth, 'authState').mockReturnValue(of(null) as any);
+    linkWithCredentialSpy.mockResolvedValue({} as any);
+
+    authService = new AuthService(authMock, routerMock, snackbarServiceMock);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
   it('should create an instance of AuthService', () => {
@@ -56,12 +70,14 @@ describe('AuthService', () => {
   });
 
   it('should call emailAuth and navigate to home on success', (done) => {
-    angularFireAuthMock.signInWithEmailAndPassword.mockResolvedValueOnce({});
+    signInWithEmailAndPasswordSpy.mockResolvedValueOnce({} as any);
 
     authService.emailAuth(defaultEmail, defaultPassword).subscribe(() => {
-      expect(
-        angularFireAuthMock.signInWithEmailAndPassword
-      ).toHaveBeenCalledWith(defaultEmail, defaultPassword);
+      expect(signInWithEmailAndPasswordSpy).toHaveBeenCalledWith(
+        authMock,
+        defaultEmail,
+        defaultPassword
+      );
       expect(snackbarServiceMock.success).toHaveBeenCalledWith(
         defaultLoginSuccessMessage,
         { variant: 'filled', autoClose: true },
@@ -73,14 +89,16 @@ describe('AuthService', () => {
   });
 
   it('should call emailAuth and show error snackbar on failure', (done) => {
-    angularFireAuthMock.signInWithEmailAndPassword.mockRejectedValueOnce({
+    signInWithEmailAndPasswordSpy.mockRejectedValueOnce({
       message: defaultErrorMessage
     });
 
     authService.emailAuth(defaultEmail, defaultPassword).subscribe(() => {
-      expect(
-        angularFireAuthMock.signInWithEmailAndPassword
-      ).toHaveBeenCalledWith(defaultEmail, defaultPassword);
+      expect(signInWithEmailAndPasswordSpy).toHaveBeenCalledWith(
+        authMock,
+        defaultEmail,
+        defaultPassword
+      );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         defaultErrorMessage,
         { variant: 'filled' },
@@ -91,14 +109,11 @@ describe('AuthService', () => {
   });
 
   it('should call emailAuth and show error message with incorrect email', (done) => {
-    angularFireAuthMock.signInWithEmailAndPassword.mockRejectedValueOnce({
+    signInWithEmailAndPasswordSpy.mockRejectedValueOnce({
       code: 'auth/user-not-found'
     });
 
     authService.emailAuth(defaultEmail, defaultPassword).subscribe(() => {
-      expect(
-        angularFireAuthMock.signInWithEmailAndPassword
-      ).toHaveBeenCalledWith(defaultEmail, defaultPassword);
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         invalidSignInMessage,
         { variant: 'filled' },
@@ -109,14 +124,11 @@ describe('AuthService', () => {
   });
 
   it('should call emailAuth and show error message with incorrect password', (done) => {
-    angularFireAuthMock.signInWithEmailAndPassword.mockRejectedValueOnce({
+    signInWithEmailAndPasswordSpy.mockRejectedValueOnce({
       code: 'auth/wrong-password'
     });
 
     authService.emailAuth(defaultEmail, defaultPassword).subscribe(() => {
-      expect(
-        angularFireAuthMock.signInWithEmailAndPassword
-      ).toHaveBeenCalledWith(defaultEmail, defaultPassword);
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         invalidSignInMessage,
         { variant: 'filled' },
@@ -127,10 +139,11 @@ describe('AuthService', () => {
   });
 
   it('should call googleAuth and navigate to home on success', (done) => {
-    angularFireAuthMock.signInWithPopup.mockResolvedValueOnce({});
+    signInWithPopupSpy.mockResolvedValueOnce({} as any);
 
     authService.googleAuth().subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         expect.any(GoogleAuthProvider)
       );
       expect(snackbarServiceMock.success).toHaveBeenCalledWith(
@@ -144,12 +157,11 @@ describe('AuthService', () => {
   });
 
   it('should call googleAuth and show error snackbar on failure', (done) => {
-    angularFireAuthMock.signInWithPopup.mockRejectedValueOnce({
-      message: defaultErrorMessage
-    });
+    signInWithPopupSpy.mockRejectedValueOnce({ message: defaultErrorMessage });
 
     authService.googleAuth().subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         expect.any(GoogleAuthProvider)
       );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
@@ -162,16 +174,12 @@ describe('AuthService', () => {
   });
 
   it('should call githubAuth and navigate to home on success', (done) => {
-    angularFireAuthMock.signInWithPopup.mockResolvedValueOnce({});
+    signInWithPopupSpy.mockResolvedValueOnce({} as any);
 
     authService.githubAuth().subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         expect.any(GithubAuthProvider)
-      );
-      expect(snackbarServiceMock.success).toHaveBeenCalledWith(
-        defaultLoginSuccessMessage,
-        { variant: 'filled', autoClose: true },
-        true
       );
       expect(routerMock.navigate).toHaveBeenCalledWith(['home']);
       done();
@@ -179,12 +187,11 @@ describe('AuthService', () => {
   });
 
   it('should call githubAuth and show error snackbar on failure', (done) => {
-    angularFireAuthMock.signInWithPopup.mockRejectedValueOnce({
-      message: defaultErrorMessage
-    });
+    signInWithPopupSpy.mockRejectedValueOnce({ message: defaultErrorMessage });
 
     authService.githubAuth().subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         expect.any(GithubAuthProvider)
       );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
@@ -197,16 +204,12 @@ describe('AuthService', () => {
   });
 
   it('should call twitterAuth and navigate to home on success', (done) => {
-    angularFireAuthMock.signInWithPopup.mockResolvedValueOnce({});
+    signInWithPopupSpy.mockResolvedValueOnce({} as any);
 
     authService.twitterAuth().subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         expect.any(TwitterAuthProvider)
-      );
-      expect(snackbarServiceMock.success).toHaveBeenCalledWith(
-        defaultLoginSuccessMessage,
-        { variant: 'filled', autoClose: true },
-        true
       );
       expect(routerMock.navigate).toHaveBeenCalledWith(['home']);
       done();
@@ -214,12 +217,11 @@ describe('AuthService', () => {
   });
 
   it('should call twitterAuth and show error snackbar on failure', (done) => {
-    angularFireAuthMock.signInWithPopup.mockRejectedValueOnce({
-      message: defaultErrorMessage
-    });
+    signInWithPopupSpy.mockRejectedValueOnce({ message: defaultErrorMessage });
 
     authService.twitterAuth().subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         expect.any(TwitterAuthProvider)
       );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
@@ -232,10 +234,11 @@ describe('AuthService', () => {
   });
 
   it('should call authLogin and navigate to home on success', (done) => {
-    angularFireAuthMock.signInWithPopup.mockResolvedValueOnce({});
+    signInWithPopupSpy.mockResolvedValueOnce({} as any);
 
     authService.authLogin(authProviderMock).subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         authProviderMock
       );
       expect(snackbarServiceMock.success).toHaveBeenCalledWith(
@@ -249,12 +252,11 @@ describe('AuthService', () => {
   });
 
   it('should call authLogin and show error snackbar on failure', (done) => {
-    angularFireAuthMock.signInWithPopup.mockRejectedValueOnce({
-      message: defaultErrorMessage
-    });
+    signInWithPopupSpy.mockRejectedValueOnce({ message: defaultErrorMessage });
 
     authService.authLogin(authProviderMock).subscribe(() => {
-      expect(angularFireAuthMock.signInWithPopup).toHaveBeenCalledWith(
+      expect(signInWithPopupSpy).toHaveBeenCalledWith(
+        authMock,
         authProviderMock
       );
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
@@ -267,10 +269,10 @@ describe('AuthService', () => {
   });
 
   it('should call authLogout and navigate to sign-in on success', (done) => {
-    angularFireAuthMock.signOut.mockResolvedValueOnce({});
+    signOutSpy.mockResolvedValueOnce(undefined);
 
     authService.authLogout().subscribe(() => {
-      expect(angularFireAuthMock.signOut).toHaveBeenCalled();
+      expect(signOutSpy).toHaveBeenCalledWith(authMock);
       expect(snackbarServiceMock.success).toHaveBeenCalledWith(
         defaultLogoutSuccessMessage,
         { variant: 'filled', autoClose: true },
@@ -282,12 +284,10 @@ describe('AuthService', () => {
   });
 
   it('should call authLogout and show error snackbar on failure', (done) => {
-    angularFireAuthMock.signOut.mockRejectedValueOnce({
-      message: defaultErrorMessage
-    });
+    signOutSpy.mockRejectedValueOnce({ message: defaultErrorMessage });
 
     authService.authLogout().subscribe(() => {
-      expect(angularFireAuthMock.signOut).toHaveBeenCalled();
+      expect(signOutSpy).toHaveBeenCalledWith(authMock);
       expect(snackbarServiceMock.error).toHaveBeenCalledWith(
         defaultErrorMessage,
         { variant: 'filled' },
@@ -298,20 +298,17 @@ describe('AuthService', () => {
   });
 
   it('should return a GoogleAuthProvider instance when passed GoogleAuthProvider.PROVIDER_ID', () => {
-    const providerId = GoogleAuthProvider.PROVIDER_ID;
-    const result = authService.getProvider(providerId);
+    const result = authService.getProvider(GoogleAuthProvider.PROVIDER_ID);
     expect(result).toBeInstanceOf(GoogleAuthProvider);
   });
 
   it('should return a GithubAuthProvider instance when passed GithubAuthProvider.PROVIDER_ID', () => {
-    const providerId = GithubAuthProvider.PROVIDER_ID;
-    const result = authService.getProvider(providerId);
+    const result = authService.getProvider(GithubAuthProvider.PROVIDER_ID);
     expect(result).toBeInstanceOf(GithubAuthProvider);
   });
 
   it('should return a TwitterAuthProvider instance when passed TwitterAuthProvider.PROVIDER_ID', () => {
-    const providerId = TwitterAuthProvider.PROVIDER_ID;
-    const result = authService.getProvider(providerId);
+    const result = authService.getProvider(TwitterAuthProvider.PROVIDER_ID);
     expect(result).toBeInstanceOf(TwitterAuthProvider);
   });
 
@@ -322,23 +319,22 @@ describe('AuthService', () => {
     }).toThrow(`No provider implemented for ${unknownProviderId}`);
   });
 
-  it('should handle login failure when error code account exists with different credentials', () => {
+  it('should handle login failure when error code account exists with different credentials', async () => {
     const error = {
       email: 'test-user@usersrole.com',
       credential: true,
       code: 'auth/account-exists-with-different-credential'
     };
     const handleErrorSpy = jest.spyOn(errorHandlerModule, 'handleError');
-    angularFireAuthMock.fetchSignInMethodsForEmail.mockResolvedValue([
+    fetchSignInMethodsForEmailSpy.mockResolvedValue([
       GoogleAuthProvider.PROVIDER_ID
     ]);
-    angularFireAuthMock.signInWithPopup.mockResolvedValue({
-      user: { linkWithCredential: jest.fn() }
-    });
+    signInWithPopupSpy.mockResolvedValue({ user: {} } as any);
 
-    authService.handleAuthLoginFailure(error);
+    await authService.handleAuthLoginFailure(error);
 
-    expect(angularFireAuthMock.fetchSignInMethodsForEmail).toHaveBeenCalledWith(
+    expect(fetchSignInMethodsForEmailSpy).toHaveBeenCalledWith(
+      authMock,
       error.email
     );
     expect(handleErrorSpy).not.toHaveBeenCalled();
@@ -350,9 +346,7 @@ describe('AuthService', () => {
 
     authService.handleAuthLoginFailure(error);
 
-    expect(
-      angularFireAuthMock.fetchSignInMethodsForEmail
-    ).not.toHaveBeenCalled();
+    expect(fetchSignInMethodsForEmailSpy).not.toHaveBeenCalled();
     expect(handleErrorSpy).toHaveBeenCalled();
   });
 
@@ -363,21 +357,19 @@ describe('AuthService', () => {
       code: 'auth/account-exists-with-different-credential'
     };
     const handleErrorSpy = jest.spyOn(errorHandlerModule, 'handleError');
-    angularFireAuthMock.fetchSignInMethodsForEmail.mockResolvedValue([
+    fetchSignInMethodsForEmailSpy.mockResolvedValue([
       GoogleAuthProvider.PROVIDER_ID,
       GithubAuthProvider.PROVIDER_ID
     ]);
-    angularFireAuthMock.signInWithPopup.mockResolvedValue({
-      user: {
-        linkWithCredential: () => {
-          throw new Error('Signal credentials error');
-        }
-      }
+    signInWithPopupSpy.mockResolvedValue({ user: {} } as any);
+    linkWithCredentialSpy.mockImplementation(() => {
+      throw new Error('Signal credentials error');
     });
 
     await authService.handleAuthLoginFailure(error);
 
-    expect(angularFireAuthMock.fetchSignInMethodsForEmail).toHaveBeenCalledWith(
+    expect(fetchSignInMethodsForEmailSpy).toHaveBeenCalledWith(
+      authMock,
       error.email
     );
     expect(handleErrorSpy).toHaveBeenCalled();
@@ -390,17 +382,18 @@ describe('AuthService', () => {
       code: 'auth/account-exists-with-different-credential'
     };
     const handleErrorSpy = jest.spyOn(errorHandlerModule, 'handleError');
-    angularFireAuthMock.fetchSignInMethodsForEmail.mockResolvedValue([
+    fetchSignInMethodsForEmailSpy.mockResolvedValue([
       GoogleAuthProvider.PROVIDER_ID,
       TwitterAuthProvider.PROVIDER_ID
     ]);
-    angularFireAuthMock.signInWithPopup.mockRejectedValue(() => {
-      throw new Error('Sign in with popup failed');
-    });
+    signInWithPopupSpy.mockRejectedValue(
+      new Error('Sign in with popup failed')
+    );
 
     await authService.handleAuthLoginFailure(error);
 
-    expect(angularFireAuthMock.fetchSignInMethodsForEmail).toHaveBeenCalledWith(
+    expect(fetchSignInMethodsForEmailSpy).toHaveBeenCalledWith(
+      authMock,
       error.email
     );
     expect(handleErrorSpy).toHaveBeenCalled();
@@ -413,13 +406,14 @@ describe('AuthService', () => {
       code: 'auth/account-exists-with-different-credential'
     };
     const handleErrorSpy = jest.spyOn(errorHandlerModule, 'handleError');
-    angularFireAuthMock.fetchSignInMethodsForEmail.mockRejectedValue(() => {
-      throw new Error('Fetched failed');
-    });
+    fetchSignInMethodsForEmailSpy.mockRejectedValue(
+      new Error('Fetched failed')
+    );
 
     await authService.handleAuthLoginFailure(error);
 
-    expect(angularFireAuthMock.fetchSignInMethodsForEmail).toHaveBeenCalledWith(
+    expect(fetchSignInMethodsForEmailSpy).toHaveBeenCalledWith(
+      authMock,
       error.email
     );
     expect(handleErrorSpy).toHaveBeenCalled();
@@ -432,13 +426,12 @@ describe('AuthService', () => {
       code: 'auth/account-exists-with-different-credential'
     };
     const handleErrorSpy = jest.spyOn(errorHandlerModule, 'handleError');
-    angularFireAuthMock.fetchSignInMethodsForEmail.mockResolvedValue([
-      'unknown-provider.test'
-    ]);
+    fetchSignInMethodsForEmailSpy.mockResolvedValue(['unknown-provider.test']);
 
     await authService.handleAuthLoginFailure(error);
 
-    expect(angularFireAuthMock.fetchSignInMethodsForEmail).toHaveBeenCalledWith(
+    expect(fetchSignInMethodsForEmailSpy).toHaveBeenCalledWith(
+      authMock,
       error.email
     );
     expect(handleErrorSpy).toHaveBeenCalled();

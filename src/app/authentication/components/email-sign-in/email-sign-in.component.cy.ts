@@ -1,10 +1,13 @@
 import { EmailSignInComponent } from './email-sign-in.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Route } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HomeComponent } from '../../../home/components/home/home.component';
+import { AUTH } from '../../../core/firebase.tokens';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
+import { SUCCESS_SIGN_IN_MESSAGE } from '../../../core/constants/message.constants';
 
 describe('EmailSignInComponent', () => {
   it('should mount', () => {
@@ -12,7 +15,7 @@ describe('EmailSignInComponent', () => {
       imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
+          provide: AUTH,
           useValue: {}
         }
       ]
@@ -24,7 +27,7 @@ describe('EmailSignInComponent', () => {
       imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
+          provide: AUTH,
           useValue: {}
         }
       ]
@@ -50,7 +53,7 @@ describe('EmailSignInComponent', () => {
       imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
+          provide: AUTH,
           useValue: {}
         }
       ]
@@ -82,12 +85,18 @@ describe('EmailSignInComponent', () => {
       ],
       providers: [
         {
-          provide: AngularFireAuth,
-          useValue: {
-            signInWithEmailAndPassword: () => {
-              return new Promise((resolve) => resolve('success'));
+          provide: AuthService,
+          useFactory: (snackbar: SnackbarService, router: Router) => ({
+            emailAuth: () => {
+              snackbar.success(
+                SUCCESS_SIGN_IN_MESSAGE,
+                { variant: 'filled', autoClose: true },
+                true
+              );
+              router.navigate(['home']);
             }
-          }
+          }),
+          deps: [SnackbarService, Router]
         }
       ]
     });

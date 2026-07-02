@@ -138,13 +138,14 @@
                     </mat-icon>
                   </mat-select-trigger>
                   <mat-option data-cy="none-icon-option">None</mat-option>
-                  <mat-option
-                    *ngFor="let icon of iconList"
-                    [attr.data-cy]="icon.value + '-icon-option'"
-                    [value]="icon.value"
-                  >
-                    <mat-icon>{{ icon.value }}</mat-icon>
-                  </mat-option>
+                  @for (icon of iconList; track icon) {
+                    <mat-option
+                      [attr.data-cy]="icon.value + '-icon-option'"
+                      [value]="icon.value"
+                    >
+                      <mat-icon>{{ icon.value }}</mat-icon>
+                    </mat-option>
+                  }
                 </mat-select>
               </mat-form-field>
             </span>
@@ -161,15 +162,16 @@
                   min="1"
                   type="number"
                 />
-                <button
-                  (click)="options.maxSize = undefined"
-                  *ngIf="options.maxSize"
-                  aria-label="Clear"
-                  mat-icon-button
-                  matSuffix
-                >
-                  <mat-icon>close</mat-icon>
-                </button>
+                @if (options.maxSize) {
+                  <button
+                    (click)="options.maxSize = undefined"
+                    aria-label="Clear"
+                    mat-icon-button
+                    matSuffix
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                }
               </mat-form-field>
             </span>
             <span class="variant">
@@ -183,13 +185,14 @@
                   <mat-select-trigger data-cy="variant-select-value">
                     {{ variant.value?.display }}
                   </mat-select-trigger>
-                  <mat-option
-                    *ngFor="let variant of variantList"
-                    [attr.data-cy]="variant.value + '-variant-option'"
-                    [value]="variant"
-                  >
-                    {{ variant.display }}
-                  </mat-option>
+                  @for (variant of variantList; track variant) {
+                    <mat-option
+                      [attr.data-cy]="variant.value + '-variant-option'"
+                      [value]="variant"
+                    >
+                      {{ variant.display }}
+                    </mat-option>
+                  }
                 </mat-select>
               </mat-form-field>
             </span>

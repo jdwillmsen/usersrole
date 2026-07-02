@@ -3,10 +3,32 @@
   "version": 1,
   "schematics": {
     "@schematics/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "type": "component"
     },
     "@cypress/schematic:component": {
       "style": "scss"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "cli": {
@@ -37,9 +59,7 @@
             "outputPath": "dist/usersrole",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -165,10 +185,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "usersrole:build:production"
+              "buildTarget": "usersrole:build:production"
             },
             "development": {
-              "browserTarget": "usersrole:build:development"
+              "buildTarget": "usersrole:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -183,7 +203,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "usersrole:build"
+            "buildTarget": "usersrole:build"
           }
         },
         "test": {

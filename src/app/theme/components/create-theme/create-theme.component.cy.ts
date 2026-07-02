@@ -1,6 +1,5 @@
 import { CreateThemeComponent } from './create-theme.component';
-import { Firestore } from '@angular/fire/firestore';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FIRESTORE } from '../../../core/firebase.tokens';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
@@ -13,11 +12,7 @@ describe('CreateThemeComponent', () => {
       imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: Firestore,
-          useValue: {}
-        },
-        {
-          provide: AngularFireAuth,
+          provide: FIRESTORE,
           useValue: {}
         },
         {
@@ -35,11 +30,7 @@ describe('CreateThemeComponent', () => {
       imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: Firestore,
-          useValue: {}
-        },
-        {
-          provide: AngularFireAuth,
+          provide: FIRESTORE,
           useValue: {}
         },
         {
@@ -72,11 +63,7 @@ describe('CreateThemeComponent', () => {
       imports: [MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: Firestore,
-          useValue: {}
-        },
-        {
-          provide: AngularFireAuth,
+          provide: FIRESTORE,
           useValue: {}
         },
         {

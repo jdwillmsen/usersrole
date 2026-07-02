@@ -3,31 +3,31 @@ import {
   AuthTokenHttpInterceptorProvider,
   AuthTokenInterceptor
 } from './auth-token.interceptor';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { expect } from '@jest/globals';
 import { HttpRequest } from '@angular/common/http';
+import { AUTH } from '../../firebase.tokens';
+import * as rxfireAuth from 'rxfire/auth';
 
 describe('AuthTokenInterceptor', () => {
   let interceptor: AuthTokenInterceptor;
-  let angularFireAuthMock: jest.Mocked<any> = {
-    idToken: new BehaviorSubject<string | null>('mocked-id-token')
-  };
+  const idToken$ = new BehaviorSubject<string | null>('mocked-id-token');
 
   beforeEach(() => {
+    jest.spyOn(rxfireAuth, 'idToken').mockReturnValue(idToken$ as any);
+
     TestBed.configureTestingModule({
       providers: [
         AuthTokenInterceptor,
         {
-          provide: AngularFireAuth,
-          useValue: angularFireAuthMock
+          provide: AUTH,
+          useValue: {}
         },
         AuthTokenHttpInterceptorProvider
       ]
     });
 
     interceptor = TestBed.inject(AuthTokenInterceptor);
-    angularFireAuthMock = TestBed.inject(AngularFireAuth);
   });
 
   it('should create an instance of AuthTokenInterceptor', () => {
@@ -49,6 +49,6 @@ describe('AuthTokenInterceptor', () => {
       })
       .subscribe();
 
-    angularFireAuthMock.idToken.next('mocked-id-token');
+    idToken$.next('mocked-id-token');
   });
 });

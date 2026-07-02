@@ -2,7 +2,7 @@
 @use '@angular/material' as mat;
 
 @mixin color($theme) {
-  $color-config: mat.get-color-config($theme);
+  $color-config: mat.m2-get-color-config($theme);
   $is-dark-theme: map.get($color-config, 'is-dark');
   $dark-text: #666666;
   $light-text: #999999;
@@ -19,17 +19,17 @@
 }
 
 @mixin typography($theme) {
-  $typography-config: mat.get-typography-config($theme);
+  $typography-config: mat.m2-get-typography-config($theme);
 }
 
 @mixin theme($theme) {
-  $color-config: mat.get-color-config($theme);
+  $color-config: mat.m2-get-color-config($theme);
 
   @if $color-config != null {
     @include color($theme);
   }
 
-  $typography-config: mat.get-typography-config($theme);
+  $typography-config: mat.m2-get-typography-config($theme);
 
   @if $typography-config != null {
     @include typography($theme);

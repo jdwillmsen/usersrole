@@ -119,7 +119,7 @@ describe('UsersComponent', () => {
       ]
     });
     cy.get(
-      '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-menu-button > .ag-icon'
+      '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-filter-button > .ag-icon'
     )
       .click()
       .type('test-user-1@usersrole.com');
@@ -160,7 +160,7 @@ describe('UsersComponent', () => {
       ]
     });
     cy.get(
-      '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-menu-button > .ag-icon'
+      '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-filter-button > .ag-icon'
     )
       .click()
       .type('test-user-1@usersrole.com');
@@ -208,7 +208,7 @@ describe('UsersComponent', () => {
       ]
     });
     cy.get(
-      '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-menu-button > .ag-icon'
+      '[col-id="email"] > .ag-header-cell-comp-wrapper > .ag-cell-label-container > .ag-header-cell-filter-button > .ag-icon'
     )
       .click()
       .type('test-user-1@usersrole.com');

@@ -1,10 +1,11 @@
-<mat-chip
-  *ngFor="let role of roles"
-  color="primary"
-  data-cy="role-chip"
-  highlighted
-  matTooltip="Users Role"
-  matTooltipShowDelay="1000"
->
-  {{ role.toUpperCase() }}
-</mat-chip>
+@for (role of roles; track role) {
+  <mat-chip
+    color="primary"
+    data-cy="role-chip"
+    highlighted
+    matTooltip="Users Role"
+    matTooltipShowDelay="1000"
+  >
+    {{ role.toUpperCase() }}
+  </mat-chip>
+}

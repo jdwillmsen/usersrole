@@ -2,7 +2,8 @@ import {
   ApplicationConfig,
   ErrorHandler,
   importProvidersFrom,
-  isDevMode
+  isDevMode,
+  provideZonelessChangeDetection
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { ErrorHandlerService } from './core/services/error-handler/error-handler
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZonelessChangeDetection(),
     importProvidersFrom(
       BrowserModule,
       AppRoutingModule,

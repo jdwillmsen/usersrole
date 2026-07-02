@@ -33,7 +33,7 @@
     </span>
   </p>
   <div class="routes">
-    <ng-container *ngFor="let route of routes">
+    @for (route of routes; track route) {
       <app-route-tile
         [attr.data-cy]="route.title.toLowerCase() + '-tile'"
         [description]="route.description"
@@ -43,6 +43,6 @@
         class="route"
       >
       </app-route-tile>
-    </ng-container>
+    }
   </div>
 </div>

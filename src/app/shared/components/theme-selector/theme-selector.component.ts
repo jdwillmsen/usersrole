@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SiteTheme } from 'src/app/core/models/site-theme.model';
 import { StyleManagerService } from 'src/app/core/services/style-manager/style-manager.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -6,7 +6,7 @@ import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service
 import { FirestoreService } from 'src/app/core/services/firestore/firestore.service';
 import { ThemeStorageService } from 'src/app/theme/services/theme-storage/theme-storage.service';
 import { Palette, Theme } from '../../../core/models/theme.model';
-import { NgFor } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,11 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-theme-selector',
   templateUrl: './theme-selector.component.html',
   styleUrls: ['./theme-selector.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, NgFor]
+  imports: [MatButtonModule, MatMenuModule, MatIconModule]
 })
 export class ThemeSelectorComponent {
-  currentTheme: SiteTheme | undefined;
+  currentTheme = signal<SiteTheme | undefined>(undefined);
   themes: SiteTheme[];
   uid = '';
   customLightTheme: Theme | null = null;
@@ -65,7 +64,7 @@ export class ThemeSelectorComponent {
         this.snackbarService.error(error.error, { variant: 'filled' }, true)
     });
     this.styleManagerService.currentThemeName.subscribe((themeName) => {
-      if (this.currentTheme?.name !== themeName) {
+      if (this.currentTheme()?.name !== themeName) {
         if (this.customLightTheme && themeName === 'custom-light') {
           this.applyCustomTheme(this.customLightTheme);
         }
@@ -87,7 +86,7 @@ export class ThemeSelectorComponent {
     }
 
     this.styleManagerService.currentThemeName.next(themeName);
-    this.currentTheme = theme;
+    this.currentTheme.set(theme);
     this.styleManagerService.setStyle('theme', `${theme.name}.css`);
 
     if (lightTheme && theme.name === 'custom-light') {
@@ -98,8 +97,9 @@ export class ThemeSelectorComponent {
       this.applyCustomTheme(darkTheme);
     }
 
-    if (this.currentTheme) {
-      this._themeStorageService.storeTheme(this.currentTheme);
+    const currentTheme = this.currentTheme();
+    if (currentTheme) {
+      this._themeStorageService.storeTheme(currentTheme);
     }
   }
 

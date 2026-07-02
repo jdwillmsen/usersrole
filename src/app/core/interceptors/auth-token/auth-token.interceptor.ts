@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -7,17 +7,19 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable, switchMap, take } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth } from 'firebase/auth';
+import { idToken } from 'rxfire/auth';
+import { AUTH } from '../../firebase.tokens';
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
-  constructor(private auth: AngularFireAuth) {}
+  constructor(@Inject(AUTH) private auth: Auth) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return this.auth.idToken.pipe(
+    return idToken(this.auth).pipe(
       take(1),
       switchMap((idToken) => {
         let clone = request.clone();

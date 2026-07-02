@@ -1,13 +1,5 @@
-import {
-  redirectLoggedInTo,
-  redirectUnauthorizedTo
-} from '@angular/fire/compat/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-export const redirectUnauthorizedToLogin = () =>
-  redirectUnauthorizedTo(['login']);
-export const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
@@ -18,6 +10,11 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./about/about.module').then((m) => m.AboutModule)
   },
   {
     path: 'profile',

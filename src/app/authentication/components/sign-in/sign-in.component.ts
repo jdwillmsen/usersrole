@@ -14,7 +14,6 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
-  standalone: true,
   imports: [
     MatCardModule,
     EmailSignInComponent,

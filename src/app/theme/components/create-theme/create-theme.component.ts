@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
 import { Theme } from '../../../core/models/theme.model';
 import { CreatePaletteComponent } from '../create-palette/create-palette.component';
-import { NgFor } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -19,13 +19,11 @@ import {
   selector: 'app-create-theme',
   templateUrl: './create-theme.component.html',
   styleUrls: ['./create-theme.component.scss'],
-  standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    NgFor,
     CreatePaletteComponent
   ]
 })

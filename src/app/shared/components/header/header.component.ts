@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, EMPTY } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SnackbarService } from 'src/app/core/services/snackbar/snackbar.service';
-import firebase from 'firebase/compat/app';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
-import { NgIf } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,13 +17,11 @@ import { GithubButtonComponent } from '../github-button/github-button.component'
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  standalone: true,
   imports: [
     MatToolbarModule,
     MatButtonModule,
     MatTooltipModule,
     RouterLink,
-    NgIf,
     ThemeSelectorComponent,
     ProfileCardComponent,
     MatIconModule,
@@ -32,18 +31,19 @@ import { GithubButtonComponent } from '../github-button/github-button.component'
 export class HeaderComponent {
   @Input() isXSmallScreen = false;
   @Output() toggleSideNav = new EventEmitter<boolean>();
-  user: firebase.User | null = null;
 
-  constructor(
-    private authService: AuthService,
-    private snackbarService: SnackbarService
-  ) {
-    this.authService.user$.subscribe({
-      next: (user) => (this.user = user),
-      error: (error) =>
-        this.snackbarService.error(error.error, { variant: 'filled' }, true)
-    });
-  }
+  private authService = inject(AuthService);
+  private snackbarService = inject(SnackbarService);
+
+  user = toSignal(
+    this.authService.user$.pipe(
+      catchError((error) => {
+        this.snackbarService.error(error.error, { variant: 'filled' }, true);
+        return EMPTY;
+      })
+    ),
+    { initialValue: null }
+  );
 
   toggle() {
     this.toggleSideNav.emit();

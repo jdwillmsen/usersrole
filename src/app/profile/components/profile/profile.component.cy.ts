@@ -1,24 +1,29 @@
 import { ProfileComponent } from './profile.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '../../../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AUTH } from '../../../core/firebase.tokens';
+
+const authMock = {
+  onAuthStateChanged: (next: (u: unknown) => void) => {
+    next(null);
+    return () => undefined;
+  },
+  onIdTokenChanged: (next: (u: unknown) => void) => {
+    next(null);
+    return () => undefined;
+  },
+  currentUser: null
+};
 
 describe('ProfileComponent', () => {
   it('should mount', () => {
     cy.mount(ProfileComponent, {
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        HttpClientModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
+      imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
-          useValue: {}
+          provide: AUTH,
+          useValue: authMock
         }
       ]
     });
@@ -26,16 +31,11 @@ describe('ProfileComponent', () => {
 
   it('should be setup properly', () => {
     cy.mount(ProfileComponent, {
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        HttpClientModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
+      imports: [HttpClientModule, MatSnackBarModule, BrowserAnimationsModule],
       providers: [
         {
-          provide: AngularFireAuth,
-          useValue: {}
+          provide: AUTH,
+          useValue: authMock
         }
       ]
     });

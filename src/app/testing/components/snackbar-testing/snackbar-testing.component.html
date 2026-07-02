@@ -83,13 +83,14 @@
         [(value)]="options.horizontalPosition"
         data-cy="horizontal-position-select"
       >
-        <mat-option
-          *ngFor="let position of horizontalPositionList"
-          [attr.data-cy]="position + '-horizontal-option'"
-          [value]="position"
-        >
-          {{ position }}
-        </mat-option>
+        @for (position of horizontalPositionList; track position) {
+          <mat-option
+            [attr.data-cy]="position + '-horizontal-option'"
+            [value]="position"
+          >
+            {{ position }}
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
     <mat-form-field
@@ -102,13 +103,14 @@
         [(value)]="options.verticalPosition"
         data-cy="vertical-position-select"
       >
-        <mat-option
-          *ngFor="let position of verticalPositionList"
-          [attr.data-cy]="position + '-vertical-option'"
-          [value]="position"
-        >
-          {{ position }}
-        </mat-option>
+        @for (position of verticalPositionList; track position) {
+          <mat-option
+            [attr.data-cy]="position + '-vertical-option'"
+            [value]="position"
+          >
+            {{ position }}
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
     <mat-form-field
@@ -121,13 +123,14 @@
         <mat-select-trigger data-cy="variant-select-value">
           {{ variant.value?.display }}
         </mat-select-trigger>
-        <mat-option
-          *ngFor="let variant of variantList"
-          [attr.data-cy]="variant.value + '-variant-option'"
-          [value]="variant"
-        >
-          {{ variant.display }}
-        </mat-option>
+        @for (variant of variantList; track variant) {
+          <mat-option
+            [attr.data-cy]="variant.value + '-variant-option'"
+            [value]="variant"
+          >
+            {{ variant.display }}
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
     <mat-form-field
@@ -144,13 +147,14 @@
           </mat-icon>
         </mat-select-trigger>
         <mat-option data-cy="none-icon-option">None</mat-option>
-        <mat-option
-          *ngFor="let icon of iconList"
-          [attr.data-cy]="icon.value + '-icon-option'"
-          [value]="icon.value"
-        >
-          <mat-icon>{{ icon.value }}</mat-icon>
-        </mat-option>
+        @for (icon of iconList; track icon) {
+          <mat-option
+            [attr.data-cy]="icon.value + '-icon-option'"
+            [value]="icon.value"
+          >
+            <mat-icon>{{ icon.value }}</mat-icon>
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
     <mat-form-field
