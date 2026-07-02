@@ -8,9 +8,9 @@ export interface VersionInfo {
 }
 
 export const VERSION_INFO: VersionInfo = {
-  "app": "0.0.0",
-  "commit": "dev",
-  "builtAt": "unknown",
-  "env": "unknown",
-  "deps": {}
+  app: '0.0.0',
+  commit: 'dev',
+  builtAt: 'unknown',
+  env: 'unknown',
+  deps: {}
 };
