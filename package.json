@@ -1,6 +1,6 @@
 {
   "name": "usersrole",
-  "version": "0.0.0",
+  "version": "5.0.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
