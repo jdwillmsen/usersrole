@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+permissions:
+  contents: read
 jobs:
   cypress-install:
     runs-on: ubuntu-22.04
@@ -131,6 +133,9 @@ jobs:
           path: coverage/
   code-coverage:
     runs-on: ubuntu-22.04
+    # Pushes the badge update commit back to the branch.
+    permissions:
+      contents: write
     needs:
       - jest
       - cypress-ct
