@@ -154,6 +154,10 @@ jobs:
           path: coverage
       - name: Setup Node
         uses: actions/setup-node@v6
+      # nyc resolves the @istanbuljs/nyc-config-typescript preset from
+      # node_modules, so the report steps need the dev dependencies installed.
+      - name: Install Dependencies
+        run: npm ci
       - name: Merge Coverage Reports
         run: npm run merge:coverage
       - name: Generate Merged Coverage Report
