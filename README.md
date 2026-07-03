@@ -7,7 +7,7 @@
 [![Cypress Component Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-component.yml)
 [![Cypress E2E Tests](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml/badge.svg)](https://github.com/jdwillmsen/usersrole/actions/workflows/cypress-e2e.yml)
 [![Code Coverage](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml/badge.svg?branch=develop)](https://github.com/jdwillmsen/usersrole/actions/workflows/code-coverage.yml)
-![check-code-coverage](https://img.shields.io/badge/code--coverage-95.07%25-brightgreen)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-83.41%25-green)
 
 This is a frontend application that is supposed to provide a template for
 users authentication and authorization since these are common features to be
