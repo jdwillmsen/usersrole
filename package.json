@@ -18,7 +18,7 @@
     "jest:coverage": "jest --coverage",
     "cypress:coverage": "npx nyc report --reporter=html --reporter=lcov ---reporter=text --reporter=text-summary",
     "clean:coverage": "rm -rf coverage",
-    "merge:coverage": "npx istanbul-merge --out coverage/merged-report/coverage-final.json coverage/jest/coverage-final.json coverage/cypress/coverage-final.json",
+    "merge:coverage": "npx istanbul-merge --out coverage/merged-report/coverage-final.json coverage/jest/coverage-final.json \"coverage/cypress*/coverage-final.json\"",
     "all:coverage": "npx nyc report --report-dir=coverage/merged-report --temp-dir=coverage/merged-report --reporter=html --reporter=lcov --reporter=text --reporter=text-summary --reporter=json-summary --include=src/**/*.ts --exclude=src/main.ts --exclude=src/environments/**",
     "tests:all": "npm run jest:coverage && npm run ct:ci && npm run e2e:ci && npm run merge:coverage && npm run all:coverage",
     "cy:run:e2e": "npx cypress run",
