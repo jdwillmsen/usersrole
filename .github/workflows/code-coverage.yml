@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+permissions:
+  contents: read
 jobs:
   cypress-install:
     runs-on: ubuntu-22.04
@@ -79,6 +81,10 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Every shard writes coverage/cypress/, so give each a unique path or
+      # the merge-multiple download below collides them into corrupt JSON.
+      - name: Namespace Coverage Output
+        run: if [ -d coverage/cypress ]; then mv coverage/cypress coverage/cypress-ct-${{ matrix.containers }}; fi
       - name: Save Coverage Folder
         uses: actions/upload-artifact@v7.0.1
         with:
@@ -117,6 +123,8 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Namespace Coverage Output
+        run: if [ -d coverage/cypress ]; then mv coverage/cypress coverage/cypress-e2e-${{ matrix.containers }}; fi
       - name: Save Coverage Folder
         uses: actions/upload-artifact@v7.0.1
         with:
@@ -125,6 +133,9 @@ jobs:
           path: coverage/
   code-coverage:
     runs-on: ubuntu-22.04
+    # Pushes the badge update commit back to the branch.
+    permissions:
+      contents: write
     needs:
       - jest
       - cypress-ct
@@ -152,5 +163,7 @@ jobs:
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: Apply code coverage badge update
-          branch: ${{ github.head_ref }}
+          # head_ref is only set on pull_request events; this workflow runs on
+          # push, so use ref_name. Skip CI on the badge commit to avoid retrigger.
+          commit_message: Apply code coverage badge update [skip ci]
+          branch: ${{ github.ref_name }}
