@@ -58,3 +58,8 @@ Thumbs.db
 
 # Code coverage
 /coverage
+
+# Agent session artifacts
+/docs/superpowers/
+/.superpowers/
+/.claude/
