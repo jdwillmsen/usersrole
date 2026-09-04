@@ -76,7 +76,7 @@
     "angular-eslint": "^22.0.0",
     "check-code-coverage": "^1.10.5",
     "cypress": "^15.0.0",
-    "cypress-parallel": "^0.13.0",
+    "cypress-parallel": "^0.15.0",
     "cypress-split": "^1.5.2",
     "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.0.0",
