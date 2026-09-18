@@ -1,0 +1,44 @@
+version: 2
+
+# Without this file the only dependency movement is GitHub's automated security
+# fixes, which can patch a dependency only when it can resolve one directly. A
+# transitive advisory that needs its parent bumped never becomes a pull request,
+# which is how this repository accumulated dozens of open alerts with none open.
+#
+# Grouped deliberately: ungrouped, a backlog this size opens dozens of pull
+# requests that each rewrite the lockfile, so all but the first conflict and the
+# queue never drains. One pull request per group rewrites it once.
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      # Angular ships its packages as a set and expects them to move together --
+      # compiler-cli in particular has to match compiler exactly -- so splitting
+      # them across pull requests produces a tree that cannot resolve.
+      angular:
+        patterns:
+          - '@angular*'
+          - '@angular-devkit/*'
+          - '@angular-eslint/*'
+      nx:
+        patterns:
+          - 'nx'
+          - '@nx/*'
+      production:
+        dependency-type: production
+      development:
+        dependency-type: development
+    # Majors are intentionally NOT ignored here. The auto-merge workflow already
+    # refuses to merge them, so letting Dependabot raise them is what surfaces a
+    # major for review rather than hiding it -- ignoring them here would mean
+    # never learning the upgrade exists.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
