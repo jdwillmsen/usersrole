@@ -11,7 +11,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -46,7 +46,7 @@ jobs:
         with:
           name: build
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
@@ -82,7 +82,7 @@ jobs:
         with:
           name: build
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
       - name: Create Environment Files
         run: node server.js && node server-cypress.js
         env:
