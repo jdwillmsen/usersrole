@@ -1,0 +1,38 @@
+name: Dependabot auto-merge
+
+# Dependabot opens security and version updates faster than they get looked at,
+# and an unreviewed backlog is how these repositories accumulated dozens of open
+# advisories. Auto-merge closes that loop without lowering the bar: it only asks
+# GitHub to merge *when the required checks pass*, so every update still has to
+# build, lint and test before it lands.
+#
+# Majors are deliberately excluded. A major is where a dependency is allowed to
+# break its own contract, which is exactly the case a human should read.
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # --auto queues the merge behind the branch protection rules rather than
+      # merging now: if a required check fails, the pull request simply stays
+      # open. Nothing here can merge a red build.
+      - if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+        run: |
+          echo "::notice title=Major update held::${{ steps.metadata.outputs.dependency-names }} is a major version update and was left for review."
