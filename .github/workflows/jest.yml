@@ -3,6 +3,13 @@ on:
   push:
     branches-ignore:
       - main
+# One run per branch: a second push replaces the first rather than queueing
+# behind it. Without this, superseded runs still consume the account-wide job
+# limit while producing results nobody will read.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   jest:
     runs-on: ubuntu-latest
