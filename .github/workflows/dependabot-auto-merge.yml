@@ -27,12 +27,26 @@ jobs:
       # --auto queues the merge behind the branch protection rules rather than
       # merging now: if a required check fails, the pull request simply stays
       # open. Nothing here can merge a red build.
-      - if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+      # A major is where a dependency may break its own contract, so majors do not
+      # merge themselves -- except for a development dependency, which cannot reach
+      # a user. Its blast radius is this repository's own build, and the required
+      # checks are exactly the thing that would catch that: lint, test, build and
+      # the deploy preview all run before this can merge. A dev major that breaks
+      # something fails those and stays open.
+      #
+      # dependency-type is reliable here because majors arrive on their own --
+      # dependabot.yml excludes them from every group, so there is one package to
+      # classify rather than a batch.
+      - if: >-
+          steps.metadata.outputs.update-type != 'version-update:semver-major' ||
+          steps.metadata.outputs.dependency-type == 'direct:development'
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+      - if: >-
+          steps.metadata.outputs.update-type == 'version-update:semver-major' &&
+          steps.metadata.outputs.dependency-type != 'direct:development'
         run: |
-          echo "::notice title=Major update held::${{ steps.metadata.outputs.dependency-names }} is a major version update and was left for review."
+          echo "::notice title=Major update held::${{ steps.metadata.outputs.dependency-names }} is a major update to a non-development dependency and was left for review."
