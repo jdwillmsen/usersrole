@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "Renovate replaces Dependabot here, so dependency automation on this account runs through one pipeline rather than two. Both were active at once after the Renovate GitHub App was installed, which means duplicate pull requests on the same dependency and two bots competing for the same branch names.",
+    "Renovate is the one kept because its commits are signed by GitHub: an App installation token creates them through the API, which verify-pr-signatures requires elsewhere in this estate. Running one tool everywhere is also the jdwlabs policy -- updates arrive through a single reviewable pipeline.",
+    "The shared jdwlabs preset batches all non-major updates into one weekly pull request with no automerge. The dependabot.yml it replaces did the same thing with four separate groups (angular, nx, production, development); this is one grouped PR a week instead of up to four, which is fewer to review rather than fewer updates.",
+    "Security updates do not wait for that weekly slot: the preset sets vulnerabilityAlerts with prCreation immediate, and osvVulnerabilityAlerts on top. GitHub's own Dependabot security updates are a repository setting rather than this file, so removing it does not turn them off."
+  ],
+  "extends": ["github>jdwlabs/.github"]
+}
