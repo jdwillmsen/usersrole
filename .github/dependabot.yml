@@ -14,6 +14,12 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
+    # Majors are excluded from every group so they arrive as their own pull
+    # request. dependabot/fetch-metadata reports a grouped PR's update-type as
+    # major if *any* member is a major, and the auto-merge workflow refuses
+    # majors -- so a single major in a group silently blocks the whole batch,
+    # including the security patches travelling with it. Observed directly: a
+    # 43-package development group held for days behind one Angular major.
     groups:
       # Angular ships its packages as a set and expects them to move together --
       # compiler-cli in particular has to match compiler exactly -- so splitting
@@ -23,14 +29,18 @@ updates:
           - '@angular*'
           - '@angular-devkit/*'
           - '@angular-eslint/*'
+        update-types: ['minor', 'patch']
       nx:
         patterns:
           - 'nx'
           - '@nx/*'
+        update-types: ['minor', 'patch']
       production:
         dependency-type: production
+        update-types: ['minor', 'patch']
       development:
         dependency-type: development
+        update-types: ['minor', 'patch']
     # Majors are intentionally NOT ignored here. The auto-merge workflow already
     # refuses to merge them, so letting Dependabot raise them is what surfaces a
     # major for review rather than hiding it -- ignoring them here would mean
@@ -39,6 +49,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # Majors are excluded from every group so they arrive as their own pull
+    # request. dependabot/fetch-metadata reports a grouped PR's update-type as
+    # major if *any* member is a major, and the auto-merge workflow refuses
+    # majors -- so a single major in a group silently blocks the whole batch,
+    # including the security patches travelling with it. Observed directly: a
+    # 43-package development group held for days behind one Angular major.
     groups:
       actions:
         patterns: ['*']
+        update-types: ['minor', 'patch']
