@@ -3,13 +3,17 @@ on:
   push:
     branches-ignore:
       - main
+  # CI calls this on main, so main is gated by the same steps as every branch.
+  workflow_call:
 permissions:
   contents: read
 # One run per branch: a second push replaces the first rather than queueing
 # behind it. Without this, superseded runs still consume the account-wide job
-# limit while producing results nobody will read.
+# limit while producing results nobody will read. The name is spelled out
+# because under workflow_call github.workflow is the caller's name, which
+# would put this in CI's own group and have the two cancel each other.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: jest-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
