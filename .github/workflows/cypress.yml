@@ -4,6 +4,8 @@ on:
     branches-ignore:
       - main
       - develop
+permissions:
+  contents: read
 # One run per branch. Without this a second push queues behind the first
 # instead of replacing it, and this workflow alone asks for 26 jobs -- more
 # than the whole account may run at once -- so every superseded run starves

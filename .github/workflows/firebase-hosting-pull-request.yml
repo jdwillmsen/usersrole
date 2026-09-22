@@ -1,5 +1,10 @@
 name: Deploy to Firebase Hosting on PR
 on: pull_request
+# The deploy action posts the preview URL as a PR comment and a check run.
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
 # One run per branch: a second push replaces the first rather than queueing
 # behind it. Without this, superseded runs still consume the account-wide job
 # limit while producing results nobody will read.
