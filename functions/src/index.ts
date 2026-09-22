@@ -9,7 +9,18 @@ import { routesConfig } from './users/routes-config';
 initializeApp();
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({ origin: true }));
+// The API authenticates with a Bearer ID token, not cookies, so CORS is not
+// the access control here -- it only stops arbitrary sites from calling the
+// API from a visitor's browser. localhost stays allowed because local
+// development and the Cypress e2e suite both drive the deployed API from
+// http://localhost:4200; preview channels are usersrole--<channel>.web.app.
+const allowedOrigins: (string | RegExp)[] = [
+  'https://usersrole.web.app',
+  'https://usersrole.firebaseapp.com',
+  /^https:\/\/usersrole--[a-z0-9-]+\.web\.app$/,
+  'http://localhost:4200'
+];
+app.use(cors({ origin: allowedOrigins }));
 app.set('trust proxy', 1);
 routesConfig(app);
 
