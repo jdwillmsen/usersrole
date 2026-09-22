@@ -1,0 +1,136 @@
+name: Release
+
+# Every commit that lands on main and passes CI is a release candidate.
+# semantic-release reads the Conventional Commit history since the last tag and
+# decides whether it amounts to a new version; if it does, it tags the commit,
+# writes the GitHub release, and the deploy job below puts exactly that commit
+# live on Firebase Hosting. Nothing else changes production -- pull requests
+# only ever reach their own preview channel -- so the live site is always a
+# tagged, CI-green commit.
+#
+# Hosting only. The Cloud Functions in functions/ are deployed by hand: that
+# needs credentials and billing this workflow does not have, so a release
+# never changes them.
+#
+# Chained off CI with workflow_run rather than running on push so a release can
+# never race ahead of, or skip, the checks that gate it.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+permissions: {}
+
+# Serialized, never cancelled: a release that has tagged must finish its
+# deploy, and two deploys finishing out of order would put an older version
+# live. A newer run queued behind this one supersedes any older queued run,
+# which is safe -- it releases everything the older one would have.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # workflow_run fires for every CI completion, including failures and pull
+    # requests whose head branch happens to be called main (from a fork, say).
+    # Only a green push to this repository's main is a release candidate.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      # Tags and GitHub releases. Nothing else: the success and failure comments
+      # that would need issues and pull-requests write are turned off in
+      # .releaserc.json.
+      contents: write
+    outputs:
+      new-release-published: ${{ steps.release.outputs.new-release-published }}
+      new-release-version: ${{ steps.release.outputs.new-release-version }}
+    steps:
+      # A tag is a promise that the version went live, and semantic-release
+      # makes it before the deploy job ever runs. Without the service account
+      # and the environment file that deploy can only fail, leaving a release
+      # with nothing behind it, so refuse to cut one. Both secrets are
+      # repository-wide, not scoped to the production environment, which is why
+      # this job can see them at all.
+      - name: Require the deploy secrets
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ] || [ -z "$ENVIRONMENT_FILE" ]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT_USERSROLE or ENVIRONMENT_FILE is not set, so the deploy would fail after tagging. Add the repository secrets before releasing."
+            exit 1
+          fi
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+      # Under workflow_run, checkout defaults to the newest commit on main, not
+      # the one CI just passed -- if main moved while CI ran, that would tag an
+      # untested commit. Check out the exact commit CI ran against instead. If
+      # main has since moved on, semantic-release sees the local branch is
+      # behind and releases nothing; the newer commit's own CI run will.
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          # The whole history and every tag: the next version is derived from
+          # the commits since the last tag.
+          fetch-depth: 0
+          # semantic-release authenticates its tag push with GITHUB_TOKEN
+          # itself; leaving checkout's credential in the git config is just a
+          # second copy of it on disk.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          # semantic-release's own minimum.
+          node-version: 22.x
+          cache: 'npm'
+      # Nothing here runs Cypress, so skip downloading its binary.
+      - run: npm ci
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+      - id: release
+        run: node scripts/release.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    needs: release
+    if: needs.release.outputs.new-release-published == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    environment:
+      name: Production
+      url: https://usersrole.web.app
+    steps:
+      # The tag, not the branch: what goes live is exactly what was released.
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.release.outputs.new-release-version }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: 'npm'
+      # No template fallback: a missing secret must fail the deploy rather than
+      # ship a build with a blank Firebase config.
+      - run: node server.js
+        env:
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+      - run: npm ci
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+      # The app shows package.json's version, and semantic-release does not
+      # commit the version back, so stamp the released one in before building.
+      - run: npm version "$VERSION" --no-git-tag-version --allow-same-version
+        env:
+          VERSION: ${{ needs.release.outputs.new-release-version }}
+      - run: npm run build
+      # No repoToken: the action only uses it on pull requests, and leaving
+      # it out keeps this job's token read-only.
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}
+          channelId: live
+          projectId: usersrole
