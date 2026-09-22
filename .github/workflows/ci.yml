@@ -1,0 +1,57 @@
+name: CI
+
+# The gate every commit on main has to pass before Release will consider it.
+# Branches and pull requests are already gated by the individual Lint and Jest
+# workflows (their job names are the required checks on main), so this calls
+# those same workflows rather than restating their steps; only the build, which
+# on pull requests happens inside the preview deploy, is spelled out here.
+#
+# Cypress and Format are left out on purpose: Cypress is not a required check
+# anywhere and needs the recording service, and Format is a fixer that commits
+# back to its branch, which main's ruleset forbids.
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+# A newer push to main releases everything an older one would have, so an
+# older run still in flight is only spending the account-wide job limit.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  jest:
+    uses: ./.github/workflows/jest.yml
+    secrets: inherit
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: 'npm'
+      # No template fallback: this is the configuration Release will deploy,
+      # so a missing secret should fail here, before anything is tagged.
+      - name: Create Environment File
+        run: node server.js
+        env:
+          ENVIRONMENT_FILE: '${{ secrets.ENVIRONMENT_FILE }}'
+      - name: Install Dependencies
+        run: npm ci
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+      - name: Build
+        run: npm run build

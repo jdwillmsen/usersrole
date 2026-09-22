@@ -3,13 +3,17 @@ on:
   push:
     branches-ignore:
       - main
+  # CI calls this on main, so main is gated by the same steps as every branch.
+  workflow_call:
 permissions:
   contents: read
 # One run per branch: a second push replaces the first rather than queueing
 # behind it. Without this, superseded runs still consume the account-wide job
-# limit while producing results nobody will read.
+# limit while producing results nobody will read. The name is spelled out
+# because under workflow_call github.workflow is the caller's name, which
+# would put this in CI's own group and have the two cancel each other.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: lint-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -30,3 +34,24 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+  # Release notes are only rendered on main after a merge; render them here
+  # too so a dependency bump that breaks them fails its own pull request.
+  release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          # semantic-release's own minimum, above the 20.x the lint matrix covers.
+          node-version: 22.x
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm ci
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+      - name: Check Release Notes
+        run: node scripts/check-release-notes.mjs
