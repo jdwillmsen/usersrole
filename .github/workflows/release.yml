@@ -8,9 +8,10 @@ name: Release
 # only ever reach their own preview channel -- so the live site is always a
 # tagged, CI-green commit.
 #
-# Hosting only. The Cloud Functions in functions/ are deployed by hand: that
-# needs credentials and billing this workflow does not have, so a release
-# never changes them.
+# Both halves of production move on that tag: the deploy job pushes the Cloud
+# Functions in functions/ first and Firebase Hosting second, so a release that
+# stops half-way leaves the old frontend calling the new API rather than a new
+# frontend calling an API that never shipped.
 #
 # Chained off CI with workflow_run rather than running on push so a release can
 # never race ahead of, or skip, the checks that gate it.
@@ -108,6 +109,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.release.outputs.new-release-version }}
+          # The whole history and every tag: the functions deploy below asks
+          # what changed between this release and the one before it, which a
+          # shallow clone cannot answer.
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v7
         with:
@@ -127,6 +132,70 @@ jobs:
         env:
           VERSION: ${{ needs.release.outputs.new-release-version }}
       - run: npm run build
+
+      # Everything above this line can fail without touching production. The
+      # two deploys run back to back from here, functions first, so the only
+      # window in which production is half a release wide is between them.
+      #
+      # A release is cut from every releasable commit, most of which are
+      # nowhere near functions/, and redeploying unchanged functions costs a
+      # Cloud Build run and a cold start for nothing. firebase.json counts as
+      # part of them: it carries the source directory, the codebase name and
+      # the predeploy hooks.
+      - name: Work out whether the functions changed
+        id: functions
+        env:
+          TAG: v${{ needs.release.outputs.new-release-version }}
+        run: |
+          previous="$(git describe --tags --abbrev=0 --match 'v[0-9]*' "$TAG^" 2>/dev/null || true)"
+          if [ -z "$previous" ]; then
+            changed=true
+            reason="there is no earlier release tag, so nothing is known to be deployed"
+          elif [ -n "$(git diff --name-only "$previous..$TAG" -- functions firebase.json)" ]; then
+            changed=true
+            reason="functions/ or firebase.json changed since $previous"
+          else
+            changed=false
+            reason="nothing under functions/ or in firebase.json changed since $previous"
+          fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          if [ "$changed" = true ]; then
+            echo "Deploying the Cloud Functions: $reason." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Skipped the Cloud Functions deploy: $reason." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # The root install above is the Angular app's. firebase deploy runs the
+      # predeploy hooks from firebase.json and then loads the built code to
+      # discover the triggers, and both want functions/'s own dependencies.
+      - name: Install the functions dependencies
+        if: steps.functions.outputs.changed == 'true'
+        run: npm ci --prefix functions
+
+      # The same service account the hosting action below uses, handed to the
+      # Firebase CLI the only way it takes one unattended: a key file that
+      # GOOGLE_APPLICATION_CREDENTIALS points at. umask keeps the file to this
+      # user, and the step after removes it whether or not the deploy worked.
+      #
+      # firebase-tools is pinned to an exact version so a redeploy of the same
+      # tag produces the same thing. The `-p <package>@<version>` spelling is
+      # what the shared Renovate preset's regex manager reads, so the pin is
+      # still kept current automatically.
+      - name: Deploy the functions
+        if: steps.functions.outputs.changed == 'true'
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}
+        run: |
+          umask 077
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-key.json"
+          npx --yes -p firebase-tools@15.30.2 firebase deploy \
+            --only functions --project usersrole --non-interactive
+
+      - name: Remove the service account key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/firebase-key.json"
+
       # No repoToken: the action only uses it on pull requests, and leaving
       # it out keeps this job's token read-only.
       - uses: FirebaseExtended/action-hosting-deploy@v0
