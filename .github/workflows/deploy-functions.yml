@@ -1,0 +1,109 @@
+name: Deploy Functions
+
+# Puts the Cloud Functions in functions/ live from a released tag.
+#
+# Two ways in, because a deploy that only ever runs as part of a release is a
+# deploy nobody can test and nobody can retry. Release.yml calls this through
+# workflow_call and waits for it before shipping hosting; a human runs it from
+# the Actions tab against any tag, or against the newest release by leaving the
+# input empty. The manual path is how functions that were merged and released
+# before this workflow existed reach production at all: the release path only
+# ever looks at what changed in the release it is deploying, so a backlog older
+# than that is invisible to it forever.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Version to deploy, with or without a leading v. Empty deploys the newest release.
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      tag:
+        description: Version to deploy, with or without a leading v
+        type: string
+        required: true
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT_USERSROLE:
+        required: true
+
+permissions: {}
+
+# Serialized, never cancelled: two function deploys finishing out of order
+# would leave the older one live. A release that calls this while a manual
+# deploy is running waits for it rather than racing it.
+concurrency:
+  group: deploy-functions
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      # Reading the repository, and the release lookup below.
+      contents: read
+    environment:
+      name: Production
+      url: https://usersrole.web.app
+    steps:
+      # Resolved before the checkout so the checkout can name the tag. A
+      # dispatch carries whatever a human typed, so it is matched against
+      # semver before it reaches a git command.
+      - id: version
+        env:
+          TAG: ${{ inputs.tag }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          raw="$TAG"
+          if [ -z "$raw" ]; then
+            raw="$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)"
+          fi
+          version="${raw#v}"
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::deploy version must be semver starting with a digit: $version"
+            exit 1
+          fi
+          echo "value=$version" >> "$GITHUB_OUTPUT"
+          echo "Deploying the Cloud Functions from v$version." >> "$GITHUB_STEP_SUMMARY"
+
+      # The tag, not the branch: a manual run from the Actions tab would
+      # otherwise deploy whatever main happens to hold, and this fails outright
+      # when no such tag exists.
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ steps.version.outputs.value }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: 'npm'
+          cache-dependency-path: functions/package-lock.json
+
+      # firebase deploy runs the predeploy hooks from firebase.json and then
+      # loads the built code to discover the triggers, and both want
+      # functions/'s own dependencies. The Angular app's are not needed here.
+      - run: npm ci --prefix functions
+
+      # The same service account the hosting deploy uses, handed to the
+      # Firebase CLI the only way it takes one unattended: a key file that
+      # GOOGLE_APPLICATION_CREDENTIALS points at. umask keeps the file to this
+      # user, and the step after removes it whether or not the deploy worked.
+      #
+      # firebase-tools is pinned to an exact version so a redeploy of the same
+      # tag produces the same thing. The `-p <package>@<version>` spelling is
+      # what the shared Renovate preset's regex manager reads, so the pin is
+      # still kept current automatically.
+      - name: Deploy the functions
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}
+        run: |
+          umask 077
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-key.json"
+          npx --yes -p firebase-tools@15.30.2 firebase deploy \
+            --only functions --project usersrole --non-interactive
+
+      - name: Remove the service account key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/firebase-key.json"

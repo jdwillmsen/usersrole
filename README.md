@@ -22,9 +22,11 @@ the authorization is built off of a node server that makes use of Firebase
 functions. The production server and all deployments are hosted with
 Firebase hosting.
 
-The CI/CD tools used here are GitHub actions. There are two different
-actions/workflows for CD, one for deploying production and the other for raising
-previews during pull requests. As well as few other checks within GitHub
+The CI/CD tools used here are GitHub actions. For CD there is a release
+workflow, which tags a version and then deploys the Cloud Functions and hosting
+in that order; a Deploy Functions workflow it calls, which can also be run by
+hand from the Actions tab to redeploy or to ship functions released before that
+deploy existed; and one for raising previews during pull requests. As well as few other checks within GitHub
 (CodeQL). Also, there is a server.js script in the repo that is used within
 CI/CD to retrieve and set up the environment file since they contain secrets.
 Which are managed with GitHub secrets. For CI there are also various different

@@ -8,10 +8,11 @@ name: Release
 # only ever reach their own preview channel -- so the live site is always a
 # tagged, CI-green commit.
 #
-# Both halves of production move on that tag: the deploy job pushes the Cloud
-# Functions in functions/ first and Firebase Hosting second, so a release that
-# stops half-way leaves the old frontend calling the new API rather than a new
-# frontend calling an API that never shipped.
+# Both halves of production move on that tag: the Cloud Functions in functions/
+# go out first, through the Deploy Functions workflow, and Firebase Hosting
+# only once they have. A release that stops half-way therefore leaves the old
+# frontend calling the new API rather than a new frontend calling an API that
+# never shipped.
 #
 # Chained off CI with workflow_run rather than running on push so a release can
 # never race ahead of, or skip, the checks that gate it.
@@ -95,53 +96,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  deploy:
+  # A release is cut from every releasable commit, most of which are nowhere
+  # near functions/, and redeploying unchanged functions costs a Cloud Build
+  # run and a cold start for nothing. firebase.json counts as part of them: it
+  # carries the source directory, the codebase name and the predeploy hooks.
+  #
+  # This sees one release's worth of history and nothing else, so it cannot
+  # notice functions that were released before this deploy existed. Deploy
+  # Functions' workflow_dispatch is what clears a backlog like that.
+  plan-functions:
     needs: release
     if: needs.release.outputs.new-release-published == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    environment:
-      name: Production
-      url: https://usersrole.web.app
+    outputs:
+      changed: ${{ steps.functions.outputs.changed }}
     steps:
-      # The tag, not the branch: what goes live is exactly what was released.
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.release.outputs.new-release-version }}
-          # The whole history and every tag: the functions deploy below asks
-          # what changed between this release and the one before it, which a
-          # shallow clone cannot answer.
+          # Every tag: this compares the release against the one before it,
+          # which a shallow clone cannot see.
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22.x
-          cache: 'npm'
-      # No template fallback: a missing secret must fail the deploy rather than
-      # ship a build with a blank Firebase config.
-      - run: node server.js
-        env:
-          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
-      - run: npm ci
-        env:
-          CYPRESS_INSTALL_BINARY: '0'
-      # The app shows package.json's version, and semantic-release does not
-      # commit the version back, so stamp the released one in before building.
-      - run: npm version "$VERSION" --no-git-tag-version --allow-same-version
-        env:
-          VERSION: ${{ needs.release.outputs.new-release-version }}
-      - run: npm run build
-
-      # Everything above this line can fail without touching production. The
-      # two deploys run back to back from here, functions first, so the only
-      # window in which production is half a release wide is between them.
-      #
-      # A release is cut from every releasable commit, most of which are
-      # nowhere near functions/, and redeploying unchanged functions costs a
-      # Cloud Build run and a cold start for nothing. firebase.json counts as
-      # part of them: it carries the source directory, the codebase name and
-      # the predeploy hooks.
       - name: Work out whether the functions changed
         id: functions
         env:
@@ -165,37 +143,66 @@ jobs:
             echo "Skipped the Cloud Functions deploy: $reason." >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      # The root install above is the Angular app's. firebase deploy runs the
-      # predeploy hooks from firebase.json and then loads the built code to
-      # discover the triggers, and both want functions/'s own dependencies.
-      - name: Install the functions dependencies
-        if: steps.functions.outputs.changed == 'true'
-        run: npm ci --prefix functions
+  # Functions before hosting, so a release that stops half-way leaves the old
+  # frontend calling the new API rather than a new frontend calling an API that
+  # never shipped. A called workflow is a whole job, which is why what could
+  # have been three steps is three jobs: the same deploy has to be runnable by
+  # hand, and only a workflow of its own can carry workflow_dispatch.
+  deploy-functions:
+    needs: [release, plan-functions]
+    if: needs.plan-functions.outputs.changed == 'true'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/deploy-functions.yml
+    with:
+      tag: v${{ needs.release.outputs.new-release-version }}
+    # Named rather than inherited, so the called workflow receives this one
+    # secret and no other repository secret.
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT_USERSROLE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}
 
-      # The same service account the hosting action below uses, handed to the
-      # Firebase CLI the only way it takes one unattended: a key file that
-      # GOOGLE_APPLICATION_CREDENTIALS points at. umask keeps the file to this
-      # user, and the step after removes it whether or not the deploy worked.
-      #
-      # firebase-tools is pinned to an exact version so a redeploy of the same
-      # tag produces the same thing. The `-p <package>@<version>` spelling is
-      # what the shared Renovate preset's regex manager reads, so the pin is
-      # still kept current automatically.
-      - name: Deploy the functions
-        if: steps.functions.outputs.changed == 'true'
+  deploy-hosting:
+    needs: [release, plan-functions, deploy-functions]
+    # Skipped is the ordinary case for deploy-functions, since most releases
+    # change nothing under functions/, and a skipped dependency would otherwise
+    # skip hosting with it -- a frontend-only release would never ship. Failed
+    # or cancelled must still stop hosting, which is the whole point of the
+    # ordering.
+    if: >-
+      !cancelled() &&
+      needs.plan-functions.result == 'success' &&
+      (needs.deploy-functions.result == 'success' ||
+      needs.deploy-functions.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    environment:
+      name: Production
+      url: https://usersrole.web.app
+    steps:
+      # The tag, not the branch: what goes live is exactly what was released.
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.release.outputs.new-release-version }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: 'npm'
+      # No template fallback: a missing secret must fail the deploy rather than
+      # ship a build with a blank Firebase config.
+      - run: node server.js
         env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_USERSROLE }}
-        run: |
-          umask 077
-          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
-          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-key.json"
-          npx --yes -p firebase-tools@15.30.2 firebase deploy \
-            --only functions --project usersrole --non-interactive
-
-      - name: Remove the service account key
-        if: always()
-        run: rm -f "$RUNNER_TEMP/firebase-key.json"
-
+          ENVIRONMENT_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+      - run: npm ci
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+      # The app shows package.json's version, and semantic-release does not
+      # commit the version back, so stamp the released one in before building.
+      - run: npm version "$VERSION" --no-git-tag-version --allow-same-version
+        env:
+          VERSION: ${{ needs.release.outputs.new-release-version }}
+      - run: npm run build
       # No repoToken: the action only uses it on pull requests, and leaving
       # it out keeps this job's token read-only.
       - uses: FirebaseExtended/action-hosting-deploy@v0
