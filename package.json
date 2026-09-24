@@ -3,6 +3,11 @@
   "version": "5.0.0",
   "scripts": {
     "start": "ng serve",
+    "prestart:emulator": "node scripts/ensure-environment.mjs",
+    "start:emulator": "ng serve --configuration emulator",
+    "preemulators": "npm --prefix functions run build",
+    "emulators": "npx --yes -p firebase-tools@15.30.2 firebase emulators:start --project demo-usersrole --only auth,functions,firestore,storage",
+    "emulators:seed": "node scripts/seed-emulators.mjs",
     "build": "ng build",
     "prebuild": "node scripts/generate-version-info.mjs",
     "generate:version": "node scripts/generate-version-info.mjs",
