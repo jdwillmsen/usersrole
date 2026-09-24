@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getAuth, UserRecord } from 'firebase-admin/auth';
+import { isEmailAllowed, signupAllowlist } from '../auth/signup-allowlist';
 
 export async function create(req: Request, res: Response) {
   try {
@@ -7,6 +8,10 @@ export async function create(req: Request, res: Response) {
 
     if (!displayName || !password || !email) {
       return res.status(400).send({ message: 'Missing fields' });
+    }
+
+    if (!isEmailAllowed(email, signupAllowlist.value())) {
+      return res.status(403).send({ message: 'Sign-up is closed' });
     }
 
     const { uid } = await getAuth().createUser({
