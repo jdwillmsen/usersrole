@@ -56,6 +56,9 @@ Thumbs.db
 /src/environments/environment.production.ts
 /src/environments/environment.local.ts
 
+# Retirement recordings are evidence, not source
+/docs/retirement/media/
+
 # Code coverage
 /coverage
 

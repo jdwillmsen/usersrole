@@ -1,3 +1,5 @@
+> **Retired 2026-09. Superseded by [jdwlabs/apps](https://github.com/jdwlabs/apps). See [REPLICATE.md](REPLICATE.md) to run your own.**
+
 # [Users Role](https://usersrole.web.app/) 
 
 [![Jest](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml/badge.svg?branch=develop)](https://github.com/jdwillmsen/usersrole/actions/workflows/jest.yml)
