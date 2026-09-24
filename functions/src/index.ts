@@ -3,8 +3,9 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { initializeApp } from 'firebase-admin/app';
 import { onRequest } from 'firebase-functions/v2/https';
-import { beforeUserCreated } from 'firebase-functions/v2/identity';
+import { beforeUserCreated, HttpsError } from 'firebase-functions/v2/identity';
 import { routesConfig } from './users/routes-config';
+import { isEmailAllowed, signupAllowlist } from './auth/signup-allowlist';
 
 initializeApp();
 const app = express();
@@ -25,7 +26,13 @@ app.set('trust proxy', 1);
 routesConfig(app);
 
 export const api = onRequest(app);
-export const beforecreated = beforeUserCreated(() => {
+// Covers sign-ups made from the browser, i.e. the Google, GitHub and Twitter
+// popups. Accounts made through the Admin SDK skip blocking functions, which
+// is why the public POST /users route checks the same allowlist itself.
+export const beforecreated = beforeUserCreated((event) => {
+  if (!isEmailAllowed(event.data?.email, signupAllowlist.value())) {
+    throw new HttpsError('permission-denied', 'Sign-up is closed.');
+  }
   return {
     customClaims: {
       roles: ['user']
