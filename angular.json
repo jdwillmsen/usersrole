@@ -169,6 +169,20 @@
                 }
               ]
             },
+            "emulator": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.emulator.ts"
+                }
+              ]
+            },
             "cypress": {
               "extractLicenses": false,
               "sourceMap": true,
@@ -189,6 +203,9 @@
             },
             "development": {
               "buildTarget": "usersrole:build:development"
+            },
+            "emulator": {
+              "buildTarget": "usersrole:build:emulator"
             }
           },
           "defaultConfiguration": "development"
