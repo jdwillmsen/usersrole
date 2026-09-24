@@ -63,6 +63,13 @@ Thumbs.db
 /docs/superpowers/
 /.superpowers/
 /.claude/
-
 # Retirement walkthrough videos are uploaded as GitHub Release assets, not committed.
 docs/retirement/media/
+
+# Retirement capture: dependencies, recordings and the signed-in browser
+# profile (the profile normally lives outside the repo; this catches a
+# CAPTURE_PROFILE_DIR pointed inside it)
+/scripts/retirement-capture/node_modules/
+/scripts/retirement-capture/videos/
+/scripts/retirement-capture/screenshots/
+usersrole-capture-profile/

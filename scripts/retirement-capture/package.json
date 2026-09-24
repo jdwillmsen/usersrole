@@ -1,0 +1,21 @@
+{
+  "name": "usersrole-retirement-capture",
+  "private": true,
+  "type": "module",
+  "description": "Headed, recorded browser for capturing the Firebase and GCP consoles before the project is retired.",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "status": "node capture.ts status",
+    "launch": "node capture.ts launch",
+    "teardown": "node capture.ts teardown",
+    "test": "node --test redact.test.ts config.test.ts",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "playwright": "1.63.0",
+    "typescript": "6.0.3"
+  }
+}
