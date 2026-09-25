@@ -246,6 +246,11 @@ exceeded, which stops every paid service in it.
    Account management** (or `gcloud billing projects link`) once you know
    what ran up the cost.
 
+   Deploying the kill switch and flipping `DRY_RUN` (or re-linking billing) are
+   human-only terminal steps: they need your own `gcloud` login and change what
+   money the project can spend, so run them yourself and do not wire them into
+   an agent or CI.
+
 ### Step 3: storage and Firestore rules
 
 [`storage.rules`](storage.rules) confines each signed-in user to
@@ -258,6 +263,11 @@ back.
 `users/{uid}` preferences document. Both files deploy with
 `firebase deploy --only firestore:rules,storage` and are already what the
 emulators enforce, so behaviour you saw locally is what you get.
+
+Role changes are also locked down at the API: `PATCH /api/users/:id` lets a
+user edit their own profile, but only a caller whose own token carries the
+`admin` role can change anyone's `roles`. A `roles` array sent by a non-admin
+editing their own record is ignored, so no one can self-promote.
 
 ### Step 4: close sign-up
 
