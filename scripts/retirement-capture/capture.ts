@@ -174,16 +174,32 @@ async function teardown(cfg: CaptureConfig, dryRun: boolean): Promise<void> {
   }
   const done: Record<string, string> = {};
   for (const svc of plan) done[svc] = await stopService(cfg, svc);
-  rmSync(profile, { recursive: true, force: true });
+  // force suppresses "already gone" but still throws on a permission or busy
+  // failure; catch it so a partial wipe becomes a loud error instead of an
+  // unhandled rejection. This dir holds the live Google session.
+  let wipeError: string | undefined;
+  try {
+    rmSync(profile, { recursive: true, force: true });
+  } catch (e) {
+    wipeError = e instanceof Error ? e.message : String(e);
+  }
   rmSync(cfg.stateDir, { recursive: true, force: true });
-  done['profile'] = existsSync(profile)
-    ? `STILL PRESENT ${profile}`
-    : `deleted ${profile}`;
   done['videos'] = `kept ${cfg.videoDir}`;
+  // The profile still existing means the signed-in session was NOT wiped, so
+  // exit non-zero and say so unmistakably rather than report success.
+  if (existsSync(profile)) {
+    done['profile'] = `STILL PRESENT ${profile}`;
+    fail(
+      `profile was not deleted; the Google session is still on disk at ${profile}${wipeError ? ` (${wipeError})` : ''} -- delete it by hand`,
+      [
+        'human: Google Account > Security > Your devices > sign out this session (see RUNBOOK.md)'
+      ]
+    );
+  }
+  done['profile'] = `deleted ${profile}`;
   print(done, [
     'human: Google Account > Security > Your devices > sign out this session (see RUNBOOK.md)'
   ]);
-  if (existsSync(profile)) process.exit(1);
 }
 
 async function main(): Promise<void> {

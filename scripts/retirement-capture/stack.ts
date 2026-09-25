@@ -205,6 +205,10 @@ export async function startX11vnc(
 export async function startWebsockify(cfg: CaptureConfig): Promise<number> {
   const existing = runningPid(cfg, 'websockify');
   if (existing) return existing;
+  // The listen address is an IPv4 literal, not a hostname, so websockify
+  // resolves it to a single AF_INET socket and never opens the wildcard IPv6
+  // listener that a bare port or a dual-stack name would. Its only v6 switch
+  // (--prefer-ipv6) is left off, and assertBoundOnlyTo below is the backstop.
   const pid = spawnDetached(cfg, 'websockify', 'websockify', [
     '--web',
     cfg.novncWebRoot,

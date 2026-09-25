@@ -73,3 +73,6 @@ docs/retirement/media/
 /scripts/retirement-capture/videos/
 /scripts/retirement-capture/screenshots/
 usersrole-capture-profile/
+# VNC password files, in case one is ever written inside the tree despite the
+# guard in config.ts that refuses such a path
+*.pass

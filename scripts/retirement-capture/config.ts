@@ -1,9 +1,27 @@
 import { execFileSync } from 'node:child_process';
 import { homedir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
+
+// The worktree root, so the passfile guard can keep a credential out of any
+// path git would track. Falls back to the package dir if git is unavailable,
+// which still catches the common CAPTURE_VNC_PASSFILE-into-the-repo mistake.
+function repoRoot(): string {
+  try {
+    return execFileSync('git', ['rev-parse', '--show-toplevel'], {
+      cwd: here,
+      encoding: 'utf8'
+    }).trim();
+  } catch {
+    return resolve(here, '..', '..');
+  }
+}
+
+function isInside(child: string, parent: string): boolean {
+  return child === parent || child.startsWith(parent + sep);
+}
 
 export interface CaptureConfig {
   bindIp: string;
@@ -70,6 +88,16 @@ export function loadConfig(
   // XDG_RUNTIME_DIR is a per-user tmpfs, so the X auth key and pid files never
   // reach disk; agent shells do not always export it, hence the fallback.
   const runtimeBase = env['XDG_RUNTIME_DIR'] ?? join(home, '.cache');
+  const vncPassFile = resolve(
+    env['CAPTURE_VNC_PASSFILE'] ?? join(home, '.vnc', 'usersrole-capture.pass')
+  );
+  // A passfile inside the tree is one `git add` away from committing the VNC
+  // credential, so refuse it outright rather than lean on .gitignore alone.
+  if (isInside(vncPassFile, repoRoot())) {
+    throw new Error(
+      `CAPTURE_VNC_PASSFILE ${vncPassFile} is inside the repository; put it somewhere like ~/.vnc so it cannot be committed`
+    );
+  }
   return {
     bindIp: tailnetIp(env),
     display: `:${displayNum}`,
@@ -92,10 +120,7 @@ export function loadConfig(
     stateDir: resolve(
       env['CAPTURE_STATE_DIR'] ?? join(runtimeBase, 'usersrole-capture')
     ),
-    vncPassFile: resolve(
-      env['CAPTURE_VNC_PASSFILE'] ??
-        join(home, '.vnc', 'usersrole-capture.pass')
-    ),
+    vncPassFile,
     startUrl:
       env['CAPTURE_START_URL'] ?? 'https://console.firebase.google.com/',
     channel
