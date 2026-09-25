@@ -63,3 +63,6 @@ Thumbs.db
 /docs/superpowers/
 /.superpowers/
 /.claude/
+
+# Retirement walkthrough videos are uploaded as GitHub Release assets, not committed.
+docs/retirement/media/

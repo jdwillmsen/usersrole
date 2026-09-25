@@ -1,0 +1,161 @@
+{
+  "app": "usersrole",
+  "baseUrl": "https://usersrole.web.app",
+  "capturedAt": "2026-09-25T00:45:50.487Z",
+  "signUpUid": "cFFUpxjp6KP41Z9prhrd5dR0tpg2",
+  "signedInHeadless": false,
+  "flows": [
+    {
+      "flow": "01-sign-up",
+      "status": "captured",
+      "notes": [
+        "created uid cFFUpxjp6KP41Z9prhrd5dR0tpg2"
+      ],
+      "screenshots": [
+        "screenshots/flow-01-sign-up-empty.jpg",
+        "screenshots/flow-01-sign-up-done.jpg"
+      ],
+      "videos": [
+        "media/usersrole-01-sign-up.webm"
+      ]
+    },
+    {
+      "flow": "02-sign-in-password",
+      "status": "needs-headed-session",
+      "notes": [
+        "headless sign-in rejected: \"Firebase App Check token is invalid\" (App Check enforced on Identity Toolkit)"
+      ],
+      "screenshots": [],
+      "videos": []
+    },
+    {
+      "flow": "03-profile",
+      "status": "needs-headed-session",
+      "notes": [
+        "signed-in session unavailable headless (App Check enforcement); capture in the headed session",
+        "/profile unauthenticated -> /sign-in"
+      ],
+      "screenshots": [
+        "screenshots/03-profile-profile-unauth.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "flow": "04-admin-blocked-as-user",
+      "status": "needs-headed-session",
+      "notes": [
+        "signed-in session unavailable headless (App Check enforcement); capture in the headed session",
+        "/admin/users unauthenticated -> /sign-in",
+        "/admin/roles unauthenticated -> /sign-in"
+      ],
+      "screenshots": [
+        "screenshots/04-admin-blocked-as-user-users-unauth.jpg",
+        "screenshots/04-admin-blocked-as-user-roles-unauth.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "flow": "05-theme-switch",
+      "status": "needs-headed-session",
+      "notes": [
+        "signed-in session unavailable headless (App Check enforcement); capture in the headed session",
+        "/home unauthenticated -> /sign-in"
+      ],
+      "screenshots": [
+        "screenshots/05-theme-switch-home-unauth.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "flow": "06-sign-out",
+      "status": "needs-headed-session",
+      "notes": [
+        "signed-in session unavailable headless (App Check enforcement); capture in the headed session",
+        "/home unauthenticated -> /sign-in"
+      ],
+      "screenshots": [
+        "screenshots/06-sign-out-home-unauth.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "flow": "08-pwa",
+      "status": "needs-headed-session",
+      "notes": [
+        "signed-in session unavailable headless (App Check enforcement); capture in the headed session",
+        "/home unauthenticated -> /sign-in"
+      ],
+      "screenshots": [
+        "screenshots/08-pwa-home-unauth.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "flow": "07-oauth-google",
+      "status": "needs-headed-session",
+      "notes": [
+        "reached provider host usersrole.firebaseapp.com",
+        "completing this sign-in needs a real third-party login (headed)"
+      ],
+      "screenshots": [
+        "screenshots/flow-07-google-button.jpg",
+        "screenshots/flow-07-google-provider-page.jpg"
+      ],
+      "videos": [
+        "media/usersrole-07-oauth-google.webm",
+        "media/usersrole-07-oauth-google-popup1.webm"
+      ]
+    },
+    {
+      "flow": "07-oauth-github",
+      "status": "needs-headed-session",
+      "notes": [
+        "reached provider host usersrole.firebaseapp.com",
+        "completing this sign-in needs a real third-party login (headed)"
+      ],
+      "screenshots": [
+        "screenshots/flow-07-github-button.jpg",
+        "screenshots/flow-07-github-provider-page.jpg"
+      ],
+      "videos": [
+        "media/usersrole-07-oauth-github.webm",
+        "media/usersrole-07-oauth-github-popup1.webm"
+      ]
+    },
+    {
+      "flow": "07-oauth-twitter",
+      "status": "needs-headed-session",
+      "notes": [
+        "reached provider host usersrole.firebaseapp.com",
+        "completing this sign-in needs a real third-party login (headed)"
+      ],
+      "screenshots": [
+        "screenshots/flow-07-twitter-button.jpg",
+        "screenshots/flow-07-twitter-provider-page.jpg"
+      ],
+      "videos": [
+        "media/usersrole-07-oauth-twitter.webm",
+        "media/usersrole-07-oauth-twitter-popup1.webm"
+      ]
+    },
+    {
+      "flow": "screenshot-matrix",
+      "status": "captured",
+      "notes": [
+        "8 screenshots",
+        "signed-out screens only (headless auth blocked)"
+      ],
+      "screenshots": [
+        "screenshots/matrix-sign-in-desktop-light.jpg",
+        "screenshots/matrix-sign-up-desktop-light.jpg",
+        "screenshots/matrix-sign-in-desktop-dark.jpg",
+        "screenshots/matrix-sign-up-desktop-dark.jpg",
+        "screenshots/matrix-sign-in-mobile-light.jpg",
+        "screenshots/matrix-sign-up-mobile-light.jpg",
+        "screenshots/matrix-sign-in-mobile-dark.jpg",
+        "screenshots/matrix-sign-up-mobile-dark.jpg"
+      ],
+      "videos": []
+    }
+  ]
+}
