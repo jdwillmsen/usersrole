@@ -18,8 +18,23 @@ import {
 
 // environment.ts is generated from a secret that predates this flag, so it is
 // read defensively rather than added to every environment's type.
-const useEmulators =
+const emulatorFlag =
   'useEmulators' in environment && environment.useEmulators === true;
+
+// The Emulator Suite treats a demo-* project as offline, so emulator wiring is
+// only ever pointed at one. If someone hand-edits environment.ts to set
+// useEmulators against a real project, the flag is ignored (the app runs
+// normally against that project) rather than silently redirecting live traffic
+// at localhost.
+const isDemoProject = (environment.firebase.projectId ?? '').startsWith(
+  'demo-'
+);
+const useEmulators = emulatorFlag && isDemoProject;
+if (emulatorFlag && !isDemoProject) {
+  console.error(
+    'useEmulators is set but firebase.projectId is not a demo-* project; ignoring it and using the real project.'
+  );
+}
 
 // Must match the ports in firebase.json.
 const EMULATOR_HOST = '127.0.0.1';
