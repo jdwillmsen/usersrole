@@ -66,6 +66,15 @@ export async function get(req: Request, res: Response) {
   }
 }
 
+// Roles are a privilege boundary, so only an admin caller may change them.
+// This route allows a user to edit their own record (allowSameUser), which
+// means without this check any user could self-promote by putting a roles
+// array in a patch of their own id. The caller's own claims decide, never
+// the target id.
+export function canModifyRoles(callerRoles: unknown): boolean {
+  return Array.isArray(callerRoles) && callerRoles.includes('admin');
+}
+
 export async function patch(req: Request, res: Response) {
   try {
     const { id } = req.params;
@@ -76,7 +85,9 @@ export async function patch(req: Request, res: Response) {
     }
 
     await getAuth().updateUser(id, { displayName, password, email });
-    await getAuth().setCustomUserClaims(id, { roles });
+    if (canModifyRoles(res.locals.roles)) {
+      await getAuth().setCustomUserClaims(id, { roles });
+    }
     const user = await getAuth().getUser(id);
 
     return res.status(204).send({ user: mapUser(user) });
