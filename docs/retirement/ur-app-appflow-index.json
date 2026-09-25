@@ -1,0 +1,79 @@
+{
+  "prefix": "ur-app",
+  "base": "https://usersrole.web.app",
+  "webm": "page@c77e8baa29a3ce86010b22ffb1fb39d1.webm",
+  "steps": [
+    {
+      "name": "01-signup-empty",
+      "note": "Sign-up form (password provider).",
+      "url": "https://usersrole.web.app/sign-up",
+      "screenshot": "screenshots/ur-app-01-signup-empty.png"
+    },
+    {
+      "name": "02-signup-filled",
+      "note": "Sign-up form filled with the throwaway 629 account.",
+      "url": "https://usersrole.web.app/sign-up",
+      "screenshot": "screenshots/ur-app-02-signup-filled.png"
+    },
+    {
+      "name": "03-signup-result",
+      "note": "Sign-up submitted (App Check enforced path).",
+      "url": "https://usersrole.web.app/sign-in",
+      "screenshot": "screenshots/ur-app-03-signup-result.png"
+    },
+    {
+      "name": "04-signin-filled",
+      "note": "Sign-in with the throwaway account.",
+      "url": "https://usersrole.web.app/sign-in",
+      "screenshot": "screenshots/ur-app-04-signin-filled.png"
+    },
+    {
+      "name": "05-after-signin",
+      "note": "Landing after sign-in (home).",
+      "url": "https://usersrole.web.app/home",
+      "screenshot": "screenshots/ur-app-05-after-signin.png"
+    },
+    {
+      "name": "06-home",
+      "note": "Home page (signed in).",
+      "url": "https://usersrole.web.app/home",
+      "screenshot": "screenshots/ur-app-06-home.png"
+    },
+    {
+      "name": "07-profile-before",
+      "note": "Profile page BEFORE: roles should read USER.",
+      "url": "https://usersrole.web.app/profile",
+      "screenshot": "screenshots/ur-app-07-profile-before.png"
+    },
+    {
+      "name": "08-theme-menu",
+      "note": "Theme selector menu open.",
+      "url": "https://usersrole.web.app/profile",
+      "screenshot": "screenshots/ur-app-08-theme-menu.png"
+    },
+    {
+      "name": "09-theme-changed",
+      "note": "Theme switched to a different palette.",
+      "url": "https://usersrole.web.app/profile",
+      "screenshot": "screenshots/ur-app-09-theme-changed.png"
+    },
+    {
+      "name": "10-admin-guard",
+      "note": "Navigated to /admin/users as a plain user; observe the guard (expect redirect to /forbidden).",
+      "url": "https://usersrole.web.app/forbidden",
+      "screenshot": "screenshots/ur-app-10-admin-guard.png"
+    },
+    {
+      "name": "11-profile-menu",
+      "note": "Profile menu with sign-out.",
+      "url": "https://usersrole.web.app/home",
+      "screenshot": "screenshots/ur-app-11-profile-menu.png"
+    },
+    {
+      "name": "12-signed-out",
+      "note": "After sign-out.",
+      "url": "https://usersrole.web.app/sign-in",
+      "screenshot": "screenshots/ur-app-12-signed-out.png"
+    }
+  ]
+}
