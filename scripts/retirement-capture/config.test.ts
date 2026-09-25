@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { fileURLToPath } from 'node:url';
 import { isTailnetIpv4, loadConfig } from './config.ts';
 
 test('accepts only the tailnet CGNAT range', () => {
@@ -23,5 +24,25 @@ test('refuses to configure a wildcard bind address', () => {
   assert.throws(
     () => loadConfig({ CAPTURE_BIND_IP: '0.0.0.0' }),
     /not a tailnet/
+  );
+});
+
+test('refuses a VNC passfile inside the repository', () => {
+  assert.throws(
+    () =>
+      loadConfig({
+        CAPTURE_BIND_IP: '100.100.238.72',
+        CAPTURE_VNC_PASSFILE: fileURLToPath(import.meta.url)
+      }),
+    /inside the repository/
+  );
+});
+
+test('accepts a VNC passfile outside the repository', () => {
+  assert.doesNotThrow(() =>
+    loadConfig({
+      CAPTURE_BIND_IP: '100.100.238.72',
+      CAPTURE_VNC_PASSFILE: '/tmp/usersrole-capture.pass'
+    })
   );
 });

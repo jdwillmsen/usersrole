@@ -92,6 +92,15 @@ cells on top of the blur. The launcher records every page; a page opened by an
 attached agent is recorded too, and `manifest.jsonl` maps it to its file by
 time and URL.
 
+> **Verify the blur on the real console before keeping any recording.** The
+> column selectors are guesses at the console's markup and are unverified
+> against the live signed-in Users page, and the text scan matches one node at
+> a time, so an email split across sibling elements can slip through. On the
+> real Authentication → Users page, open a page, take a `maskedScreenshot` and
+> eyeball it: confirm every email and UID is covered, and widen
+> `PII_SELECTORS` in `redact.ts` if anything shows through. Only then start
+> capturing anything that will be kept.
+
 If the browser has to restart (a crash, or a change to launch options), the
 signed-in state is in the profile directory:
 
