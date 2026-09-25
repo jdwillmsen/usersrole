@@ -1,10 +1,20 @@
 import { test } from 'node:test';
 import * as assert from 'node:assert/strict';
-import { isEmailAllowed } from './signup-allowlist';
+import { isEmailAllowed, signupAllowlist } from './signup-allowlist';
 
-test('an empty allowlist closes sign-up', () => {
+test('an empty or whitespace-only allowlist closes sign-up', () => {
   assert.equal(isEmailAllowed('jane@example.com', ''), false);
+  assert.equal(isEmailAllowed('jane@example.com', '   '), false);
   assert.equal(isEmailAllowed('jane@example.com', ' , '), false);
+});
+
+test('an unset SIGNUP_ALLOWLIST falls back to the closed default', () => {
+  delete process.env.SIGNUP_ALLOWLIST;
+  assert.equal(signupAllowlist.value(), '');
+  assert.equal(
+    isEmailAllowed('anyone@example.com', signupAllowlist.value()),
+    false
+  );
 });
 
 test('exact addresses match case-insensitively', () => {
