@@ -1,0 +1,52 @@
+[
+  {
+    "name": "ur-gcp-billing-reports",
+    "url": "https://console.cloud.google.com/billing/01DF84-B8C2B6-98291D/reports?project=usersrole",
+    "finalUrl": "https://console.cloud.google.com/billing/01DF84-B8C2B6-98291D/reports?project=usersrole",
+    "title": "Firebase Payment – Billing – Users Role – Google Cloud console",
+    "pii": true,
+    "webm": "page@3c9506ac38ee9377f8f64316d82ffff6.webm",
+    "screenshot": "screenshots/ur-gcp-billing-reports.png",
+    "status": "ok"
+  },
+  {
+    "name": "ur-gcp-billing-budgets",
+    "url": "https://console.cloud.google.com/billing/01DF84-B8C2B6-98291D/budgets?project=usersrole",
+    "finalUrl": "https://console.cloud.google.com/billing/01DF84-B8C2B6-98291D/budgets?project=usersrole",
+    "title": "Firebase Payment – Budgets & alerts – Billing – Users Role – Google Cloud console",
+    "pii": true,
+    "webm": "page@4dd74c2a46d8ebe8096545b06864fbd5.webm",
+    "screenshot": "screenshots/ur-gcp-billing-budgets.png",
+    "status": "ok"
+  },
+  {
+    "name": "ur-gcp-artifacts-detail",
+    "url": "https://console.cloud.google.com/artifacts/docker/usersrole/us-central1/gcf-artifacts?project=usersrole",
+    "finalUrl": "https://console.cloud.google.com/artifacts/docker/usersrole/us-central1/gcf-artifacts?project=usersrole",
+    "title": "Images for gcf-artifacts – Artifact Registry – Users Role – Google Cloud console",
+    "pii": false,
+    "webm": "page@ef000cfef9c2b8d0d2e049298e501c6f.webm",
+    "screenshot": "screenshots/ur-gcp-artifacts-detail.png",
+    "status": "ok"
+  },
+  {
+    "name": "recaptcha-project-dashboard",
+    "url": "https://console.cloud.google.com/home/dashboard?project=recaptcha-enterprise-397606",
+    "finalUrl": "https://console.cloud.google.com/home/dashboard?project=recaptcha-enterprise-397606",
+    "title": "Dashboard – reCAPTCHA Enterprise – Google Cloud console",
+    "pii": true,
+    "webm": "page@f65c5a41e0786aa7142de78510d6fb1f.webm",
+    "screenshot": "screenshots/recaptcha-project-dashboard.png",
+    "status": "ok"
+  },
+  {
+    "name": "recaptcha-keys",
+    "url": "https://console.cloud.google.com/security/recaptcha?project=recaptcha-enterprise-397606",
+    "finalUrl": "https://console.cloud.google.com/security/recaptcha?project=recaptcha-enterprise-397606&pageState=(%22agentState%22:(%22i%22:%22last_30_days%22))",
+    "title": "Fraud Defense – Security – reCAPTCHA Enterprise – Google Cloud console",
+    "pii": false,
+    "webm": "page@f4139d28c549b2bff4e1ec31498805f0.webm",
+    "screenshot": "screenshots/recaptcha-keys.png",
+    "status": "ok"
+  }
+]

@@ -1,99 +1,177 @@
-# Users Role — retirement walkthrough
+# usersrole — retirement capture
 
-Behavioural record of the live app captured while it still runs, before billing
-is unlinked and the Firebase project is retired. It exists so the app's
-user-facing behaviour and its live cloud configuration survive the shutdown.
+"How it was set up and how it behaved" evidence for the Firebase app
+**jdwillmsen/usersrole** (GCP project `usersrole`), captured read-only from the
+live app and consoles before the project is retired and billing is unlinked. It
+exists so the app's user-facing behaviour and its live cloud configuration
+survive the shutdown.
 
 - **Hosted app:** https://usersrole.web.app (also usersrole.firebaseapp.com)
 - **API function:** https://us-central1-usersrole.cloudfunctions.net/api
-- **Captured:** 2026-09-25, headless Chromium via `scripts/retirement-capture/app/capture.cjs`
+- **Captured:** 2026-09-25 — app flows headless via
+  `scripts/retirement-capture/app/capture.cjs`; console tour + signed-in app
+  walkthrough via the headed capture browser.
 - **Live config snapshot:** [`cli-snapshot.md`](./cli-snapshot.md)
-- **Redacted request log:** [`api-calls.har.json`](./api-calls.har.json) (Authorization/App-Check headers and user records redacted)
+- **Redacted request log:** [`api-calls.har.json`](./api-calls.har.json)
+  (Authorization / App-Check headers and user records redacted)
+
+## Contents
+
+- `screenshots/` — masked PNG/JPEG stills, one per surface / app step.
+- `captions/` — one short `.md` per console surface (and `ur-app.md` for the
+  app run), each naming the video it maps to.
+- `media/` — the `.webm` recordings (**gitignored**; uploaded as GitHub Release
+  assets in a later step).
+- `index.json` / `index.jsonl` — machine-readable capture log.
+- `scripts/` — the console-tour capture harness (see `scripts/README.md`).
 
 ## Test accounts
 
-Throwaway accounts created through the app's own password sign-up. Both are
-plain users (`roles: ['user']`); no roles were changed. They are deleted in a
-later retirement step.
+Throwaway accounts created through the app's own password sign-up. All are plain
+users (`roles: ['user']`); no roles were changed through normal sign-up. They are
+deleted in a later retirement step.
 
 | Email | UID | Notes |
 | --- | --- | --- |
-| ur-retire-2ec87571@example.com | cFFUpxjp6KP41Z9prhrd5dR0tpg2 | primary; sign-up flow recorded with this one |
-| ur-retire-4b6fd5fa@example.com | hrIYXqlTPcZulFB1sPO6JLKiXyO2 | created on an earlier capture pass; also needs deletion |
+| ur-retire-2ec87571@example.com | cFFUpxjp6KP41Z9prhrd5dR0tpg2 | headless sign-up flow |
+| ur-retire-4b6fd5fa@example.com | hrIYXqlTPcZulFB1sPO6JLKiXyO2 | earlier capture pass |
+| ur-629-3f4b103b@example.com | EhGbIrHbyTMvfG6qovxdVb0Rlmg1 | headed app walkthrough |
 
-## How auth capture was limited
+## PII handling
 
-App Check is **ENFORCED** on this project's Identity Toolkit and Firestore. A
+Every Authentication/Users surface and Firestore user document was blurred
+before navigation (init script) and again at screenshot time (blur + mask). On
+the live **Authentication → Users** tab the column selectors covered the
+Identifier (email) and User UID columns in both the masked stills and the
+blur-only render the video carries — verified by eye. The text-scan additionally
+blurs 28-char UIDs rendered in Firestore.
+
+Blur/mask does **not** catch: (a) values inside `<input>` fields (only the
+throwaway test account ever appears there), (b) OAuth client secrets, or (c)
+human display names in GCP IAM. The secret-bearing surfaces (per-provider OAuth
+config panes, function env/logs) were **deliberately not captured**. See the
+human-review list below.
+
+## Capture limitation — App Check
+
+App Check is **ENFORCED** on this project (Identity Toolkit + Firestore). A
 headless browser cannot produce a valid App Check attestation, so
-`signInWithEmailAndPassword` is rejected with *"Firebase App Check token is
-invalid"*. Sign-up still works headless because it goes through the `api`
-function (server-side Admin SDK), which App Check does not gate. Every flow that
-needs a signed-in session is therefore marked **needs headed session** and left
-for the headed VNC browser.
+`signInWithEmailAndPassword` is rejected headless. Sign-up still works headless
+because it goes through the `api` function (server-side Admin SDK), which App
+Check does not gate. Every signed-in flow was therefore captured in the **headed**
+browser instead, where a real Chrome passes App Check.
 
 ## Flow checklist
 
 | Flow | Status | Evidence |
 | --- | --- | --- |
-| Sign-up (password) | captured | `media/usersrole-01-sign-up.webm`, `screenshots/flow-01-sign-up-*.jpg` |
-| Sign-in (password) | needs headed session | App Check blocks headless sign-in |
-| Profile | needs headed session | — |
-| Admin: list users | needs headed session | privileged view; headed only |
-| Admin: change roles | needs headed session | privileged view; headed only |
-| Self-promote to admin (privilege-escalation demo) | needs headed session | see security finding 1; **not automated here** |
-| Theme switch (light/dark) | needs headed session | selector only shows when signed in |
-| Sign-out | needs headed session | — |
-| PWA install prompt | needs headed session | not observable headless (see nx notes) |
-| OAuth: Google | needs headed session | `media/usersrole-07-oauth-google*.webm`, button screenshot captured |
-| OAuth: GitHub | needs headed session | `media/usersrole-07-oauth-github*.webm`, button screenshot captured |
-| OAuth: Twitter | needs headed session | `media/usersrole-07-oauth-twitter*.webm`, button screenshot captured |
-| Screenshot matrix (sign-in/sign-up, desktop+mobile, light+dark) | captured | `screenshots/matrix-*.jpg` (8) |
+| Sign-up (password) | captured (headless) | `screenshots/flow-01-sign-up-*.jpg`, `ur-app-01..03` |
+| Sign-in (password) | captured (headed) | `ur-app-04..05` |
+| Home | captured (headed) | `ur-app-06` |
+| Profile (Roles: User) | captured (headed) | `ur-app-07` |
+| Theme switch (light/dark) | captured (headed) | `ur-app-08..09`, `screenshots/matrix-*.jpg` |
+| Admin guard (`/admin` as plain user → 403) | captured (headed) | `ur-app-10-admin-guard` |
+| Sign-out | captured (headed) | `ur-app-12` |
+| Admin: list users / change roles | not captured | privileged screen; plain user is blocked at the client guard (403), and no real admin login was performed |
+| Self-promote to admin (privilege-escalation demo) | not reproducible UI-only | see security finding 1 — the hole is at the API layer, not the UI |
+| OAuth: Google / GitHub / Twitter | buttons + provider page only | completions not recorded (would require the owner's real IdP login) |
+| PWA install prompt | not captured | needs a headed IdP session; skipped by decision |
 
-OAuth popups here reached only the blank `usersrole.firebaseapp.com/__/auth/handler`
-intermediary, not the provider consent screen — the handler does not redirect to
-Google/GitHub/Twitter for an unattested headless client. The buttons and the
-popup launch are recorded; the real third-party login must be done headed.
+OAuth popups from the headless run reached only the blank
+`usersrole.firebaseapp.com/__/auth/handler` intermediary; the buttons and popup
+launch are recorded. The real third-party login was intentionally not recorded,
+to keep credential pages off video.
 
-## Media (videos, not committed)
+## Console tour — Firebase
 
-Videos live under `media/` and are **gitignored** — a later step uploads them as
-GitHub Release assets. Screenshots are committed (all JPEG, well under 5 MB).
+| Surface | Screenshot | Notes |
+| --- | --- | --- |
+| Auth sign-in providers | `ur-fb-auth-providers` | Email/Password, Google, Twitter, GitHub **Enabled**; Anonymous disabled; SMS MFA disabled. |
+| Auth settings (account linking) | `ur-fb-auth-settings` | Settings pane + menu. |
+| Auth → Authorized domains | `ur-fb-auth-authorized-domains` | Defaults + `jdwillmsen.github.io` + a long list of stale `usersrole--pr###-…web.app` preview domains. |
+| Auth → Blocking functions | `ur-fb-auth-blocking-functions` | beforeCreate → **beforecreated(us-central1)**; beforeSignin → None. |
+| Auth → User actions | `ur-fb-auth-user-actions` | Create/delete enablement pane. |
+| Auth email templates | `ur-fb-auth-templates` | Template settings. |
+| Auth → Users (BLURRED) | `ur-fb-auth-users` | 89 real users; email + UID columns masked. |
+| App Check | `ur-fb-appcheck` | **ENFORCED** — Firestore + Authentication verified; Storage/RTDB not enrolled. |
+| Functions | `ur-fb-functions` | `api` + `beforecreated`. |
+| Hosting | `ur-fb-hosting` | Site `usersrole`. |
+| Storage | `ur-fb-storage` | "Get started" splash — never initialized in-console; see Storage note. |
+| Firestore | `ur-fb-firestore` | `users` collection, doc id = Auth UID, stores `theme`; location `nam5`. UID doc-ids masked. |
+| Realtime Database | `ur-fb-rtdb` | Presence check. |
+| Project settings — general | `ur-fb-settings-general` | Web app config (Firebase web API key is public, not a secret). |
+| Project settings — service accounts | `ur-fb-settings-serviceaccounts` | Admin SDK service account. |
+| Project settings — integrations | `ur-fb-settings-integrations` | Integrations pane. |
 
-| File | Size |
-| --- | --- |
-| usersrole-01-sign-up.webm | 295 KB |
-| usersrole-07-oauth-google.webm | 286 KB |
-| usersrole-07-oauth-github.webm | 266 KB |
-| usersrole-07-oauth-twitter.webm | 283 KB |
-| usersrole-07-oauth-{google,github,twitter}-popup1.webm | ~24 KB each |
+### Storage note
+
+The Firebase Storage product shows the onboarding splash, and GCS lists only
+Cloud Functions artifact buckets (`gcf-*`) — there is **no `usersrole.appspot.com`
+app bucket**. The repo's `storage.rules`
+(`allow read, write: if request.auth != null`) is therefore declared but
+effectively unused. This contrasts with usersrole-nx, which has a real bucket.
+
+## Console tour — Google Cloud
+
+| Surface | Screenshot | Notes |
+| --- | --- | --- |
+| APIs & Services | `ur-gcp-apis` | Enabled APIs dashboard. |
+| Billing — linked account | `ur-gcp-billing-linked` | Billing account **"Firebase Payment"** (`01DF84-B8C2B6-98291D`). |
+| Billing — reports | `ur-gcp-billing-reports` | Current-month spend **$0.00** (Blaze, within free tier). |
+| Billing — budgets | `ur-gcp-billing-budgets` | Budgets/alerts pane. |
+| IAM | `ur-gcp-iam` | Principals masked. Owner "Jacob Willmsen"; `firebase-adminsdk`; GitHub Actions `jdwillmsen/frontend`; compute + App Engine default SAs (Editor). Insight: 2 SAs with excess Owner/Editor. |
+| Artifact Registry | `ur-gcp-artifacts` / `ur-gcp-artifacts-detail` | One repo `gcf-artifacts` (Docker/Standard, us-central1). |
+| Cloud Run (functions) | `ur-gcp-run` / `ur-gcp-functions` | `api` + `beforecreated`, gen2, us-central1, Ingress All. |
+| Cloud Storage buckets | `ur-gcp-storage-bucket` | Only `gcf-*` function buckets (see Storage note). |
+| reCAPTCHA project — dashboard | `recaptcha-project-dashboard` | Linked project `recaptcha-enterprise-397606`, 0 assessments in 30 days. |
+| reCAPTCHA project — keys | `recaptcha-keys` | Fraud Defense dashboard (no key values shown). |
 
 ## Security findings at retirement
 
-Read-only observations of the live app and its code. Recorded here because they
-are worth carrying forward; none were exploited.
+Read-only observations of the live app and its code. Recorded because they are
+worth carrying forward; none were exploited.
 
-1. **Privilege escalation: any user can make itself admin.** `PATCH /users/:id`
-   runs `isAuthorized({ hasRole: ['admin','manager'], allowSameUser: true })`,
-   so a signed-in user passes the guard for its **own** record. The `patch`
-   handler then copies `req.body.roles` straight into the account's custom
-   claims. A plain user can therefore send its own ID and
-   `roles: ['user','admin']` and become admin, after which admin screens expose
-   every user's email and display name. The self-promotion demonstration and the
-   admin screens are left for the headed session; the hole is inherent to the
-   `allowSameUser` branch plus the unfiltered role copy.
+1. **Privilege escalation: any user can make itself admin (API layer).**
+   `PATCH /users/:id` is guarded by
+   `isAuthorized({ hasRole: ['admin','manager'], allowSameUser: true })`, so a
+   signed-in user passes the guard for its **own** record regardless of role. The
+   `patch` handler then copies `req.body.roles` straight into the account's
+   custom claims — so a plain user can `PATCH /users/{ownUid}` with
+   `roles:['admin']` and self-promote. The only app UI that calls this sits
+   behind the client `RoleGuard`, which redirects a plain user to `/forbidden`
+   (evidence: `ur-app-10-admin-guard`) — so it is **not reproducible through the
+   UI** as a plain user, and demonstrating it would require a direct
+   authenticated API call (out of scope for UI-only capture; no token
+   scraping/replay was done). The client guard is a mitigation only; the
+   server-side authorization gap is real. Fixed for anyone replicating the app in
+   the deploy hardening (see `REPLICATE.md`).
 2. **Unauthenticated account creation.** `POST /users` has no authentication
-   (intentional, to allow sign-up) and no App Check gate on the function; it is
-   throttled to 15/hour per IP. Anyone can create `role: ['user']` accounts.
-3. **Stale sign-in authorized domains.** The Identity Toolkit config still
-   trusts roughly eighteen expired PR preview-channel domains
-   (`usersrole--prNNN-….web.app`) plus `jdwillmsen.github.io` as authorized
-   sign-in domains. These should have been pruned as previews expired.
-4. **App Check is enforced here** (Identity Toolkit + Firestore), which is the
-   stronger posture — noted for contrast with `usersrole-nx`, where App Check is
-   not enabled at all.
+   (intentional, for sign-up) and no App Check gate; throttled to 15/hour per IP.
+3. **Stale sign-in authorized domains.** The Identity Toolkit config still trusts
+   ~18 expired PR preview-channel domains (`usersrole--prNNN-….web.app`) plus
+   `jdwillmsen.github.io` as authorized sign-in domains.
+4. **App Check is enforced here** (Identity Toolkit + Firestore) — the stronger
+   posture, noted for contrast with `usersrole-nx`, where App Check is not
+   enabled at all.
 
 Exact values (enforcement modes, the full authorized-domain list, user counts,
 billing linkage) are in [`cli-snapshot.md`](./cli-snapshot.md).
+
+## Media (not committed)
+
+Videos live under `media/` and are **gitignored** — a later step uploads them as
+GitHub Release assets. Screenshots are committed (all well under 5 MB).
+
+## Human PII/secret review required before publishing the videos
+
+These recordings should be eyeballed before any public release:
+
+- `ur-fb-auth-users` (+ its video) — confirm no unblurred email/UID across scroll.
+- `ur-fb-firestore` (+ video) — confirm no user field exposed.
+- `ur-gcp-iam`, `recaptcha-project-dashboard` — show the owner's own display /
+  first name (no end-user PII).
+- `ur-gcp-billing-*` — financial figures (owner's own project).
+- App-flow stills — show only the throwaway accounts.
 
 ## Reproducing
 
