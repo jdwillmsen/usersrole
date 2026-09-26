@@ -14,6 +14,43 @@ survive the shutdown.
 - **Live config snapshot:** [`cli-snapshot.md`](./cli-snapshot.md)
 - **Redacted request log:** [`api-calls.har.json`](./api-calls.har.json)
   (Authorization / App-Check headers and user records redacted)
+- **Videos:** attached to the [`retired` release](https://github.com/jdwillmsen/usersrole/releases/tag/retired)
+  as mp4 assets, with a `SHA256SUMS` manifest (kept out of git to keep clones small).
+- **Run your own copy:** [`REPLICATE.md`](../../REPLICATE.md) — Firebase Emulator
+  Suite quick start, plus a hardened own-project deploy.
+
+## Why this was retired
+
+Decided 2026-09-23. The app has **no active user base to serve** but carried
+standing risk and cost on a pay-as-you-go (Blaze) plan:
+
+- Uncapped Blaze billing with no budget kill switch.
+- Publicly reachable functions, and an unauthenticated `POST /users` sign-up.
+- Open storage rules (`allow read, write: if request.auth != null`).
+- An API-layer privilege-escalation path (any signed-in user could self-grant
+  admin — see Security findings).
+- 117 third-party accounts across the two apps (89 here, 28 in usersrole-nx)
+  with no ongoing purpose.
+
+Options weighed:
+
+| Option | Outcome | Verdict |
+| --- | --- | --- |
+| **A. Full retirement** | Capture everything, publish the record, delete the projects. | **Chosen** — removes the cost and risk while preserving the learning record. |
+| B. Free-plan freeze | Downgrade to Spark. | Rejected — functions stop (broken demo) and the user PII stays live. |
+| C. Keep and harden | Fix billing/rules/auth and maintain it. | Rejected — permanent maintenance for an app with no users. |
+| D. Keep only usersrole-nx | Retire one, keep the other. | Rejected — both carry the same risks and neither is in use. |
+
+## Timeline
+
+- **2026-09-23** — decision to retire; risk findings recorded; epic filed.
+- **2026-09-24/25** — headed capture browser stood up; app walkthroughs, CLI
+  snapshot, and the Firebase/GCP console tour recorded read-only.
+- **2026-09-26** — emulator + REPLICATE work, the escalation fix, and the
+  retirement banner deployed to the live project (new sign-up now closed);
+  this record and the `retired` release published.
+- **Next** — unlink billing, stop CI/Renovate, archive the repo; delete the GCP
+  project (by 2026-10-09).
 
 ## Contents
 
