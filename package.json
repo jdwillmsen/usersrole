@@ -88,7 +88,7 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-fixed-jsdom": "^0.0.11",
     "jest-preset-angular": "^17.0.0",
-    "mochawesome": "^7.1.3",
+    "mochawesome": "^8.0.0",
     "mochawesome-merge": "^4.3.0",
     "mochawesome-report-generator": "^6.2.0",
     "nyc": "^15.1.0",
