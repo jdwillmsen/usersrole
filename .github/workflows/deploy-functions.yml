@@ -101,7 +101,7 @@ jobs:
           umask 077
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-key.json"
-          npx --yes -p firebase-tools@15.30.2 firebase deploy \
+          npx --yes -p firebase-tools@15.31.0 firebase deploy \
             --only functions --project usersrole --non-interactive
 
       - name: Remove the service account key
