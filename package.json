@@ -91,7 +91,7 @@
     "mochawesome": "^8.0.0",
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.2.0",
-    "nyc": "^15.1.0",
+    "nyc": "^18.0.0",
     "prettier": "^3.4.0",
     "semantic-release": "25.0.9",
     "source-map-support": "^0.5.21",
