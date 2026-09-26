@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           # semantic-release's own minimum, above the 20.x the lint matrix covers.
-          node-version: 22.x
+          node-version: 24.x
           cache: 'npm'
       - name: Install Dependencies
         run: npm ci

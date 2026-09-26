@@ -41,7 +41,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: 22.x
+          node-version: 24.x
           cache: 'npm'
       # No template fallback: this is the configuration Release will deploy,
       # so a missing secret should fail here, before anything is tagged.

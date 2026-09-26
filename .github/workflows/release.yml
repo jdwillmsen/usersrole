@@ -85,7 +85,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           # semantic-release's own minimum.
-          node-version: 22.x
+          node-version: 24.x
           cache: 'npm'
       # Nothing here runs Cypress, so skip downloading its binary.
       - run: npm ci
@@ -187,7 +187,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v7
         with:
-          node-version: 22.x
+          node-version: 24.x
           cache: 'npm'
       # No template fallback: a missing secret must fail the deploy rather than
       # ship a build with a blank Firebase config.
