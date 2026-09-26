@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   cypress-install:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Code Checkout
         uses: actions/checkout@v7
@@ -58,7 +58,7 @@ jobs:
           if-no-files-found: error
           path: coverage/
   cypress-e2e:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     needs: cypress-install
     strategy:
       fail-fast: false
@@ -98,7 +98,7 @@ jobs:
           if-no-files-found: ignore
           path: coverage/
   code-coverage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     # Pushes the badge update commit back to the branch.
     permissions:
       contents: write
